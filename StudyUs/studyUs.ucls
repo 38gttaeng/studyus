@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" automaticImage="JPEG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true" 
+  router="FAN">  
+  <package id="1" language="java" name="com.studyus.cafe" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="647" width="1729" x="-302" y="284"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="com.studyus.cafe.controller" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="303" width="436" x="967" y="480"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="3" language="java" name="com.studyus.cafe.controller.CafeController" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/controller/CafeController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1187" y="649"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="4" language="java" name="com.studyus.cafe.domain" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="529" width="318" x="-256" y="360"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="5" language="java" name="com.studyus.cafe.domain.Cafe" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/domain/Cafe.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-97" y="641"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="6" language="java" name="com.studyus.cafe.service" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="533" width="320" x="596" y="367"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="com.studyus.cafe.service.logic" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/service/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="255" width="241" x="630" y="429"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="8" language="java" name="com.studyus.cafe.service.logic.CafeServiceImpl" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/service/logic/CafeServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="748" y="582"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="9" language="java" name="com.studyus.cafe.service.CafeService" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/service/CafeService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="744" y="802"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="10" language="java" name="com.studyus.cafe.store" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/store" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="547" width="325" x="171" y="359"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="11" language="java" name="com.studyus.cafe.store.logic" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/store/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="272" width="277" x="199" y="423"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="12" language="java" name="com.studyus.cafe.store.logic.CafeStoreLogic" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/store/logic/CafeStoreLogic.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="348" y="583"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="13" language="java" name="com.studyus.cafe.store.CafeStore" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/cafe/store/CafeStore.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="345" y="811"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="14" language="java" name="com.studyus.review" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="729" width="1727" x="-299" y="-520"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="15" language="java" name="com.studyus.review.controller" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="296" width="478" x="910" y="-315"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="16" language="java" name="com.studyus.review.controller.ReviewController" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/controller/ReviewController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1148" y="-146"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="17" language="java" name="com.studyus.review.domain" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="431" width="247" x="-263" y="-368"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="18" language="java" name="com.studyus.review.domain.Review" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/domain/Review.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="340" width="203" x="-240" y="-298"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="19" language="java" name="com.studyus.review.service" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="545" width="370" x="483" y="-422"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="20" language="java" name="com.studyus.review.service.logic" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/service/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="275" width="310" x="502" y="-360"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="21" language="java" name="com.studyus.review.service.logic.ReviewServiceImpl" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/service/logic/ReviewServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="659" y="-201"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="22" language="java" name="com.studyus.review.service.ReviewService" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/service/ReviewService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="666" y="19"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="23" language="java" name="com.studyus.review.store" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/store" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="563" width="381" x="51" y="-427"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="24" language="java" name="com.studyus.review.store.logic" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/store/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="290" width="337" x="77" y="-367"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <interface id="25" language="java" name="com.studyus.review.store.ReviewStore" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/store/ReviewStore.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="248" y="39"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="26" language="java" name="com.studyus.review.store.logic.ReviewStoreLogic" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/review/store/logic/ReviewStoreLogic.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="239" y="-193"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="27" language="java" name="com.studyus.caferoom" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="614" width="1529" x="-128" y="-1257"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="28" language="java" name="com.studyus.caferoom.controller" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="214" width="258" x="1102" y="-1078"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="29" language="java" name="com.studyus.caferoom.controller.CaferoomController" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/controller/CaferoomController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1230" y="-941"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="30" language="java" name="com.studyus.caferoom.domain" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="506" width="248" x="-68" y="-1188"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="31" language="java" name="com.studyus.caferoom.domain.Caferoom" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/domain/Caferoom.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="50" y="-904"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="32" language="java" name="com.studyus.caferoom.service" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="430" width="319" x="706" y="-1178"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="33" language="java" name="com.studyus.caferoom.service.logic" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/service/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="214" width="277" x="734" y="-1115"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="34" language="java" name="com.studyus.caferoom.service.logic.CaferoomServiceImpl" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/service/logic/CaferoomServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="874" y="-983"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="35" language="java" name="com.studyus.caferoom.service.CaferoomService" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/service/CaferoomService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="874" y="-818"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="36" language="java" name="com.studyus.caferoom.store" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/store" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="424" width="334" x="276" y="-1169"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="37" language="java" name="com.studyus.caferoom.store.logic" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/store/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="218" width="296" x="301" y="-1111"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="38" language="java" name="com.studyus.caferoom.store.logic.CaferoomStoreLogic" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/store/logic/CaferoomStoreLogic.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="451" y="-978"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="39" language="java" name="com.studyus.caferoom.store.CaferoomStore" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/caferoom/store/CaferoomStore.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="449" y="-817"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <dependency id="40">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="41">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="42" name="cService"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="44">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="45">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="46">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="47">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="39"/>  
+  </realization>  
+  <dependency id="48">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="49">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <dependency id="50">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="51">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="52">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <dependency id="53">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="54">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <association id="55">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="56" name="rStore"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="58">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <dependency id="59">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="60">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="61">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="35"/>  
+  </realization>  
+  <dependency id="62">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="63">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="64">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="65">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <association id="66">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="67" name="crService"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="69">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="70">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <association id="71">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="72" name="rService"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="74">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <dependency id="75">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="76">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="77" name="crStore"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="39" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="79">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="80" name="cStore"/>      
+      <multiplicity id="81" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="82">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
