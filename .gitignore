@@ -1,5 +1,15 @@
 # custom
 .root-context.xml
+*.class
+*.project
+*.classpath
+*.properties
+*.MF
+*.jar
+*.war
+*.ear
+*.db
+
 
 ### Eclipse ###
 .metadata
