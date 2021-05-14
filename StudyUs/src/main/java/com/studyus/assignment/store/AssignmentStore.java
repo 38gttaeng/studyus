@@ -26,6 +26,13 @@ public interface AssignmentStore {
 	public ArrayList<Assignment> selectAll(PageInfo pi, int stNo);
 	
 	/**
+	 * 스터디에 해당하는 과제 전체보기
+	 * @param stNo
+	 * @return
+	 */
+	public ArrayList<Assignment> selectAllByStudyNo(int stNo);
+	
+	/**
 	 * 한개 보기 (WHERE AS_NO)
 	 * @param asNo
 	 * @return

@@ -30,6 +30,12 @@ public class AssignmentServiceImpl implements AssignmentService {
 	}
 
 	@Override
+	public ArrayList<Assignment> printAllByStudyNo(int stNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public Assignment printOne(int asNo) {
 		// TODO Auto-generated method stub
 		return null;
@@ -112,5 +118,6 @@ public class AssignmentServiceImpl implements AssignmentService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }

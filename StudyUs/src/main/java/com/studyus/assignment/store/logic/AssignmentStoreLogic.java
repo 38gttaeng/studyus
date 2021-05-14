@@ -28,6 +28,12 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public ArrayList<Assignment> selectAllByStudyNo(int stNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public Assignment selectOne(int asNo) {
@@ -112,5 +118,6 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }
