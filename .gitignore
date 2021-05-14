@@ -1,15 +1,5 @@
 # custom
 .root-context.xml
-*.class
-*.project
-*.classpath
-*.properties
-*.MF
-*.jar
-*.war
-*.ear
-*.db
-
 
 ### Eclipse ###
 .metadata
@@ -72,3 +62,5 @@ local.properties
 ### Eclipse Patch ###
 # Spring Boot Tooling
 .sts4-cache/
+
+# End of https://www.toptal.com/developers/gitignore/api/eclipse
