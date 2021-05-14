@@ -20,7 +20,7 @@ import com.studyus.assignment.service.AssignmentService;
 public class AssignmentController {
 	
 	@Autowired
-	private AssignmentService service;
+	private AssignmentService asService;
 	
 	/////////////////// 과제 + 과제제출 보기 ///////////////////
 	

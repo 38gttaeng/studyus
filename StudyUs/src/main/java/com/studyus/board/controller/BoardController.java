@@ -20,7 +20,7 @@ import com.studyus.board.service.BoardService;
 public class BoardController {
 	
 	@Autowired
-	private BoardService service;
+	private BoardService boService;
 	
 	/////////////////// 게시물 보기 ///////////////////
 	

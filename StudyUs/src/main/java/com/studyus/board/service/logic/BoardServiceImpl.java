@@ -15,7 +15,7 @@ import com.studyus.board.store.BoardStore;
 public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
-	private BoardStore store;
+	private BoardStore boStore;
 
 	@Override
 	public int getListCount(Board board) {

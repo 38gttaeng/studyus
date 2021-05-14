@@ -14,9 +14,9 @@ public class CaferoomServiceImpl implements CaferoomService{
 
 	@Autowired
 	private CaferoomStore crStore;
-	
+
 	@Override
-	public ArrayList<Caferoom> printAll() {
+	public ArrayList<Caferoom> printAll(int caNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -27,4 +27,15 @@ public class CaferoomServiceImpl implements CaferoomService{
 		return null;
 	}
 
+	@Override
+	public int registerCaferoom(Caferoom caferoom) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int removeCaferoom(int crNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

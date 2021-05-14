@@ -15,7 +15,7 @@ import com.studyus.assignment.store.AssignmentStore;
 public class AssignmentServiceImpl implements AssignmentService {
 	
 	@Autowired
-	private AssignmentStore store;
+	private AssignmentStore asStore;
 
 	@Override
 	public int getListCount(int stNo) {
