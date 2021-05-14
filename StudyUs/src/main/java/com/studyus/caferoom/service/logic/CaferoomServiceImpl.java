@@ -32,10 +32,17 @@ public class CaferoomServiceImpl implements CaferoomService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public int modifyCaferoom(Caferoom caferoom) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public int removeCaferoom(int crNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 }

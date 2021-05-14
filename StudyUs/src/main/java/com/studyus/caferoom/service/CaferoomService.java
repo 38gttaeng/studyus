@@ -22,9 +22,10 @@ public interface CaferoomService {
 	 */
 	public Caferoom printOne(int crNo);
 	
-	// 룸 등록, 삭제
+	// 룸 등록, 수정, 삭제
 	
 	public int registerCaferoom(Caferoom caferoom);
+	public int modifyCaferoom(Caferoom caferoom);
 	public int removeCaferoom(int crNo);
 	
 }

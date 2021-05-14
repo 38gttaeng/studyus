@@ -34,6 +34,12 @@ public class CaferoomStoreLogic implements CaferoomStore{
 	}
 
 	@Override
+	public int updateCaferoom(Caferoom caferoom) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
 	public int deleteCaferoom(int crNo) {
 		// TODO Auto-generated method stub
 		return 0;

@@ -25,6 +25,7 @@ public interface CaferoomStore {
 	// 룸 등록, 삭제
 	
 	public int insertCaferoom(Caferoom caferoom);
+	public int updateCaferoom(Caferoom caferoom);
 	public int deleteCaferoom(int crNo);
 	
 }

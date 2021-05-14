@@ -4,7 +4,7 @@ public class Reservation {
 	private int rsNo;
 	private int mbNo;
 	private int crNo;
-	private String reDate;
+	private String rsDate;
 	private int rsOccupied;
 	
 	public Reservation() {}
@@ -33,12 +33,12 @@ public class Reservation {
 		this.crNo = crNo;
 	}
 
-	public String getReDate() {
-		return reDate;
+	public String getRsDate() {
+		return rsDate;
 	}
 
-	public void setReDate(String reDate) {
-		this.reDate = reDate;
+	public void setRsDate(String rsDate) {
+		this.rsDate = rsDate;
 	}
 
 	public int getRsOccupied() {
@@ -51,7 +51,7 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [rsNo=" + rsNo + ", mbNo=" + mbNo + ", crNo=" + crNo + ", reDate=" + reDate
+		return "Reservation [rsNo=" + rsNo + ", mbNo=" + mbNo + ", crNo=" + crNo + ", rsDate=" + rsDate
 				+ ", rsOccupied=" + rsOccupied + "]";
 	}
 }
