@@ -1,6 +1,8 @@
 package com.studyus.board.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,17 +25,19 @@ public class BoardController {
 	/////////////////// 게시물 보기 ///////////////////
 	
 	// 리스트
-	public ModelAndView boardListView(HttpServletRequest request, ModelAndView mv, @RequestParam("boCategory") int boCategory, @RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView boardListView(HttpSession session, ModelAndView mv, @RequestParam("boCategory") int boCategory, @RequestParam(value="page", required=false) Integer page) {
 		return null;
 	}
 	
 	// 검색
-	public ModelAndView boardSearch(HttpServletRequest request, ModelAndView mv, @ModelAttribute Search search, @RequestParam("boCategory") int boCategory) {
+	public ModelAndView boardSearch(HttpSession session, ModelAndView mv, @ModelAttribute Search search, @RequestParam("boCategory") int boCategory) {
 		return null;
 	}
 	
 	// 디테일
-	public ModelAndView boardDetail(HttpServletRequest request, ModelAndView mv, @RequestParam("boNo") int boNo) {
+		// 게시글인지 댓글인지 구분해서 따로 ArrayList에 넣어주기
+		// 댓글은 ajax로 보내주기 (json 데이터 형식)
+	public ModelAndView boardDetail(HttpSession session, ModelAndView mv, @RequestParam("boNo") int boNo) {
 		return null;
 	}
 	
@@ -62,36 +66,38 @@ public class BoardController {
 	}
 	
 	// 삭제
-	public String boardDelete(HttpServletRequest request, ModelAndView mv, @RequestParam("boNo") int noticeNo) {
+	public ModelAndView boardDelete(HttpServletRequest request, ModelAndView mv, @RequestParam("boNo") int noticeNo) {
 		return null;
 	}
 	
-	public String deleteFile(String fileName, HttpServletRequest request) {
-		return null;
+	public void deleteFile(String fileName, HttpServletRequest request) {
+
 	}
 	
 	/////////////////// 댓글 등록, 수정, 삭제 ///////////////////
 	
 	// 등록
-	public ModelAndView replyRegister(HttpServletRequest request, ModelAndView mv, @ModelAttribute Board board) {
+	public String replyRegister(HttpSession session, @ModelAttribute Board board) {
 		return null;
 	}
 	
 	// 수정
-	public String replyModifyView(@RequestParam("boNo") int boNo, Model model) {
-		return null;
+	public void replyModifyView(HttpSession session, @RequestParam("boNo") int boNo) {
+
 	}
 	
-	public ModelAndView replyUpdate(HttpServletRequest request, ModelAndView mv, @ModelAttribute Board board) {
+	public String replyUpdate(HttpSession session, @ModelAttribute Board board) {
 		return null;
 	}
 	
 	// 삭제
-	public String replyDelete(HttpServletRequest request, ModelAndView mv, @RequestParam("boNo") int noticeNo) {
+	public String replyDelete(HttpSession session, @RequestParam("boNo") int noticeNo) {
 		return null;
 	}
 	
-	/////////////////// 팀장 보기 ///////////////////
+	/////////////////// 게시물 관리 페이지 ///////////////////
+		// 팀장이면 jsp에서 검색 option에 작성자 추가
+		// 세션에서 정보를 받아서 팀장이냐 팀원이냐에 따라 service의 다른 메소드 호출하도록
 	
 	// 페이지 들어가기
 	public String leaderBoardView() {
@@ -99,49 +105,23 @@ public class BoardController {
 	}
 	
 	// 게시물 리스트
-	public ModelAndView leaderBoardListView(HttpServletRequest request, ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
-		return null;
+	public void myBoardListView(HttpSession session, HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) {
+
 	}
 	
 	// 게시물 검색
-	public ModelAndView leaderBoardSearch(HttpServletRequest request, ModelAndView mv, @ModelAttribute Search search) {
-		return null;
+	public void myBoardSearch(HttpSession session, HttpServletResponse response, @ModelAttribute Search search) {
+		
 	}
 	
 	// 댓글 리스트
-	public ModelAndView leaderReplyListView(HttpServletRequest request, ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
-		return null;
+	public void myReplyListView(HttpSession session, HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) {
+
 	}
 	
 	// 댓글 검색
-	public ModelAndView leaderReplySearch(HttpServletRequest request, ModelAndView mv, @ModelAttribute Search search) {
-		return null;
-	}
-	
-	/////////////////// 팀원 보기 ///////////////////
-	
-	// 페이지 들어가기
-	public String myBoardView() {
-		return null;
-	}
-	
-	// 게시물 리스트
-	public ModelAndView myBoardListView(HttpServletRequest request, ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
-		return null;
-	}
-	
-	// 게시물 검색
-	public ModelAndView myBoardSearch(HttpServletRequest request, ModelAndView mv, @ModelAttribute Search search) {
-		return null;
-	}
-	
-	// 댓글 리스트
-	public ModelAndView myReplyListView(HttpServletRequest request, ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
-		return null;
-	}
-	
-	// 댓글 검색
-	public ModelAndView myReplySearch(HttpServletRequest request, ModelAndView mv, @ModelAttribute Search search) {
-		return null;
+	public void myReplySearch(HttpSession session, HttpServletRequest request, @ModelAttribute Search search) {
+
 	}
 }
+

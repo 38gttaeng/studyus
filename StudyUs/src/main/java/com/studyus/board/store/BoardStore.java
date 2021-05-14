@@ -36,7 +36,8 @@ public interface BoardStore {
 	
 	/**
 	 * 한개보기
-	 * @param boardNo
+	 * ( 댓글도 함께 가져오기 WHERE BO_NO = ? OR BO_MOTHER_NO = ? )
+	 * @param boNo
 	 * @return
 	 */
 	public Board selectOne(int boNo);
