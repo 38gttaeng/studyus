@@ -57,7 +57,7 @@ public interface AssignmentStore {
 	public int submittedCheckList(int asNo);
 	
 	/**
-	 * 한개 제출여부 확인
+	 * 한개 제출여부
 	 * (0이면 미제출 1이면 제출)
 	 * @param sAssignment(asNo, mbNo)
 	 * @return

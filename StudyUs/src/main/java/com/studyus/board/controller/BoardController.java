@@ -40,8 +40,8 @@ public class BoardController {
 	}
 	
 	// 댓글 리스트
-	public String getReplyList(HttpServletResponse response, @RequestParam("boNo") int boNo) {
-		return null;
+	public void getReplyList(HttpServletResponse response, @RequestParam("boNo") int boNo) {
+
 	}
 	
 	/////////////////// 게시물 등록, 수정, 삭제 ///////////////////
@@ -85,16 +85,16 @@ public class BoardController {
 	}
 	
 	// 수정
-	public void replyModifyView(HttpSession session, @RequestParam("boNo") int boNo) {
+	public void replyModifyView(@RequestParam("boNo") int boNo) {
 
 	}
 	
-	public String replyUpdate(HttpSession session, @ModelAttribute Board board) {
+	public String replyUpdate(@ModelAttribute Board board) {
 		return null;
 	}
 	
 	// 삭제
-	public String replyDelete(HttpSession session, @RequestParam("boNo") int noticeNo) {
+	public String replyDelete(@RequestParam("boNo") int boNo) {
 		return null;
 	}
 	
