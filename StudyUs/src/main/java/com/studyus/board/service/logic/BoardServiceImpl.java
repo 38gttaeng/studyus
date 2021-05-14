@@ -2,12 +2,20 @@ package com.studyus.board.service.logic;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.studyus.board.domain.Board;
 import com.studyus.board.domain.PageInfo;
 import com.studyus.board.domain.Search;
 import com.studyus.board.service.BoardService;
+import com.studyus.board.store.BoardStore;
 
+@Service
 public class BoardServiceImpl implements BoardService {
+	
+	@Autowired
+	private BoardStore store;
 
 	@Override
 	public int getListCount(Board board) {
@@ -34,25 +42,31 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int printListCountByMemberNo(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ArrayList<Board> printAllByMemberNo(PageInfo pi, Board board) {
+	public ArrayList<Board> printAllReply(int boNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int getReplyCount(int stNo) {
+	public int getListCountByMemberNo(Board board, int selected) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public ArrayList<Board> printAllReply(PageInfo pi, int stNo) {
+	public ArrayList<Board> printAllByMemberNo(PageInfo pi, Board board, int selected) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getReplyCount(int stNo, int selected) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Board> printAllReply(PageInfo pi, int stNo, int selected) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -64,13 +78,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int printReplyCountByMemberNo(Board board) {
+	public int getReplyCountByMemberNo(Board board, int selected) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public ArrayList<Board> printAllReplyByMemberNo(PageInfo pi, Board board) {
+	public ArrayList<Board> printAllReplyByMemberNo(PageInfo pi, Board board, int selected) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -92,11 +106,4 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public int registerReply(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

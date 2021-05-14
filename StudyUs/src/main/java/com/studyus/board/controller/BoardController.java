@@ -35,9 +35,12 @@ public class BoardController {
 	}
 	
 	// 디테일
-		// 게시글인지 댓글인지 구분해서 따로 ArrayList에 넣어주기
-		// 댓글은 ajax로 보내주기 (json 데이터 형식)
 	public ModelAndView boardDetail(HttpSession session, ModelAndView mv, @RequestParam("boNo") int boNo) {
+		return null;
+	}
+	
+	// 댓글 리스트
+	public String getReplyList(HttpServletResponse response, @RequestParam("boNo") int boNo) {
 		return null;
 	}
 	
@@ -114,14 +117,24 @@ public class BoardController {
 		
 	}
 	
+	// 게시물 일괄 삭제
+	public String boardListDelete(HttpSession session, HttpServletResponse response, @RequestParam("boardList") int [] boardList) {
+		return null;
+	}
+	
 	// 댓글 리스트
 	public void myReplyListView(HttpSession session, HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) {
 
 	}
 	
 	// 댓글 검색
-	public void myReplySearch(HttpSession session, HttpServletRequest request, @ModelAttribute Search search) {
+	public void myReplySearch(HttpSession session, HttpServletResponse response, @ModelAttribute Search search) {
 
+	}
+	
+	// 댓글 일괄 삭제
+	public String replyListDelete(HttpSession session, HttpServletResponse response, @RequestParam("replyList") int [] boardList) {
+		return null;
 	}
 }
 

@@ -1,6 +1,6 @@
 package com.studyus.assignment.domain;
 
-public class SubmittedAssginment {
+public class SubmittedAssignment {
 	private int suNo;
 	private int mbNo;
 	private int asNo;
@@ -10,7 +10,7 @@ public class SubmittedAssginment {
 	private String suFileName;
 	private int suStatus;
 	
-	public SubmittedAssginment() {}
+	public SubmittedAssignment() {}
 
 	public int getSuNo() {
 		return suNo;
