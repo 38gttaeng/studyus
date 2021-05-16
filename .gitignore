@@ -9,6 +9,7 @@
 *.war
 *.ear
 *.db
+*.DS_Store
 
 
 ### Eclipse ###
