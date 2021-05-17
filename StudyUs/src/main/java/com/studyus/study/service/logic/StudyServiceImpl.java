@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.studyus.hashtag.store.HashtagStore;
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudyPageInfo;
 import com.studyus.study.domain.StudyWithDays_dep;
@@ -15,7 +16,10 @@ import com.studyus.study.store.StudyStore;
 public class StudyServiceImpl implements StudyService {
 	
 	@Autowired
-	StudyStore store;
+	StudyStore sStore;
+	
+	@Autowired
+	HashtagStore hStore;
 
 	@Override
 	public int registerStudy(Study study) {
@@ -42,7 +46,7 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public Study printOne(int studyNo) {
+	public Study printOneByNo(int studyNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

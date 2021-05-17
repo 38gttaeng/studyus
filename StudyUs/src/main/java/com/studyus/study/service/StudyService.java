@@ -23,7 +23,7 @@ public interface StudyService {
 	public ArrayList<StudyWithDays_dep> printAllByStudyName(String studyName, StudyPageInfo pi);
 	
 	// 스터디 상세 페이지 get
-	public Study printOne(int studyNo);
+	public Study printOneByNo(int studyNo);
 	
 	// 스터디 수정 post
 	public int modifyStudy(Study study);
