@@ -2,10 +2,13 @@ package com.studyus.study.store.logic;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Repository;
+
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudyPageInfo;
 import com.studyus.study.store.StudyStore;
 
+@Repository
 public class StudyStoreLogic implements StudyStore {
 
 	@Override
@@ -37,6 +40,12 @@ public class StudyStoreLogic implements StudyStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public Study selectOneEnrolled(int studyNo, int memberNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public Study selectOneByUrl(String studyUrl) {
@@ -45,7 +54,7 @@ public class StudyStoreLogic implements StudyStore {
 	}
 
 	@Override
-	public int modifyStudy(Study study) {
+	public int updateStudy(Study study) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -55,5 +64,4 @@ public class StudyStoreLogic implements StudyStore {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

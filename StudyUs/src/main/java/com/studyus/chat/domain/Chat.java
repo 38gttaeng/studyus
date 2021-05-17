@@ -3,6 +3,7 @@ package com.studyus.chat.domain;
 import java.sql.Date;
 
 public class Chat {
+	
 	private int chatNo;
 	private int studyNo;
 	private int writerNo;

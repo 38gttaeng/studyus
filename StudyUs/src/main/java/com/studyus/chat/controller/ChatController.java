@@ -18,7 +18,7 @@ public class ChatController {
 
 	// 채팅방 입장시, 최근 채팅 리스트 x개 불러오
 	@RequestMapping(value="/chat", method=RequestMethod.GET)
-	public String getChat(@ModelAttribute int studyNo) {
+	public String chatView(@ModelAttribute int studyNo) {
 		return "";
 	}
 	
