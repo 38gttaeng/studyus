@@ -1,8 +1,12 @@
 package com.studyus.common;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,16 +28,27 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "cohost";
+		/*
+		 * logger.info("Welcome home! The client locale is {}.", locale);
+		 * 
+		 * Date date = new Date(); DateFormat dateFormat =
+		 * DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		 * 
+		 * String formattedDate = dateFormat.format(date);
+		 * 
+		 * model.addAttribute("serverTime", formattedDate );
+		 */
+		return "study/study";
+	}
+	
+	@RequestMapping(value="/favicon.ico", method = RequestMethod.GET)
+	public void favicon( HttpServletRequest request, HttpServletResponse reponse ) {
+		try {
+		  reponse.sendRedirect("/resources/images/favicon.ico");
+		  System.out.println("파비콘");
+		} catch (IOException e) {
+		  e.printStackTrace();
+		}
 	}
 	
 }
