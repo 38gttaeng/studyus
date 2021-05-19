@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.studyus.cafe.domain.Cafe;
 import com.studyus.cafe.service.CafeService;
@@ -23,23 +24,27 @@ public class CafeController {
 	@Autowired
 	private CafeService cService;
 
-	// 스터디카페 리스트
-	@RequestMapping(value = "cafeList.kh", method = RequestMethod.GET)
-	public String cafeList(Model model) {
-		ArrayList<Cafe> cList = cService.printAll();
-		return null;
+	// 스터디카페 목록(지도)
+	@RequestMapping(value = "/cafeList", method = RequestMethod.GET)
+	public String cafeList() {
+		return "cafe/cafeListView";
 	}
+	
+//	@RequestMapping(value = "/map", method = RequestMethod.GET)
+//	public String kakaoMap() {
+//		return "map/testMap";
+//	}
 
 	// 스터디카페 상세
-	@RequestMapping(value = "cafeDetail.kh", method = RequestMethod.GET)
+	@RequestMapping(value = "/cafeDetail", method = RequestMethod.GET)
 	public String cafeDetail(Model model) {
 		return null;
 
 	}
 
 	// 스터디카페 등록
-	@RequestMapping(value = "cafeWriteView.kh", method = RequestMethod.POST)
-	public String registerCafe(@ModelAttribute Cafe cafe,
+	@RequestMapping(value = "/cafeRegister", method = RequestMethod.POST)
+	public String cafeRegister(@ModelAttribute Cafe cafe,
 			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpServletRequest request,
 			Model model) {
 		return null;
@@ -56,14 +61,14 @@ public class CafeController {
 	}
 
 	// 스터디 카페 수정
-	@RequestMapping(value = "cafeModifyView.kh", method = RequestMethod.GET)
+	@RequestMapping(value = "/cafeModifyView", method = RequestMethod.GET)
 	public String cafeModifyView(@RequestParam("caNo") int caNo, Model model) {
 		return null;
 
 	}
 
 	// 스터디카페 삭제
-	@RequestMapping(value = "cafeDelete.kh", method = RequestMethod.GET)
+	@RequestMapping(value = "/cafeDelete", method = RequestMethod.GET)
 	public String cafeDelete(@RequestParam("caNo") int caNo, Model model, HttpServletRequest request) {
 		return null;
 

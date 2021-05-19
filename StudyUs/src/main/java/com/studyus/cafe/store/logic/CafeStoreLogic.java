@@ -17,8 +17,7 @@ public class CafeStoreLogic implements CafeStore{
 
 	@Override
 	public ArrayList<Cafe> selectList() {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("cafeMapper.selectAll");
 	}
 
 	@Override
