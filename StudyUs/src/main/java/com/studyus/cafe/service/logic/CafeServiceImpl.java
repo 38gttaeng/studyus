@@ -17,8 +17,7 @@ public class CafeServiceImpl implements CafeService{
 
 	@Override
 	public ArrayList<Cafe> printAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return cStore.selectList();
 	}
 
 	@Override
@@ -34,7 +33,7 @@ public class CafeServiceImpl implements CafeService{
 	}
 
 	@Override
-	public int modifyCage(Cafe cafe) {
+	public int modifyCafe(Cafe cafe) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

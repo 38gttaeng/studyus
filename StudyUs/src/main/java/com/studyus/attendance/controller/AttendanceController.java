@@ -17,19 +17,19 @@ public class AttendanceController {
 	private AttendanceService aService;
 	
 	// 출석 리스트 보여주기 
-	@RequestMapping(value="", method=RequestMethod.GET)
+//	@RequestMapping(value="", method=RequestMethod.GET)
 	public String attList(Model model) {
 		return "";
 	}
 	
 	// 출석하기 
-	@RequestMapping(value="", method=RequestMethod.POST)
+//	@RequestMapping(value="", method=RequestMethod.POST)
 	public String attCheck(@ModelAttribute Attendance attendance, Model model) {
 		return "";
 	}
 	
 	// 평점 추가 
-	@RequestMapping(value="", method=RequestMethod.POST)
+//	@RequestMapping(value="", method=RequestMethod.POST)
 	public String addPoint() {
 		return "";
 	}

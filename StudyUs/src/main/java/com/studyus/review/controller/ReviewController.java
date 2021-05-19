@@ -21,14 +21,14 @@ public class ReviewController {
 	private ReviewService rService;
 	
 	// 리뷰리스트 
-	@RequestMapping(value = "reviewList.kh", method=RequestMethod.GET)
+	@RequestMapping(value = "reviewList", method=RequestMethod.GET)
 	public String reviewList(Model model) {
 		return null;
 		
 	}
 	
 	// 리뷰 등록
-	@RequestMapping(value="reviewRegister.kh", method=RequestMethod.POST)
+	@RequestMapping(value="reviewRegister", method=RequestMethod.POST)
 	public String registerReview(@ModelAttribute Review review,
 								@RequestParam(value = "uploadFile", required=false) MultipartFile uploadFile, HttpServletRequest request, Model model) {
 									return null;
@@ -42,20 +42,20 @@ public class ReviewController {
 	}
 	
 	// 리뷰 수정
-	@RequestMapping(value="reviewModifyView.kh", method=RequestMethod.GET)
+	@RequestMapping(value="reviewModifyView", method=RequestMethod.GET)
 	public String reviewModifyView(@RequestParam("rvNo") int rvNo, Model model) {
 		return null;
 		
 	}
 	
-	@RequestMapping(value="reviewUpdate.kh", method=RequestMethod.POST)
+	@RequestMapping(value="reviewUpdate", method=RequestMethod.POST)
 	public String reviewUpdate(@ModelAttribute Review review, Model model, HttpServletRequest request, @RequestParam("reloadFile") MultipartFile reloadFile) {
 		return null;
 		
 	}
 	
 	// 리뷰 삭제
-	@RequestMapping(value = "reviewDelete.kh", method=RequestMethod.GET)
+	@RequestMapping(value = "reviewDelete", method=RequestMethod.GET)
 	public String reviewDelete(@RequestParam("reNo") int reNo, Model model, HttpServletRequest request) {
 		return null;
 		
