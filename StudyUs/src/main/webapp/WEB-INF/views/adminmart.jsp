@@ -1,6 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
-
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,14 +10,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="resources/css/adminmart/assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/resources/css/study/assets/images/favicon.png">
     <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
-    <link href="resources/css/adminmart/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
-    <link href="resources/css/adminmart/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link href="resources/css/adminmart/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <link href="/resources/css/study/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+    <link href="/resources/css/study/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="/resources/css/study/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
-    <link href="resources/css/adminmart/dist/css/style.min.css" rel="stylesheet">
+    <link href="/resources/css/study/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -26,7 +27,7 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-<link href="resources/css/adminmart/adminmart.css" rel="stylesheet">
+<link href="/resources/css/study/adminmart.css" rel="stylesheet">
 </head>
 
 <body>
@@ -61,17 +62,17 @@
                         <a href="index.html">
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
-                                <img src="resources/css/adminmart/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                                <img src="/resources/css/study/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                                 <!-- Light Logo icon -->
-                                <img src="resources/css/adminmart/assets/images/logo-icon.png" alt="homepage" class="light-logo" />
+                                <img src="/resources/css/study/assets/images/logo-icon.png" alt="homepage" class="light-logo" />
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
                             <span class="logo-text">
                                 <!-- dark Logo text -->
-                                <img src="resources/css/adminmart/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                                <img src="/resources/css/study/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
                                 <!-- Light Logo text -->
-                                <img src="resources/css/adminmart/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+                                <img src="/resources/css/study/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
                             </span>
                         </a>
                     </div>
@@ -223,7 +224,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <img src="resources/css/adminmart/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
+                                <img src="/resources/css/study/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
                                     width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
                                         class="text-dark">Jason Doe</span> <i data-feather="chevron-down"
@@ -273,7 +274,7 @@
                     <ul id="sidebarnav">
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="index.html"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
+                                    class="hide-menu">{스터디명} 홈</span></a></li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
 
@@ -844,7 +845,7 @@
                                                 <td class="border-top-0 px-2 py-4">
                                                     <div class="d-flex no-block align-items-center">
                                                         <div class="mr-3"><img
-                                                                src="resources/css/adminmart/assets/images/users/widget-table-pic1.jpg"
+                                                                src="/resources/css/study/assets/images/users/widget-table-pic1.jpg"
                                                                 alt="user" class="rounded-circle" width="45"
                                                                 height="45" /></div>
                                                         <div class="">
@@ -881,7 +882,7 @@
                                                 <td class="px-2 py-4">
                                                     <div class="d-flex no-block align-items-center">
                                                         <div class="mr-3"><img
-                                                                src="resources/css/adminmart/assets/images/users/widget-table-pic2.jpg"
+                                                                src="/resources/css/study/assets/images/users/widget-table-pic2.jpg"
                                                                 alt="user" class="rounded-circle" width="45"
                                                                 height="45" /></div>
                                                         <div class="">
@@ -914,7 +915,7 @@
                                                 <td class="px-2 py-4">
                                                     <div class="d-flex no-block align-items-center">
                                                         <div class="mr-3"><img
-                                                                src="resources/css/adminmart/assets/images/users/widget-table-pic3.jpg"
+                                                                src="/resources/css/study/assets/images/users/widget-table-pic3.jpg"
                                                                 alt="user" class="rounded-circle" width="45"
                                                                 height="45" /></div>
                                                         <div class="">
@@ -949,7 +950,7 @@
                                                 <td class="px-2 py-4">
                                                     <div class="d-flex no-block align-items-center">
                                                         <div class="mr-3"><img
-                                                                src="resources/css/adminmart/assets/images/users/widget-table-pic4.jpg"
+                                                                src="/resources/css/study/assets/images/users/widget-table-pic4.jpg"
                                                                 alt="user" class="rounded-circle" width="45"
                                                                 height="45" /></div>
                                                         <div class="">
@@ -1011,25 +1012,25 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="resources/css/adminmart/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="resources/css/adminmart/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="resources/css/adminmart/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/resources/css/study/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/resources/css/study/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/resources/css/study/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
     <!-- apps -->
-    <script src="resources/css/adminmart/dist/js/app-style-switcher.js"></script>
-    <script src="resources/css/adminmart/dist/js/feather.min.js"></script>
-    <script src="resources/css/adminmart/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="resources/css/adminmart/dist/js/sidebarmenu.js"></script>
+    <script src="/resources/css/study/dist/js/app-style-switcher.js"></script>
+    <script src="/resources/css/study/dist/js/feather.min.js"></script>
+    <script src="/resources/css/study/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/resources/css/study/dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="resources/css/adminmart/dist/js/custom.min.js"></script>
+    <script src="/resources/css/study/dist/js/custom.min.js"></script>
     <!--This page JavaScript -->
-    <script src="resources/css/adminmart/assets/extra-libs/c3/d3.min.js"></script>
-    <script src="resources/css/adminmart/assets/extra-libs/c3/c3.min.js"></script>
-    <script src="resources/css/adminmart/assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="resources/css/adminmart/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="resources/css/adminmart/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
-    <script src="resources/css/adminmart/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="resources/css/adminmart/dist/js/pages/dashboards/dashboard1.min.js"></script>
+    <script src="/resources/css/study/assets/extra-libs/c3/d3.min.js"></script>
+    <script src="/resources/css/study/assets/extra-libs/c3/c3.min.js"></script>
+    <script src="/resources/css/study/assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="/resources/css/study/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="/resources/css/study/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="/resources/css/study/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="/resources/css/study/dist/js/pages/dashboards/dashboard1.min.js"></script>
 </body>
 
 </html>

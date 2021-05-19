@@ -33,7 +33,8 @@ public class StudyController {
 	// 스터디 생성 폼 페이지 get
 	@RequestMapping(value="/study/register", method=RequestMethod.GET)
 	public String registerView() {
-		return "";
+		System.out.println("it worked");
+		return "study/register";
 	}
 	
 	// 스터디 생성 post
@@ -77,6 +78,18 @@ public class StudyController {
 	// 스터디 삭제 post
 	@RequestMapping(value="/study/delete", method=RequestMethod.POST)
 	public String deleteStudy() {
+		return "";
+	}
+	
+	// 스터디 일정 get
+	@RequestMapping(value="/study/calendar", method=RequestMethod.GET)
+	public String calendarView() {
+		return "";
+	}
+	
+	// 스터디 공지사항 리스트 get
+	@RequestMapping(value="/study/notice", method=RequestMethod.GET)
+	public String noticeListView() {
 		return "";
 	}
 	

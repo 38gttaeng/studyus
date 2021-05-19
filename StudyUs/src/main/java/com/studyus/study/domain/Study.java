@@ -12,6 +12,7 @@ public class Study {
 	private int maxPersonnel; // 최대인원
 	private Date insertDate; // 생성일시
 	private int status; // 상태. default = 1
+	private String url;
 	
 	// 활동 요일 및 시간
 	private boolean monday = false;
@@ -126,12 +127,18 @@ public class Study {
 	public void setEnd(Date end) {
 		this.end = end;
 	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	@Override
 	public String toString() {
 		return "Study [studyNo=" + studyNo + ", leaderNo=" + leaderNo + ", filename=" + filename + ", studyName="
 				+ studyName + ", introduce=" + introduce + ", maxPersonnel=" + maxPersonnel + ", insertDate="
-				+ insertDate + ", status=" + status + ", monday=" + monday + ", tuesday=" + tuesday + ", wednesday="
-				+ wednesday + ", thursday=" + thursday + ", friday=" + friday + ", saturday=" + saturday + ", sunday="
-				+ sunday + ", start=" + start + ", end=" + end + "]";
+				+ insertDate + ", status=" + status + ", url=" + url + ", monday=" + monday + ", tuesday=" + tuesday
+				+ ", wednesday=" + wednesday + ", thursday=" + thursday + ", friday=" + friday + ", saturday="
+				+ saturday + ", sunday=" + sunday + ", start=" + start + ", end=" + end + "]";
 	}
 }
