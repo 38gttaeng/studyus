@@ -39,14 +39,13 @@ public class HomeController {
 		 * 
 		 * model.addAttribute("serverTime", formattedDate );
 		 */
-		return "study/study";
+		return "main";
 	}
 	
 	@RequestMapping(value="/favicon.ico", method = RequestMethod.GET)
 	public void favicon( HttpServletRequest request, HttpServletResponse reponse ) {
 		try {
 		  reponse.sendRedirect("/resources/images/favicon.ico");
-		  System.out.println("파비콘");
 		} catch (IOException e) {
 		  e.printStackTrace();
 		}
