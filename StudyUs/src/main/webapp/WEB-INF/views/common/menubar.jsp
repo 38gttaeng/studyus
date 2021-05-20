@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- favicon -->
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	
 	<!-- CSS -->
     <link rel="stylesheet" href="resources/css/main/css/open-iconic-bootstrap.min.css">
@@ -24,9 +24,6 @@
     <link rel="stylesheet" href="resources/css/main/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="resources/css/main/css/jquery.timepicker.css">
 
-	<!-- font -->
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,,500,600,700" rel="stylesheet">
-    
     <link rel="stylesheet" href="resources/css/main/css/flaticon.css">
     <link rel="stylesheet" href="resources/css/main/css/icomoon.css">
     <link rel="stylesheet" href="resources/css/main/css/style.css">
@@ -39,18 +36,42 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">StudyUs</a>
+	      <a class="navbar-brand" href="#">
+	      	<img src="resources/css/study/assets/images/logo-icon2.png"/>
+	      	<img src="resources/css/study/assets/images/logo-text2.png" alt="StudyUs"/>
+	      </a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.html" class="nav-link">홈</a></li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">스터디</a></li>
-	          <li class="nav-item"><a href="domain.html" class="nav-link">스터디샵</a></li>
-	          <li class="nav-item"><a class="nav-link" href="hosting.html">스터디카페</a></li>
-	          <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>로그인</span></a></li>
+	          <li class="nav-item active"><a href="#" class="nav-link">홈</a></li>
+	          <li class="nav-item"><a href="#" class="nav-link">스터디</a></li>
+	          <li class="nav-item"><a href="#" class="nav-link">스터디샵</a></li>
+	          <li class="nav-item"><a href="#" class="nav-link">스터디카페</a></li>
+	          <!-- 로그인 전 -->
+	          <li class="nav-item cta"><a href="#" class="nav-link"><span>로그인</span></a></li>
+	          <!-- 로그인 후 -->
+<!-- 	          <li class="nav-item dropdown">
+	                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+	                    aria-haspopup="true" aria-expanded="false">
+	                    <img src="resources/css/study/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
+	                        width="30">
+	                    <span class="ml-2 d-none d-lg-inline-block"><span
+	                            class="text-dark">{ 닉네임 }</span> <i data-feather="chevron-down"
+	                            class="svg-icon"></i></span>
+	                </a>
+	                <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+	                    <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
+	                            class="svg-icon mr-2 ml-1"></i>
+	                        마이페이지</a>
+	                    <div class="dropdown-divider"></div>
+	                    <a class="dropdown-item" href="javascript:void(0)"><i data-feather="power"
+	                            class="svg-icon mr-2 ml-1"></i>
+	                        로그아웃</a>
+	                </div>
+	            </li> -->
 	        </ul>
 	      </div>
 	    </div>

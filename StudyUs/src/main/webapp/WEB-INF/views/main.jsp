@@ -19,10 +19,11 @@
 	      	<img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="resources/css/main/images/undraw_pair_programming_njlp.svg" alt="">
 	        <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
 	        	<div class="text mt-5">
-	        		<span class="subheading">Isometric Hosting</span>
-	            <h1 class="mb-3"><span>Design,</span> <span>Development,</span> <span>Hosting</span></h1>
+	        		<span class="subheading">Online Study</span>
+	            <h1 class="mb-3"><span>모두가,</span> <span>안전하게,</span> <span>온라인 스터디</span></h1>
 	            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-	            <p><a href="#" class="btn btn-primary px-4 py-3">Get in touch</a></p>
+	            <p><a href="#" class="btn btn-primary px-4 py-3">시작하기</a></p>
+	            <!-- 가입한 스터디가 있으면 바로가기 버튼으로? 아님 버튼 없애기 -->
 	          </div>
 	        </div>
 	    	</div>
@@ -33,7 +34,7 @@
     	<div class="container">
     		<div class="row d-flex align-items-center">
     			<div class="col-lg-5 heading-white mb-4 mb-sm-4 mb-lg-0 ftco-animate">
-    				<h2>Search Your Domain Name</h2>
+    				<h2>스터디 검색</h2>
     				<p>A small river named Duden flows by their place</p>
     			</div>
     			<div class="col-lg-7 p-5 ftco-wrap ftco-animate">
@@ -354,7 +355,7 @@
             <div class="carousel-testimony owl-carousel ftco-owl">
               <div class="item">
                 <div class="testimony-wrap p-4 text-center">
-                  <div class="user-img mb-4" style="background-image: url(images/person_1.jpg)">
+                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/person_1.jpg)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -368,7 +369,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 text-center">
-                  <div class="user-img mb-4" style="background-image: url(images/person_2.jpg)">
+                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/person_2.jpg)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -382,7 +383,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 text-center">
-                  <div class="user-img mb-4" style="background-image: url(images/person_3.jpg)">
+                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/person_3.jpg)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -396,7 +397,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 text-center">
-                  <div class="user-img mb-4" style="background-image: url(images/person_1.jpg)">
+                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/person_1.jpg)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -410,7 +411,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 text-center">
-                  <div class="user-img mb-4" style="background-image: url(images/person_1.jpg)">
+                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/person_1.jpg)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -508,7 +509,7 @@
         <div class="row">
           <div class="col-md-4 ftco-animate">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
+              <a href="blog-single.html" class="block-20" style="background-image: url('resources/css/main/images/image_1.jpg');">
               </a>
               <div class="text d-flex py-4">
                 <div class="meta mb-3">
@@ -524,7 +525,7 @@
           </div>
           <div class="col-md-4 ftco-animate">
             <div class="blog-entry" data-aos-delay="100">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
+              <a href="blog-single.html" class="block-20" style="background-image: url('resources/css/main/images/image_2.jpg');">
               </a>
               <div class="text d-flex py-4">
                 <div class="meta mb-3">
@@ -540,7 +541,7 @@
           </div>
           <div class="col-md-4 ftco-animate">
             <div class="blog-entry" data-aos-delay="200">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
+              <a href="blog-single.html" class="block-20" style="background-image: url('resources/css/main/images/image_3.jpg');">
               </a>
               <div class="text d-flex py-4">
                 <div class="meta mb-3">
