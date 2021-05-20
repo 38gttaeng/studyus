@@ -12,15 +12,15 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Custom CSS -->
-    <link href="resources/css/study/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
-    <link href="resources/css/study/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link href="resources/css/study/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <link href="/resources/css/study/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+    <link href="/resources/css/study/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="/resources/css/study/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
-	<link href="resources/css/study/dist/css/style.min.css" rel="stylesheet" />
+	<link href="/resources/css/study/dist/css/style.min.css" rel="stylesheet" />
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-	<link href="resources/css/study/adminmart.css" rel="stylesheet">
+	<script src="/resources/css/study/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/resources/css/study/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<link href="/resources/css/study/adminmart.css" rel="stylesheet">
 	
 	<title>study menubar</title>
 </head>
@@ -52,16 +52,16 @@
                         <!-- Logo icon -->
                         <a href="#">
                             <b class="logo-icon">
-                                <img src="resources/css/study/assets/images/logo-icon2.png" alt="homepage" class="dark-logo" />
-                                <img src="resources/css/study/assets/images/logo-icon2.png" alt="homepage" class="light-logo" />
+                                <img src="/resources/css/study/assets/images/logo-icon2.png" alt="homepage" class="dark-logo" />
+                                <img src="/resources/css/study/assets/images/logo-icon2.png" alt="homepage" class="light-logo" />
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
                             <span class="logo-text text-dark">
                                 <!-- dark Logo text -->
-                                <img src="resources/css/study/assets/images/logo-text2.png" alt="homepage" class="dark-logo" />
+                                <img src="/resources/css/study/assets/images/logo-text2.png" alt="homepage" class="dark-logo" />
                                 <!-- Light Logo text -->
-                                <img src="resources/css/study/assets/images/logo-text2.png" class="light-logo" alt="homepage" />
+                                <img src="/resources/css/study/assets/images/logo-text2.png" class="light-logo" alt="homepage" />
                             </span>
                         </a>
                     </div>
@@ -182,7 +182,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <img src="resources/css/study/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
+                                <img src="/resources/css/study/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
                                     width="30">
                                 <span class="ml-2 d-none d-lg-inline-block"><span
                                         class="text-dark">{ 닉네임 }</span> <i data-feather="chevron-down"
@@ -220,7 +220,7 @@
                 	<!-- STUDY -->
                     <li class="nav-small-cap"><span class="hide-menu">study</span></li>
 
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/calendar"
                             aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
                                 class="hide-menu">일정 </span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"

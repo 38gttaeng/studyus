@@ -81,16 +81,4 @@ public class StudyController {
 		return "";
 	}
 	
-	// 스터디 일정 get
-	@RequestMapping(value="/study/calendar", method=RequestMethod.GET)
-	public String calendarView() {
-		return "";
-	}
-	
-	// 스터디 공지사항 리스트 get
-	@RequestMapping(value="/study/notice", method=RequestMethod.GET)
-	public String noticeListView() {
-		return "";
-	}
-	
 }

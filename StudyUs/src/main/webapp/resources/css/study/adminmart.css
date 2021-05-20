@@ -12251,6 +12251,28 @@ strong {
   font-size: 11px;
 }
 
+/* 캘린더 페이지 */
+#calendar-events {
+	border-spacing : 10px;
+	border-collapse: separate;
+	text-align : center
+}
+
+#calendar-events .calendar-events {
+	height : 33px;
+	cursor : pointer;
+}
+
+#calendar-events .calendar-events td:first-child {
+	border-radius : 30px;
+	color : #fff;
+	background-color : #e8eaec;
+}
+
+#calendar-events .cEvents0 td:first-child {
+	background-color : #6c757d;
+}
+
 @media (max-width: 767.98px) {
   .fc-toolbar .fc-left,
 .fc-toolbar .fc-right,
