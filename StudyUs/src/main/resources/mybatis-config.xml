@@ -3,14 +3,22 @@
 <configuration>
 	<settings>
 		<!-- null이 전달되면 빈칸이 아닌 null로 인식하도록 설정 -->
-		<setting name="jdbcTypeForNull" value="NULL"/>
+		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
-	
+
 	<typeAliases>
-		<typeAlias type="com.studyus.study.domain.Study" alias="Study"/>
+		<typeAlias type="com.studyus.study.domain.Study" alias="Study" />
 	</typeAliases>
+
+	<typeAliases>
+		<typeAlias type="com.studyus.member.domain.Member" alias="Member" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mappers/member-mapper.xml" />
+	</mappers>
 	
 	<mappers>
-		<mapper resource="mappers/study-mapper.xml"/>
+		<mapper resource="mappers/study-mapper.xml" />
 	</mappers>
 </configuration>
