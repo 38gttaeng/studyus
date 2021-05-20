@@ -2,6 +2,8 @@ package com.studyus.study.store.logic;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studyus.study.domain.Study;
@@ -10,11 +12,18 @@ import com.studyus.study.store.StudyStore;
 
 @Repository
 public class StudyStoreLogic implements StudyStore {
+	
+	@Autowired
+	SqlSession sqlSession;
 
 	@Override
 	public int insertStudy(Study study) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("studyMapper.insertStudy", study);
+	}
+	
+	@Override
+	public int checkUrl(String url) {
+		return sqlSession.selectOne("studyMapper.checkUrl", url);
 	}
 
 	@Override
@@ -64,4 +73,5 @@ public class StudyStoreLogic implements StudyStore {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 }

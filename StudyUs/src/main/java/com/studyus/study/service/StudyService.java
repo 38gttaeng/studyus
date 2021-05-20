@@ -13,6 +13,9 @@ public interface StudyService {
 	// 스터디 생성 post
 	public int registerStudy(Study study);
 	
+	// url 중복확인
+	public int checkUrl(String name);
+	
 	// 스터디 검색 결과페이지 get
 	public ArrayList<StudyWithDays_dep> printSearchResult(String keyword, String[] hashtags, StudyPageInfo pi);
 	

@@ -23,6 +23,11 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public int registerStudy(Study study) {
+		return sStore.insertStudy(study);
+	}
+	
+	@Override
+	public int checkUrl(String name) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -12,7 +12,42 @@
 		<result property="insertDate" column="ST_INSERTDATE"></result>
 		<result property="status" column="ST_STATUS"></result>
 		<result property="url" column="ST_URL"></result>
+		<result property="monday" column="ST_MON"></result>
+		<result property="tuesday" column="ST_TUE"></result>
+		<result property="wednesday" column="ST_WED"></result>
+		<result property="thursday" column="ST_THU"></result>
+		<result property="friday" column="ST_FRI"></result>
+		<result property="saturday" column="ST_SAT"></result>
+		<result property="sunday" column="ST_SON"></result>
+		<result property="start" column="ST_START"></result>
+		<result property="end" column="ST_END"></result>
 	</resultMap>
+	
+	<insert id="insertStudy">
+		INSERT INTO STUDY VALUE (#{studyNo}, 
+								#{leaderNo}, 
+								#{filename}, 
+								#{studyName},
+								#{introduce},
+								#{maxPersonnel},
+								DEFAULT,
+								DEFAULT,
+								#{url},
+								#{monday},
+								#{tuesday},
+								#{wednesday},
+								#{thursday},
+								#{friday},
+								#{saturday},
+								#{sunday},
+								#{start},
+								#{end}
+							)
+	</insert>
+	
+	<select id="checkUrl">
+		SELECT COUNT(*) FROM MEMBER WHERE ST_URL = #{url}
+	</select>
 	
 	<!-- 
 	<select id="selectNoticeList" resultMap="noticeResultMap">

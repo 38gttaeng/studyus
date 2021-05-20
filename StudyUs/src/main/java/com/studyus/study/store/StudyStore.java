@@ -8,6 +8,7 @@ import com.studyus.study.domain.StudyPageInfo;
 public interface StudyStore {
 	
 	public int insertStudy(Study study);
+	public int checkUrl(String url);
 	public ArrayList<Study> selectAllBySearch(String keyword, String[] hashtags, StudyPageInfo pi);
 	public ArrayList<Study> selectAll(StudyPageInfo pi);
 	public ArrayList<Study> selectAllByStudyName(String studyName, StudyPageInfo pi);
