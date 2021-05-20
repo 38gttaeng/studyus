@@ -2,6 +2,13 @@ package com.studyus.study.domain;
 
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class Study {
 	
 	private int studyNo; // 스터디 pk

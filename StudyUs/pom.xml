@@ -24,6 +24,14 @@
 	</repositories>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.20</version>
+		    <scope>provided</scope>
+		</dependency>
+	
 		<!-- [오류 원인] 한글때문에 xml 파싱시 오류날 경우 (URI$MalformedURIException 오류) [오류 내역] 
 			com.sun.org.apache.xerces.internal.util.URI$MalformedURIException: Path contains 
 			invalid character: 자 [소스 시작] -->
