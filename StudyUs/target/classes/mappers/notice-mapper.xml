@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeMapper">
+
+	<resultMap type="Notice" id="noticeResultMap">
+		<id property="noticeNo" column="NOTICE_NO"></id>
+		<result property="noticeTitle" column="NOTICE_TITLE"></result>
+		<result property="noticeContents" column="NOTICE_CONTENTS"></result>
+		<result property="noticeWriter" column="NOTICE_WRITER"></result>
+		<result property="nCreateDate" column="N_CREATE_DATE"></result>
+		<result property="nUpdateDate" column="N_UPDATE_DATE"></result>
+		<result property="noticeFilepath" column="NOTICE_FILEPATH"></result>
+	</resultMap>
+	
+	<select id="selectNoticeList" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE ORDER BY N_CREATE_DATE DESC
+	</select>
+	
+	<select id="selectOne" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE WHERE NOTICE_NO = #{noticeNo }
+	</select>
+	
+	<select id="selectSearchList" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE
+		<if test="searchCondition.toString() == 'writer'">
+			WHERE NOTICE_WRITER LIKE '%' || #{searchValue } || '%'
+		</if>
+		<if test="searchCondition.toString() == 'title'">
+			WHERE NOTICE_TITLE LIKE '%' || #{searchValue } || '%'
+		</if>
+		<if test="searchCondition.toString() == 'content'">
+			WHERE NOTICE_CONTENTS LIKE '%' || #{searchValue } || '%'
+		</if>
+		<if test="searchCondition.toString() == 'all'">
+			WHERE NOTICE_WRITER LIKE '%' || #{searchValue } || '%'
+			OR NOTICE_TITLE LIKE '%' || #{searchValue } || '%'
+			OR NOTICE_CONTENTS LIKE '%' || #{searchValue } || '%'
+		</if>
+		ORDER BY N_CREATE_DATE DESC
+	</select>
+
+	<insert id="insertNotice" parameterType="Notice">
+		INSERT INTO NOTICE VALUES(SEQ_NOTICEID.NEXTVAL, #{noticeTitle }, #{noticeContents }, #{noticeWriter }, DEFAULT, DEFAULT, #{noticeFilepath })
+	</insert>
+	
+	<update id="updateNotice" parameterType="Notice">
+		UPDATE NOTICE 
+		SET NOTICE_TITLE = #{noticeTitle }, NOTICE_CONTENTS = #{noticeContents }, NOTICE_FILEPATH = #{noticeFilepath }, N_UPDATE_DATE = SYSDATE
+		WHERE NOTICE_NO = #{noticeNo }
+	</update>
+	
+	<delete id="deleteNotice" parameterType="_int">
+		DELETE FROM NOTICE WHERE NOTICE_NO = #{noticeNo }
+	</delete>
+	
+</mapper>
