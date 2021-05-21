@@ -30,15 +30,10 @@ public class CafeController {
 		return "cafe/cafeListView";
 	}
 	
-//	@RequestMapping(value = "/map", method = RequestMethod.GET)
-//	public String kakaoMap() {
-//		return "map/testMap";
-//	}
-
 	// 스터디카페 상세
 	@RequestMapping(value = "/cafeDetail", method = RequestMethod.GET)
 	public String cafeDetail(Model model) {
-		return null;
+		return "cafe/cafeDetailView";
 
 	}
 
@@ -47,7 +42,7 @@ public class CafeController {
 	public String cafeRegister(@ModelAttribute Cafe cafe,
 			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpServletRequest request,
 			Model model) {
-		return null;
+		return "cafe/cafeRegisterForm";
 
 	}
 
@@ -63,14 +58,14 @@ public class CafeController {
 	// 스터디 카페 수정
 	@RequestMapping(value = "/cafeModifyView", method = RequestMethod.GET)
 	public String cafeModifyView(@RequestParam("caNo") int caNo, Model model) {
-		return null;
+		return "cafe/cafeUpdateView";
 
 	}
 
 	// 스터디카페 삭제
 	@RequestMapping(value = "/cafeDelete", method = RequestMethod.GET)
 	public String cafeDelete(@RequestParam("caNo") int caNo, Model model, HttpServletRequest request) {
-		return null;
+		return "cafe/cafeListView";
 
 	}
 }
