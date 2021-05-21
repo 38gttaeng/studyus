@@ -59,7 +59,7 @@
 	          <li class="nav-item"><a href="#" class="nav-link">스터디샵</a></li>
 	          <li class="nav-item"><a href="#" class="nav-link">스터디카페</a></li>
 	          <!-- 로그인 전 -->
-	          <li class="nav-item cta"><a href="#" class="nav-link"><span>로그인</span></a></li>
+	          <li class="nav-item cta"><a href="/member/loginView" class="nav-link"><span>로그인</span></a></li>
 	          <!-- 로그인 후 -->
  	          <!-- <li class="nav-item dropdown">
 	                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
