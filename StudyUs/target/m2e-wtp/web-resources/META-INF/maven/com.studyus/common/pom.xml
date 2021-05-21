@@ -24,6 +24,10 @@
 	</repositories>
 
 	<dependencies>
+<<<<<<< HEAD
+=======
+		<!-- lombok -->
+>>>>>>> refs/remotes/origin/20210520-DAVIN
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>

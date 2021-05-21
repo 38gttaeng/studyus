@@ -39,7 +39,7 @@ public class HomeController {
 		 * 
 		 * model.addAttribute("serverTime", formattedDate );
 		 */
-		return "main";
+		return "/study/study";
 	}
 	
 	@RequestMapping(value="/favicon.ico", method = RequestMethod.GET)

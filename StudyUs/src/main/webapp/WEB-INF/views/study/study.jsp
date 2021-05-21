@@ -172,5 +172,7 @@
         </div>
     </div>
    
+   <!--This page JavaScript -->
+   <script src="/resources/css/study/dist/js/pages/dashboards/dashboard1.min.js"></script>
 </body>
 </html>
