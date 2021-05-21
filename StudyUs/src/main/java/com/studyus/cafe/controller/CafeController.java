@@ -30,11 +30,6 @@ public class CafeController {
 		return "cafe/cafeListView";
 	}
 	
-//	@RequestMapping(value = "/map", method = RequestMethod.GET)
-//	public String kakaoMap() {
-//		return "map/testMap";
-//	}
-
 	// 스터디카페 상세
 	@RequestMapping(value = "/cafeDetail", method = RequestMethod.GET)
 	public String cafeDetail(Model model) {
