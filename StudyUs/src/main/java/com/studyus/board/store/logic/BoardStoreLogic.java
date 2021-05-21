@@ -37,14 +37,12 @@ public class BoardStoreLogic implements BoardStore{
 
 	@Override
 	public Board selectOne(int boNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("boardMapper.selectOne", boNo);
 	}
 
 	@Override
-	public ArrayList<Board> selectAllReply(int boNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Board> selectAllReply(int boMotherNo) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllReply", boMotherNo);
 	}
 
 	@Override
@@ -91,8 +89,7 @@ public class BoardStoreLogic implements BoardStore{
 
 	@Override
 	public int insertBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("boardMapper.insertBoard", board);
 	}
 
 	@Override

@@ -19,11 +19,6 @@
         
         <!-- menubar -->
 	    <jsp:include page="../common/studyMenubar.jsp"/>
-	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->
-	    <script>
-	    	$("#sidebarnav>li:nth-child(4)").addClass("selected");
-	    	$("#sidebarnav>li:nth-child(4) a").addClass("active");
-	    </script>
 	    
 	    <!-- ============================================================== -->
         <!-- Page wrapper  -->

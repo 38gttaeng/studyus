@@ -2117,7 +2117,7 @@ textarea.form-control {
 .was-validated .custom-select:valid, .custom-select.is-valid {
   border-color: #22ca80;
   padding-right: calc((1em + 0.75rem) * 3 / 4 + 1.75rem);
-  background: url(../../assets/images/custom-select.png) no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2322ca80' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") #fff no-repeat center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  background: url(/resources/css/study/assets/images/custom-select.png) no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2322ca80' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") #fff no-repeat center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
 .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus {
   border-color: #22ca80;
@@ -2228,7 +2228,7 @@ textarea.form-control {
 .was-validated .custom-select:invalid, .custom-select.is-invalid {
   border-color: #ff4f70;
   padding-right: calc((1em + 0.75rem) * 3 / 4 + 1.75rem);
-  background: url(../../assets/images/custom-select.png) no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff4f70' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23ff4f70' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E") #fff no-repeat center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  background: url(/resources/css/study/assets/images/custom-select.png) no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff4f70' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23ff4f70' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E") #fff no-repeat center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
 .was-validated .custom-select:invalid:focus, .custom-select.is-invalid:focus {
   border-color: #ff4f70;
@@ -3677,7 +3677,7 @@ input[type=button].btn-block {
   line-height: 1.5;
   color: #b8c3d5;
   vertical-align: middle;
-  background: url(../../assets/images/custom-select.png) no-repeat right 0.75rem center/8px 10px;
+  background: url(/resources/css/study/assets/images/custom-select.png) no-repeat right 0.75rem center/8px 10px;
   background-color: #fff;
   border: 1px solid #e9ecef;
   border-radius: 2px;
@@ -11071,7 +11071,7 @@ User Profile
   line-height: 48px;
 }
 .user-profile .profile-pic {
-  background-image: url(../../assets/images/users/profile-pic-2.jpg);
+  background-image: url(/resources/css/study/assets/images/users/profile-pic-2.jpg);
   width: 60px;
   height: 60px;
   background-position: center center;
@@ -11391,7 +11391,7 @@ strong {
 }
 
 .custom-select {
-  background: url(../../assets/images/custom-select.png) right 1.1rem center no-repeat;
+  background: url(/resources/css/study/assets/images/custom-select.png) right 1.1rem center no-repeat;
   -moz-appearance: none;
   -webkit-appearance: none;
   -o-appearance: none;
@@ -11713,17 +11713,17 @@ strong {
 }
 
 .bg-banner {
-  background: url(../../assets/images/landingpage/banner-bg.png) right 3% top no-repeat;
+  background: url(/resources/css/study/assets/images/landingpage/banner-bg.png) right 3% top no-repeat;
   background-size: 636px 569px;
 }
 
 .bg-section {
-  background: url(../../assets/images/landingpage/section-bg.png) left center no-repeat;
+  background: url(/resources/css/study/assets/images/landingpage/section-bg.png) left center no-repeat;
   background-size: 764px 677px;
 }
 
 .bg-section-v2 {
-  background: url(../../assets/images/landingpage/section-bg.png) center right 26% no-repeat;
+  background: url(/resources/css/study/assets/images/landingpage/section-bg.png) center right 26% no-repeat;
   background-size: 598px 536px;
 }
 
@@ -11787,7 +11787,7 @@ strong {
 }
 
 .icon2 {
-  background: url(../../assets/images/landingpage/icon-sprite.jpg) no-repeat;
+  background: url(/resources/css/study/assets/images/landingpage/icon-sprite.jpg) no-repeat;
   display: inline-block;
 }
 .icon2.feature-icon {

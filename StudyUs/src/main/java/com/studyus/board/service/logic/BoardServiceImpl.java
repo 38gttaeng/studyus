@@ -37,14 +37,12 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Board printOne(int boNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return boStore.selectOne(boNo);
 	}
 
 	@Override
-	public ArrayList<Board> printAllReply(int boNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Board> printAllReply(int boMotherNo) {
+		return boStore.selectAllReply(boMotherNo);
 	}
 
 	@Override
@@ -91,8 +89,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int registerBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return boStore.insertBoard(board);
 	}
 
 	@Override
