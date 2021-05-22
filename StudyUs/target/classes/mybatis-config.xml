@@ -8,10 +8,12 @@
 	
 	<typeAliases>
 		<typeAlias type="com.studyus.study.domain.Study" alias="Study"/>
+		<typeAlias type="com.studyus.board.domain.Board" alias="Board"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/study-mapper.xml"/>
 		<mapper resource="mappers/hashtag-mapper.xml"/>
+		<mapper resource="mappers/board-mapper.xml"/>
 	</mappers>
 </configuration>

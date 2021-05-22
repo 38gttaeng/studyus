@@ -50,7 +50,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="#">
+                        <a href="/">
                             <b class="logo-icon">
                                 <img src="/resources/css/study/assets/images/logo-icon2.png" alt="homepage" class="dark-logo" />
                                 <img src="/resources/css/study/assets/images/logo-icon2.png" alt="homepage" class="light-logo" />
@@ -212,7 +212,7 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study"
                             aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                 class="hide-menu">{ 스터디명 } </span></a></li>
                     <li class="list-divider"></li>
@@ -232,7 +232,7 @@
                             aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
                                 class="hide-menu">게시판 </span></a>
                         <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
+                            <li class="sidebar-item"><a href="/study/board" class="sidebar-link"><span
                                         class="hide-menu"> 전체
                                     </span></a>
                             </li>
@@ -246,6 +246,10 @@
                             </li>
                             <li class="sidebar-item"><a href="#" class="sidebar-link"><span
                                         class="hide-menu"> 질문
+                                    </span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
+                                        class="hide-menu"> 모임
                                     </span></a>
                             </li>
                         </ul>

@@ -105,7 +105,7 @@ public class StudyController {
 	// 스터디 상세 페이지 get
 	@RequestMapping(value="/study", method=RequestMethod.GET)
 	public String mainView() {
-		return "";
+		return "study/study";
 	}
 	
 	// TODO 스터디 상세 페이지 get by Url
