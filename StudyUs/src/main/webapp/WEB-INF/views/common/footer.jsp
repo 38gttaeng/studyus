@@ -102,8 +102,6 @@
 	<script src="/resources/css/main/js/bootstrap-datepicker.js"></script>
 	<script src="/resources/css/main/js/jquery.timepicker.min.js"></script>
 	<script src="/resources/css/main/js/scrollax.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script src="/resources/css/main/js/google-map.js"></script>
 	<script src="/resources/css/main/js/main.js"></script>
 </body>
 </html>

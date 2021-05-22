@@ -2,15 +2,21 @@ package com.studyus.notice.domain;
 
 import java.sql.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 public class Notice {
 	private int noticeNo;
 	private int studyNo;
 	private int memberNo;
 	private int nMotherNo;
+	private String replyWriter;
 	private Date nInsertDate;
 	private String noticeTitle;
 	private String noticeContents;
 	private String noticeFileName;
+	private String noticeReFileName;
 	private int noticeStatus;
 	private int noticeCount;
 	
@@ -76,13 +82,31 @@ public class Notice {
 	public void setNoticeCount(int noticeCount) {
 		this.noticeCount = noticeCount;
 	}
+	
+	public String getNoticeReFileName() {
+		return noticeReFileName;
+	}
+
+	public void setNoticeReFileName(String noticeReFileName) {
+		this.noticeReFileName = noticeReFileName;
+	}
+	
+	public String getReplyWriter() {
+		return replyWriter;
+	}
+
+	public void setReplyWriter(String replyWriter) {
+		this.replyWriter = replyWriter;
+	}
+
 	@Override
 	public String toString() {
 		return "Notice [noticeNo=" + noticeNo + ", studyNo=" + studyNo + ", memberNo=" + memberNo + ", nMotherNo="
-				+ nMotherNo + ", nInsertDate=" + nInsertDate + ", noticeTitle=" + noticeTitle + ", noticeContents="
-				+ noticeContents + ", noticeFileName=" + noticeFileName + ", noticeStatus=" + noticeStatus
-				+ ", noticeCount=" + noticeCount + "]";
+				+ nMotherNo + ", replyWriter=" + replyWriter + ", nInsertDate=" + nInsertDate + ", noticeTitle="
+				+ noticeTitle + ", noticeContents=" + noticeContents + ", noticeFileName=" + noticeFileName
+				+ ", noticeReFileName=" + noticeReFileName + ", noticeStatus=" + noticeStatus + ", noticeCount="
+				+ noticeCount + "]";
 	}
-	
+
 	
 }

@@ -2,15 +2,20 @@ package com.studyus.notice.service.logic;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.studyus.notice.domain.Notice;
 import com.studyus.notice.domain.PageInfo;
 import com.studyus.notice.domain.Search;
 import com.studyus.notice.service.NoticeService;
+import com.studyus.notice.store.NoticeStore;
 
 @Service
-public class NoticeServiceImpl implements NoticeService {
+public class NoticeServiceImpl implements NoticeService{
+	
+	@Autowired
+	public NoticeStore nStore;
 
 	@Override
 	public int getListCount() {
@@ -19,7 +24,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public ArrayList<Notice> printAll(int studyNo, PageInfo pi) {
+	public ArrayList<Notice> printAll(PageInfo pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -37,7 +42,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public Notice printOne(int noticeNo, int nMotherNo) {
+	public Notice printOne(int noticeNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -61,7 +66,19 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public int registerComment(Notice notice, int studyNo) {
+	public int registerComment(Notice notice) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Notice> printAllComment(int noticeNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int removeComment(Notice notice) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

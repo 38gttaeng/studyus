@@ -16,5 +16,7 @@ public interface NoticeStore {
 	public int updateNotice(Notice notice);
 	public int deleteNotice(int noticeNo);
 	
-	public int insertComment(Notice notice, int studyNo);
+	public ArrayList<Notice> printAllComment(int noticeNo);
+	public int insertComment(Notice notice);
+	public int deleteComment(Notice notice);
 }
