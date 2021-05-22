@@ -4,6 +4,7 @@
 .reply-box {
 	border-bottom: 1px solid #edf2f9 !important;
 	padding : 15px 10px 5px 10px;
+	position : relative;
 }
 
 .reply-box img {
@@ -45,10 +46,6 @@
 	float: right !important;
 }
 
-.reply-box .btn-group button {
-	border-radius: 2em;
-}
-
 	/* 댓글이 로그인한 사람 댓글일 경우 추가할 클래스 */
 	.my-reply {
 		background-color : #fafafa;
@@ -60,7 +57,7 @@
 	position : relative;
 }
 
-#rSubmit {
+.reply-enter-btn {
 	display : block;
 	position : absolute;
 	top : 0;
@@ -133,17 +130,15 @@
 	margin-right : 5px;
 	padding : 2px 6px;
 	border-radius : 5px;
+	color : #fff;
 }
 
 	.tag-free {
 		background-color: #818992;
-		color : #fff;
 	}
 	.tag-share {
-		background-color: #fecf89;
-		color : #000;
+		background-color: #22ca80;
 	}
 	.tag-qna {
 		background-color: #ff8499;
-		color : #fff;
 	}

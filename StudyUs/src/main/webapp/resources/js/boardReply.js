@@ -1,20 +1,23 @@
 $(function() {
+	
+	// 댓글 리스트
 	getReplyList();
 	
+	// 등록하기
 	$("#rSubmit").on("click", function() {
 		var rMotherNo = $("#rMotherNo").val();
 		var rContent = $("#rContent").val();
+		var rMbNo = $("#loginMbNo").val();
 		
 		$.ajax({
 			url : "/study/board/addReply",
 			type : "post",
-			data : {"boMotherNo": rMotherNo , "boContents" : rContent},
+			data : {"boMotherNo": rMotherNo , "boContents" : rContent, "mbNo" : rMbNo},
 			success : function(result) {
 				if(result == "success") {
 					/* 댓글 불러오기 */
 					getReplyList();
 					$("#rContent").val("");
-					alert("댓글 등록 성공 : rContent");
 				} else if(result == "fail") {
 					alert("댓글 등록 실패..");
 				}
@@ -26,10 +29,11 @@ $(function() {
 	});
 });
 
+// 댓글 리스트
 function getReplyList() {
 	var rMotherNo = $("#rMotherNo").val();
 	var rMbNo = $("#rMbNo").val();
-	//var loginMbNo = $("#loginMbNo").val();
+	var loginMbNo = $("#loginMbNo").val();
 	
 	$.ajax({
 		url : "/study/board/replyList",
@@ -44,11 +48,18 @@ function getReplyList() {
 			var $rWriter; // 사진번호랑 닉네임으로
 			var $rContent;
 			var $btnArea;
+			var $btnTool = "";
 			
 			$("#rCount").text(data.length);
 			if(data.length > 0) {
 				for(var i in data) {
-					$div = $("<div class='reply-box'>");
+				
+					// 댓글 작성자인 경우 배경색 추가
+					if(loginMbNo != data[i].mbNo) {
+						$div = $("<div class='reply-box'>");
+					} else {
+						$div = $("<div class='reply-box my-reply'>");
+					}
 					
 					$rWriter = $("<div>")
 					.append("<img src='/resources/images/1.png' class='rounded-circle'>&nbsp")
@@ -63,11 +74,13 @@ function getReplyList() {
 					$btnArea = $("<div>")
 					.append("<button class='btn btn-sm btn-light'>답글</button>");
 					
-					// 본인이 댓글 작성자인 경우 + 링크도 걸어야 함
-					//if(loginMbNo == data[i].mbNo) {
-					//	$btnArea.append("<div class='btn-group'><button class='btn btn-sm btn-outline-light'>수정</button>");
-					//	$btnArea.append("<button class='btn btn-sm btn-outline-light'>삭제</button></div>");
-					//}
+					// 수정+삭제 버튼
+					if(loginMbNo == data[i].mbNo) {
+						$btnTool =$("<div class='btn-group'>");
+						$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].boNo + ",\"" + data[i].boContents + "\");'>수정</button>")
+						.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].boNo + ");'>삭제</button>");
+						$btnArea.append($btnTool);
+					}
 					
 					$div.append($rWriter);
 					$div.append($rContent);
@@ -83,21 +96,32 @@ function getReplyList() {
 	});
 }
 
-function modifyReply(obj, boardNo, replyNo, replyContent) {
-	$trModify = $("<tr>");
-	$trModify.append("<td colspan='3'><input id='mReply' type='text' size='50' value='" + replyContent + "'></td>");
-	$trModify.append("<td align='center'><button onclick='modifyReplyCommit(" + boardNo + "," + replyNo + ");'>수정완료</button></td>");
+// 수정하기 화면
+function modifyReply(obj, boNo, replyContent) {
+	$divModify = $(obj).parent().parent().prev();
+	$divModify.html("");
 	
-	$(obj).parent().parent().after($trModify);
+	$btnArea = $divModify.next();
+	$btnArea.html("");
+	$btnArea.addClass("btn-group");
+	
+	$text = $("<textarea id='mReply' class='form-control' rows='3' placeholder='댓글을 입력하세요.'>" + replyContent + "</textarea>");
+	$btnArea
+	.append("<button class='btn btn-sm btn-secondary' onclick='modifyReplyCommit(" + boNo + ");'>수정</button>")
+	.append("<button class='btn btn-sm btn-secondary' onclick='getReplyList();'>취소</button>");
+	
+	$divModify.append($text);
+	$divModify.parent().css("height", "190px");
 }
 
-function modifyReplyCommit(boardNo, replyNo) {
+// 수정하기
+function modifyReplyCommit(boNo) {
 	var mReply = $("#mReply").val();
 	
 	$.ajax({
-		url : "modifyReply.kh",
+		url : "/study/board/modifyReply",
 		type : "post",
-		data : { "refBoardNo" : boardNo, "replyNo" : replyNo, "replyContent" : mReply },
+		data : { "boNo" : boNo, "boContents" : mReply },
 		success : function(data) {
 			if(data == "success") {
 				getReplyList();
@@ -111,14 +135,15 @@ function modifyReplyCommit(boardNo, replyNo) {
 	});
 }
 
-function removeReply(boardNo, replyNo) {
+// 삭제하기
+function removeReply(boNo) {
 	var result = confirm("댓글을 삭제하시겠습니까?");
 	
 	if(result) {
 		$.ajax({
-			url : "deleteReply.kh",
+			url : "/study/board/deleteReply",
 			type : "get",
-			data : { "refBoardNo" : boardNo, "replyNo" : replyNo },
+			data : { "boNo" : boNo },
 			success : function(data) { 
 				if(data == "success") {
 					getReplyList();
@@ -127,7 +152,7 @@ function removeReply(boardNo, replyNo) {
 				}
 			},
 			error : function() {
-				console.log("전송 실패..");
+				alert("전송 실패..");
 			}
 		});
 	}

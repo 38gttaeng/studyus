@@ -182,10 +182,10 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <img src="/resources/css/study/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
+                                <img src="/resources/images/${ loginUser.mbPhoto }.png" class="rounded-circle"
                                     width="30">
                                 <span class="ml-2 d-none d-lg-inline-block"><span
-                                        class="text-dark">{ 닉네임 }</span> <i data-feather="chevron-down"
+                                        class="text-dark">${ loginUser.mbNickname }</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -232,24 +232,20 @@
                             aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
                                 class="hide-menu">게시판 </span></a>
                         <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                            <li class="sidebar-item"><a href="/study/board" class="sidebar-link"><span
+                            <li class="sidebar-item"><a href="/study/board?boCategory=0" class="sidebar-link"><span
                                         class="hide-menu"> 전체
                                     </span></a>
                             </li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
+                            <li class="sidebar-item"><a href="/study/board?boCategory=1" class="sidebar-link"><span
                                         class="hide-menu"> 자유
                                     </span></a>
                             </li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
-                                        class="hide-menu"> 자료공유
+                            <li class="sidebar-item"><a href="/study/board?boCategory=2" class="sidebar-link"><span
+                                        class="hide-menu"> 공유
                                     </span></a>
                             </li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
+                            <li class="sidebar-item"><a href="/study/board?boCategory=3" class="sidebar-link"><span
                                         class="hide-menu"> 질문
-                                    </span></a>
-                            </li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
-                                        class="hide-menu"> 모임
                                     </span></a>
                             </li>
                         </ul>

@@ -2,6 +2,7 @@ package com.studyus.board.store.logic;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,14 +20,14 @@ public class BoardStoreLogic implements BoardStore{
 
 	@Override
 	public int getListCount(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("boardMapper.selectListCount", board);
 	}
 
 	@Override
 	public ArrayList<Board> selectAll(PageInfo pi, Board board) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (pi.getCurrentPage() - 1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllList", board, rowBounds);
 	}
 
 	@Override
@@ -94,13 +95,11 @@ public class BoardStoreLogic implements BoardStore{
 
 	@Override
 	public int updateBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("boardMapper.updateBoard", board);
 	}
 
 	@Override
 	public int deleteBoard(int boNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("boardMapper.deleteBoard", boNo);
 	}
 }

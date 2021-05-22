@@ -19,14 +19,12 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int getListCount(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return boStore.getListCount(board);
 	}
 
 	@Override
 	public ArrayList<Board> printAll(PageInfo pi, Board board) {
-		// TODO Auto-generated method stub
-		return null;
+		return boStore.selectAll(pi, board);
 	}
 
 	@Override
@@ -94,13 +92,11 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int modifyBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return boStore.updateBoard(board);
 	}
 
 	@Override
 	public int removeBoard(int boNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return boStore.deleteBoard(boNo);
 	}
 }

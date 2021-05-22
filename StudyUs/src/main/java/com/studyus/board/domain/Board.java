@@ -96,18 +96,10 @@ public class Board {
 		this.boStatus = boStatus;
 	}
 
-	public Board(int boNo, int stNo, int mbNo, int boMotherNo, Date boInsertDate, String boTitle, String boContents,
-			String boFileName, int boCategory, int boStatus) {
-		super();
-		this.boNo = boNo;
-		this.stNo = stNo;
-		this.mbNo = mbNo;
-		this.boMotherNo = boMotherNo;
-		this.boInsertDate = boInsertDate;
-		this.boTitle = boTitle;
-		this.boContents = boContents;
-		this.boFileName = boFileName;
-		this.boCategory = boCategory;
-		this.boStatus = boStatus;
+	@Override
+	public String toString() {
+		return "Board [boNo=" + boNo + ", stNo=" + stNo + ", mbNo=" + mbNo + ", boMotherNo=" + boMotherNo
+				+ ", boInsertDate=" + boInsertDate + ", boTitle=" + boTitle + ", boContents=" + boContents
+				+ ", boFileName=" + boFileName + ", boCategory=" + boCategory + ", boStatus=" + boStatus + "]";
 	}
 }

@@ -40,20 +40,21 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-                                    <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board">Board</a></li>
-                                    <li class="breadcrumb-item text-muted active" aria-current="page">Detail</li>
+                                    <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board?boCategory=${ category }">Board</a></li>
+                                    <li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">${ board.boNo }</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                     <div class="col-lg-8 align-self-center">
                     	<div class="float-right">
-	                    	<!-- 작성자만 -->
+	                    	<c:if test="${ loginUser.mbNo == board.mbNo }">
                     		<div class="btn-group">
 		                    	<button onclick="location.href='#'" class="btn btn-secondary">수정</button>
 		                    	<button onclick="location.href='#'" class="btn btn-secondary">삭제</button>
                     		</div>
-	                    	<button onclick="location.href='/study/board'" class="btn btn-primary">목록</button>
+                    		</c:if>
+	                    	<button onclick="location.href='/study/board?boCategory=${ category }'" class="btn btn-primary">목록</button>
                     	</div>
                     </div>
 	            </div>
@@ -70,57 +71,54 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body ">
-                            	<h4 class="card-title"><span class="tags tag-free">자유</span> ${ board.boTitle }</h4>
+                            	<h4 class="card-title">
+                            		<!-- 태그 -->
+                           			<c:if test="${ board.boCategory == 1 }">
+                           				<span class="tags tag-free">자유</span>
+                           			</c:if>
+                           			<c:if test="${ board.boCategory == 2 }">
+                           				<span class="tags tag-share">공유</span>
+                           			</c:if>
+                           			<c:if test="${ board.boCategory == 3 }">
+                           				<span class="tags tag-qna">질문</span>
+                           			</c:if>
+                            		<!-- 제목 -->
+                            		${ board.boTitle }
+                            	</h4>
                             	<div class="row">
 	                            	<h6 class="card-subtitle col-6"><img src="/resources/images/1.png" class="rounded-circle">&nbsp;&nbsp;{ 닉네임 }</h6>
 	                                <h6 class="card-subtitle col-6" style="text-align:right">${ board.boInsertDate }</h6>
                             	</div>
                             </div>
-                            <div class="card-body file-box">
-                            	${ board.boFileName }
-                            </div>
+                            <c:if test="${ !empty board.boFileName }">
+	                            <div class="card-body file-box">
+	                            	${ board.boFileName }
+	                            </div>
+                            </c:if>
                             <div class="card-body">
-                            	<c:if test="${ !empty board.boContents }">
-	                            	<p>${ board.boContents }</p>
-                            	</c:if>
+	                            <p>${ board.boContents }</p>
                             </div>
+                            
+                            <!-- 댓글 -->
                             <div class="card-body">
                             	<!-- board.js 파일과 연동하기 위해서 -->
                             	<input id="rMotherNo" type="hidden" value="${ board.boNo }">
                             	<input id="rMbNo" type="hidden" value="${ board.mbNo }">
-                            	<%-- <input id="loginMbNo" type="hidden" value="${ 로그인 멤버넘버 }"> --%>
+                            	<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
                             
                                 <h6 class="card-subtitle" style="float:right;">댓글 <span id="rCount"></span></h6>
                                 <hr>
                                 
+                                <!-- 댓글 리스트 -->
                                 <div id="rList"></div>
-<!--                                 댓글 예시(게시글 작성자이면서 로그인한 사람)
-                                <div class="reply-box my-reply">
-									<div>
-										<img src="/resources/css/study/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle">&nbsp;
-										<span>{ 닉네임 }</span>&nbsp;
-										게시글 작성자일 경우
-										<div>작성자</div>
-										<span>{ 2020-05-21 }</span>
-									</div>
-									<div>{ 내용 }</div>
-									<div>
-										<button class="btn btn-sm btn-light">답글</button>
-										
-										댓글 작성자만
-										<div class="btn-group">
-											<button class="btn btn-sm btn-outline-light">수정</button>
-											<button class="btn btn-sm btn-outline-light">삭제</button>
-										</div>
-									</div>
-								</div> -->
 								
+								<!-- 댓글 등록 -->
 								<div class="reply-enter">
 									<textarea id="rContent" class="form-control" rows="3" placeholder="댓글을 입력하세요."></textarea>
-									<button id="rSubmit">등록</button>
+									<button id="rSubmit" class="reply-enter-btn">등록</button>
 								</div>
-                            	
                             </div>
+                            
                         </div>
                     </div>
                 </div>

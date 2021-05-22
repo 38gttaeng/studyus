@@ -25,9 +25,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.studyus.board.domain.Board;
+import com.studyus.board.domain.PageInfo;
 import com.studyus.board.domain.Search;
 import com.studyus.board.service.BoardService;
+import com.studyus.common.Pagination5;
 import com.studyus.common.RedirectWithMsg;
+import com.studyus.member.domain.Member;
 
 @Controller
 public class BoardController {
@@ -39,14 +42,43 @@ public class BoardController {
 	
 	// 리스트
 	@RequestMapping(value="/study/board", method=RequestMethod.GET)
-	public String boardListView() {
-		// ModelAndView로 변경
-		// 파라미터 : HttpSession session, ModelAndView mv, @RequestParam("boCategory") int boCategory, @RequestParam(value="page", required=false) Integer page
+	public ModelAndView boardListView(HttpSession session, ModelAndView mv, @RequestParam(value="boCategory", required=false) Integer boCategory, @RequestParam(value="page", required=false) Integer page) {
 		
-		// 카테고리에 해당하는거 전부 가져와서
-		// 원글번호가 null인 것 게시물로 담고
-		// 그 게시물에 해당하는 댓글 하나만 담아서 -> HashMap 형태로 전송
-		return "study/boardList";
+		////////////////////////////////// 세션에서 스터디번호 가져와서 넣어주기
+		// int stNo = (Study)session.getAttribute("Study").getStNo();
+		
+		// 메뉴바에서 해당 카테고리를 선택한 경우
+		if(boCategory != null) {
+			// 세션에 선택한 카테고리 등록 (이전에 등록된 정보는 삭제)
+			if(session.getAttribute("category") != null) {
+				session.removeAttribute("category");
+			}
+			session.setAttribute("category", boCategory);
+		}
+		
+		Board board = new Board();
+		board.setStNo(1);
+		board.setBoCategory((Integer) session.getAttribute("category"));
+		
+		int currentPage = (page != null) ? page : 1;
+		int listCount = boService.getListCount(board);
+		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Board> bList = boService.printAll(pi, board);
+		if(!bList.isEmpty()) {
+			mv.addObject("bList", bList);
+			mv.addObject("pi", pi);
+			
+			//////////////////////////////////////// 닉네임도 함께 hashMap으로 보내기!!!!!!
+			/////////////////////////////////////// 파일명도 함께 hashMap으로 보내기!!!!!!
+			mv.setViewName("study/boardList");
+		} else {
+			/////////////////////////////////////
+			System.out.println("게시글 데이터 업뜸!");
+		}
+		return mv;
+		
+		///////////////////////// 댓글은 ajax로 처리?
 	}
 	
 	// 검색
@@ -91,7 +123,7 @@ public class BoardController {
 	public String boardRegister(HttpServletRequest request, Model model, @ModelAttribute Board board, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile) {
 		//////////////////////////////////////////////
 //		HttpSession session = request.getSession();
-//		(Member)session.getAttribute("member").get어쩌구..해서 세션에서 스터디 번호랑 아이디 글쓴 사람 번호 가져오기
+//		세션에서 스터디 번호 가져오기
 		
 		// 서버에 파일을 저장하는 작업
 		if(!uploadFile.getOriginalFilename().equals("")) {
@@ -112,7 +144,7 @@ public class BoardController {
 		
 		result = boService.registerBoard(board);
 		if(result > 0) {
-			return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/board");
+			return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/board?boCategory=0");
 		} else {
 			return new RedirectWithMsg().redirect(request, "게시글 등록 실패!!!!", "/study/board");
 		}
@@ -176,8 +208,7 @@ public class BoardController {
 	@RequestMapping(value="/study/board/addReply", method=RequestMethod.POST)
 	public String replyRegister(HttpSession session, @ModelAttribute Board board) {
 		/////////////////////////////
-		// 세션에서 멤버정보 + 스터디정보 가져와서 넣어주기
-		board.setMbNo(1);
+		// 세션에서 스터디정보 가져와서 넣어주기
 		board.setStNo(1);
 		
 		int result = boService.registerBoard(board);
@@ -189,17 +220,27 @@ public class BoardController {
 	}
 	
 	// 수정
-	public void replyModifyView(@RequestParam("boNo") int boNo) {
-
-	}
-	
+	@ResponseBody
+	@RequestMapping(value="/study/board/modifyReply", method=RequestMethod.POST)
 	public String replyUpdate(@ModelAttribute Board board) {
-		return null;
+		int result = boService.modifyBoard(board);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
 	// 삭제
+	@ResponseBody
+	@RequestMapping(value="/study/board/deleteReply", method=RequestMethod.GET)
 	public String replyDelete(@RequestParam("boNo") int boNo) {
-		return null;
+		int result = boService.removeBoard(boNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
 }
