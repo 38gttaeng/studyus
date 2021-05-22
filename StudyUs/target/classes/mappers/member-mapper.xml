@@ -12,7 +12,7 @@
 		<result property="mbReputation" column="MB_REPUTATION"/>
 		<result property="mbPhoto" column="MB_PHOTO"/>
 		<result property="mbStatus" column="MB_STATUS"/>
-	</resultMap>
+	</resultMap> 
 	
 	<select id="selectOneMember" parameterType="Member" resultMap="memberResultMap">
 		SELECT * FROM MEMBER WHERE MB_ID = #{mbId} AND MB_PASSWORD = #{mbPassword} 

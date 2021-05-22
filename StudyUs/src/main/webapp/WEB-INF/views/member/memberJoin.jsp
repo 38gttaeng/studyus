@@ -154,7 +154,6 @@
 					console.log("전송 실패");
 				}
 			});
-			
 		});
 	</script>
 </body>
