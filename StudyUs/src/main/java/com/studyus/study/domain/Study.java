@@ -22,14 +22,13 @@ public class Study {
 	private String url;
 	
 	// 활동 요일 및 시간
-	private int monday;
-	private int tuesday;
-	private int wednesday;
-	private int thursday;
-	private int friday;
-	private int saturday;
-	private int sunday;
+	private int monday = 0;
+	private int tuesday = 0;
+	private int wednesday = 0;
+	private int thursday = 0;
+	private int friday = 0;
+	private int saturday = 0;
+	private int sunday = 0;
 	private String start; // 모임 시작 시간
 	private String end; // 모임 종료 시간
-	
 }

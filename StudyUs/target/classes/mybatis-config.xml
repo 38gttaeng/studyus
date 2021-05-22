@@ -12,5 +12,6 @@
 	
 	<mappers>
 		<mapper resource="mappers/study-mapper.xml"/>
+		<mapper resource="mappers/hashtag-mapper.xml"/>
 	</mappers>
 </configuration>

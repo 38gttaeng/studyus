@@ -38,7 +38,7 @@
 	
 	<jsp:include page="../common/menubar.jsp"/>
 	
-    <div class="hero-wrap hero-wrap-2" style="background-image: url('/resources/css/main/images/image_1.jpg'); " data-stellar-background-ratio="0.5">
+    <div class="hero-wrap hero-wrap-2" style="background-image: url('/resources/images/study_banner.png'); " data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-start">
@@ -51,7 +51,7 @@
     </div>
 
 	<div class="container">
-		<form class="py-5 pt-5 mx-auto" id="registerForm" style="max-width: 600px;">
+		<form class="py-5 pt-5 mx-auto" id="registerForm" style="max-width: 600px;" action="/study/register" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="inputEmail4">스터디명 <span style="color: red;">*</span></label> 
 				<input type="text" class="form-control" id="inputName" name="studyName" required>
@@ -76,7 +76,7 @@
 			</div>
 			<div class="form-row" id="hashtagView">
 				<span>현재 태그: &nbsp;</span>
-				<span class="btn btn-primary btn-sm mr-2" style="margin: 4px;" onclick="onRemoveHashtagClicked(this);">수채화&nbsp;<i class="fas fa-times"></i></span>
+				<!-- <span class="btn btn-primary btn-sm mr-2" style="margin: 4px;" onclick="onRemoveHashtagClicked(this);">수채화&nbsp;<i class="fas fa-times"></i></span> -->
 			</div>
 			<div class="form-group m-3">
 				<label for="inputAddress">활동 일시</label> 
@@ -84,14 +84,14 @@
 				<small id="meetingDayHelp" class="form-text text-muted">주로 활동하는 시간을 설정하세요.</small>
 			</div>
 			<div class="form-row mb-3 mb-2" id="meetingDayDisplay">
-				<span class="btn btn-light btn-sm mr-1">월</span>
-				<span class="btn btn-light btn-sm mr-1">화</span>
-				<span class="btn btn-primary btn-sm mr-1">수</span>
-				<span class="btn btn-light btn-sm mr-1">목</span>
-				<span class="btn btn-light btn-sm mr-1">금</span>
-				<span class="btn btn-primary btn-sm mr-1">토</span>
-				<span class="btn btn-light btn-sm mr-1">일</span>
-				<span class="btn btn-secondary btn-sm mx-2">오전 00:00 ~ 오후 00:00</span>
+				<span class="meetingDayView btn btn-light btn-sm mr-1">월</span>
+				<span class="meetingDayView btn btn-light btn-sm mr-1">화</span>
+				<span class="meetingDayView btn btn-primary btn-sm mr-1">수</span>
+				<span class="meetingDayView btn btn-light btn-sm mr-1">목</span>
+				<span class="meetingDayView btn btn-light btn-sm mr-1">금</span>
+				<span class="meetingDayView btn btn-primary btn-sm mr-1">토</span>
+				<span class="meetingDayView btn btn-light btn-sm mr-1">일</span>
+				<span id="meetingTimeView" class="btn btn-secondary btn-sm mx-2">-- : --  ~  -- : --</span>
 			</div>
 			<div class="input-group mb-3">
 			  <div class="input-group-prepend">
@@ -103,7 +103,7 @@
 			  </div>
 			</div>
 			<div class="input-group mt-5">
-				<input type="button" onclick="submitRegister();" class="btn btn-primary" value="스터디 등록">
+				<button type="submit" class="btn btn-primary">스터디 등록</button>
 			</div>
 			<!-- <input type="hidden" id="hashtagList" name="hashtagList" value=""> -->
 			<!-- Modal -->
@@ -113,8 +113,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">활동 일시</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
@@ -122,47 +121,120 @@
 							<div class="row px-4 mx-auto">
 								<div class="input-group">
 									<div class="custom-control custom-checkbox custom-control-inline">
-										<input type="checkbox" id="monday" name="monday" class="custom-control-input" value="1"> 
+										<input type="checkbox" id="monday" name="monday" class="meetingDayInput custom-control-input" value="1"> 
 										<label class="custom-control-label" for="monday">월</label>
 									</div>
 									<div class="custom-control custom-checkbox custom-control-inline">
-										<input type="checkbox" id="tuesday" name="tuesday" class="custom-control-input" value="1"> 
+										<input type="checkbox" id="tuesday" name="tuesday" class="meetingDayInput custom-control-input" value="1"> 
 										<label class="custom-control-label" for="tuesday">화</label>
 									</div>
 									<div class="custom-control custom-checkbox custom-control-inline">
-										<input type="checkbox" id="wednesday" name="wednesday" class="custom-control-input" value="1"> 
+										<input type="checkbox" id="wednesday" name="wednesday" class="meetingDayInput custom-control-input" value="1"> 
 										<label class="custom-control-label" for="wednesday">수</label>
 									</div>
 									<div class="custom-control custom-checkbox custom-control-inline">
-										<input type="checkbox" id="thursday" name="thursday" class="custom-control-input" value="1"> 
+										<input type="checkbox" id="thursday" name="thursday" class="meetingDayInput custom-control-input" value="1"> 
 										<label class="custom-control-label" for="thursday">목</label>
 									</div>
 									<div class="custom-control custom-checkbox custom-control-inline">
-										<input type="checkbox" id="friday" name="friday" class="custom-control-input" value="1"> 
+										<input type="checkbox" id="friday" name="friday" class="meetingDayInput custom-control-input" value="1"> 
 										<label class="custom-control-label" for="friday">금</label>
 									</div>
 									<div class="custom-control custom-checkbox custom-control-inline">
-										<input type="checkbox" id="saturday" name="saturday" class="custom-control-input" value="1"> 
+										<input type="checkbox" id="saturday" name="saturday" class="meetingDayInput custom-control-input" value="1"> 
 										<label class="custom-control-label" for="saturday">토</label>
 									</div>
 									<div class="custom-control custom-checkbox custom-control-inline">
-										<input type="checkbox" id="sunday" name="sunday" class="custom-control-input" value="1"> 
+										<input type="checkbox" id="sunday" name="sunday" class="meetingDayInput custom-control-input" value="1"> 
 										<label class="custom-control-label" for="sunday">일</label>
 									</div>
 								</div>
 							</div>
 							<div class="row p-4 mx-auto">
 								<div class="input-group mx-auto">
-									<input type="time" class="form-control" id="start" name="start">
+									<select name="start-h" id="start-h" class="form-control form-control-sm">
+										<option value="">--</option>
+										<option value="00">0</option>
+										<option value="01">1</option>
+										<option value="02">2</option>
+										<option value="03">3</option>
+										<option value="04">4</option>
+										<option value="05">5</option>
+										<option value="06">6</option>
+										<option value="07">7</option>
+										<option value="08">8</option>
+										<option value="09">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+									</select>
+									<select name="start-m" id="start-m" class="form-control form-control-sm">
+										<option value="">--</option>
+										<option value="00">00</option>
+										<option value="10">10</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+										<option value="40">40</option>
+										<option value="50">50</option>
+									</select>
+									<span>&nbsp;&nbsp;~&nbsp;&nbsp;</span>
+									<select name="end-h" id="end-h" class="form-control form-control-sm">
+										<option value="">--</option>
+										<option value="00">0</option>
+										<option value="01">1</option>
+										<option value="02">2</option>
+										<option value="03">3</option>
+										<option value="04">4</option>
+										<option value="05">5</option>
+										<option value="06">6</option>
+										<option value="07">7</option>
+										<option value="08">8</option>
+										<option value="09">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+									</select>
+									<select name="end-m" id="end-m" class="form-control form-control-sm">
+										<option value="">--</option>
+										<option value="00">00</option>
+										<option value="10">10</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+										<option value="40">40</option>
+										<option value="50">50</option>
+									</select>
+								
+									<!-- <input type="time" class="form-control" id="start" name="start">
 									<span class="px-2">~</span>
-									<input type="time" class="form-control" id="end" name="end">
+									<input type="time" class="form-control" id="end" name="end"> -->
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">닫기</button>
-							<button type="button" class="btn btn-primary">완료</button>
+							<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button> -->
+							<button type="button" class="btn btn-primary" data-dismiss="modal">완료</button>
 						</div>
 					</div>
 				</div>

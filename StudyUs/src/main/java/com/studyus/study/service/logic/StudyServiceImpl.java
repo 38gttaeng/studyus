@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.studyus.hashtag.store.HashtagStore;
 import com.studyus.study.domain.Study;
@@ -20,16 +22,34 @@ public class StudyServiceImpl implements StudyService {
 	
 	@Autowired
 	HashtagStore hStore;
-
+	
+	
 	@Override
-	public int registerStudy(Study study) {
-		return sStore.insertStudy(study);
+	@Transactional
+	public int registerStudy(Study study, ArrayList<String> hashtagList) {
+		try {
+			// 스터디 추가 후 id값 저장
+			int insertedStudyNo = sStore.insertStudy(study);
+			
+			if (hashtagList != null) {
+				for (int i = 0; i < hashtagList.size(); i ++) {
+					hStore.insertOneHashtag(hashtagList.get(i));
+					hStore.insertOneRelation(insertedStudyNo, hashtagList.get(i));
+				}
+			}
+			
+			return 1; // 성공
+		} catch (Exception omg) {
+			omg.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			
+			return -1; // 실패
+		}
 	}
 	
 	@Override
-	public int checkUrl(String name) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int checkUrl(String url) {
+		return sStore.checkUrl(url);
 	}
 
 	@Override

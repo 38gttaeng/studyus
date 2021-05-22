@@ -18,18 +18,18 @@
 		<result property="thursday" column="ST_THU"></result>
 		<result property="friday" column="ST_FRI"></result>
 		<result property="saturday" column="ST_SAT"></result>
-		<result property="sunday" column="ST_SON"></result>
+		<result property="sunday" column="ST_SUN"></result>
 		<result property="start" column="ST_START"></result>
 		<result property="end" column="ST_END"></result>
 	</resultMap>
 	
-	<insert id="insertStudy">
-		INSERT INTO STUDY VALUE (#{studyNo}, 
+	<insert id="insertStudy" parameterType="Study">
+		INSERT INTO STUDY VALUES (SEQ_STUDY.NEXTVAL, 
 								#{leaderNo}, 
 								#{filename}, 
 								#{studyName},
 								#{introduce},
-								#{maxPersonnel},
+								DEFAULT,
 								DEFAULT,
 								DEFAULT,
 								#{url},
@@ -43,10 +43,13 @@
 								#{start},
 								#{end}
 							)
+		<selectKey resultType="int" keyProperty="studyNo" order="AFTER">
+			SELECT SEQ_STUDY.NEXTVAL FROM DUAL
+		</selectKey>
 	</insert>
 	
-	<select id="checkUrl">
-		SELECT COUNT(*) FROM MEMBER WHERE ST_URL = #{url}
+	<select id="checkUrl" resultType="int">
+		SELECT COUNT(*) FROM STUDY WHERE ST_URL = #{url}
 	</select>
 	
 	<!-- 

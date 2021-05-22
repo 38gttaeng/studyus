@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 public interface HashtagStore {
 
-	// insert
-	public int insertOne(String hashtag) throws Exception;
+	// insert Hashtag
+	public int insertOneHashtag(String hashtag);
+	
+	// insert Relation
+	public int insertOneRelation(int studyNo, String hashtag);
 	
 	// 여러개 insert
-	public int insertList(ArrayList<String> hashtagList) throws Exception;
+	public int insertList(int studyNo, ArrayList<String> hashtagList);
 	
 	// select list by study no
-	public ArrayList<String> selectAllByStudyNo(int studyNo) throws Exception;
+	public ArrayList<String> selectAllByStudyNo(int studyNo);
 	
 }

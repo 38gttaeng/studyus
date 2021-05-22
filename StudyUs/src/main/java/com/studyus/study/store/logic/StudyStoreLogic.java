@@ -17,7 +17,7 @@ public class StudyStoreLogic implements StudyStore {
 	SqlSession sqlSession;
 
 	@Override
-	public int insertStudy(Study study) {
+	public int insertStudy(Study study) throws Exception {
 		return sqlSession.insert("studyMapper.insertStudy", study);
 	}
 	

@@ -1,17 +1,15 @@
 package com.studyus.hashtag.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class Hashtag {
 	
+	private int number;
 	private String name;
 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	@Override
-	public String toString() {
-		return "Hashtag [name=" + name + "]";
-	}
 }

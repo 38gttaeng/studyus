@@ -2,6 +2,9 @@ var hashtags = [];
 var hashtagView = document.getElementById("hashtagView");
 var hashtagInput = document.getElementById("inputHashtag");
 
+// url 중복 여부를 저장, form submit시 확인
+var urlAvailable = false;
+
 // url 중복확인
 function urlCheck (e) {
     // 공백입력시 즉시 제거
@@ -11,10 +14,10 @@ function urlCheck (e) {
     var urlHelp = document.getElementById("urlHelp");
 
     // 중복확인 후 url의 사용 가능 여부를 저장, form submit시 확인
-    e.setAttribute("data-available", false);
+    // urlAvailable = false;
 
     // 길이제한 위반
-    if (inputUrl.length < 5 || 32 < inputUrl.length) {
+    if (inputUrl.length < 4 || 32 < inputUrl.length) {
         urlHelp.innerHTML = '4 ~ 32 자리의 영문 및 숫자만 가능합니다.';
         urlHelp.style.color = 'gray';
     } else {
@@ -27,10 +30,11 @@ function urlCheck (e) {
                 if (0 < result) {
                     urlHelp.style.color = 'crimson';
                     urlHelp.innerHTML = '이미 사용중인 url입니다.';
+                    urlAvailable = false;
                 } else {
                     urlHelp.style.color = 'limegreen';
                     urlHelp.innerHTML = '사용 가능한 url입니다.';
-                    e.setAttribute("data-available", true);
+                    urlAvailable = true;
                 }
             },
             error: function(result) {
@@ -75,9 +79,48 @@ function onRemoveHashtagClicked(e) {
     e.remove();
 }
 
-// 스터디 등록 submit
+// 활동일시 등록 및 출력
+$('#meetingDayModal').on('hidden.bs.modal', function () {
+    var meetingDayInputList = document.getElementsByClassName("meetingDayInput");
+    var meetingDayView = document.getElementsByClassName("meetingDayView");
+    var meetingTimeView = document.getElementById("meetingTimeView");
+    var startHour = document.getElementById("start-h");
+    var startMinute = document.getElementById("start-m");
+    var endHour = document.getElementById("end-h");
+    var endMinute = document.getElementById("end-m");
+
+    for (let i = 0; i < meetingDayInputList.length; i ++) {
+        if (meetingDayInputList[i].checked) {
+            meetingDayView[i].classList.add("btn-primary");
+            meetingDayView[i].classList.remove("btn-light");
+        } else {
+            meetingDayView[i].classList.remove("btn-primary");
+            meetingDayView[i].classList.add("btn-light");
+        }
+    }
+
+    meetingTimeView.innerHTML = startHour.value + " : " + startMinute.value + "  ~  " + endHour.value + " : " + endMinute.value;
+});
+
+// 스터디 등록 실행
+$('#registerForm').submit(function () {
+    if (urlAvailable == false) {
+        alert("중복된 URL입니다.");
+        return false;
+    }
+});
+
+//dep 스터디 등록 실행
 function submitRegister() {
     var studyForm = document.getElementById("registerForm");
+    var inputUrl = document.getElementById("inputUrl");
+    var inputName = document.getElementById("inputName");
+
+    // 유효성검사
+    if (inputUrl.getAttribute("data-available") == false) {
+        alert("중복된 URL입니다.");
+        return;
+    }
 
     // 해시태그를 input에 추가
     for (let i = 0; i < hashtags.length; i ++) {
