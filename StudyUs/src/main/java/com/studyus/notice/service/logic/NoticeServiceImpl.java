@@ -19,68 +19,63 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public int getListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return nStore.selectListCount();
 	}
 
 	@Override
-	public ArrayList<Notice> printAll(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Notice> printAll(PageInfo pi, int studyNo) {
+		return nStore.selectList(pi, studyNo);
 	}
 
 	@Override
 	public int addReadCount(int noticeNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return nStore.addReadCount(noticeNo);
 	}
 
 	@Override
 	public ArrayList<Notice> printSearchAll(Search search, int studyNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return nStore.selectSearchList(search, studyNo);
 	}
 
 	@Override
 	public Notice printOne(int noticeNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return nStore.selectOne(noticeNo);
 	}
 
 	@Override
 	public int registerNotice(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		return nStore.insertNotice(notice);
 	}
 
 	@Override
 	public int modifyNotice(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		return nStore.updateNotice(notice);
 	}
 
 	@Override
 	public int removeNotice(int noticeNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int registerComment(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		return nStore.deleteNotice(noticeNo);
 	}
 
 	@Override
 	public ArrayList<Notice> printAllComment(int noticeNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return nStore.printAllComment(noticeNo);
+	}
+
+	@Override
+	public int registerComment(Notice notice) {
+		return nStore.insertComment(notice);
+	}
+
+	@Override
+	public int modifyComment(Notice notice) {
+		return nStore.updateComment(notice);
 	}
 
 	@Override
 	public int removeComment(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		return nStore.deleteComment(notice);
 	}
+
 
 }

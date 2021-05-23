@@ -36,11 +36,12 @@ public class NoticeController {
 	// 전체 목록 조회 
 	@RequestMapping(value="/notice/noticeList", method=RequestMethod.GET)
 	public ModelAndView noticeList(ModelAndView mv, 
-										@RequestParam(value="page", required=false) Integer page) {
+										@RequestParam(value="page", required=false) Integer page,
+										@ModelAttribute("studyNo") int studyNo) {
 		int currentPage = (page != null) ? page : 1;
 		int listCount = nService.getListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		ArrayList<Notice> nList = nService.printAll(pi);
+		ArrayList<Notice> nList = nService.printAll(pi, studyNo);
 		if(!nList.isEmpty()) {
 			mv.addObject("nList", nList);
 			mv.addObject("pi", pi);

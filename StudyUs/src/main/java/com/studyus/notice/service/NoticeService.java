@@ -10,7 +10,7 @@ public interface NoticeService {
 	// 전체 조회수 
 	public int getListCount();
 	// 공지사항 전체 출력  
-	public ArrayList<Notice> printAll(PageInfo pi);
+	public ArrayList<Notice> printAll(PageInfo pi, int studyNo);
 	// 조회수 증가 
 	public int addReadCount(int noticeNo);
 	// 검색 
@@ -26,6 +26,7 @@ public interface NoticeService {
 	// 댓글
 	public ArrayList<Notice> printAllComment(int noticeNo);
 	public int registerComment(Notice notice);
+	public int modifyComment(Notice notice);
 	public int removeComment(Notice notice);
 	
 }

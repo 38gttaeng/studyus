@@ -20,8 +20,8 @@
 	    <jsp:include page="../common/studyMenubar.jsp"/>
 	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->
 	    <script>
-	    	$("#sidebarnav>li:first-child").addClass("selected");
-	    	$("#sidebarnav>li:first-child a").addClass("active");
+		    $("#sidebarnav>li:nth-child(5)").addClass("selected");
+			$("#sidebarnav>li:nth-child(5) a").addClass("active");
 	    </script>
 </body>
 </html>
