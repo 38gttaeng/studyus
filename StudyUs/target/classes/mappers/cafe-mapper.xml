@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<!-- <mapper namespace="cafeMapper">
+ <mapper namespace="cafeMapper">
 	<resultMap type="Cafe" id="cafeResultMap">
-		<id property="cafeNo" column="NOTICE_NO" />
-		<result property="noticeTitle" column="NOTICE_TITLE" />
-		<result property="noticeContents" column="NOTICE_CONTENTS" />
-		<result property="noticeWriter" column="NOTICE_WRITER" />
-		<result property="nCreateDate" column="N_CREATE_DATE" />
-		<result property="nUpdateDate" column="N_UPDATE_DATE" />
-		<result property="noticeFilepath" column="NOTICE_FILEPATH" />
+		<id property="caNo" column="CAFE_NO" />
+		<result property="caName" column="CA_NAME" />
+		<result property="caInfo" column="CA_INFO" />
+		<result property="caAddr" column="CA_ADDR" />
+		<result property="caFilename" column="CA_FILENAME" />
+		<result property="caReFilename" column="CA_REFILENAME" />
+		<result property="caStatus" column="CA_STATUS" />
 	</resultMap>
 
 		<select id="selectAllList" resultMap="cafeResultMap"> 
 		SELECT * FROM CAFE </select>
+		
+		<select id="selectOne" resultMap="cafeResultMap">
+			SELECT * FROM CAFE
+			WHERE CA_NO = #{caNo} AND CA_STATUS = 1
+		</select>
 	
-</mapper>
- -->
+<!-- 		<select id="selectAllReview" resultMap="cafeResultMap"> -->
+<!-- 			SELECT * FROM CAFE -->
+<!-- 			WHERE CA_NO = #{caNo} -->
+<!-- 			AND CA_STATUS = 1 -->
+<!-- 			OREDER BY -->
+<!-- 		</select>	 -->
+		
+</mapper> 

@@ -17,26 +17,22 @@ public class ReviewStoreLogic implements ReviewStore{
 	
 	@Override
 	public ArrayList<Review> selectList() {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("cafeMapper.selectList", null);
 	}
 
 	@Override
 	public int insertReview(Review review) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("cafeMapper.insertReview", review);
 	}
 
 	@Override
 	public int updateReview(Review review) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("cafeMapper.updateReview", review);
 	}
 
 	@Override
 	public int deleteRevice(int rvNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("cafeMapper.deleteReview", rvNo);
 	}
 
 	@Override
