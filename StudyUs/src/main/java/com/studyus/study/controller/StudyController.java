@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studyus.common.RedirectWithMsg;
 import com.studyus.enrollment.service.EnrollmentService;
-import com.studyus.hashtag.service.HashtagService;
+import com.studyus.member.domain.Member;
 import com.studyus.study.domain.Study;
 import com.studyus.study.service.StudyService;
 
@@ -50,17 +49,16 @@ public class StudyController {
 	@RequestMapping(value="/study/register", method=RequestMethod.POST, produces="application/text;charset=utf-8")
 	public String registerStudy(HttpServletRequest request, 
 								@ModelAttribute Study study, 
-								@RequestParam(value="hashtagList", required=false) ArrayList<String> hashtagList,
+								@RequestParam(value="hashtag", required=false) String[] hashtagList,
 								@RequestParam(value="start-h") String startHour,
 								@RequestParam(value="start-m") String startMinute,
 								@RequestParam(value="end-h") String endHour,
 								@RequestParam(value="end-m") String endMinute) throws Exception {
 		
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		
 		//TODO 파일 저장기능 구현 후 setFilename()
-		
-		// TODO 로그인 구현시 memberNo
-		study.setLeaderNo(1); 
-		
+		study.setLeaderNo(loginUser.getMbNo()); 
 		study.setStart(startHour + ":" + startMinute);
 		study.setEnd(endHour + ":" + endMinute);
 		

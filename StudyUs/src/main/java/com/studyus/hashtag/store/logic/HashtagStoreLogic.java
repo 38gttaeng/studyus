@@ -25,7 +25,7 @@ public class HashtagStoreLogic implements HashtagStore {
 			result = session.insert("hashtagMapper.insertOneHashtag", hashtag);
 		}
 		
-		return session.insert("hashtagMapper.insertOneHashtag", hashtag);
+		return result;
 	}
 	
 	@Override

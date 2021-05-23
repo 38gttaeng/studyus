@@ -1,8 +1,14 @@
+// 스터디 등록 form
+var studyForm = document.getElementById("registerForm");
+// 사용자가 입력한 해시태그를 저장하는 변수
 var hashtags = [];
+// 사용자가 입력해둔 해시태그 전체를 출력하는 태그
 var hashtagView = document.getElementById("hashtagView");
+// 해시태그를 입력하는 input태그
 var hashtagInput = document.getElementById("inputHashtag");
-
-// url 중복 여부를 저장, form submit시 확인
+// url 중복 여부를 사용자에게 안내하는 태그
+var urlHelp = document.getElementById("urlHelp");
+// url 중복 여부를 저장하는 변수, form submit시 확인
 var urlAvailable = false;
 
 // url 중복확인
@@ -11,7 +17,6 @@ function urlCheck (e) {
     e.value = e.value.replace(/\s/g,'');
 
     var inputUrl = e.value;
-    var urlHelp = document.getElementById("urlHelp");
 
     // 중복확인 후 url의 사용 가능 여부를 저장, form submit시 확인
     // urlAvailable = false;
@@ -47,13 +52,13 @@ function urlCheck (e) {
 // 해시태그 추가 버튼
 function onAddHashtagClicked() {
     // 입력된 해시태그에서 공백제거 후 저장
-    var currentHashtag = hashtagInput.value.replace(/\s/g,'');
-
+    var currentHashtag = document.getElementById("inputHashtag").value.replace(/\s/g,'');
+    
     // 해시태그 미입력시 return
     if (currentHashtag == '') {
         return;
     }
-
+    
     // 이미 입력되었을시 inputfield 초기화 후 return
     if (hashtags.includes(currentHashtag)) {
         hashtagInput.value = '';
@@ -81,6 +86,7 @@ function onRemoveHashtagClicked(e) {
 
 // 활동일시 등록 및 출력
 $('#meetingDayModal').on('hidden.bs.modal', function () {
+    // 활동일시를 사용자에게 출력하는 태그들 저장
     var meetingDayInputList = document.getElementsByClassName("meetingDayInput");
     var meetingDayView = document.getElementsByClassName("meetingDayView");
     var meetingTimeView = document.getElementById("meetingTimeView");
@@ -89,6 +95,7 @@ $('#meetingDayModal').on('hidden.bs.modal', function () {
     var endHour = document.getElementById("end-h");
     var endMinute = document.getElementById("end-m");
 
+    // 활동하는 요일 표시에는 btn-primary 클래스 추가, 비활동 요일에는 btn-light 클래스 추가
     for (let i = 0; i < meetingDayInputList.length; i ++) {
         if (meetingDayInputList[i].checked) {
             meetingDayView[i].classList.add("btn-primary");
@@ -108,26 +115,12 @@ $('#registerForm').submit(function () {
         alert("중복된 URL입니다.");
         return false;
     }
-});
-
-//dep 스터디 등록 실행
-function submitRegister() {
-    var studyForm = document.getElementById("registerForm");
-    var inputUrl = document.getElementById("inputUrl");
-    var inputName = document.getElementById("inputName");
-
-    // 유효성검사
-    if (inputUrl.getAttribute("data-available") == false) {
-        alert("중복된 URL입니다.");
-        return;
-    }
 
     // 해시태그를 input에 추가
-    for (let i = 0; i < hashtags.length; i ++) {
-        studyForm.innerHTML += '<input type="hidden" id="hashtagList" name="hashtagList" value="' + hashtags[i] + '">';
+    for (var i = 0; i < hashtags.length; i ++) {
+        studyForm.innerHTML += '<input type="hidden" name="hashtag[]" value="' + hashtags[i] + '">';
+        console.log(hashtags[i]);
     }
 
-    studyForm.setAttribute("action", "/study/register");
-    studyForm.setAttribute("method", "POST");
-    studyForm.submit();
-}
+    console.log("register study url: " + document.getElementById("inputUrl").value);
+});

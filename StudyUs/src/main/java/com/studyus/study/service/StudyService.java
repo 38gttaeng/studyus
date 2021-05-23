@@ -11,7 +11,7 @@ public interface StudyService {
 	// TODO throws Exception 추가
 	
 	// 스터디 생성 post
-	public int registerStudy(Study study, ArrayList<String> hashtagList);
+	public int registerStudy(Study study, String[] hashtagList);
 	
 	// url 중복확인
 	public int checkUrl(String name);

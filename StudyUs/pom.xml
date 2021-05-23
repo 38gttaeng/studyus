@@ -46,11 +46,16 @@
 		    <version>1.18.20</version>
 		    <scope>provided</scope>
 		</dependency>
+		
+		<!-- GSON -->
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.5</version>
+		</dependency>
 	
-		<!-- [오류 원인] 한글때문에 xml 파싱시 오류날 경우 (URI$MalformedURIException 오류) [오류 내역] 
-			com.sun.org.apache.xerces.internal.util.URI$MalformedURIException: Path contains 
-			invalid character: 자 [소스 시작] -->
-
+		<!-- 폴더명에 한글 있는 경우 -->
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>

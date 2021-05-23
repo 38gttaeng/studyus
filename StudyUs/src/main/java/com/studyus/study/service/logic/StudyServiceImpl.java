@@ -26,15 +26,15 @@ public class StudyServiceImpl implements StudyService {
 	
 	@Override
 	@Transactional
-	public int registerStudy(Study study, ArrayList<String> hashtagList) {
+	public int registerStudy(Study study, String[] hashtagList) {
 		try {
 			// 스터디 추가 후 id값 저장
 			int insertedStudyNo = sStore.insertStudy(study);
 			
 			if (hashtagList != null) {
-				for (int i = 0; i < hashtagList.size(); i ++) {
-					hStore.insertOneHashtag(hashtagList.get(i));
-					hStore.insertOneRelation(insertedStudyNo, hashtagList.get(i));
+				for (int i = 0; i < hashtagList.length; i ++) {
+					hStore.insertOneHashtag(hashtagList[i]);
+					hStore.insertOneRelation(insertedStudyNo, hashtagList[i]);
 				}
 			}
 			

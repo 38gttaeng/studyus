@@ -86,10 +86,10 @@
 			<div class="form-row mb-3 mb-2" id="meetingDayDisplay">
 				<span class="meetingDayView btn btn-light btn-sm mr-1">월</span>
 				<span class="meetingDayView btn btn-light btn-sm mr-1">화</span>
-				<span class="meetingDayView btn btn-primary btn-sm mr-1">수</span>
+				<span class="meetingDayView btn btn-light btn-sm mr-1">수</span>
 				<span class="meetingDayView btn btn-light btn-sm mr-1">목</span>
 				<span class="meetingDayView btn btn-light btn-sm mr-1">금</span>
-				<span class="meetingDayView btn btn-primary btn-sm mr-1">토</span>
+				<span class="meetingDayView btn btn-light btn-sm mr-1">토</span>
 				<span class="meetingDayView btn btn-light btn-sm mr-1">일</span>
 				<span id="meetingTimeView" class="btn btn-secondary btn-sm mx-2">-- : --  ~  -- : --</span>
 			</div>
