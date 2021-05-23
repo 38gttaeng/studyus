@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,12 +41,9 @@ public class BoardController {
 	
 	/////////////////// 게시물 보기 ///////////////////
 	
-	// 리스트
+	//test
 	@RequestMapping(value="/study/board", method=RequestMethod.GET)
-	public ModelAndView boardListView(HttpSession session, ModelAndView mv, @RequestParam(value="boCategory", required=false) Integer boCategory, @RequestParam(value="page", required=false) Integer page) {
-		
-		////////////////////////////////// 세션에서 스터디번호 가져와서 넣어주기
-		// int stNo = (Study)session.getAttribute("Study").getStNo();
+	public String boardListView(HttpSession session, @RequestParam(value="boCategory", required=false) Integer boCategory){
 		
 		// 메뉴바에서 해당 카테고리를 선택한 경우
 		if(boCategory != null) {
@@ -56,30 +54,72 @@ public class BoardController {
 			session.setAttribute("category", boCategory);
 		}
 		
+		return "study/boardList";
+	}
+	
+	@RequestMapping(value="/study/boardScroll", method=RequestMethod.GET)
+	public void boardListScroll(HttpSession session, HttpServletResponse response, @RequestParam("page") int page) throws Exception {
+		
+		//////////////////////////////////세션에서 스터디번호 가져와서 넣어주기
 		Board board = new Board();
-		board.setStNo(1);
+		board.setStNo(1);///////////////////////
 		board.setBoCategory((Integer) session.getAttribute("category"));
 		
-		int currentPage = (page != null) ? page : 1;
 		int listCount = boService.getListCount(board);
-		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination5.getPageInfo(page, listCount);
 		
 		ArrayList<Board> bList = boService.printAll(pi, board);
-		if(!bList.isEmpty()) {
-			mv.addObject("bList", bList);
-			mv.addObject("pi", pi);
-			
-			//////////////////////////////////////// 닉네임도 함께 hashMap으로 보내기!!!!!!
-			/////////////////////////////////////// 파일명도 함께 hashMap으로 보내기!!!!!!
-			mv.setViewName("study/boardList");
-		} else {
-			/////////////////////////////////////
-			System.out.println("게시글 데이터 업뜸!");
-		}
-		return mv;
+		//////////////////////////////////////// 닉네임도 함께 hashMap으로 보내기!!!!!!
+		/////////////////////////////////////// 파일명도 함께 hashMap으로 보내기!!!!!!
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("boardList", bList);
+		map.put("maxPage", pi.getMaxPage());
 		
-		///////////////////////// 댓글은 ajax로 처리?
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(map, response.getWriter());
 	}
+	
+	
+	// 리스트
+//	@RequestMapping(value="/study/board", method=RequestMethod.GET)
+//	public ModelAndView boardListView(HttpSession session, ModelAndView mv, @RequestParam(value="boCategory", required=false) Integer boCategory, @RequestParam(value="page", required=false) Integer page) {
+//		
+//		////////////////////////////////// 세션에서 스터디번호 가져와서 넣어주기
+//		// int stNo = (Study)session.getAttribute("Study").getStNo();
+//		
+//		// 메뉴바에서 해당 카테고리를 선택한 경우
+//		if(boCategory != null) {
+//			// 세션에 선택한 카테고리 등록 (이전에 등록된 정보는 삭제)
+//			if(session.getAttribute("category") != null) {
+//				session.removeAttribute("category");
+//			}
+//			session.setAttribute("category", boCategory);
+//		}
+//		
+//		Board board = new Board();
+//		board.setStNo(1);///////////////////////
+//		board.setBoCategory((Integer) session.getAttribute("category"));
+//		
+//		int currentPage = (page != null) ? page : 1;
+//		int listCount = boService.getListCount(board);
+//		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
+//		
+//		ArrayList<Board> bList = boService.printAll(pi, board);
+//		if(!bList.isEmpty()) {
+//			mv.addObject("bList", bList);
+//			mv.addObject("pi", pi);
+//			
+//			//////////////////////////////////////// 닉네임도 함께 hashMap으로 보내기!!!!!!
+//			/////////////////////////////////////// 파일명도 함께 hashMap으로 보내기!!!!!!
+//			mv.setViewName("study/boardList");
+//		} else {
+//			/////////////////////////////////////
+//			System.out.println("게시글 데이터 업뜸!");
+//		}
+//		return mv;
+//		
+//		///////////////////////// 댓글은 ajax로 처리?
+//	}
 	
 	// 검색
 	public ModelAndView boardSearch(HttpSession session, ModelAndView mv, @ModelAttribute Search search, @RequestParam("boCategory") int boCategory) {

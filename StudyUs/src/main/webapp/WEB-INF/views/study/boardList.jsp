@@ -84,9 +84,9 @@
                 <!-- ============================================================== -->
                 <!-- basic table -->
                 <div class="row">
-                    <div class="col-12">
+                    <div id="container" class="col-12">
                     
-	                    <c:forEach items="${ bList }" var="board">
+	                    <%-- <c:forEach items="${ bList }" var="board">
 							<!-- 게시물 하나 --------------------------------------------------->
 							<c:url var="detail" value="/study/board/detail">
 								<c:param name="boNo" value="${ board.boNo }"/>
@@ -117,7 +117,7 @@
 		                            	${ board.boFileName }
 		                            </div>
 	                            </c:if>
-	                            <div class="card-body">
+	                            <div class="card-body" id="list-content">
 	                            	<p>${ board.boContents }</p>
 	                            </div>
 	                            
@@ -138,10 +138,10 @@
 	                            </div>
 	                        </div>
                         	<!-- 게시물 하나 끝 --------------------------------------->
-						</c:forEach>
+						</c:forEach> --%>
                         
                         <!-- 페이징 --------------------------------------->
-                        <!-- 이전 -->
+                        <%-- <!-- 이전 -->
 						<c:url var="before" value="/study/board">
 							<c:param name="page" value="${ pi.currentPage - 1 }"/>
 						</c:url>
@@ -168,12 +168,14 @@
 						<!-- 마지막페이지이거나 마이페이지보다 크면 안보이게 -->
 						<c:if test="${ pi.currentPage < pi.maxPage }">
 							<a href="${ after }">[다음]</a>&nbsp;
-						</c:if>
+						</c:if> --%>
 						<!-- 페이징 끝 --------------------------------------->
 						
                 	</div>
                 </div>  
                 
+                <!-- top으로 가는 버튼 -->
+                <button id="top-btn" onclick="location.href='#'"><i class="fas fa-angle-up"></i></button>
                 <!-- 글쓰기 버튼 --> 
 				<button id="write-btn" onclick="location.href='/study/board/registerView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
 			</div>
@@ -181,5 +183,95 @@
 			<jsp:include page="../common/studyFooter.jsp"/>
         </div>
     </div>
+    
+    <script>
+   		var page = 1;
+    	var isEnd = false;
+    
+    	$(function() {
+            getList();
+            
+            $(window).on("scroll", function() {
+            	var scrollHeight = $(document).height();
+            	var scrollPosition = $(window).height() + $(window).scrollTop();		
+
+            	$("#scrollHeight").text(scrollHeight);
+            	$("#scrollPosition").text(scrollPosition);
+            	$("#bottom").text(scrollHeight - scrollPosition);
+
+            	if (scrollPosition > scrollHeight - 500) {			
+            		page++;
+                	getList();
+            	}
+            });
+    	})
+    	
+    	function getList() {
+    		if(isEnd == true){
+                return;
+            }
+    		
+    		$.ajax({
+				url : "/study/boardScroll",
+				type : "get",
+				dataType : "json",
+				data : {"page": page},
+				success : function(data) {
+					bList = data.boardList;
+					max = data.maxPage
+					if(page == max) {
+						isEnd = true;
+					}
+					
+					var html = "";
+					for(var i in bList) {
+						// card
+						var cardOpen = "<div class='card' onclick=\"location.href='/study/board/detail?boNo=" + bList[i].boNo + "'\" style='cursor:pointer;'>";
+						
+						// body
+						var bodyOpen = "<div class='card-body'>";
+							var category = "";
+							switch(bList[i].boCategory) {
+							case 1: category = "<span class='tags tag-free'>자유</span>";
+								break;
+							case 2: category = "<span class='tags tag-share'>공유</span>";
+								break;
+							case 3: category = "<span class='tags tag-qna'>질문</span>";
+								break;
+							}
+						var title = 
+							"<h4 class='card-title'>" +
+							category +
+							bList[i].boTitle +
+							"</h4>";
+							/* 사진이랑 닉네임 넣어줘야 함 */
+						var subtitle = 
+							"<div class='row'>" +
+							"<h6 class='card-subtitle col-6'>" +
+							"<img src='/resources/images/1.png' class='rounded-circle'>&nbsp;&nbsp;{ 닉네임 }</h6>" +
+							"<h6 class='card-subtitle col-6' style='text-align:right'>" + bList[i].boInsertDate +"</h6>" +
+							"</div>";
+						var bodyEnd = "</div>";
+						
+						var file = "";
+						if(bList[i].boFileName != null) {
+							file = "<div class='card-body file-box'>" + bList[i].boFileName + "</div>";
+						}
+						
+						var content = "<div class='card-body' id='list-content'><p>" + bList[i].boContents + "</p></div>"
+						
+						var cardEnd = "</div>";
+						
+						html = cardOpen + bodyOpen + title + subtitle + bodyEnd + file + content + cardEnd;
+						$("#container").append(html);
+					}
+				},
+				error : function() {
+					alert("전송 실패!");
+				}
+			});
+    	}
+    
+    </script>
 </body>
 </html>

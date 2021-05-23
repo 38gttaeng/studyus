@@ -92,6 +92,7 @@ function getReplyList() {
 		},
 		error : function() {
 			// 댓글 없을 경우 여기로 이동
+			$("#rCount").text("0");
 		}
 	});
 }

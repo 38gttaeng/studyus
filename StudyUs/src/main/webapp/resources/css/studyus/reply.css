@@ -85,12 +85,39 @@
 /* 파일명 표시 */
 .file-box {
 	background-color:#f5f7f8;
-	margin:0 24px;
+	margin:0 24px 25px 24px;
+}
+
+/* 내용 영역 보이기 제한(전체보기에서만) */
+#list-content {
+	padding-top : 0;
+	max-height : 300px;
+}
+
+#list-content p {
+	display : -webkit-box;
+	overflow : hidden;
+	text-overflow : ellipsis;
+	-webkit-line-clamp : 6; 
+	-webkit-box-orient : vertical;
 }
 
 /* 전체 리스트에서는 댓글 영역 border 없애기 */
 .list-reply {
 	border : none !important;
+}
+
+/* top 버튼 */
+#top-btn {
+	background-color : rgba(232, 234, 236, 0.5);
+	color : #fff;
+	position : fixed;
+	bottom : 21%;
+	right : 3%;
+	border : none;
+	border-radius: 100%;
+	width: 42px;
+	height: 42px;
 }
 
 /* 글쓰기 버튼 */
