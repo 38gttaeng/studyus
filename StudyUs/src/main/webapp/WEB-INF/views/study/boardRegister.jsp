@@ -63,9 +63,8 @@
 												<td>
 													<select name="boCategory">
 														<option selected value="1">자유</option>
-														<option value="2">자료공유</option>
+														<option value="2">공유</option>
 														<option value="3">질문</option>
-														<option value="4">모임</option>
 													</select>
 												</td>
 											</tr>
@@ -75,7 +74,10 @@
 											</tr>
 											<tr>
 												<td>작성자</td>
-												<td><input type="text" size="50" name="mbNo" value="1" readonly></td>
+												<td>
+													<input type="text" size="50" value="${ loginUser.mbNickname }" readonly>
+													<input type="hidden" name="mbNo" value="${ loginUser.mbNo }">
+												</td> 
 											</tr>
 											<tr>
 												<td>내용</td>

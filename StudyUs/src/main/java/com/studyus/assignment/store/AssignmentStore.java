@@ -3,8 +3,8 @@ package com.studyus.assignment.store;
 import java.util.ArrayList;
 
 import com.studyus.assignment.domain.Assignment;
-import com.studyus.assignment.domain.PageInfo;
 import com.studyus.assignment.domain.SubmittedAssignment;
+import com.studyus.common.PageInfo; 
 
 public interface AssignmentStore {
 	

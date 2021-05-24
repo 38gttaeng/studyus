@@ -12,28 +12,65 @@
 		<result property="boFileName" column="BO_FILENAME"></result>
 		<result property="boCategory" column="BO_CATEGORY"></result>
 		<result property="boStatus" column="BO_STATUS"></result>
-	</resultMap>
+		<collection property="member" resultMap="memberMapper.memberResultMap" />
+	</resultMap> 
 	
-	<!-- !게시물 리스트 -->
-	<select id="selectListCount" resultType="_int">
-		SELECT COUNT(*) FROM BOARD WHERE B_STATUS = 'Y'
+	<!-- 게시물 리스트 : 카테고리별 게시물 개수 / 게시글 번호에 해당하는 댓글 개수 -->
+	<select id="selectListCount" parameterType="Board" resultType="_int">
+		SELECT COUNT(*) FROM BOARD
+		<if test="boMotherNo == 0">
+		WHERE BO_MOTHER_NO IS NULL
+		AND ST_NO = #{stNo}
+			<if test="boCategory > 0">
+			AND BO_CATEGORY = #{boCategory}
+			</if>
+		AND BO_STATUS = 1
+		</if>
+		<if test="boMotherNo != 0">
+		WHERE BO_MOTHER_NO = #{boMotherNo}
+		AND BO_STATUS = 1
+		</if>
 	</select>
 	
-	<select id="selectAllList" resultMap="boardResultMap">
-		SELECT * FROM BOARD WHERE B_STATUS = 'Y' ORDER BY BOARD_NO DESC
+	<select id="selectAllList" parameterType="Board" resultMap="boardResultMap">
+		SELECT B.BO_NO, B.ST_NO, MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM BOARD B
+		JOIN MEMBER M
+		USING(MB_NO)
+		WHERE B.BO_MOTHER_NO IS NULL
+		AND B.ST_NO = #{stNo}
+		<if test="boCategory > 0">
+		AND B.BO_CATEGORY = #{boCategory}
+		</if>
+		AND B.BO_STATUS = 1
+		ORDER BY B.BO_NO DESC
 	</select>
 	
-	<!-- 디테일 -->
+	<select id="selectOneReply" resultMap="boardResultMap">
+		SELECT BO_NO, ST_NO, MB_NO, BO_MOTHER_NO, BO_INSERTDATE, BO_TITLE, BO_CONTENTS, BO_FILENAME, BO_CATEGORY, BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM (SELECT * FROM BOARD WHERE BO_MOTHER_NO = #{boMotherNo} AND BO_STATUS = 1 ORDER BY BO_NO DESC)
+        JOIN MEMBER M
+        USING(MB_NO)
+		WHERE ROWNUM = 1
+	</select>
+	
+	<!-- 디테일  -->
 	<select id="selectOne" resultMap="boardResultMap">
-		SELECT * FROM BOARD
-		WHERE BO_NO = #{boNo} AND BO_STATUS = 1
+		SELECT B.BO_NO, B.ST_NO, MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM BOARD B
+		JOIN MEMBER M
+		USING(MB_NO)
+		WHERE B.BO_NO = #{boNo} AND B.BO_STATUS = 1
 	</select>
 	
 	<select id="selectAllReply" resultMap="boardResultMap">
-		SELECT * FROM BOARD
-		WHERE BO_MOTHER_NO = #{boMotherNo}
-		AND BO_STATUS = 1
-		ORDER BY BO_NO
+		SELECT B.BO_NO, B.ST_NO, MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM BOARD B
+		JOIN MEMBER M
+		USING(MB_NO)
+		WHERE B.BO_MOTHER_NO = #{boMotherNo}
+		AND B.BO_STATUS = 1
+		ORDER BY B.BO_NO DESC
 	</select>
 	
 	<!-- 등록 -->
@@ -50,14 +87,14 @@
 	
 	<!-- !수정 -->
 	<update id="updateBoard" parameterType="Board">
-		UPDATE BOARD
-		SET BOARD_TITLE = #{boardTitle}, BOARD_CONTENT = #{boardContent}, ORIGINAL_FILENAME = #{originalFilename}, RENAME_FILENAME = #{renameFilename}, B_UPDATE_DATE = SYSDATE
-		WHERE BOARD_NO = #{boardNo}
+		UPDATE BOARD SET
+		BO_TITLE = #{boTitle}, BO_CONTENTS = #{boContents}, BO_FILENAME = #{boFileName}, BO_CATEGORY = #{boCategory}
+		WHERE BO_NO = #{boNo}
 	</update>
 	
 	<!-- !삭제 -->
 	<update id="deleteBoard" parameterType="_int">
-		UPDATE BOARD SET B_STATUS = 'N' WHERE BOARD_NO = #{boardNo}
+		UPDATE BOARD SET BO_STATUS = 0 WHERE BO_NO = #{boNo}
 	</update>
 	
 </mapper>

@@ -30,8 +30,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.studyus.board.domain.PageInfo" project="StudyUs" 
-    file="/StudyUs/src/main/java/com/studyus/board/domain/PageInfo.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="com.studyus.common.PageInfo" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/common/PageInfo.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="393" y="324"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -107,8 +107,12 @@
   </class>  
   <association id="14">    
     <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="15" name="bService"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="15" name="bService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="16" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
@@ -119,16 +123,24 @@
   </realization>  
   <association id="18">    
     <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="19" name="boStore"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
+      <attribute id="19" name="boStore">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="20" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="21">    
     <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="22" name="boService"/>      
-      <multiplicity id="23" minimum="0" maximum="1"/>    
+      <attribute id="22" name="boService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="23" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

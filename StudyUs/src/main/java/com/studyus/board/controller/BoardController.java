@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,10 @@ import com.google.gson.JsonIOException;
 import com.studyus.board.domain.Board;
 import com.studyus.board.domain.Search;
 import com.studyus.board.service.BoardService;
+import com.studyus.common.PageInfo;
+import com.studyus.common.Pagination5;
 import com.studyus.common.RedirectWithMsg;
+import com.studyus.member.domain.Member;
 
 @Controller
 public class BoardController {
@@ -35,18 +39,43 @@ public class BoardController {
 	@Autowired
 	private BoardService boService;
 	
-	/////////////////// 게시물 보기 ///////////////////
+	/******************* 게시물 보기 *******************/
 	
 	// 리스트
 	@RequestMapping(value="/study/board", method=RequestMethod.GET)
-	public String boardListView() {
-		// ModelAndView로 변경
-		// 파라미터 : HttpSession session, ModelAndView mv, @RequestParam("boCategory") int boCategory, @RequestParam(value="page", required=false) Integer page
+	public String boardListView(HttpSession session, @RequestParam(value="boCategory", required=false) Integer boCategory){
 		
-		// 카테고리에 해당하는거 전부 가져와서
-		// 원글번호가 null인 것 게시물로 담고
-		// 그 게시물에 해당하는 댓글 하나만 담아서 -> HashMap 형태로 전송
+		// 메뉴바에서 해당 카테고리를 선택한 경우
+		if(boCategory != null) {
+			// 세션에 선택한 카테고리 등록 (이전에 등록된 정보는 삭제)
+			if(session.getAttribute("category") != null) {
+				session.removeAttribute("category");
+			}
+			session.setAttribute("category", boCategory);
+		}
+		
 		return "study/boardList";
+	}
+	
+	// 무한 스크롤
+	@RequestMapping(value="/study/boardScroll", method=RequestMethod.GET)
+	public void boardListScroll(HttpSession session, HttpServletResponse response, @RequestParam("page") int page) throws Exception {
+		
+		//////////////////////////////////세션에서 스터디번호 가져와서 넣어주기
+		Board board = new Board();
+		board.setStNo(1);///////////////////////
+		board.setBoCategory((Integer) session.getAttribute("category"));
+		
+		int listCount = boService.getListCount(board);
+		PageInfo pi = Pagination5.getPageInfo(page, listCount);
+		
+		ArrayList<Board> bList = boService.printAll(pi, board);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("boardList", bList);
+		map.put("maxPage", pi.getMaxPage());
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(map, response.getWriter());
 	}
 	
 	// 검색
@@ -70,16 +99,41 @@ public class BoardController {
 	
 	// 댓글 리스트
 	@RequestMapping(value="/study/board/replyList", method=RequestMethod.GET)
-	public void getReplyList(HttpServletResponse response, @RequestParam("boMotherNo") int boMotherNo) throws IOException {
-		ArrayList<Board> rList = boService.printAllReply(boMotherNo);
+	public void getReplyList(HttpServletResponse response, @RequestParam("boMotherNo") int boMotherNo, @RequestParam(value="page", required=false) Integer page) throws IOException {
 		
-		if(!rList.isEmpty()) {
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			gson.toJson(rList, response.getWriter());
-		}
+		Board board = new Board();
+		board.setBoMotherNo(boMotherNo);
+		int listCount = boService.getListCount(board);
+		
+		int currentPage = (page != null) ? page : 1;
+		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
+		ArrayList<Board> rList = boService.printAllReply(pi, boMotherNo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("page", pi);
+		map.put("rList", rList);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(map, response.getWriter());
 	}
 	
-	/////////////////// 게시물 등록, 수정, 삭제 ///////////////////
+	// 댓글 하나
+	@RequestMapping(value="/study/board/replyOne", method=RequestMethod.GET)
+	public void getReplyOne(HttpServletResponse response, @RequestParam("boMotherNo") int boMotherNo) throws IOException {
+		// 댓글 하나
+		Board bOne = boService.printOneReply(boMotherNo);
+		// 댓글 총 개수
+		Board board = new Board();
+		board.setBoMotherNo(boMotherNo);
+		int count = boService.getListCount(board);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bOne", bOne);
+		map.put("count", count);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(map, response.getWriter());
+	}
+	
+	/******************* 게시물 등록, 수정, 삭제 *******************/
 	
 	// 등록
 	@RequestMapping(value="/study/board/registerView", method=RequestMethod.GET)
@@ -91,7 +145,7 @@ public class BoardController {
 	public String boardRegister(HttpServletRequest request, Model model, @ModelAttribute Board board, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile) {
 		//////////////////////////////////////////////
 //		HttpSession session = request.getSession();
-//		(Member)session.getAttribute("member").get어쩌구..해서 세션에서 스터디 번호랑 아이디 글쓴 사람 번호 가져오기
+//		세션에서 스터디 번호 가져오기
 		
 		// 서버에 파일을 저장하는 작업
 		if(!uploadFile.getOriginalFilename().equals("")) {
@@ -112,7 +166,7 @@ public class BoardController {
 		
 		result = boService.registerBoard(board);
 		if(result > 0) {
-			return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/board");
+			return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/board?boCategory=0");
 		} else {
 			return new RedirectWithMsg().redirect(request, "게시글 등록 실패!!!!", "/study/board");
 		}
@@ -169,15 +223,14 @@ public class BoardController {
 
 	}
 	
-	/////////////////// 댓글 등록, 수정, 삭제 ///////////////////
+	/******************* 댓글 등록, 수정, 삭제 *******************/
 	
 	// 등록
 	@ResponseBody
 	@RequestMapping(value="/study/board/addReply", method=RequestMethod.POST)
 	public String replyRegister(HttpSession session, @ModelAttribute Board board) {
 		/////////////////////////////
-		// 세션에서 멤버정보 + 스터디정보 가져와서 넣어주기
-		board.setMbNo(1);
+		// 세션에서 스터디정보 가져와서 넣어주기
 		board.setStNo(1);
 		
 		int result = boService.registerBoard(board);
@@ -189,17 +242,27 @@ public class BoardController {
 	}
 	
 	// 수정
-	public void replyModifyView(@RequestParam("boNo") int boNo) {
-
-	}
-	
+	@ResponseBody
+	@RequestMapping(value="/study/board/modifyReply", method=RequestMethod.POST)
 	public String replyUpdate(@ModelAttribute Board board) {
-		return null;
+		int result = boService.modifyBoard(board);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
 	// 삭제
+	@ResponseBody
+	@RequestMapping(value="/study/board/deleteReply", method=RequestMethod.GET)
 	public String replyDelete(@RequestParam("boNo") int boNo) {
-		return null;
+		int result = boService.removeBoard(boNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
 }

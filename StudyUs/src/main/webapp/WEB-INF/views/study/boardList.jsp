@@ -38,7 +38,20 @@
                                     <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
                                     <li class="breadcrumb-item text-muted active" aria-current="page">Board</li>
                                     <!-- 카테고리명에 따라서 다르게 -->
-                                    <li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">{ 전체 }</li>
+                                    <li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">
+                                    	<c:if test="${ category == 0 }">
+	                            			전체
+                            			</c:if>
+                                    	<c:if test="${ category == 1 }">
+	                            			자유
+                            			</c:if>
+                            			<c:if test="${ category == 2 }">
+                            				공유
+                            			</c:if>
+                            			<c:if test="${ category == 3 }">
+                            				질문
+                            			</c:if>
+                                    </li>
                                 </ol>
                             </nav>
                         </div>
@@ -71,51 +84,22 @@
                 <!-- ============================================================== -->
                 <!-- basic table -->
                 <div class="row">
-                    <div class="col-12">
-                    
-                    	<!-- 게시물 하나 --------------------------------------------------->
-                        <div class="card" onclick="location.href='/study/board/detail'">
-                            <div class="card-body">
-                            	<h4 class="card-title"><span class="tags tag-free">자유</span> 제목</h4>
-                            	<div class="row">
-	                            	<h6 class="card-subtitle col-6">{ 닉네임 }</h6>
-	                                <h6 class="card-subtitle col-6" style="text-align:right">{ 2021-05-20 }</h6>
-                            	</div>
-                            </div>
-                            <div class="card-body file-box">
-                            	{ 파일명 }
-                            </div>
-                            <div class="card-body">
-                            	<p>Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis
-                                 rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc
-                                 posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae
-                                 in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
-                                 
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-subtitle" style="float:right;">댓글 { 2 }</h6>
-                                <hr>
-                                
-                                <!-- 댓글 하나 -->
-                                <div class="reply-box list-reply">
-									<div>
-										<img src="/resources/css/study/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle">&nbsp;
-										<span>{ 닉네임 }</span>&nbsp;
-										<span>{ 2020-05-21 }</span>
-									</div>
-									<div>{ 내용 }</div>
-								</div>
-                            </div>
-                        </div>
-                        <!-- 게시물 하나 끝 --------------------------------------->
-                        
+                    <div id="container" class="col-12">
+                    	<!-- 여기에 데이터 들어감! -->
                 	</div>
-                </div>   
+                </div>  
+                
+                <!-- top으로 가는 버튼 -->
+                <button id="top-btn" onclick="location.href='#'"><i class="fas fa-angle-up"></i></button>
+                <!-- 글쓰기 버튼 --> 
 				<button id="write-btn" onclick="location.href='/study/board/registerView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
 			</div>
             <!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>
         </div>
     </div>
+    
+    <!-- 해당 페이지 JS 파일 --> 
+    <script src="/resources/js/boardList.js"></script>
 </body>
 </html>

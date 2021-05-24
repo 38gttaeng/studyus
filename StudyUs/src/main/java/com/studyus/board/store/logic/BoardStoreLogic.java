@@ -2,14 +2,15 @@ package com.studyus.board.store.logic;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studyus.board.domain.Board;
-import com.studyus.board.domain.PageInfo;
 import com.studyus.board.domain.Search;
 import com.studyus.board.store.BoardStore;
+import com.studyus.common.PageInfo;
 
 @Repository
 public class BoardStoreLogic implements BoardStore{
@@ -19,14 +20,19 @@ public class BoardStoreLogic implements BoardStore{
 
 	@Override
 	public int getListCount(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("boardMapper.selectListCount", board);
 	}
 
 	@Override
 	public ArrayList<Board> selectAll(PageInfo pi, Board board) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (pi.getCurrentPage() - 1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllList", board, rowBounds);
+	}
+	
+	@Override
+	public Board selectOneReply(int boMotherNo) {
+		return sqlSession.selectOne("boardMapper.selectOneReply", boMotherNo);
 	}
 
 	@Override
@@ -41,8 +47,10 @@ public class BoardStoreLogic implements BoardStore{
 	}
 
 	@Override
-	public ArrayList<Board> selectAllReply(int boMotherNo) {
-		return (ArrayList)sqlSession.selectList("boardMapper.selectAllReply", boMotherNo);
+	public ArrayList<Board> selectAllReply(PageInfo pi, int boMotherNo) {
+		int offset = (pi.getCurrentPage() - 1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllReply", boMotherNo, rowBounds);
 	}
 
 	@Override
@@ -92,15 +100,14 @@ public class BoardStoreLogic implements BoardStore{
 		return sqlSession.insert("boardMapper.insertBoard", board);
 	}
 
-	@Override
+	@Override 
 	public int updateBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("boardMapper.updateBoard", board);
 	}
 
 	@Override
 	public int deleteBoard(int boNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("boardMapper.deleteBoard", boNo);
 	}
+
 }

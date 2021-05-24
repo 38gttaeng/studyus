@@ -45,7 +45,7 @@
 		    <artifactId>lombok</artifactId>
 		    <version>1.18.20</version>
 		    <scope>provided</scope>
-		</dependency>
+		</dependency> 
 		
 		<!-- GSON -->
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
