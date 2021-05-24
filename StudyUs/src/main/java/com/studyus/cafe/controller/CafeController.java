@@ -59,7 +59,6 @@ public class CafeController {
 //			}
 //		}
 //
-		
 		// 디비에 데이터를 저장하는 작업
 		int result = 0;
 		String path = "";
