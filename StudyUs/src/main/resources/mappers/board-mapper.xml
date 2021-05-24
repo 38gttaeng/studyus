@@ -10,6 +10,7 @@
 		<result property="boTitle" column="BO_TITLE"></result>
 		<result property="boContents" column="BO_CONTENTS"></result>
 		<result property="boFileName" column="BO_FILENAME"></result>
+		<result property="fiRealName" column="FI_REALNAME"></result>
 		<result property="boCategory" column="BO_CATEGORY"></result>
 		<result property="boStatus" column="BO_STATUS"></result>
 		<collection property="member" resultMap="memberMapper.memberResultMap" />
@@ -33,11 +34,19 @@
 	</select>
 	
 	<select id="selectAllList" parameterType="Board" resultMap="boardResultMap">
-		SELECT B.BO_NO, B.ST_NO, MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		SELECT
+		    B.BO_NO, B.ST_NO, B.MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE,
+		    B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, F.FI_REALNAME,
+		    B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
 		FROM BOARD B
+		
 		JOIN MEMBER M
-		USING(MB_NO)
-		WHERE B.BO_MOTHER_NO IS NULL
+		ON B.MB_NO = M.MB_NO
+		
+		LEFT OUTER JOIN FILE_TABLE F
+		ON B.BO_FILENAME = F.FI_STOREDNAME
+		
+		WHERE BO_MOTHER_NO IS NULL
 		AND B.ST_NO = #{stNo}
 		<if test="boCategory > 0">
 		AND B.BO_CATEGORY = #{boCategory}
@@ -47,20 +56,29 @@
 	</select>
 	
 	<select id="selectOneReply" resultMap="boardResultMap">
-		SELECT BO_NO, ST_NO, MB_NO, BO_MOTHER_NO, BO_INSERTDATE, BO_TITLE, BO_CONTENTS, BO_FILENAME, BO_CATEGORY, BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		SELECT BO_NO, ST_NO, MB_NO, BO_MOTHER_NO, BO_INSERTDATE, BO_TITLE, BO_CONTENTS, BO_CATEGORY, BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
 		FROM (SELECT * FROM BOARD WHERE BO_MOTHER_NO = #{boMotherNo} AND BO_STATUS = 1 ORDER BY BO_NO DESC)
         JOIN MEMBER M
         USING(MB_NO)
 		WHERE ROWNUM = 1
 	</select>
 	
-	<!-- 디테일  -->
+	<!-- 디테일 -->
 	<select id="selectOne" resultMap="boardResultMap">
-		SELECT B.BO_NO, B.ST_NO, MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		SELECT
+		    B.BO_NO, B.ST_NO, B.MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE,
+		    B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, F.FI_REALNAME,
+		    B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
 		FROM BOARD B
+		
 		JOIN MEMBER M
-		USING(MB_NO)
-		WHERE B.BO_NO = #{boNo} AND B.BO_STATUS = 1
+		ON B.MB_NO = M.MB_NO
+		
+		LEFT OUTER JOIN FILE_TABLE F
+		ON B.BO_FILENAME = F.FI_STOREDNAME
+		
+		WHERE B.BO_NO = #{boNo}
+		AND B.BO_STATUS = 1
 	</select>
 	
 	<select id="selectAllReply" resultMap="boardResultMap">
@@ -88,11 +106,23 @@
 	<!-- !수정 -->
 	<update id="updateBoard" parameterType="Board">
 		UPDATE BOARD SET
-		BO_TITLE = #{boTitle}, BO_CONTENTS = #{boContents}, BO_FILENAME = #{boFileName}, BO_CATEGORY = #{boCategory}
+		
+		<if test="boTitle != null">
+		BO_CATEGORY = #{boCategory}, BO_TITLE = #{boTitle},
+		</if>
+		<if test="boFileName != null">
+		BO_FILENAME = #{boFileName},
+		</if>
+		BO_CONTENTS = #{boContents}
+		
 		WHERE BO_NO = #{boNo}
 	</update>
 	
-	<!-- !삭제 -->
+	<!-- 삭제 -->
+	<update id="deleteReply" parameterType="_int">
+		UPDATE BOARD SET BO_STATUS = 0 WHERE BO_MOTHER_NO = #{boNo}
+	</update>
+	
 	<update id="deleteBoard" parameterType="_int">
 		UPDATE BOARD SET BO_STATUS = 0 WHERE BO_NO = #{boNo}
 	</update>

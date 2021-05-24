@@ -2,7 +2,7 @@ package com.studyus.file.domain;
 
 import java.sql.Date;
 
-public class File {
+public class FileVO {
 
 	private int fiNo;
 	private int mbNo;
@@ -12,23 +12,20 @@ public class File {
 	private String fiDirectory;
 	private int fiStatus;
 	
-	public File() {}
-
-	public File(int fiNo, int mbNo, Date fiInsertDate, String fiRealName, String fiStoredName, String fiDirectory,
-			int fiStatus) {
-		super();
-		this.fiNo = fiNo;
+	public FileVO() {}
+	
+	// 등록용
+	public FileVO(int mbNo, String fiRealName, String fiStoredName, String fiDirectory) {
 		this.mbNo = mbNo;
-		this.fiInsertDate = fiInsertDate;
 		this.fiRealName = fiRealName;
 		this.fiStoredName = fiStoredName;
 		this.fiDirectory = fiDirectory;
-		this.fiStatus = fiStatus;
 	}
-
+	
 	public int getFiNo() {
 		return fiNo;
 	}
+
 
 	public void setFiNo(int fiNo) {
 		this.fiNo = fiNo;

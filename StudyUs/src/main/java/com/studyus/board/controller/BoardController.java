@@ -24,20 +24,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 import com.studyus.board.domain.Board;
 import com.studyus.board.domain.Search;
 import com.studyus.board.service.BoardService;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
 import com.studyus.common.RedirectWithMsg;
-import com.studyus.member.domain.Member;
+import com.studyus.file.domain.FileVO;
+import com.studyus.file.service.FileService;
 
 @Controller
 public class BoardController {
 	
 	@Autowired
 	private BoardService boService;
+	
+	@Autowired
+	private FileService fiService;
 	
 	/******************* 게시물 보기 *******************/
 	
@@ -146,34 +149,36 @@ public class BoardController {
 		//////////////////////////////////////////////
 		HttpSession session = request.getSession();
 //		세션에서 스터디 번호 가져오기
+		board.setStNo(1);
 		
 		// 서버에 파일을 저장하는 작업
+		int fiResult = 1;
 		if(!uploadFile.getOriginalFilename().equals("")) {
-			String renameFilename = saveFile(uploadFile, request);
-			if(renameFilename != null) {
-				// 파일 테이블에 파일정보 저장 //////////////////////////////////////////////
-				
+			FileVO fileVO = saveFile(uploadFile, request);
+			if(fileVO.getFiStoredName() != null) {
+				// 파일 테이블에 파일정보 저장
+				FileVO file = new FileVO(board.getMbNo(), uploadFile.getOriginalFilename(), fileVO.getFiStoredName(), fileVO.getFiDirectory());
+				fiResult = fiService.uploadFile(file);
 				// board에 파일이름 저장
-				board.setBoFileName(renameFilename);
+				board.setBoFileName(fileVO.getFiStoredName());
 			}
 		}
 		
-		// DB에 데이터를 저장하는 작업
-		int result = 0;
-		
-		/////////////////////////////////////// 세션에서 가져온 값을 추가로 저장해주기
-		board.setStNo(1);
-		
-		result = boService.registerBoard(board);
-		if(result > 0) {
-			return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/board?boCategory=" + (String)session.getAttribute("category"));
+		int boResult = 0;
+		if(fiResult > 0) {
+			boResult = boService.registerBoard(board);
+			
+			if(boResult > 0) {
+				return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/board?boCategory=" + (Integer)session.getAttribute("category"));
+			} else {
+				return new RedirectWithMsg().redirect(request, "게시글 등록 실패!!!!", "/study/board?boCategory=" + (Integer)session.getAttribute("category"));
+			}
 		} else {
-			return new RedirectWithMsg().redirect(request, "게시글 등록 실패!!!!", "/study/board");
+			return new RedirectWithMsg().redirect(request, "파일 등록 실패!!!!", "/study/board?boCategory=" + (Integer)session.getAttribute("category"));
 		}
-		
 	}
 
-	public String saveFile(MultipartFile file, HttpServletRequest request) {
+	public FileVO saveFile(MultipartFile file, HttpServletRequest request) {
 		// 파일 저장경로 설정
 		String savePath = request.getSession().getServletContext().getRealPath("resources") + "\\buploadFiles";
 		
@@ -201,26 +206,113 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		
-		// 파일이름 리턴
-		return renameFilename;
+		// 새로운 파일이름과 경로 리턴
+		FileVO fileVO = new FileVO();
+		fileVO.setFiStoredName(renameFilename);
+		fileVO.setFiDirectory(filePath);
+		return fileVO;
 	}
 	
 	// 수정
-	public String boardModifyView(@RequestParam("boNo") int boNo, Model model) {
-		return null;
+	@RequestMapping(value="/study/board/modifyView")
+	public ModelAndView boardModifyView(ModelAndView mv, @RequestParam("boNo") int boNo) {
+		Board board = boService.printOne(boNo);
+		if(board != null) {
+			mv.addObject("board", board).setViewName("study/boardModify");
+		} else {
+			System.out.println("게시글 수정 페이지로 이동 실패(게시물 디테일 조회 실패)");
+		}
+		
+		return mv;
 	}
 	
+	@RequestMapping(value="/study/board/modify", method=RequestMethod.POST)
 	public ModelAndView boardUpdate(HttpServletRequest request, ModelAndView mv, @ModelAttribute Board board, @RequestParam("reloadFile") MultipartFile reloadFile) {
-		return null;
+		int fiResult = 0;
+		
+		if(reloadFile != null && !reloadFile.isEmpty()) {
+			// 새 파일 업로드
+			FileVO fileVO = saveFile(reloadFile, request);
+			
+			if(!board.getBoFileName().equals("")) {
+				// 1. 파일 수정 
+				deleteFile(board.getBoFileName(), request); // 기존 파일 삭제
+				int fiNo = fiService.selectOne(board.getBoFileName()); // 기존 파일 저장 번호 알아오기
+				FileVO file = new FileVO(fiNo, reloadFile.getOriginalFilename(), fileVO.getFiStoredName(), fileVO.getFiDirectory());
+				fiResult = fiService.modifyFile(file);
+			} else {
+				// 2. 파일 추가
+				FileVO file = new FileVO(board.getMbNo(), reloadFile.getOriginalFilename(), fileVO.getFiStoredName(), fileVO.getFiDirectory());
+				fiResult = fiService.uploadFile(file);				
+			}
+			
+			board.setBoFileName(fileVO.getFiStoredName());
+		} else {
+			// 3. 파일 삭제
+			if(!board.getBoFileName().equals("")) {
+				deleteFile(board.getBoFileName(), request); // 기존 파일 삭제
+				fiResult = fiService.removeFile(board.getBoFileName()); // File DB에서 삭제
+				
+				board.setBoFileName("");
+			} else {
+				fiResult = 1;
+			}
+		}
+		
+		// 파일이 잘 수정되었다면 DB 수정
+		int result = 0;
+		if(fiResult > 0) {
+			result = boService.modifyBoard(board);
+			if(result > 0) {
+				mv.addObject("board", board).setViewName("redirect:/study/board/detail?boNo=" + board.getBoNo());
+			} else {
+				mv.addObject("msg", "게시물 수정 오류!").setViewName("common/errorPage");
+			}
+		} else {
+			mv.addObject("msg", "파일 수정 오류!").setViewName("common/errorPage");
+		}
+		
+		return mv;
 	}
 	
 	// 삭제
-	public ModelAndView boardDelete(HttpServletRequest request, ModelAndView mv, @RequestParam("boNo") int noticeNo) {
-		return null;
+	@RequestMapping(value="/study/board/delete", method=RequestMethod.GET)
+	public String boardDelete(HttpServletRequest request, @ModelAttribute Board board) {
+		
+		HttpSession session = request.getSession();
+		
+		// 파일 삭제
+		int fiResult = 0;
+		if(!board.getBoFileName().equals("")) {
+			deleteFile(board.getBoFileName(), request);
+			fiResult = fiService.removeFile(board.getBoFileName());
+		} else {
+			fiResult = 1;
+		}
+		
+		int boResult = 0;
+		if(fiResult > 0) {
+			// 댓글과 게시물 삭제
+			boResult = boService.removeBoard(board.getBoNo());
+			if(boResult > 0) {
+				// 댓글은 있을수도 없을수도 있기 때문에 0 이상
+				return new RedirectWithMsg().redirect(request, "게시글이 삭제되었습니다!", "/study/board?boCategory=" + (Integer)session.getAttribute("category"));
+			} else {
+				return new RedirectWithMsg().redirect(request, "게시글 삭제 실패!", "/study/board?boCategory=" + (Integer)session.getAttribute("category"));
+			}
+		} else {
+			return new RedirectWithMsg().redirect(request, "파일 삭제 실패!", "/study/board?boCategory=" + (Integer)session.getAttribute("category"));
+		}
 	}
 	
 	public void deleteFile(String fileName, HttpServletRequest request) {
-
+		// 실제 파일 경로를 만들어서 실제 파일 삭제
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\buploadFiles";
+		File file = new File(savePath + "\\" + fileName);
+		if(file.exists()) {
+			file.delete();
+		}
 	}
 	
 	/******************* 댓글 등록, 수정, 삭제 *******************/

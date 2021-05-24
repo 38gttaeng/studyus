@@ -36,6 +36,10 @@ function getList() {
 				isEnd = true;
 			}
 			
+			if(page == 1 && bList.length == 0) {
+				$("#container").append("<div class='card-body'><img src='/resources/images/no-data.png' style='width:60%; border-radius:10%; margin:auto; display:block;'></div>");
+			}
+			
 			var html = "";
 			for(var i in bList) {
 				// card
@@ -53,10 +57,10 @@ function getList() {
 						break;
 					}
 				var title = 
-					"<h4 class='card-title'>" +
+					"<h5 class='card-title'>" +
 					category +
 					bList[i].boTitle +
-					"</h4>";
+					"</h5>";
 				var subtitle = 
 					"<div class='row'>" +
 					"<h6 class='card-subtitle col-6'>" +
@@ -67,10 +71,14 @@ function getList() {
 				
 				var file = "";
 				if(bList[i].boFileName != null) {
-					file = "<div class='card-body file-box'>" + bList[i].boFileName + "</div>";
+					file = "<div class='card-body file-box'>" + bList[i].fiRealName + "</div>";
 				}
 				
-				var content = "<div class='card-body' id='list-content'><p>" + bList[i].boContents + "</p></div>"
+				var contents = "";
+				if(bList[i].boContents != null) {
+					contents = bList[i].boContents
+				}
+				var content = "<div class='card-body' id='list-content'><p>" + contents + "</p></div>"
 				
 				var cardEnd = "</div>";
 				
@@ -96,7 +104,6 @@ function getReplyOne(boMotherNo) {
 		success : function(data) {
 			var board = data.bOne;
 			var cnt = data.count;
-			console.log(board);//////////////////
 			
 			var reply = "";
 			if(board != null) {

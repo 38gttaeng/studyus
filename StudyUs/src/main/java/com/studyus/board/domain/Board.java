@@ -13,6 +13,7 @@ public class Board {
 	private String boTitle;
 	private String boContents;
 	private String boFileName;
+	private String fiRealName;
 	private int boCategory;
 	private int boStatus; 
 	
@@ -83,6 +84,14 @@ public class Board {
 	public void setBoFileName(String boFileName) {
 		this.boFileName = boFileName;
 	}
+	
+	public String getFiRealName() {
+		return fiRealName;
+	}
+
+	public void setFiRealName(String fiRealName) {
+		this.fiRealName = fiRealName;
+	}
 
 	public int getBoCategory() {
 		return boCategory;
@@ -112,7 +121,7 @@ public class Board {
 	public String toString() {
 		return "Board [boNo=" + boNo + ", stNo=" + stNo + ", mbNo=" + mbNo + ", boMotherNo=" + boMotherNo
 				+ ", boInsertDate=" + boInsertDate + ", boTitle=" + boTitle + ", boContents=" + boContents
-				+ ", boFileName=" + boFileName + ", boCategory=" + boCategory + ", boStatus=" + boStatus + ", member="
-				+ member + "]";
+				+ ", boFileName=" + boFileName + ", fiRealName=" + fiRealName + ", boCategory=" + boCategory
+				+ ", boStatus=" + boStatus + ", member=" + member + "]";
 	}
 }

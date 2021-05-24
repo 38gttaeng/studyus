@@ -40,7 +40,7 @@
 	                        <ol class="breadcrumb m-0 p-0">
 	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
 	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board">Board</a></li>
-	                            <li class="breadcrumb-item text-muted active" aria-current="page">Write</li>
+	                            <li class="breadcrumb-item text-muted active" aria-current="page">Modify</li>
 	                        </ol>
 	                    </nav>
 	                </div>
@@ -59,23 +59,27 @@
                     <div class="col-10">
                         <div class="card">
                             <div class="card-body">
-	                        	<form id="postForm" action="/study/board/register" method="post" enctype="multipart/form-data">
+	                        	<form id="postForm" action="/study/board/modify" method="post" enctype="multipart/form-data">
+									
+									<input type="hidden" name="boNo" value="${ board.boNo }">
+									<input type="hidden" name="boFileName" value="${ board.boFileName }">
+									
 	                        		<div id="table-box">
 										<table class="table-responsive">
 											<tr>
 												<td>카테고리</td>
 												<td>
 													<select id="select-box" class="form-control" name="boCategory">
-														<option selected value="1">자유</option>
-														<option value="2">공유</option>
-														<option value="3">질문</option>
+														<option value="1" <c:if test="${ board.boCategory == 1 }">selected</c:if>>자유</option>
+														<option value="2" <c:if test="${ board.boCategory == 2 }">selected</c:if>>공유</option>
+														<option value="3" <c:if test="${ board.boCategory == 3 }">selected</c:if>>질문</option>
 													</select>
 												</td>
 											</tr>
 											<tr>
 												<td>제목</td>
 												<td>
-													<input type="text" class="form-control" name="boTitle">
+													<input type="text" class="form-control" name="boTitle" value="${ board.boTitle }">
 													<span id="title-msg" class="invalid-feedback">제목을 1자 이상 입력하세요.</span>
 												</td>
 											</tr>
@@ -88,13 +92,15 @@
 											</tr>
 											<tr>
 												<td valign=top>내용</td>
-												<td><textarea rows="22" cols="120" class="form-control" name="boContents"></textarea></td>
+												<td>
+													<textarea rows="22" cols="120" class="form-control" name="boContents">${ board.boContents }</textarea>
+												</td>
 											</tr>
 											<tr>
 												<td>첨부파일</td>
 												<td>
 													<label class="btn btn-light" for="input-file">파일 선택</label>&nbsp;&nbsp;
-													<input id="input-file" type="file" name="uploadFile">
+													<input id="input-file" type="file" name="reloadFile">
 													<span id="filename" class="text-muted">
 														<c:if test="${ !empty board.fiRealName }">
 															${ board.fiRealName }
@@ -107,8 +113,11 @@
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/board?boCategory=${category}'">
-													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="등록">
+													<c:url var="bDetail" value="/study/board/detail">
+														<c:param name="boNo" value="${ board.boNo }"></c:param>
+													</c:url>
+													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='${ bDetail }'">
+													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="수정">
 												</td>
 											</tr>
 										</table>

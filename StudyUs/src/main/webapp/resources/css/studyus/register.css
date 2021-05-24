@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 #table-box {
-	width : 300px;
+	width : 90%;
 	margin : 20px auto;
 }
 
@@ -11,8 +11,17 @@ table td {
 
 table td:first-child {
 	width : 10%;
+	line-height : 38px;
 }
 
 #select-box {
-	width : 10% !important; 
+	width : 100px !important; 
+}
+
+input[type=file] {
+	display : none;
+}
+
+.invalid-feedback {
+	display : none;
 }
