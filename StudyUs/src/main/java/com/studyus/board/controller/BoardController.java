@@ -144,7 +144,7 @@ public class BoardController {
 	@RequestMapping(value="/study/board/register", method=RequestMethod.POST)
 	public String boardRegister(HttpServletRequest request, Model model, @ModelAttribute Board board, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile) {
 		//////////////////////////////////////////////
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 //		세션에서 스터디 번호 가져오기
 		
 		// 서버에 파일을 저장하는 작업
@@ -166,7 +166,7 @@ public class BoardController {
 		
 		result = boService.registerBoard(board);
 		if(result > 0) {
-			return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/board?boCategory=0");
+			return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/board?boCategory=" + (String)session.getAttribute("category"));
 		} else {
 			return new RedirectWithMsg().redirect(request, "게시글 등록 실패!!!!", "/study/board");
 		}
