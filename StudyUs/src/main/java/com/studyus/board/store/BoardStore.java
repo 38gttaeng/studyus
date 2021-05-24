@@ -3,8 +3,8 @@ package com.studyus.board.store;
 import java.util.ArrayList;
 
 import com.studyus.board.domain.Board;
-import com.studyus.board.domain.PageInfo;
 import com.studyus.board.domain.Search;
+import com.studyus.common.PageInfo;
 
 public interface BoardStore {
 	
@@ -18,12 +18,19 @@ public interface BoardStore {
 	public int getListCount(Board board);
 	
 	/**
-	 * 전체보기(10개씩)
+	 * 전체보기(5개씩)
 	 * @param pi
 	 * @param board(stNo, boCategory)
 	 * @return
 	 */
 	public ArrayList<Board> selectAll(PageInfo pi, Board board);
+	
+	/**
+	 * 게시물에 해당하는 댓글 최신순으로 하나만
+	 * @param boMotherNo
+	 * @return
+	 */
+	public Board selectOneReply(int boMotherNo);
 	
 	/**
 	 * 검색하기 - 전체 / 마이페이지 / 팀장페이지
@@ -43,10 +50,11 @@ public interface BoardStore {
 	
 	/**
 	 * 한개 댓글 보기 (WHERE BO_MOTHER_NO)
-	 * @param boNo
+	 * @param pi
+	 * @param boMotherNo
 	 * @return
 	 */
-	public ArrayList<Board> selectAllReply(int boNo);
+	public ArrayList<Board> selectAllReply(PageInfo pi, int boMotherNo);
 	
 	// 내가 쓴 게시물 보기 (게시물 + 과제제출)
 	

@@ -1,5 +1,7 @@
 package com.studyus.assignment.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.SubmittedAssignment;
 import com.studyus.assignment.service.AssignmentService;
+import com.studyus.common.PageInfo;
+import com.studyus.common.Pagination5;
 
 @Controller
 public class AssignmentController {
@@ -25,9 +31,24 @@ public class AssignmentController {
 	/////////////////// 과제 + 과제제출 보기 ///////////////////
 	
 	// 리스트
-		// 과제제출 확인 관련 메소드도 함께 호출
+	@RequestMapping(value="study/assignment", method=RequestMethod.GET)
 	public ModelAndView assignmentListView(HttpSession session, ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
-		return null;
+		
+		//////////////////////////////////세션에서 스터디번호 가져와서 넣어주기
+		int stNo = 1;
+		
+		//////////////////////////////////// 과제제출 확인 관련 메소드도 함께 호출
+		
+		int currentPage = (page != null) ? page : 1;
+		int listCount = asService.getListCount(stNo);
+		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Assignment> aList = asService.printAll(pi, stNo);
+		mv.addObject("aList", aList);
+		mv.addObject("pi", pi);
+		mv.setViewName("study/assignmentList");
+		
+		return mv;
 	}
 	
 	// 일정
@@ -36,10 +57,19 @@ public class AssignmentController {
 	}
 	
 	// 디테일
-		// 과제 하나 + 과제제출 리스트
-		// 과제제출 확인 관련 메소드도 함께 호출
+	@RequestMapping(value="study/assignment/detail", method=RequestMethod.GET)
 	public ModelAndView assignmentDetail(HttpSession session, ModelAndView mv, @RequestParam("asNo") int asNo) {
-		return null;
+		Assignment assignment = asService.printOne(asNo);
+		if(assignment != null) {
+			mv.addObject("assignment", assignment).setViewName("study/assignmentDetail");
+		} else {
+			System.out.println("과제 디테일 조회 실패");
+		}
+		
+		// 과제 하나 + 과제제출 리스트
+		///////////////////// 과제제출 확인 관련 메소드도 함께 호출
+		
+		return mv;
 	}
 	
 	// 과제 댓글 리스트

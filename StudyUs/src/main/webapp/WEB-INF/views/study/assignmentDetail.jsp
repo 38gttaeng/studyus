@@ -35,26 +35,26 @@
             <div class="page-breadcrumb">
             	<div class="row">
                     <div class="col-lg-4 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">게시판</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">과제</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-                                    <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board?boCategory=${ category }">Board</a></li>
-                                    <li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">${ board.boNo }</li>
+                                    <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/assignment">Assignment</a></li>
+                                    <li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">${ assignment.asNo }</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                     <div class="col-lg-8 align-self-center">
                     	<div class="float-right">
-	                    	<c:if test="${ loginUser.mbNo == board.mbNo }">
+	                    	<c:if test="${ loginUser.mbNo == assignment.mbNo }">
                     		<div class="btn-group">
 		                    	<button onclick="location.href='#'" class="btn btn-secondary">수정</button>
 		                    	<button onclick="location.href='#'" class="btn btn-secondary">삭제</button>
                     		</div>
                     		</c:if>
-	                    	<button onclick="location.href='/study/board?boCategory=${ category }'" class="btn btn-primary">목록</button>
+	                    	<button onclick="location.href='/study/assignment'" class="btn btn-primary">목록</button>
                     	</div>
                     </div>
 	            </div>
@@ -72,35 +72,23 @@
                         <div class="card">
                             <div class="card-body ">
                             	<h4 class="card-title">
-                            		<!-- 태그 -->
-                           			<c:if test="${ board.boCategory == 1 }">
-                           				<span class="tags tag-free">자유</span>
-                           			</c:if>
-                           			<c:if test="${ board.boCategory == 2 }">
-                           				<span class="tags tag-share">공유</span>
-                           			</c:if>
-                           			<c:if test="${ board.boCategory == 3 }">
-                           				<span class="tags tag-qna">질문</span>
-                           			</c:if>
-                            		<!-- 제목 -->
-                            		${ board.boTitle }
+                            		${ assignment.asTitle }
                             	</h4>
                             	<div class="row">
-	                            	<h6 class="card-subtitle col-6"><img src="/resources/images/${ board.member.mbPhoto }.png" class="rounded-circle">&nbsp;&nbsp;${ board.member.mbNickname }</h6>
-	                                <h6 class="card-subtitle col-6" style="text-align:right">${ board.boInsertDate }</h6>
+	                                <h6 class="card-subtitle float-right">${ assignment.asInsertDate }</h6>
                             	</div>
                             </div>
-                            <c:if test="${ !empty board.boFileName }">
+                            <c:if test="${ !empty assignment.asFileName }">
 	                            <div class="card-body file-box">
-	                            	${ board.boFileName }
+	                            	${ assignment.asFileName }
 	                            </div>
                             </c:if>
                             <div class="card-body">
-	                            <p>${ board.boContents }</p>
+	                            <p>${ assignment.asContents }</p>
                             </div>
                             
                             <!-- 댓글 -->
-                            <div class="card-body">
+                            <%-- <div class="card-body">
                             	<!-- board.js 파일과 연동하기 위해서 -->
                             	<input id="rMotherNo" type="hidden" value="${ board.boNo }">
                             	<input id="rMbNo" type="hidden" value="${ board.mbNo }">
@@ -120,7 +108,7 @@
                                 <!-- 페이징 -->
                                 <nav id='rPage'></nav>
 								
-                            </div>
+                            </div> --%>
                             
                         </div>
                     </div>

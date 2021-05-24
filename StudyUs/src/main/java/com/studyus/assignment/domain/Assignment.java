@@ -3,7 +3,7 @@ package com.studyus.assignment.domain;
 public class Assignment {
 	private int asNo;
 	private int stNo;
-	private int asName;
+	private String asName;
 	private String asContents;
 	private String asInsertDate;
 	private String asDeadLine;
@@ -29,11 +29,11 @@ public class Assignment {
 		this.stNo = stNo;
 	}
 
-	public int getAsName() {
+	public String getAsName() {
 		return asName;
 	}
 
-	public void setAsName(int asName) {
+	public void setAsName(String asName) {
 		this.asName = asName;
 	}
 

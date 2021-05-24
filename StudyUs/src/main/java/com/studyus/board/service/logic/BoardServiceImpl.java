@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.studyus.board.domain.Board;
-import com.studyus.board.domain.PageInfo;
 import com.studyus.board.domain.Search;
 import com.studyus.board.service.BoardService;
 import com.studyus.board.store.BoardStore;
+import com.studyus.common.PageInfo;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -26,6 +26,11 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<Board> printAll(PageInfo pi, Board board) {
 		return boStore.selectAll(pi, board);
 	}
+	
+	@Override
+	public Board printOneReply(int boMotherNo) {
+		return boStore.selectOneReply(boMotherNo);
+	}
 
 	@Override
 	public ArrayList<Board> printSearchAll(Search search, Board board) {
@@ -39,8 +44,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public ArrayList<Board> printAllReply(int boMotherNo) {
-		return boStore.selectAllReply(boMotherNo);
+	public ArrayList<Board> printAllReply(PageInfo pi, int boMotherNo) {
+		return boStore.selectAllReply(pi, boMotherNo);
 	}
 
 	@Override
@@ -99,4 +104,5 @@ public class BoardServiceImpl implements BoardService {
 	public int removeBoard(int boNo) {
 		return boStore.deleteBoard(boNo);
 	}
+
 }

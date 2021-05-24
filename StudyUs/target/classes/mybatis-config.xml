@@ -10,6 +10,7 @@
 		<typeAlias type="com.studyus.study.domain.Study" alias="Study" />
 		<typeAlias type="com.studyus.member.domain.Member" alias="Member" />
 		<typeAlias type="com.studyus.board.domain.Board" alias="Board"/>
+		<typeAlias type="com.studyus.assignment.domain.Assignment" alias="Assignment"/>
 	</typeAliases>
 	
 	<mappers>
@@ -17,5 +18,6 @@
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/hashtag-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/assignment-mapper.xml"/>
 	</mappers> 
 </configuration>

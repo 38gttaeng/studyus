@@ -31,27 +31,12 @@
             <div class="page-breadcrumb">
             	<div class="row">
                     <div class="col-lg-4 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">게시판</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">과제</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-                                    <li class="breadcrumb-item text-muted active" aria-current="page">Board</li>
-                                    <!-- 카테고리명에 따라서 다르게 -->
-                                    <li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">
-                                    	<c:if test="${ category == 0 }">
-	                            			전체
-                            			</c:if>
-                                    	<c:if test="${ category == 1 }">
-	                            			자유
-                            			</c:if>
-                            			<c:if test="${ category == 2 }">
-                            				공유
-                            			</c:if>
-                            			<c:if test="${ category == 3 }">
-                            				질문
-                            			</c:if>
-                                    </li>
+                                    <li class="breadcrumb-item text-muted" aria-current="page">Assignment</li>
                                 </ol>
                             </nav>
                         </div>
@@ -82,24 +67,39 @@
             	<!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <!-- basic table -->
                 <div class="row">
-                    <div id="container" class="col-12">
-                    	<!-- 여기에 데이터 들어감! -->
-                	</div>
-                </div>  
+                    <div class="col-12">
+                        <div class="card">
+                            <table>
+                            	<thead>
+                            		<tr>
+                            			<td>번호</td>
+                            			<td>과제명</td>
+                            			<td>기간</td>
+                            			<td>제출여부</td>
+                            		</tr>
+                            	</thead>
+                            	<tbody>
+                            		<c:forEach items="${ aList }" var="aOne">
+	                            	<tr onclick="location.href='/study/assignment/detail?asNo='${ aOne.asNo }">
+	                            		<td>${ aOne.asNo }</td>
+                            			<td>${ aOne.asName }</td>
+                            			<td>${ aOne.asInsertDate } ~ ${ aOne.asDeadLine }</td>
+                            			<td></td>
+	                            	</tr>
+	                            	</c:forEach>
+                            	</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
                 
-                <!-- top으로 가는 버튼 -->
-                <button id="top-btn" onclick="location.href='#'"><i class="fas fa-angle-up"></i></button>
                 <!-- 글쓰기 버튼 --> 
 				<button id="write-btn" onclick="location.href='/study/board/registerView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
-			</div>
+            </div>
             <!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>
         </div>
     </div>
-    
-    <!-- 해당 페이지 JS 파일 -->
-    <script src="/resources/js/boardList.js"></script>
 </body>
 </html>

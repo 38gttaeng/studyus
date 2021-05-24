@@ -2,6 +2,8 @@ package com.studyus.board.domain;
 
 import java.sql.Date;
 
+import com.studyus.member.domain.Member;
+
 public class Board {
 	private int boNo;
 	private int stNo;
@@ -14,8 +16,10 @@ public class Board {
 	private int boCategory;
 	private int boStatus;
 	
+	private Member member;
+	
 	public Board() {}
-
+	
 	public int getBoNo() {
 		return boNo;
 	}
@@ -95,11 +99,20 @@ public class Board {
 	public void setBoStatus(int boStatus) {
 		this.boStatus = boStatus;
 	}
+	
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
 
 	@Override
 	public String toString() {
 		return "Board [boNo=" + boNo + ", stNo=" + stNo + ", mbNo=" + mbNo + ", boMotherNo=" + boMotherNo
 				+ ", boInsertDate=" + boInsertDate + ", boTitle=" + boTitle + ", boContents=" + boContents
-				+ ", boFileName=" + boFileName + ", boCategory=" + boCategory + ", boStatus=" + boStatus + "]";
+				+ ", boFileName=" + boFileName + ", boCategory=" + boCategory + ", boStatus=" + boStatus + ", member="
+				+ member + "]";
 	}
 }

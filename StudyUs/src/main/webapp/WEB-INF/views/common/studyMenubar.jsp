@@ -250,7 +250,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/assignment"
                             aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
                                 class="hide-menu">과제 </span></a>
                     </li>

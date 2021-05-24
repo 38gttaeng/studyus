@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studyus.board.domain.Board;
-import com.studyus.board.domain.PageInfo;
 import com.studyus.board.domain.Search;
 import com.studyus.board.store.BoardStore;
+import com.studyus.common.PageInfo;
 
 @Repository
 public class BoardStoreLogic implements BoardStore{
@@ -29,6 +29,11 @@ public class BoardStoreLogic implements BoardStore{
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("boardMapper.selectAllList", board, rowBounds);
 	}
+	
+	@Override
+	public Board selectOneReply(int boMotherNo) {
+		return sqlSession.selectOne("boardMapper.selectOneReply", boMotherNo);
+	}
 
 	@Override
 	public ArrayList<Board> selectSearchAll(Search search, Board board) {
@@ -42,8 +47,10 @@ public class BoardStoreLogic implements BoardStore{
 	}
 
 	@Override
-	public ArrayList<Board> selectAllReply(int boMotherNo) {
-		return (ArrayList)sqlSession.selectList("boardMapper.selectAllReply", boMotherNo);
+	public ArrayList<Board> selectAllReply(PageInfo pi, int boMotherNo) {
+		int offset = (pi.getCurrentPage() - 1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllReply", boMotherNo, rowBounds);
 	}
 
 	@Override
@@ -102,4 +109,5 @@ public class BoardStoreLogic implements BoardStore{
 	public int deleteBoard(int boNo) {
 		return sqlSession.update("boardMapper.deleteBoard", boNo);
 	}
+
 }

@@ -2,14 +2,15 @@ package com.studyus.assignment.store.logic;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studyus.assignment.domain.Assignment;
-import com.studyus.assignment.domain.PageInfo;
 import com.studyus.assignment.domain.SubmittedAssignment;
 import com.studyus.assignment.store.AssignmentStore;
+import com.studyus.common.PageInfo;
 
 @Repository
 public class AssignmentStoreLogic implements AssignmentStore {
@@ -19,14 +20,14 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	
 	@Override
 	public int getListCount(int stNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("assignmentMapper.selectListCount", stNo);
 	}
 
 	@Override
 	public ArrayList<Assignment> selectAll(PageInfo pi, int stNo) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (pi.getCurrentPage() - 1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllList", stNo, rowBounds);
 	}
 	
 	@Override
@@ -37,8 +38,7 @@ public class AssignmentStoreLogic implements AssignmentStore {
 
 	@Override
 	public Assignment selectOne(int asNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("assignmentMapper.selectOne", asNo);
 	}
 
 	@Override

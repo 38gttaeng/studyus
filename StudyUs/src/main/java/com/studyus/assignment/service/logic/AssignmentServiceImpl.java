@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.studyus.assignment.domain.Assignment;
-import com.studyus.assignment.domain.PageInfo;
 import com.studyus.assignment.domain.SubmittedAssignment;
 import com.studyus.assignment.service.AssignmentService;
 import com.studyus.assignment.store.AssignmentStore;
+import com.studyus.common.PageInfo;
 
 @Service
 public class AssignmentServiceImpl implements AssignmentService {
@@ -19,14 +19,12 @@ public class AssignmentServiceImpl implements AssignmentService {
 
 	@Override
 	public int getListCount(int stNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return asStore.getListCount(stNo);
 	}
 
 	@Override
 	public ArrayList<Assignment> printAll(PageInfo pi, int stNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return asStore.selectAll(pi, stNo);
 	}
 
 	@Override
@@ -37,8 +35,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 	
 	@Override
 	public Assignment printOne(int asNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return asStore.selectOne(asNo);
 	}
 
 	@Override

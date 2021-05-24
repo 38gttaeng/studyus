@@ -12,41 +12,65 @@
 		<result property="boFileName" column="BO_FILENAME"></result>
 		<result property="boCategory" column="BO_CATEGORY"></result>
 		<result property="boStatus" column="BO_STATUS"></result>
+		<collection property="member" resultMap="memberMapper.memberResultMap" />
 	</resultMap>
 	
-	<!-- !게시물 리스트 -->
+	<!-- 게시물 리스트 : 카테고리별 게시물 개수 / 게시글 번호에 해당하는 댓글 개수 -->
 	<select id="selectListCount" parameterType="Board" resultType="_int">
 		SELECT COUNT(*) FROM BOARD
+		<if test="boMotherNo == 0">
 		WHERE BO_MOTHER_NO IS NULL
 		AND ST_NO = #{stNo}
-		<if test="boCategory > 0">
-		AND BO_CATEGORY = #{boCategory}
-		</if>
+			<if test="boCategory > 0">
+			AND BO_CATEGORY = #{boCategory}
+			</if>
 		AND BO_STATUS = 1
+		</if>
+		<if test="boMotherNo != 0">
+		WHERE BO_MOTHER_NO = #{boMotherNo}
+		AND BO_STATUS = 1
+		</if>
 	</select>
 	
 	<select id="selectAllList" parameterType="Board" resultMap="boardResultMap">
-		SELECT * FROM BOARD
-		WHERE BO_MOTHER_NO IS NULL
-		AND ST_NO = #{stNo}
+		SELECT B.BO_NO, B.ST_NO, MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM BOARD B
+		JOIN MEMBER M
+		USING(MB_NO)
+		WHERE B.BO_MOTHER_NO IS NULL
+		AND B.ST_NO = #{stNo}
 		<if test="boCategory > 0">
-		AND BO_CATEGORY = #{boCategory}
+		AND B.BO_CATEGORY = #{boCategory}
 		</if>
-		AND BO_STATUS = 1
-		ORDER BY BO_NO DESC
+		AND B.BO_STATUS = 1
+		ORDER BY B.BO_NO DESC
 	</select>
 	
-	<!-- 디테일 -->
+	<select id="selectOneReply" resultMap="boardResultMap">
+		SELECT BO_NO, ST_NO, MB_NO, BO_MOTHER_NO, BO_INSERTDATE, BO_TITLE, BO_CONTENTS, BO_FILENAME, BO_CATEGORY, BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM (SELECT * FROM BOARD WHERE BO_MOTHER_NO = #{boMotherNo} AND BO_STATUS = 1 ORDER BY BO_NO DESC)
+        JOIN MEMBER M
+        USING(MB_NO)
+		WHERE ROWNUM = 1
+	</select>
+	
+	<!-- 디테일  -->
 	<select id="selectOne" resultMap="boardResultMap">
-		SELECT * FROM BOARD
-		WHERE BO_NO = #{boNo} AND BO_STATUS = 1
+		SELECT B.BO_NO, B.ST_NO, MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM BOARD B
+		JOIN MEMBER M
+		USING(MB_NO)
+		WHERE B.BO_NO = #{boNo} AND B.BO_STATUS = 1
 	</select>
 	
 	<select id="selectAllReply" resultMap="boardResultMap">
-		SELECT * FROM BOARD
-		WHERE BO_MOTHER_NO = #{boMotherNo}
-		AND BO_STATUS = 1
-		ORDER BY BO_NO
+		SELECT B.BO_NO, B.ST_NO, MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM BOARD B
+		JOIN MEMBER M
+		USING(MB_NO)
+		WHERE B.BO_MOTHER_NO = #{boMotherNo}
+		AND B.BO_STATUS = 1
+		ORDER BY B.BO_NO DESC
 	</select>
 	
 	<!-- 등록 -->

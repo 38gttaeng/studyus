@@ -1,7 +1,5 @@
 package com.studyus.common;
 
-import com.studyus.board.domain.PageInfo;
-
 public class Pagination5 {
 	// PageInfo 객체를 리턴해주는 메소드
 	// 한번만 생성하여 정보를 저장해서 가지고 있을 수 있도록 하기 위해 static 메소드로 만듬 (전역변수처럼 사용하기 위해서)

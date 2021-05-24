@@ -1,7 +1,16 @@
 $(function() {
+
+	var page = 1;
+	getReplyList(page);
 	
-	// 댓글 리스트
-	getReplyList();
+	// 페이징 버튼
+	$("#rPage li").on("click", function() {
+		alert("클릭");
+	
+    	//page = $(this).text(); // 목록 페이지 번호 추출
+		//alert(page);
+		//getReplyList(page);
+	});
 	
 	// 등록하기
 	$("#rSubmit").on("click", function() {
@@ -16,7 +25,7 @@ $(function() {
 			success : function(result) {
 				if(result == "success") {
 					/* 댓글 불러오기 */
-					getReplyList();
+					getReplyList(page);
 					$("#rContent").val("");
 				} else if(result == "fail") {
 					alert("댓글 등록 실패..");
@@ -29,8 +38,8 @@ $(function() {
 	});
 });
 
-// 댓글 리스트
-function getReplyList() {
+// 리스트 통신
+function getReplyList(page) {
 	var rMotherNo = $("#rMotherNo").val();
 	var rMbNo = $("#rMbNo").val();
 	var loginMbNo = $("#loginMbNo").val();
@@ -38,63 +47,118 @@ function getReplyList() {
 	$.ajax({
 		url : "/study/board/replyList",
 		type : "get",
-		data : {"boMotherNo" : rMotherNo},
+		data : {"boMotherNo" : rMotherNo, "page" : page},
 		dataType : "json",
-		success : function(data) {
-			var $rList = $("#rList");
-			$rList.html("");
+		success : function(map) {
+			var data = map.rList;
+			var pi = map.page;
 			
-			var $div;
-			var $rWriter; // 사진번호랑 닉네임으로
-			var $rContent;
-			var $btnArea;
-			var $btnTool = "";
-			
-			$("#rCount").text(data.length);
-			if(data.length > 0) {
-				for(var i in data) {
-				
-					// 댓글 작성자인 경우 배경색 추가
-					if(loginMbNo != data[i].mbNo) {
-						$div = $("<div class='reply-box'>");
-					} else {
-						$div = $("<div class='reply-box my-reply'>");
-					}
-					
-					$rWriter = $("<div>")
-					.append("<img src='/resources/images/1.png' class='rounded-circle'>&nbsp")
-					.append("<span>" + data[i].mbNo + "</span>&nbsp");
-					if(rMbNo == data[i].mbNo) {
-						$rWriter.append("&nbsp<div>작성자</div>");
-					}
-					$rWriter.append("<span>" + data[i].boInsertDate + "</span>");
-					
-					$rContent = $("<div>").text(data[i].boContents);
-					
-					$btnArea = $("<div>")
-					.append("<button class='btn btn-sm btn-light'>답글</button>");
-					
-					// 수정+삭제 버튼
-					if(loginMbNo == data[i].mbNo) {
-						$btnTool =$("<div class='btn-group'>");
-						$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].boNo + ",\"" + data[i].boContents + "\");'>수정</button>")
-						.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].boNo + ");'>삭제</button>");
-						$btnArea.append($btnTool);
-					}
-					
-					$div.append($rWriter);
-					$div.append($rContent);
-					$div.append($btnArea);
-					
-					$rList.append($div);
-				}
-			}
+			page = pi.maxPage;///////////////////////
+			replyList(data, pi.listCount);
+			replyPage(pi);
 		},
 		error : function() {
 			// 댓글 없을 경우 여기로 이동
 			$("#rCount").text("0");
 		}
 	});
+}
+
+// 댓글 리스트
+function replyList(data, listCount) {
+	var $rList = $("#rList");
+	$rList.html("");
+	
+	var $div;
+	var $rWriter;
+	var $rContent;
+	var $btnArea;
+	var $btnTool = "";
+	
+	$("#rCount").text(listCount);
+	if(data.length > 0) {
+		
+		/* 댓글 */
+		for(var i in data) {
+		
+			// 댓글 작성자인 경우 배경색 추가
+			if(loginMbNo != data[i].mbNo) {
+				$div = $("<div class='reply-box'>");
+			} else {
+				$div = $("<div class='reply-box my-reply'>");
+			}
+			
+			$rWriter = $("<div>")
+			.append("<img src='/resources/images/" + data[i].member.mbPhoto + ".png' class='rounded-circle'>&nbsp")
+			.append("<span>" + data[i].member.mbNickname + "</span>&nbsp");
+			if(rMbNo == data[i].mbNo) {
+				$rWriter.append("&nbsp<div>작성자</div>");
+			}
+			$rWriter.append("<span>" + data[i].boInsertDate + "</span>");
+			
+			$rContent = $("<div>").text(data[i].boContents);
+			
+			$btnArea = $("<div>")
+			.append("<button class='btn btn-sm btn-light'>답글</button>");
+			
+			// 수정+삭제 버튼
+			if(loginMbNo == data[i].mbNo) {
+				$btnTool =$("<div class='btn-group'>");
+				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].boNo + ",\"" + data[i].boContents + "\");'>수정</button>")
+				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].boNo + ");'>삭제</button>");
+				$btnArea.append($btnTool);
+			}
+			
+			$div.append($rWriter);
+			$div.append($rContent);
+			$div.append($btnArea);
+			
+			$rList.append($div);
+		}
+	}
+}
+
+// 페이징
+function replyPage(pi) {
+	var $rPage = $("#rPage");
+	$rPage.html("");
+	
+	var $ul;
+	var $liBefore="";
+	var $liCurrent;
+	var $liAfter="";
+	
+	$ul = $("<ul class='pagination pagination-sm justify-content-center'>");
+
+	if(pi.currentPage > 1) {
+		$liBefore = $("<li class='page-item' value='" + (pi.currentPage - 1) + "'>");
+		$aTag = $("<span class=page-link' aria-label='Previous'>")
+		.append("<span>&laquo;</span>");
+		$liBefore.append($aTag);
+	}
+	$ul.append($liBefore);
+	
+	for(var p = pi.startPage; p < pi.endPage + 1; p++) {
+		if(p == pi.currentPage) {
+			$liCurrent = $("<li class='page-item active' value='" + p + "'>");
+		} else {
+			$liCurrent = $("<li class='page-item' value='" + p + "'>");
+		}
+		
+		$liCurrent.append("<span class='page-link'>" + p + "</span>");
+		
+		$ul.append($liCurrent);
+	}
+	
+	if(pi.currentPage < pi.maxPage) {
+		$liAfter = $("<li class='page-item' value='" + (pi.currentPage + 1) + "'>");
+		$aTag = $("<span class='page-link' aria-label='Next'>")
+		.append("<span>&raquo;</span>");
+		$liAfter.append($aTag);
+	}
+	$ul.append($liAfter);
+	
+	$rPage.append($ul);
 }
 
 // 수정하기 화면
@@ -125,7 +189,7 @@ function modifyReplyCommit(boNo) {
 		data : { "boNo" : boNo, "boContents" : mReply },
 		success : function(data) {
 			if(data == "success") {
-				getReplyList();
+				getReplyList(page);
 			} else {
 				alert("댓글 수정 실패!");
 			}

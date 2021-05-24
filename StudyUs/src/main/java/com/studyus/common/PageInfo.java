@@ -1,4 +1,4 @@
-package com.studyus.assignment.domain;
+package com.studyus.common;
 
 public class PageInfo {
 	// 현재 페이지
