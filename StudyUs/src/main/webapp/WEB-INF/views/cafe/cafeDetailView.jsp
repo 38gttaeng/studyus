@@ -85,13 +85,14 @@
 									<div class="form-group">
 										<ul class="pricing-text mb-4">
 											<li><strong>영업시간</strong>
-												<h3 class="heading-2 mb-3">${cafe.cafeTime }</h3></li>
+												<h3 class="heading-2 mb-3">${cafe.caTime }</h3>
+											</li>
 										</ul>
 									</div>
 									<div class="form-group">
 										<ul class="pricing-text mb-4">
 											<li><strong>주소</strong>
-												<h3 class="heading-2 mb-3">${cafe.cafeAddr }</h3></li>
+												<h3 class="heading-2 mb-3">${cafe.caAddr }</h3></li>
 										</ul>
 									</div>
 								</form>
@@ -132,7 +133,6 @@
 										</div>
 									</div>
 								</div>
-								
 									<script>
 		// 댓글 목록
 		$(function() {
@@ -270,13 +270,12 @@
 
  
 							</section>
+							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
 	</section>
-
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 </body>

@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
- <mapper namespace="cafeMapper">
+<mapper namespace="cafeMapper">
 	<resultMap type="Cafe" id="cafeResultMap">
-		<id property="caNo" column="CAFE_NO" />
+		<id property="caNo" column="CA_NO" />
 		<result property="caName" column="CA_NAME" />
-		<result property="caInfo" column="CA_INFO" />
 		<result property="caAddr" column="CA_ADDR" />
-		<result property="caFilename" column="CA_FILENAME" />
-		<result property="caReFilename" column="CA_REFILENAME" />
+		<result property="caTel" column="CA_TEL" />
+		<result property="caTime" column="CA_TIME" />
+		<result property="caInfo" column="CA_INFO" />
 		<result property="caStatus" column="CA_STATUS" />
 	</resultMap>
 
-		<select id="selectAllList" resultMap="cafeResultMap"> 
-		SELECT * FROM CAFE </select>
-		
-		<select id="selectOne" resultMap="cafeResultMap">
-			SELECT * FROM CAFE
-			WHERE CA_NO = #{caNo} AND CA_STATUS = 1
-		</select>
-	
-<!-- 		<select id="selectAllReview" resultMap="cafeResultMap"> -->
-<!-- 			SELECT * FROM CAFE -->
-<!-- 			WHERE CA_NO = #{caNo} -->
-<!-- 			AND CA_STATUS = 1 -->
-<!-- 			OREDER BY -->
-<!-- 		</select>	 -->
-		
+	<select id="selectAllList" resultMap="cafeResultMap">
+		SELECT * FROM CAFE
+	</select>
+
+	<select id="selectOne" resultMap="cafeResultMap">
+		SELECT * FROM CAFE
+		WHERE CA_NO = #{caNo} AND CA_STATUS = 1
+	</select>
+
+	<insert id="insertCafe" useGeneratedKeys="true"  keyProperty="caNo" keyColumn="CA_NO">
+		INSERT INTO CAFE VALUES(SEQ_CAFE.NEXTVAL,#{caName}, #{caAddr}, #{caTel}, #{caTime}, #{caInfo}, DEFAULT)
+	</insert>
+
+	<!-- <select id="selectAllReview" resultMap="cafeResultMap"> -->
+	<!-- SELECT * FROM CAFE -->
+	<!-- WHERE CA_NO = #{caNo} -->
+	<!-- AND CA_STATUS = 1 -->
+	<!-- OREDER BY -->
+	<!-- </select> -->
+
 </mapper> 

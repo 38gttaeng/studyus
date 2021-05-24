@@ -18,7 +18,7 @@ public class AdminController {
 	@Autowired
 	private AdminService aService;
 	
-	@RequestMapping(value="adminMemberView", method=RequestMethod.GET)
+	@RequestMapping(value="admin/member", method=RequestMethod.GET)
 	public ModelAndView adminMemberView(ModelAndView mv, @RequestParam(value="page", required = false)Integer page) {
 //		int currentPage = (page != null) ? page : 1;
 //		int listCount = aService.getListCount();

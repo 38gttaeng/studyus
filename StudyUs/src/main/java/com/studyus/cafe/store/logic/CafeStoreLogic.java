@@ -22,14 +22,12 @@ public class CafeStoreLogic implements CafeStore{
 
 	@Override
 	public Cafe selectOne(int caNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("cafeMapper.selectOne", caNo);
 	}
 
 	@Override
 	public int insertCafe(Cafe cafe) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("cafeMapper.insertCafe", cafe);
 	}
 
 	@Override
