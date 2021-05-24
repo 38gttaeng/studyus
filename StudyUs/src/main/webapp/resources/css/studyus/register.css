@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+#table-box {
+	width : 300px;
+	margin : 20px auto;
+}
+
+table td {
+	padding: 8px;
+}
+
+table td:first-child {
+	width : 10%;
+}
+
+#select-box {
+	width : 10% !important; 
+}

@@ -1,6 +1,10 @@
 package com.studyus.assignment.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +25,7 @@ import com.studyus.assignment.domain.SubmittedAssignment;
 import com.studyus.assignment.service.AssignmentService;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
+import com.studyus.common.RedirectWithMsg;
 
 @Controller
 public class AssignmentController {
@@ -97,17 +102,71 @@ public class AssignmentController {
 	/////////////////// 과제 등록, 수정, 삭제 ///////////////////
 	
 	// 등록
+	@RequestMapping(value="/study/assignment/registerView", method=RequestMethod.GET)
 	public String assignmentWriteView() {
-		return null;
+		return "/study/assignmentRegister";
 	}
 	
-	public ModelAndView assignmentRegister(HttpServletRequest request, ModelAndView mv, 
+	@RequestMapping(value="/study/assignment/register", method=RequestMethod.POST)
+	public String assignmentRegister(HttpServletRequest request,
 			@ModelAttribute Assignment assignment, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile) {
-		return null;
+		//////////////////////////////////////////////
+//		HttpSession session = request.getSession();
+//		세션에서 스터디 번호 가져오기
+		assignment.setStNo(1);
+		
+		// 서버에 파일을 저장하는 작업
+		if(!uploadFile.getOriginalFilename().equals("")) {
+			String renameFilename = saveFile(uploadFile, request);
+			if(renameFilename != null) {
+				// 파일 테이블에 파일정보 저장 //////////////////////////////////////////////
+				
+				// board에 파일이름 저장
+				assignment.setAsFileName(renameFilename);
+			}
+		}
+		
+		// DB에 데이터를 저장하는 작업
+		int result = 0;
+		
+		result = asService.registerAssignment(assignment);
+		if(result > 0) {
+			return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/assignment");
+		} else {
+			return new RedirectWithMsg().redirect(request, "게시글 등록 실패!!!!", "/study/assignment");
+		}
 	}
 	
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
-		return null;
+		// 파일 저장경로 설정
+		String savePath = request.getSession().getServletContext().getRealPath("resources") + "\\auploadFiles";
+		
+		// 저장폴더 선택
+		File folder = new File(savePath);
+		
+		// 폴더가 없을 경우 자동 생성 (한번만 만들면 됨!)
+		if(!folder.exists()) {
+			folder.mkdir();
+		}
+		
+		// 파일명 변경하기
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmSS");
+		String originalFilename = file.getOriginalFilename();
+		String renameFilename = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+		
+		String filePath = folder + "\\" + renameFilename;
+		
+		// 파일 저장
+		try {
+			file.transferTo(new File(filePath));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// 파일이름 리턴
+		return renameFilename;
 	}
 	
 	// 수정

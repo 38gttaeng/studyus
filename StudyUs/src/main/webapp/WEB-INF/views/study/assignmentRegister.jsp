@@ -6,9 +6,6 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- 추가 css -->
-    <link href="/resources/css/studyus/register.css" rel="stylesheet">
 	<title>StudyUs : 스터디룸</title>
 </head>
 <body>
@@ -34,12 +31,12 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
 	            <div class="col-lg-4 align-self-center">
-	                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">게시판</h4>
+	                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">과제</h4>
 	                <div class="d-flex align-items-center">
 	                    <nav aria-label="breadcrumb">
 	                        <ol class="breadcrumb m-0 p-0">
 	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board">Board</a></li>
+	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/assignment">Assignment</a></li>
 	                            <li class="breadcrumb-item text-muted active" aria-current="page">Write</li>
 	                        </ol>
 	                    </nav>
@@ -55,41 +52,30 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-                	<div class="col-1"></div>
-                    <div class="col-10">
+                    <div class="col-12">
                         <div class="card">
-                            <div class="card-body">
-	                        	<form action="/study/board/register" method="post" enctype="multipart/form-data">
-	                        		<div id="tableBox">
-										<table class="table-responsive">
+                            <div class="card-body ">
+                            	<h4 class="card-title">글쓰기</h4>
+                            		<form action="/study/assignment/register" method="post" enctype="multipart/form-data">
+										<table align="center" border="1" cellspacing="0">
 											<tr>
-												<td>카테고리</td>
+												<td>기한</td>
 												<td>
-													<select id="select-box" class="form-control" name="boCategory">
-														<option selected value="1">자유</option>
-														<option value="2">공유</option>
-														<option value="3">질문</option>
-													</select>
+													<!-- 기한에 제한두기 -->
+													<input type="date" name="asDeadLine">
 												</td>
 											</tr>
 											<tr>
 												<td>제목</td>
-												<td><input type="text" class="form-control" name="boTitle"></td>
-											</tr>
-											<tr>
-												<td>작성자</td>
-												<td>
-													<input type="text" class="form-control" size="50" value="${ loginUser.mbNickname }" readonly>
-													<input type="hidden" name="mbNo" value="${ loginUser.mbNo }">
-												</td>
+												<td><input type="text" size="50" name="asName"></td>
 											</tr>
 											<tr>
 												<td>내용</td>
-												<td><textarea rows="22" cols="120" class="form-control" name="boContents"></textarea></td>
+												<td><textarea rows="7" cols="50" name="asContents"></textarea></td>
 											</tr>
 											<tr>
 												<td>첨부파일</td>
-												<td><input type="file" class=""  size="50" name="uploadFile"></td>
+												<td><input type="file" size="50" name="uploadFile"></td>
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
@@ -98,13 +84,12 @@
 												</td>
 											</tr>
 										</table>
-									</div>
-								</form>	
-                    		</div>
-                		</div>
-            		</div>
-            		<div class="col-1"></div>
-           	</div>
+									</form>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>

@@ -48,12 +48,13 @@
                     </div>
                     <div class="col-lg-8 align-self-center">
                     	<div class="float-right">
-	                    	<c:if test="${ loginUser.mbNo == assignment.mbNo }">
+	                    	<%-- <c:if test="${ loginUser.mbNo ==  }"> --%>
+	                    	<!-- 로그인한 사람이 세션에서 가져온 팀장정보랑 일치하면 -->
                     		<div class="btn-group">
 		                    	<button onclick="location.href='#'" class="btn btn-secondary">수정</button>
 		                    	<button onclick="location.href='#'" class="btn btn-secondary">삭제</button>
                     		</div>
-                    		</c:if>
+                    		<%-- </c:if> --%>
 	                    	<button onclick="location.href='/study/assignment'" class="btn btn-primary">목록</button>
                     	</div>
                     </div>
@@ -72,7 +73,7 @@
                         <div class="card">
                             <div class="card-body ">
                             	<h4 class="card-title">
-                            		${ assignment.asTitle }
+                            		${ assignment.asName }
                             	</h4>
                             	<div class="row">
 	                                <h6 class="card-subtitle float-right">${ assignment.asInsertDate }</h6>

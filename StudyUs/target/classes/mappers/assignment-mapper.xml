@@ -35,4 +35,11 @@
 		WHERE AS_NO = #{asNo}
 		AND AS_STATUS = 1
 	</select>
+	
+	<!-- 등록 -->
+	<insert id="insertAssignment" parameterType="Assignment">
+		INSERT INTO ASSIGNMENT VALUES (
+			SEQ_ASSIGNMENT.NEXTVAL, #{stNo}, #{asName}, #{asContents}, TO_CHAR(SYSDATE), TO_CHAR(#{asDeadLine}), #{asFileName}, DEFAULT, DEFAULT 
+		)
+	</insert>
 </mapper>
