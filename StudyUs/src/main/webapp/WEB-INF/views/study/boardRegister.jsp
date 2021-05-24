@@ -88,7 +88,13 @@
 											</tr>
 											<tr>
 												<td valign=top>내용</td>
-												<td><textarea rows="22" cols="120" class="form-control" name="boContents"></textarea></td>
+												<td>
+													<!-- <textarea rows="22" cols="120" class="form-control" name="boContents"></textarea> -->
+													<input type="hidden" name="boContents">
+													<div class="container">
+      													<div id="editor" style="min-height:450px;"></div>
+    												</div>
+												</td>
 											</tr>
 											<tr>
 												<td>첨부파일</td>

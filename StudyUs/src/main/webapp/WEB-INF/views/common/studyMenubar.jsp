@@ -15,6 +15,10 @@
     <link href="/resources/css/study/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
     <link href="/resources/css/study/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="/resources/css/study/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    	<!-- Quill -->
+    <link href="/resources/js/quill/quill-emoji.css" rel="stylesheet" type="text/css">
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
     <!-- Custom CSS -->
 	<link href="/resources/css/study/dist/css/style.min.css" rel="stylesheet" />
 

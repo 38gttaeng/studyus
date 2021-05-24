@@ -18,7 +18,6 @@
     <!-- ============================================================== -->
     <script src="/resources/css/study/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <!-- apps -->
-    <!-- apps -->
     <script src="/resources/css/study/dist/js/app-style-switcher.js"></script>
     <script src="/resources/css/study/dist/js/feather.min.js"></script>
     <script src="/resources/css/study/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
@@ -32,5 +31,12 @@
     <script src="/resources/css/study/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="/resources/css/study/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="/resources/css/study/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- Quill -->
+	<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+	<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+	<script src="/resources/js/quill/image-resize.min.js"></script>
+	<script src="/resources/js/quill/image-drop.min.js"></script>
+	<script src="/resources/js/quill/video-resize.min.js"></script>
+	<script src="/resources/js/quill/quill-emoji.js"></script>
 </body>
 </html>
