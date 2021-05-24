@@ -46,7 +46,7 @@ public class StudyController {
 	}
 	
 	// 스터디 생성 post
-	@RequestMapping(value="/study/register", method=RequestMethod.POST, produces="application/text;charset=utf-8")
+	@RequestMapping(value="/study/registerPost", method=RequestMethod.POST)
 	public String registerStudy(HttpServletRequest request, 
 								@ModelAttribute Study study, 
 								@RequestParam(value="hashtag", required=false) String[] hashtagList,
@@ -58,20 +58,18 @@ public class StudyController {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
 		//TODO 파일 저장기능 구현 후 setFilename()
-		study.setLeaderNo(loginUser.getMbNo()); 
+		study.setLeaderNo(loginUser.getMbNo());
 		study.setStart(startHour + ":" + startMinute);
 		study.setEnd(endHour + ":" + endMinute);
 		
-		System.out.println(study.toString());
 		int result = sService.registerStudy(study, hashtagList);
-		
-		System.out.println("result: " + result);
 		
 		if (0 < result) {
 			// TODO 스터디 메인으로 url 변경
 			return new RedirectWithMsg().redirect(request, "스터디가 생성되었습니다.", "/");
 		} else {
-			return new RedirectWithMsg().redirect(request, "스터디 생성 오류", "redirect:/");
+			String referer = request.getHeader("Referer");
+			return new RedirectWithMsg().redirect(request, "스터디 생성 오류", "redirect:" + referer);
 		}
 	}
 	
@@ -80,7 +78,6 @@ public class StudyController {
 	public String checkUrl(@RequestParam String inputUrl) {
 		
 		int dupCheck = sService.checkUrl(inputUrl);
-		System.out.println(dupCheck);
 		if (0 < dupCheck) {
 			return String.valueOf(dupCheck);
 		} else {

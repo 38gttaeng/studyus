@@ -7,6 +7,12 @@ import com.studyus.study.domain.StudyPageInfo;
 
 public interface StudyStore {
 	
+	/**
+	 * study를 데이터베이스에 저장한 후, 해당 스터디의 시퀀스 값을 반환합니다.
+	 * @param study
+	 * @return studyNo
+	 * @throws Exception
+	 */
 	public int insertStudy(Study study) throws Exception;
 	public int checkUrl(String url);
 	public ArrayList<Study> selectAllBySearch(String keyword, String[] hashtags, StudyPageInfo pi);

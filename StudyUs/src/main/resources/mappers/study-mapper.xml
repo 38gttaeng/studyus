@@ -22,8 +22,11 @@
 		<result property="start" column="ST_START"></result>
 		<result property="end" column="ST_END"></result>
 	</resultMap>
-	
+	<!-- useGeneratedKeys="true"  keyProperty="caNo" keyColumn="CA_NO" -->
 	<insert id="insertStudy" parameterType="Study">
+		<selectKey keyProperty="studyNo" resultType="int" order="AFTER">
+			select SEQ_STUDY.currval FROM DUAL
+		</selectKey>
 		INSERT INTO STUDY VALUES (SEQ_STUDY.NEXTVAL, 
 								#{leaderNo}, 
 								#{filename}, 
@@ -43,9 +46,6 @@
 								#{start},
 								#{end}
 							)
-		<selectKey resultType="int" keyProperty="studyNo" order="AFTER">
-			SELECT SEQ_STUDY.NEXTVAL FROM DUAL
-		</selectKey>
 	</insert>
 	
 	<select id="checkUrl" resultType="int">

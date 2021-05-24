@@ -38,7 +38,7 @@ public class StudyServiceImpl implements StudyService {
 				}
 			}
 			
-			return 1; // 성공
+			return insertedStudyNo; // 성공
 		} catch (Exception omg) {
 			omg.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

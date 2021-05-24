@@ -117,10 +117,32 @@ $('#registerForm').submit(function () {
     }
 
     // 해시태그를 input에 추가
-    for (var i = 0; i < hashtags.length; i ++) {
-        studyForm.innerHTML += '<input type="hidden" name="hashtag[]" value="' + hashtags[i] + '">';
-        console.log(hashtags[i]);
-    }
+    // for (var i = 0; i < hashtags.length; i ++) {
+    //     studyForm.innerHTML += '<input type="hidden" name="hashtag" value="' + hashtags[i] + '">';
+    // }
 
-    console.log("register study url: " + document.getElementById("inputUrl").value);
+    for (var i = 0; i < hashtags.length; i ++) {
+        var newHashtag = document.createElement("input");
+        newHashtag.name = "hashtag";
+        newHashtag.type = "hidden";
+        newHashtag.value = hashtags[i];
+        studyForm.appendChild(newHashtag);
+    }
 });
+
+// 스터디 등록 실행
+// function submitRegister() {
+//     if (urlAvailable == false) {
+//         alert("중복된 URL입니다.");
+//         return false;
+//     }
+
+//     // 해시태그를 input에 추가
+//     for (var i = 0; i < hashtags.length; i ++) {
+//         studyForm.innerHTML += '<input type="hidden" name="hashtag" value="' + hashtags[i] + '">';
+//         console.log(hashtags[i]);
+//     }
+
+//     console.log("submit clicked");
+//     document.getElementById("registerForm").submit();
+// }

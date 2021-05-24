@@ -2,6 +2,7 @@ package com.studyus.study.store.logic;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,8 @@ public class StudyStoreLogic implements StudyStore {
 
 	@Override
 	public int insertStudy(Study study) throws Exception {
-		return sqlSession.insert("studyMapper.insertStudy", study);
+		sqlSession.insert("studyMapper.insertStudy", study);
+		return study.getStudyNo();
 	}
 	
 	@Override
