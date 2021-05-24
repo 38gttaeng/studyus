@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,12 +60,15 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="card-body">
+										<input type="hidden" name="boardNo" value="${notice.noticeNo }">
+										<input type="hidden" name="originalFilename" value="${notice.noticeFileName }">
+										<input type="hidden" name="renameFilename" value="${notice.noticeReFileName }">
 										<form class="" role="form" action="noticeRegister.kh" method="post"
 											enctype="multipart/form-data">
 											<table class="table-responsive col-md-12 ">
 												<tr class="row" >
 													<td class="col-md-2 text-center">제목</td>
-													<td class="col-md-10" ><input type="text" class="form-control" name="noticeTitle"></td>
+													<td class="col-md-10" ><input type="text" class="form-control" name="noticeTitle" value="${notice.noticeTitle }"></td>
 												</tr>
 <%-- 												<tr class="row">
 													<td class="col-3">작성자</td>
@@ -76,7 +80,7 @@
 													<td class="col-md-2 text-center">내용</td>
 													<td class="col-md-10">
 													<!-- <textarea class="form-control" id="summernote" name="noticeContents"></textarea> -->
-													<textarea class="" id="summernote" name="editordata"></textarea>
+													<textarea class="" id="summernote" name="editordata">${notice.noticeContents }</textarea>
 													</td>
 												</tr>
 												<tr><td>&nbsp;</td></tr>
@@ -86,7 +90,14 @@
 													<td class="col-md-8">
 													<!-- <input type="file" class=""  name="uploadFile"> -->
 													<input type="file" class="custom-file-input" id="customFile">
-            										<label class="custom-file-label" for="customFile">파일선택</label>
+            										<label class="custom-file-label" for="customFile">
+            										<c:if test="${ !empty notice.noticeFileName  }">
+														${notice.noticeFileName }
+													</c:if>
+													<c:if test="${empty notice.noticeFileName }">
+            											파일선택
+            										</c:if>
+            										</label>
 													</td>
 												</tr>
 												<tr><td>&nbsp;</td></tr>

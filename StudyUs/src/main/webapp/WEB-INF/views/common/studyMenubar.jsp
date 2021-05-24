@@ -223,7 +223,7 @@
                     <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/calendar"
                             aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
                                 class="hide-menu">일정 </span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/notice/noticeList"
                             aria-expanded="false"><i data-feather="sidebar" class="feather-icon"></i><span
                                 class="hide-menu">공지사항 
                             </span></a>

@@ -3,17 +3,21 @@
 <mapper namespace="noticeMapper">
 
 	<resultMap type="Notice" id="noticeResultMap">
-		<id property="noticeNo" column="NOTICE_NO"></id>
-		<result property="noticeTitle" column="NOTICE_TITLE"></result>
-		<result property="noticeContents" column="NOTICE_CONTENTS"></result>
-		<result property="noticeWriter" column="NOTICE_WRITER"></result>
-		<result property="nCreateDate" column="N_CREATE_DATE"></result>
-		<result property="nUpdateDate" column="N_UPDATE_DATE"></result>
-		<result property="noticeFilepath" column="NOTICE_FILEPATH"></result>
+		<id property="noticeNo" column="NO_NO"></id>
+		<result property="studyNo" column="ST_NO"></result>
+		<result property="memberNo" column="MB_NO"></result>
+		<result property="nMotherNo" column="NO_MOTHER_NO"></result>
+		<result property="nInsertDate" column="NO_INSERTDATE"></result>
+		<result property="noticeTitle" column="NO_TITLE"></result>
+		<result property="noticeContents" column="NO_CONTENTS"></result>
+		<result property="noticeFileName" column="NO_FILENAME"></result>
+		<result property="noticeReFileName" column="NO_REFILENAME"></result>
+		<result property="noticeStatus" column="NO_STATUS"></result>
+		<result property="noticeCount" column="NO_COUNT"></result>
 	</resultMap>
 	
-	<select id="selectNoticeList" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE ORDER BY N_CREATE_DATE DESC
+	<select id="selectAllList" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE WHERE ST_NO = #{studyNo} ORDER BY NO_INSERTDATE DESC
 	</select>
 	
 	<select id="selectOne" resultMap="noticeResultMap">
@@ -36,21 +40,27 @@
 			OR NOTICE_TITLE LIKE '%' || #{searchValue } || '%'
 			OR NOTICE_CONTENTS LIKE '%' || #{searchValue } || '%'
 		</if>
-		ORDER BY N_CREATE_DATE DESC
+		ORDER BY NO_INSERTDATE DESC
 	</select>
 
 	<insert id="insertNotice" parameterType="Notice">
-		INSERT INTO NOTICE VALUES(SEQ_NOTICEID.NEXTVAL, #{noticeTitle }, #{noticeContents }, #{noticeWriter }, DEFAULT, DEFAULT, #{noticeFilepath })
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE.NEXTVAL, #{studyNo}, #{memberNo}, #{nMotherNo}, SYSDATE, #{noticeTitle }, #{noticeContents }, #{noticeFileName }, #{noticeReFileName}, DEFAULT, DEFAULT)
 	</insert>
 	
 	<update id="updateNotice" parameterType="Notice">
 		UPDATE NOTICE 
-		SET NOTICE_TITLE = #{noticeTitle }, NOTICE_CONTENTS = #{noticeContents }, NOTICE_FILEPATH = #{noticeFilepath }, N_UPDATE_DATE = SYSDATE
-		WHERE NOTICE_NO = #{noticeNo }
+		SET NO_TITLE = #{noticeTitle }, NO_CONTENTS = #{noticeContents }, NO_FILENAME = #{noticeFileName }
+		WHERE NO_NO = #{noticeNo }
+	</update>
+	
+	<update id="updateCount">
+		UPDATE NOTICE
+		SET NO_COUNT = NO_COUNT + 1
+		WHERE NO_NO = #{noticeNo }
 	</update>
 	
 	<delete id="deleteNotice" parameterType="_int">
-		DELETE FROM NOTICE WHERE NOTICE_NO = #{noticeNo }
+		DELETE FROM NOTICE WHERE NO_NO = #{noticeNo }
 	</delete>
 	
 </mapper>
