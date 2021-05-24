@@ -13,7 +13,7 @@
 		<result property="boCategory" column="BO_CATEGORY"></result>
 		<result property="boStatus" column="BO_STATUS"></result>
 		<collection property="member" resultMap="memberMapper.memberResultMap" />
-	</resultMap>  
+	</resultMap> 
 	
 	<!-- 게시물 리스트 : 카테고리별 게시물 개수 / 게시글 번호에 해당하는 댓글 개수 -->
 	<select id="selectListCount" parameterType="Board" resultType="_int">

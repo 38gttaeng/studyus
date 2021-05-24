@@ -11,7 +11,7 @@
 		<typeAlias type="com.studyus.member.domain.Member" alias="Member" />
 		<typeAlias type="com.studyus.board.domain.Board" alias="Board"/>
 		<typeAlias type="com.studyus.assignment.domain.Assignment" alias="Assignment"/>
-	</typeAliases> 
+	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/study-mapper.xml" />

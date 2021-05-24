@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studyus.review.domain.Review;
-import com.studyus.review.store.ReviewStore;
+import com.studyus.review.store.ReviewStore; 
 
 @Repository
 public class ReviewStoreLogic implements ReviewStore{
@@ -17,26 +17,22 @@ public class ReviewStoreLogic implements ReviewStore{
 	
 	@Override
 	public ArrayList<Review> selectList() {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("cafeMapper.selectList", null);
 	}
 
 	@Override
 	public int insertReview(Review review) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("cafeMapper.insertReview", review);
 	}
 
 	@Override
 	public int updateReview(Review review) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("cafeMapper.updateReview", review);
 	}
 
 	@Override
 	public int deleteRevice(int rvNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("cafeMapper.deleteReview", rvNo);
 	}
 
 	@Override

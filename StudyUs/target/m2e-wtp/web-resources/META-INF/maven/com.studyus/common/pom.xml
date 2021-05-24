@@ -55,7 +55,7 @@
 		    <version>2.8.5</version>
 		</dependency>
 	
-		<!-- 폴더명에 한글 있는 경우 -->
+		<!-- 폴더명에 한글 있는 경우 --> 
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>

@@ -1,7 +1,9 @@
 package com.studyus.cafe.controller;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,22 +39,62 @@ public class CafeController {
 
 	}
 
+	// 스터디카페 등록 화면
+	@RequestMapping(value = "/cafeRegisterForm", method = RequestMethod.GET)
+	public String cafeRegister() {
+		return "cafe/cafeRegisterForm"; 
+	}
+	
 	// 스터디카페 등록
-	@RequestMapping(value = "/cafeRegister", method = RequestMethod.POST)
-	public String cafeRegister(@ModelAttribute Cafe cafe,
-			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpServletRequest request,
-			Model model) {
-		return "cafe/cafeRegisterForm";
+	@RequestMapping(value="/cafeRegister", method=RequestMethod.POST)
+	public ModelAndView cafeRegister(ModelAndView mv, 
+									@ModelAttribute Cafe cafe, 
+									@RequestParam(value = "uploadFile", required = false)
+									MultipartFile uploadFile,
+									HttpServletRequest request) {
+		if (!uploadFile.getOriginalFilename().equals("")) {
+			String caReFilename = saveFile(uploadFile, request);
+			if (caReFilename != null) {
+				cafe.setCafeFilename(uploadFile.getOriginalFilename());
+				cafe.setCafeFilename(caReFilename);
+			}
+		}
 
+		// 디비에 데이터를 저장하는 작업
+		int result = 0;
+		String path = "";
+		result = cService.registerCafe(cafe);
+		if (result > 0) {
+			path = "redirect:cafeList.kh";
+		} else {
+			mv.addObject("msg", "게시글 등록 실패");
+			path = "common/errorPage";
+		}
+		mv.setViewName(path);
+		return mv;
 	}
 
-	// 파일 저장
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\nuploadFiles";
+		String savePath = root + "\\buploadFiles";
 		File folder = new File(savePath);
-		return savePath;
-
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String caFilename = file.getOriginalFilename();
+		String caReFilename = sdf.format(new Date(System.currentTimeMillis())) + "."
+				+ caFilename.substring(caFilename.lastIndexOf(".") + 1);
+		String filePath = folder + "\\" + caReFilename;
+		try {
+			file.transferTo(new File(filePath));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return caReFilename;
 	}
 
 	// 스터디 카페 수정

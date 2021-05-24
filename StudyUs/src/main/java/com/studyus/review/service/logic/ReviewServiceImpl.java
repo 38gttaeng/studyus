@@ -10,38 +10,33 @@ import com.studyus.review.service.ReviewService;
 import com.studyus.review.store.ReviewStore;
 
 @Service
-public class ReviewServiceImpl implements ReviewService {
+public class ReviewServiceImpl implements ReviewService { 
 	
 	@Autowired
 	private ReviewStore rStore;
 
 	@Override
 	public ArrayList<Review> printAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return rStore.selectList();
 	}
 
 	@Override
 	public int registerReview(Review review) {
-		// TODO Auto-generated method stub
-		return 0;
+		return rStore.insertReview(review);
 	}
 
 	@Override
 	public int modifyReview(Review review) {
-		// TODO Auto-generated method stub
-		return 0;
+		return rStore.updateReview(review);
 	}
 
 	@Override
 	public int removeReview(int rvNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return rStore.deleteRevice(rvNo);
 	}
 
 	@Override
 	public ArrayList<Review> printAllByMemberNo(int mbNo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
