@@ -53,27 +53,37 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public ArrayList<StudyWithDays_dep> printSearchResult(String keyword, String[] hashtags, StudyPageInfo pi) {
+	public ArrayList<Study> printSearchResult(String keyword, String[] hashtags, StudyPageInfo pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public ArrayList<StudyWithDays_dep> printAll(StudyPageInfo pi) {
+	public ArrayList<Study> printAll(StudyPageInfo pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<StudyWithDays_dep> printAllByStudyName(String studyName, StudyPageInfo pi) {
+	public ArrayList<Study> printAllByStudyName(String studyName, StudyPageInfo pi) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public ArrayList<Study> printAllEnrolledByMemberNo(int memberNo) {
+		return sStore.selectAllEnrolledByMemberNo(memberNo);
 	}
 
 	@Override
 	public Study printOneByNo(int studyNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public Study printOneByUrl(String url) {
+		return sStore.selectOneByUrl(url);
 	}
 
 	@Override
@@ -87,5 +97,4 @@ public class StudyServiceImpl implements StudyService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

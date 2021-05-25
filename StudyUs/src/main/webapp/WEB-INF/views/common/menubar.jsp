@@ -50,7 +50,7 @@
 	        	<li class="nav-item dropdown">
 		          	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">스터디</a>
 	              	<div class="dropdown-menu">
-	                  <a class="dropdown-item" href="#">Action</a>
+	                  <a class="dropdown-item" href="/study/search">스터디 검색</a>
 	                  <a class="dropdown-item" href="#">Another action</a>
 	                  <a class="dropdown-item" href="#">Something else here</a>
 	                  <div class="dropdown-divider"></div>
@@ -78,14 +78,20 @@
 		                    </span>
 		                </a>
 		                <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+		                	<c:if test="${ !empty enrolledStudyList }">
+		                		<c:forEach var="study" items="${ enrolledStudyList }" varStatus="i">
+				                	<a class="dropdown-item" href="/study/38gttaeng">
+				                        	<c:out value="${study.studyName }"></c:out>
+				                    </a>
+			                    </c:forEach>
+			                	<div class="dropdown-divider"></div>
+		                	</c:if>
 		                    <a class="dropdown-item" href="javascript:void(0)">
-		                    	<i data-feather="user" class="svg-icon mr-2 ml-1"></i>
-		                        마이페이지
+		                        	마이페이지
 		                    </a>
-		                <div class="dropdown-divider"></div>
+		                	<div class="dropdown-divider"></div>
 		                    <a class="dropdown-item" href="javascript:void(0)">
-		                    	<i data-feather="power" class="svg-icon mr-2 ml-1"></i>
-		                        로그아웃
+		                        	로그아웃
 		                    </a>
 		                </div>
 		            </li>

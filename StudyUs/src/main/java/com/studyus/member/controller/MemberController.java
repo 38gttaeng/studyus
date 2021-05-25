@@ -1,5 +1,7 @@
 package com.studyus.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,12 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studyus.member.domain.Member;
 import com.studyus.member.service.MemberService;
+import com.studyus.study.domain.Study;
+import com.studyus.study.service.StudyService;
 
 @Controller
 public class MemberController {
 
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private StudyService sService;
 	
 	// 로그인 뷰
 	@RequestMapping(value = "/member/loginView", method = {RequestMethod.GET, RequestMethod.POST})
@@ -32,9 +39,16 @@ public class MemberController {
 			@ModelAttribute Member member, Model model) {
 		Member mOne = new Member(member.getMbId(), member.getMbPassword());
 		Member loginUser = service.loginMember(mOne);
+		
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
+			
+			// 가입한 스터디 리스트를 세션에 저장
+			ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
+			System.out.println(enrolledStudyList);
+			session.setAttribute("enrolledStudyList", enrolledStudyList);
+			
 			return "redirect:/";
 		}else {
 			model.addAttribute("msg", "로그인 실패!");

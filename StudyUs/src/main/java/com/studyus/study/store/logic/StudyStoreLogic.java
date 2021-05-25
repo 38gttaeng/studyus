@@ -1,6 +1,7 @@
 package com.studyus.study.store.logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.session.SqlSession;
@@ -53,15 +54,23 @@ public class StudyStoreLogic implements StudyStore {
 	}
 	
 	@Override
+	public ArrayList<Study> selectAllEnrolledByMemberNo(int memberNo) {
+		List<Study> list = sqlSession.selectList("studyMapper.selectAllEnrolledByMemberNo", memberNo);
+		for (Study s : list) {
+			System.out.println(s.toString());
+		}
+		return (ArrayList<Study>) list;
+	}
+	
+	@Override
 	public Study selectOneEnrolled(int studyNo, int memberNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Study selectOneByUrl(String studyUrl) {
-		// TODO Auto-generated method stub
-		return null;
+	public Study selectOneByUrl(String url) {
+		return sqlSession.selectOne("studyMapper.selectOneByUrl", url);
 	}
 
 	@Override
@@ -75,5 +84,6 @@ public class StudyStoreLogic implements StudyStore {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }

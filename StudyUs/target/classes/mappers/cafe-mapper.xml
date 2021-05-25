@@ -4,7 +4,7 @@
 	<resultMap type="Cafe" id="cafeResultMap">
 		<id property="caNo" column="CA_NO" />
 		<result property="caName" column="CA_NAME" />
-		<result property="caAddr" column="CA_ADDR" /> 
+		<result property="caAddr" column="CA_ADDR" />
 		<result property="caTel" column="CA_TEL" />
 		<result property="caTime" column="CA_TIME" />
 		<result property="caInfo" column="CA_INFO" />

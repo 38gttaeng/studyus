@@ -116,11 +116,7 @@ $('#registerForm').submit(function () {
         return false;
     }
 
-    // 해시태그를 input에 추가
-    // for (var i = 0; i < hashtags.length; i ++) {
-    //     studyForm.innerHTML += '<input type="hidden" name="hashtag" value="' + hashtags[i] + '">';
-    // }
-
+    // 해쉬태그를 form input에 추가
     for (var i = 0; i < hashtags.length; i ++) {
         var newHashtag = document.createElement("input");
         newHashtag.name = "hashtag";
@@ -129,20 +125,3 @@ $('#registerForm').submit(function () {
         studyForm.appendChild(newHashtag);
     }
 });
-
-// 스터디 등록 실행
-// function submitRegister() {
-//     if (urlAvailable == false) {
-//         alert("중복된 URL입니다.");
-//         return false;
-//     }
-
-//     // 해시태그를 input에 추가
-//     for (var i = 0; i < hashtags.length; i ++) {
-//         studyForm.innerHTML += '<input type="hidden" name="hashtag" value="' + hashtags[i] + '">';
-//         console.log(hashtags[i]);
-//     }
-
-//     console.log("submit clicked");
-//     document.getElementById("registerForm").submit();
-// }

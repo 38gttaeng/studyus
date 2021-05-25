@@ -19,10 +19,11 @@ public interface StudyStore {
 	public ArrayList<Study> selectAll(StudyPageInfo pi);
 	public ArrayList<Study> selectAllByStudyName(String studyName, StudyPageInfo pi);
 	public Study selectOneByNo(int studyNo);
+	public ArrayList<Study> selectAllEnrolledByMemberNo(int memberNo);
 	
 	// 가입한 스터디 상세 페이지
 	public Study selectOneEnrolled(int studyNo, int memberNo);
-	public Study selectOneByUrl(String studyUrl);
+	public Study selectOneByUrl(String url);
 	public int updateStudy(Study study);
 	public int deleteStudy(int studyNo);
 	

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,13 +89,16 @@ public class StudyController {
 	// 스터디 검색 페이지 get
 	@RequestMapping(value="/study/search", method=RequestMethod.GET)
 	public String searchView() {
-		return "";
+		
+		return "study/search";
 	}
 	
 	// 스터디 검색 결과페이지 get
-	@RequestMapping(value="/study/search", method=RequestMethod.POST)
-	public String searchStudy() {
-		return "";
+	@RequestMapping(value="/study/search/result", method=RequestMethod.GET)
+	public String searchStudy(@RequestParam String searchKeyword,
+							@RequestParam(value="hashtag", required=false) String[] hashtags) {
+		
+		return "study/searchResult";
 	}
 	
 	// 스터디 상세 페이지 get
@@ -104,6 +108,14 @@ public class StudyController {
 	}
 	
 	// TODO 스터디 상세 페이지 get by Url
+	@RequestMapping(value="/study/{url}", method=RequestMethod.GET)
+	public String mainViewUrl(HttpServletRequest request, @PathVariable("url") String url) {
+		Study study = sService.printOneByUrl(url);
+		
+		request.getSession().setAttribute("study", study);
+		
+		return "study/study";
+	}
 	
 	// 스터디 수정 페이지 get
 	@RequestMapping(value="/study/modify", method=RequestMethod.GET)

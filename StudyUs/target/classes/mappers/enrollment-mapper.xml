@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="studyMapper">
+<mapper namespace="enrollmentMapper">
 
-	<resultMap type="Study" id="studyResultMap">
+	<!-- <resultMap type="Study" id="studyResultMap">
 		<id property="studyNo" column="ST_NO"></id>
 		<result property="leaderNo" column="MB_NO"></result>
 		<result property="filename" column="ST_FILENAME"></result>
@@ -22,7 +22,7 @@
 		<result property="start" column="ST_START"></result>
 		<result property="end" column="ST_END"></result>
 	</resultMap>
-	<!-- useGeneratedKeys="true"  keyProperty="caNo" keyColumn="CA_NO" -->
+	useGeneratedKeys="true"  keyProperty="caNo" keyColumn="CA_NO"
 	<insert id="insertStudy" parameterType="Study">
 		<selectKey keyProperty="studyNo" resultType="int" order="AFTER">
 			select SEQ_STUDY.currval FROM DUAL
@@ -52,27 +52,12 @@
 		SELECT COUNT(*) FROM STUDY WHERE ST_URL = #{url}
 	</select>
 	
-	<select id="selectOneByUrl" parameterType="String" resultMap="studyResultMap">
+	<select id="selectOneByUrl" resultType="Study">
 		SELECT * FROM STUDY WHERE ST_URL = #{url}
 	</select>
 	
-	<select id="selectAllEnrolledByMemberNo" parameterType="int" resultMap="studyResultMap">
-		SELECT S.ST_NO, S.ST_NAME, S.ST_URL FROM STUDY S JOIN ENROLLMENT E ON S.ST_NO = E.ST_NO WHERE E.EN_STATUS = 1 AND E.MB_NO = #{memberNo}
-	</select>
-	
-	<select id="selectAllSearch" parameterType="HashMap" resultMap="studyResultMap">
-		SELECT * FROM (SELECT S.ST_NO
-		    FROM STUDY S 
-		    LEFT OUTER JOIN HASHTAG_RELATION R ON S.ST_NO = R.ST_NO 
-		    LEFT OUTER JOIN HASHTAG H ON R.HA_NAME = H.HA_NAME
-		    WHERE S.ST_URL LIKE '%a%' 
-		    OR H.HA_NAME LIKE '%J%'
-		    GROUP BY S.ST_NO) RESULT_TBL LEFT OUTER JOIN STUDY S ON (RESULT_TBL.ST_NO = S.ST_NO)
-		    ORDER BY S.ST_NO
-	</select>
-	
-	<!-- <select id="selectAllEnrolledByMemberNo" resultMap="studyResultMap">
-		SELECT STUDY.ST_NO, STUDY.ST_NAME, STUDY.ST_URL FROM STUDY JOIN ENROLLMENT ON STUDY.ST_NO = ENROLLMENT.ST_NO WHERE ENROLLMENT.EN_STATUS = 1 AND ENROLLMENT.MB_NO = #{memberNo};
+	<select id="selectAllEnrolledByMemberNo">
+		SELECT S.ST_NO, S.ST_NAME, S.ST_URL FROM STUDY S JOIN ENROLLMENT E ON S.ST_NO = E.ST_NO WHERE EN_STATUS = 1 AND E.MB_NO = ${memberNo};
 	</select> -->
 	
 	<!-- 
