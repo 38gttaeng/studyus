@@ -2,6 +2,7 @@ package com.studyus.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,6 +136,22 @@ public class BoardController {
 		map.put("count", count);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(map, response.getWriter());
+	}
+	
+	// 파일 다운로드
+	@RequestMapping(value="/study/board/downloadFile", method=RequestMethod.GET)
+	public void fileDownload(HttpServletRequest request, HttpServletResponse response, @ModelAttribute Board board) throws Exception {
+		
+		// 파일을 읽어서 byte 형식으로 변환
+		String filePath = request.getSession().getServletContext().getRealPath("resources") + "\\buploadFiles";
+		byte fileByte[] = FileUtils.readFileToByteArray(new File(filePath + "\\" + board.getBoFileName()));
+		
+		response.setContentType("application/octet-stream");
+		response.setContentLength(fileByte.length);
+		response.setHeader("Content-Disposition",  "attachment; fileName=\""+ URLEncoder.encode(board.getFiRealName(), "UTF-8")+"\";");
+		response.getOutputStream().write(fileByte);
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
 	}
 	
 	/******************* 게시물 등록, 수정, 삭제 *******************/

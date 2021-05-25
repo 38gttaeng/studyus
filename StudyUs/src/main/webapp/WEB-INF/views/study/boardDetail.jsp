@@ -99,8 +99,10 @@
                             </div>
                             <c:if test="${ !empty board.boFileName }">
 	                            <div class="card-body file-box">
-	                            	${ board.fiRealName }
+	                            	<p id="file-download">${ board.fiRealName }</p>
 	                            </div>
+	                            <input type="hidden" name="storedName" value="${ board.boFileName }">
+	                            <input type="hidden" name="realName" value="${ board.fiRealName }">
                             </c:if>
                             <div class="card-body">
 	                            <p>${ board.boContents }</p>
