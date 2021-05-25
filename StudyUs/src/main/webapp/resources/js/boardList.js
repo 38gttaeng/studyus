@@ -132,9 +132,9 @@ function getReplyOne(boMotherNo) {
 				var replyContent =
 					"<div class='reply-box list-reply'>" +
 					"<div><img src='/resources/images/" + board.member.mbPhoto + ".png' class='rounded-circle'>&nbsp;" +
-					"<span>" + board.member.mbNickname + "</span>&nbsp;" +
-					"<span>" + board.boInsertDate + "</span></div>" +
-					"<div>" + board.boContents + "</div></div>";
+					"<span class='nickName'>" + board.member.mbNickname + "</span>&nbsp;" +
+					"<span class='insertDate'>" + board.boInsertDate + "</span></div>" +
+					"<div class='contents-box'>" + board.boContents + "</div></div>";
 				var replyEnd = "</div>";
 				
 				reply = replyOpen + replyContent + replyEnd;

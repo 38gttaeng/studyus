@@ -2,6 +2,12 @@ var data = null;
 var pi = null;
 var page = 1;
 
+var toolbarOptions = {
+	container : [
+	  ['link', 'image', 'video', 'formula', 'code-block'],
+	  ['emoji'],
+	]
+};
 const limit = 1000; // 1000자 제한
 
 $(function() {
@@ -9,13 +15,6 @@ $(function() {
 	getReplyList(page);
 	
 	// Quill
-	var toolbarOptions = {
-		container : [
-		  ['link', 'image', 'video', 'formula', 'code-block'],
-		  ['emoji'],
-		]
-	};
-	
 	var quill = new Quill('#editor', {
 		modules: {
 			imageResize: {},
@@ -52,10 +51,11 @@ $(function() {
 	// 등록하기
 	$("#rSubmit").on("click", function() {
 		var rMotherNo = $("#rMotherNo").val();
-		var rContent = quill.root.innerHTML;
 		var rMbNo = $("#loginMbNo").val();
+		var rContent = quill.root.innerHTML;
+		console.log(quill.getLength());
 		
-		if(rContent != "") {
+		if(quill.getLength() > 3) {
 			$.ajax({
 				url : "/study/board/addReply",
 				type : "post",
@@ -111,6 +111,8 @@ function replyList(data, listCount, loginMbNo) {
 	var $rList = $("#rList");
 	$rList.html("");
 	
+	var boMbNo = $("#boMbNo").val();
+	
 	var $div;
 	var $rWriter;
 	var $rContent;
@@ -132,13 +134,13 @@ function replyList(data, listCount, loginMbNo) {
 			
 			$rWriter = $("<div>")
 			.append("<img src='/resources/images/" + data[i].member.mbPhoto + ".png' class='rounded-circle'>&nbsp")
-			.append("<span>" + data[i].member.mbNickname + "</span>&nbsp");
-			if(rMbNo == data[i].mbNo) {
-				$rWriter.append("&nbsp<div>작성자</div>");
+			.append("<span class='nickName'>" + data[i].member.mbNickname + "</span>&nbsp");
+			if(boMbNo == data[i].mbNo) {
+				$rWriter.append("&nbsp<div class='writerTag'>작성자</div>");
 			}
-			$rWriter.append("<span>" + data[i].boInsertDate + "</span>");
+			$rWriter.append("<span class='insertDate'>" + data[i].boInsertDate + "</span>");
 			
-			$rContent = $("<div>").append(data[i].boContents);
+			$rContent = $("<div class='contents-box'>").append(data[i].boContents);
 			
 			$btnArea = $("<div>")
 			.append("<button class='btn btn-sm btn-light'>답글</button>");
@@ -146,7 +148,7 @@ function replyList(data, listCount, loginMbNo) {
 			// 수정+삭제 버튼
 			if(loginMbNo == data[i].mbNo) {
 				$btnTool =$("<div class='btn-group'>");
-				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].boNo + ",\"" + data[i].boContents + "\");'>수정</button>")
+				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].boNo + ");'>수정</button>")
 				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].boNo + ");'>삭제</button>");
 				$btnArea.append($btnTool);
 			}
@@ -154,6 +156,7 @@ function replyList(data, listCount, loginMbNo) {
 			$div.append($rWriter);
 			$div.append($rContent);
 			$div.append($btnArea);
+			$div.attr("id", "boReply" + data[i].boNo);//////////////////
 			
 			$rList.append($div);
 		}
@@ -204,41 +207,72 @@ function replyPage(pi) {
 	$rPage.append($ul);
 }
 
-// 수정하기 화면
-function modifyReply(obj, boNo, replyContent) {
+// 수정하기
+function modifyReply(obj, boNo) {
+	$reply = $("#boReply" + boNo).children("div:eq(1)");
+	var replyContent = $reply.html();
+
 	$divModify = $(obj).parent().parent().prev();
 	$divModify.html("");
 	
 	$btnArea = $divModify.next();
 	$btnArea.html("");
 	$btnArea.addClass("btn-group");
+	$btnArea.addClass("reBtn");
 	
-	$text = $("<div id='editor'>" + replyContent + "</div>");
+	$text = $("<div id='editor2' style='width:100%'>" + replyContent + "</div>");
 	$btnArea
-	.append("<button class='btn btn-sm btn-secondary' onclick='modifyReplyCommit(" + boNo + ");'>수정</button>")
+	.append("<button id='modify-btn' class='btn btn-sm btn-secondary'>수정</button>")
 	.append("<button class='btn btn-sm btn-secondary' onclick='getReplyList(page);'>취소</button>");
 	
 	$divModify.append($text);
-	$divModify.parent().css("height", "190px");
-}
-
-// 수정하기
-function modifyReplyCommit(boNo) {
-	var mReply = $("#mReply").val();
 	
-	$.ajax({
-		url : "/study/board/modifyReply",
-		type : "post",
-		data : { "boNo" : boNo, "boContents" : mReply },
-		success : function(data) {
-			if(data == "success") {
-				getReplyList(page);
-			} else {
-				alert("댓글 수정 실패!");
-			}
+	var quill2 = new Quill('#editor2', {
+		modules: {
+			imageResize: {},
+			imageUpload: {
+				url: '/file/upload/image',
+				method: 'POST',
+				name: 'uploadImage',
+				withCredentials: false,
+				callbackOK: (serverResponse, next) => {
+			    	next(serverResponse);
+			    },
+				callbackKO: serverError => {
+					alert(serverError);
+				},
+				checkBeforeSend: (file, next) => {
+			    	console.log(file);
+			    	next(file);
+			    }
+			},
+	      "toolbar": toolbarOptions,
+	      "emoji-toolbar": true,
 		},
-		error : function() {
-			console.log("전송 실패..");
+		theme: 'bubble'
+	});
+	
+	$("#modify-btn").on("click", function() {
+		var mContents = quill2.root.innerHTML;
+	
+		if(quill2.getLength() > 3) {
+			$.ajax({
+				url : "/study/board/modifyReply",
+				type : "post",
+				data : { "boNo" : boNo, "boContents" : mContents },
+				success : function(data) {
+					if(data == "success") {
+						getReplyList(page);
+					} else {
+						alert("댓글 수정 실패!");
+					}
+				},
+				error : function() {
+					console.log("전송 실패..");
+				}
+			});
+		} else {
+			alert("댓글 내용을 입력해주세요.");
 		}
 	});
 }

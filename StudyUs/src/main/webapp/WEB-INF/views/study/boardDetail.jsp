@@ -114,7 +114,7 @@
                             <div class="card-body">
                             	<!-- board.js 파일과 연동하기 위해서 -->
                             	<input id="rMotherNo" type="hidden" value="${ board.boNo }">
-                            	<input id="rMbNo" type="hidden" value="${ board.mbNo }">
+                            	<input id="boMbNo" type="hidden" value="${ board.mbNo }">
                             	<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
                             	<input id="menuCheck" type="hidden" value="b"><!-- 메뉴 체크 -->
                             
