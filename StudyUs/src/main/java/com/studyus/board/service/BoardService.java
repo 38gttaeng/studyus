@@ -1,9 +1,9 @@
 package com.studyus.board.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.studyus.board.domain.Board;
-import com.studyus.board.domain.Search;
 import com.studyus.common.PageInfo; 
 
 public interface BoardService {
@@ -33,13 +33,21 @@ public interface BoardService {
 	public Board printOneReply(int boMotherNo);
 	
 	/**
+	 * 검색한 게시물 총 개수 - 전체 / 마이페이지 / 팀장페이지
+	 * (마이페이지 검색은 멤버가 null이 아닐 때)
+	 * @param map
+	 * @return
+	 */
+	public int getSearchCount(HashMap<String, Object> map);
+	
+	/**
 	 * 검색하기 - 전체 / 마이페이지 / 팀장페이지
 	 * (마이페이지 검색은 멤버가 null이 아닐 때)
-	 * @param search
+	 * @param pi
 	 * @param board(stNo, boCategory)
 	 * @return
 	 */
-	public ArrayList<Board> printSearchAll(Search search, Board board);
+	public ArrayList<Board> printSearchAll(PageInfo pi, HashMap<String, Object> map);
 	
 	/**
 	 * 한개 보기 (WHERE BO_NO)
@@ -55,6 +63,8 @@ public interface BoardService {
 	 * @return
 	 */
 	public ArrayList<Board> printAllReply(PageInfo pi, int boMotherNo);
+	
+	/////////////////////////////////////////////////////////////////////////////////
 	
 	// 내가 쓴 게시물 보기 (게시물 + 과제제출)
 	
@@ -93,11 +103,10 @@ public interface BoardService {
 	/**
 	 * 검색하기 - 전체 / 마이페이지 / 팀장페이지
 	 * (마이페이지 검색은 멤버가 null이 아닐 때)
-	 * @param search
 	 * @param stNo
 	 * @return
 	 */
-	public ArrayList<Board> printSearchAllReply(Search search, int stNo);
+	public ArrayList<Board> printSearchAllReply(HashMap<String, Object> map);
 	
 	// 내가 쓴 댓글 보기 (게시물 + 과제제출)
 	
@@ -115,6 +124,8 @@ public interface BoardService {
 	 * @return
 	 */
 	public ArrayList<Board> printAllReplyByMemberNo(PageInfo pi, Board board, int selected);
+	
+	/////////////////////////////////////////////////////////////////////////////////
 	
 	// 게시물과 댓글 추가, 수정, 삭제
 	public int registerBoard(Board board);

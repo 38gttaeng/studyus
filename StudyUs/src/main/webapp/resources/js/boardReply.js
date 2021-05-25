@@ -222,21 +222,3 @@ function removeReply(boNo) {
 		});
 	}
 }
-
-// 파일 다운로드
-function fileDownload() {
-	var boFileName = $("input[name=storedName]").val();
-	var fiRealName = $("input[name=realName]").val();
-	
-	$.ajax ({
-		url : "/study/board/downloadFile",
-		type : "get",
-		data : { "boFileName" : boFileName, "fiRealName" : fiRealName },
-		success : function() {
-			console.log("파일 다운로드 성공 :" + fiRealName);
-		},
-		error : function() {
-			alert("전송 실패..");
-		}
-	});
-}

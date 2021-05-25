@@ -99,12 +99,14 @@
                             </div>
                             <c:if test="${ !empty board.boFileName }">
 	                            <div class="card-body file-box">
-	                            	<p id="file-download">${ board.fiRealName }</p>
+	                            	<c:url var="fileDownload" value="/study/board/downloadFile">
+										<c:param name="boFileName" value="${ board.boFileName }"></c:param>
+										<c:param name="fiRealName" value="${ board.fiRealName }"></c:param>
+									</c:url>
+		                            <a class="text-muted" href="${ fileDownload }" onclick="return confirm('파일을 다운로드하시겠습니까?');">${ board.fiRealName }</a>
 	                            </div>
-	                            <input type="hidden" name="storedName" value="${ board.boFileName }">
-	                            <input type="hidden" name="realName" value="${ board.fiRealName }">
                             </c:if>
-                            <div class="card-body">
+                            <div class="card-body content">
 	                            <p>${ board.boContents }</p>
                             </div>
                             
@@ -128,7 +130,6 @@
                                 <div id="rList"></div>
                                 <!-- 페이징 -->
                                 <nav id='rPage'></nav>
-								
                             </div>
                              
                         </div>

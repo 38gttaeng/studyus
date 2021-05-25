@@ -92,19 +92,24 @@
 	margin:0 24px 25px 24px;
 }
 
-/* 내용 영역 보이기 제한(전체보기에서만) */
-#list-content {
-	padding-top : 0;
-	max-height : 300px;
+/* 내용 */
+.content {
+	padding-top : 0 !important;
 }
 
-#list-content p {
-	display : -webkit-box;
-	overflow : hidden;
-	text-overflow : ellipsis;
-	-webkit-line-clamp : 6; 
-	-webkit-box-orient : vertical;
-}
+	/* 내용 영역 보이기 제한(전체보기에서만) */
+	.list-content {
+		max-height : 500px;
+		overflow : hidden;
+	}
+	
+	.list-content p {
+		display : -webkit-box;
+		overflow : hidden;
+		text-overflow : ellipsis;
+		-webkit-line-clamp : 6; 
+		-webkit-box-orient : vertical;
+	}
 
 /* 전체 리스트에서는 댓글 영역 border 없애기 */
 .list-reply {

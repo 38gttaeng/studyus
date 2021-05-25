@@ -36,7 +36,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-                                    <li class="breadcrumb-item text-muted active" aria-current="page">Board</li>
+                                    <li class="breadcrumb-item text-muted active" aria-current="page"><a href="/study/board?boCategory=${ category }">Board</a></li>
                                     <!-- 카테고리명에 따라서 다르게 -->
                                     <li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">
                                     	<c:if test="${ category == 0 }">
@@ -57,20 +57,18 @@
                         </div>
                     </div>
                     <div class="col-lg-8 align-self-center">
-        				<form>
-		                    <div class="customize-input float-right">
-                            	<input class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="Search" aria-label="Search">
-                            	<i class="form-control-icon" data-feather="search"></i>
-	                    	</div>
-	                    	<div class="customize-input float-right" style="margin-right:10px;">
-		                        <select class="custom-select bg-white custom-radius border-0 custom-shadow">
-		                            <option selected>제목+내용</option>
-		                            <option value="1">제목</option>
-		                            <option value="2">내용</option>
-		                            <option value="3">작성자</option>
-		                        </select>
-		                    </div>
-                   		</form>
+	                    <div class="customize-input float-right">
+                           	<input name="searchValue" class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="Search" aria-label="Search">
+                           	<i id="search-btn" class="form-control-icon" data-feather="search"></i>
+                    	</div>
+                    	<div class="customize-input float-right" style="margin-right:10px;">
+	                        <select name="searchCondition" class="custom-select bg-white custom-radius border-0 custom-shadow">
+	                            <option selected value="all">전체</option>
+	                            <option value="title">제목</option>
+	                            <option value="content">내용</option>
+	                            <option value="writer">작성자</option>
+	                        </select>
+	                    </div>
                     </div>
 	            </div>
             </div>

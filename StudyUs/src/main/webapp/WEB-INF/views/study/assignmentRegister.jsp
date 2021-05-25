@@ -21,8 +21,8 @@
         <!-- menubar -->
 	    <jsp:include page="../common/studyMenubar.jsp"/>
 	    <script>
-	    	$("#sidebarnav>li:nth-child(6)").addClass("selected");
-	    	$("#sidebarnav>li:nth-child(6) a").addClass("active");
+	    	$("#sidebarnav>li:nth-child(7)").addClass("selected");
+	    	$("#sidebarnav>li:nth-child(7) a").addClass("active");
 	    </script>
         
         <!-- ============================================================== -->
@@ -34,12 +34,12 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
 	            <div class="col-lg-4 align-self-center">
-	                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">게시판</h4>
+	                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">과제</h4>
 	                <div class="d-flex align-items-center">
 	                    <nav aria-label="breadcrumb">
 	                        <ol class="breadcrumb m-0 p-0">
 	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board">Board</a></li>
+	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/assignment">Assignment</a></li>
 	                            <li class="breadcrumb-item text-muted active" aria-current="page">Write</li>
 	                        </ol>
 	                    </nav>

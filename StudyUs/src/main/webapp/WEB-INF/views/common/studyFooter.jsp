@@ -35,8 +35,8 @@
 	<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
 	<script src="/resources/js/quill/image-resize.min.js"></script>
-	<script src="/resources/js/quill/image-drop.min.js"></script>
-	<script src="/resources/js/quill/video-resize.min.js"></script>
+	<script src="/resources/js/quill/image-upload.min.js"></script>
+	<!-- <script src="/resources/js/quill/video-resize.min.js"></script> -->
 	<script src="/resources/js/quill/quill-emoji.js"></script>
 </body>
 </html>

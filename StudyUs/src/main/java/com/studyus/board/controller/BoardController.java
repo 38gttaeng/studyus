@@ -1,7 +1,9 @@
 package com.studyus.board.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.studyus.board.domain.Board;
-import com.studyus.board.domain.Search;
 import com.studyus.board.service.BoardService;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
@@ -58,11 +59,10 @@ public class BoardController {
 			}
 			session.setAttribute("category", boCategory);
 		}
-		
 		return "study/boardList";
 	}
 	
-	// 무한 스크롤
+	// 리스트 무한 스크롤
 	@RequestMapping(value="/study/boardScroll", method=RequestMethod.GET)
 	public void boardListScroll(HttpSession session, HttpServletResponse response, @RequestParam("page") int page) throws Exception {
 		
@@ -84,8 +84,30 @@ public class BoardController {
 	}
 	
 	// 검색
-	public ModelAndView boardSearch(HttpSession session, ModelAndView mv, @ModelAttribute Search search, @RequestParam("boCategory") int boCategory) {
-		return null;
+	@RequestMapping(value="/study/board/search", method=RequestMethod.GET)
+	public void boardSearchView(HttpSession session, HttpServletResponse response, @RequestParam("page") int page,
+			@RequestParam("searchValue") String searchValue, @RequestParam("searchCondition") String searchCondition) throws Exception {
+		
+		//////////////////////////////////세션에서 스터디번호 가져와서 넣어주기
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("stNo", 1); ///////////////////////
+		map.put("boCategory", (Integer) session.getAttribute("category"));
+		map.put("searchValue", searchValue);
+		map.put("searchCondition", searchCondition);
+		
+		System.out.println(map);/*************************************/
+		int listCount = boService.getSearchCount(map);
+		PageInfo pi = Pagination5.getPageInfo(page, listCount);
+		ArrayList<Board> searchList = boService.printSearchAll(pi, map);
+		
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("searchList", searchList);
+		data.put("maxPage", pi.getMaxPage());
+		System.out.println(searchList);/*************************************/
+		System.out.println(pi.getMaxPage());/*************************************/
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(data, response.getWriter());
 	}
 	
 	// 디테일
@@ -141,18 +163,42 @@ public class BoardController {
 	// 파일 다운로드
 	@RequestMapping(value="/study/board/downloadFile", method=RequestMethod.GET)
 	public void fileDownload(HttpServletRequest request, HttpServletResponse response, @ModelAttribute Board board) throws Exception {
+		String filePath = request.getSession().getServletContext().getRealPath("resources") + "\\buploadFiles\\" + board.getBoFileName();
+		File file = new File(filePath);
 		
-		// 파일을 읽어서 byte 형식으로 변환
-		String filePath = request.getSession().getServletContext().getRealPath("resources") + "\\buploadFiles";
-		byte fileByte[] = FileUtils.readFileToByteArray(new File(filePath + "\\" + board.getBoFileName()));
-		
-		response.setContentType("application/octet-stream");
-		response.setContentLength(fileByte.length);
-		response.setHeader("Content-Disposition",  "attachment; fileName=\""+ URLEncoder.encode(board.getFiRealName(), "UTF-8")+"\";");
-		response.getOutputStream().write(fileByte);
-		response.getOutputStream().flush();
-		response.getOutputStream().close();
-	}
+		if(file.isFile()) {
+			String userAgent = request.getHeader("User-Agent");
+			
+			String fileNameOrg = null;
+			boolean ie = userAgent.indexOf("MSIE") > -1;
+			if (ie) {
+				fileNameOrg = URLEncoder.encode(board.getFiRealName(),"UTF-8").replaceAll("\\+", "%20");
+				response.setHeader("Content-Disposition", "attachment; filename=" + fileNameOrg + ";");
+			} else {
+				fileNameOrg = new String(board.getFiRealName().getBytes("UTF-8"), "ISO-8859-1");
+				response.setHeader("Content-Disposition", "attachment; filename=\"" + fileNameOrg + "\"");
+			}
+			
+			response.setContentType("application/octet-stream");                
+			response.setContentLength((int)file.length());
+			response.setHeader("Content-Transfer-Encoding", "binary;");
+			response.setHeader("Pragma", "no-cache;");
+			response.setHeader("Expires", "-1;");
+			
+			FileInputStream fileIn = new FileInputStream(file);
+			OutputStream output = response.getOutputStream();
+			
+			byte [] outputByte = new byte[4096];
+			while(fileIn.read(outputByte, 0, 4096) != -1) {
+				// 읽은 것을 다운로드 되도록 함
+				output.write(outputByte, 0, 4096);
+			}
+			
+			fileIn.close();
+			output.flush();
+			output.close();
+		}
+    }
 	
 	/******************* 게시물 등록, 수정, 삭제 *******************/
 	
@@ -374,6 +420,5 @@ public class BoardController {
 			return "fail";
 		}
 	}
-	
 }
 

@@ -1,12 +1,12 @@
 package com.studyus.board.service.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.studyus.board.domain.Board;
-import com.studyus.board.domain.Search;
 import com.studyus.board.service.BoardService;
 import com.studyus.board.store.BoardStore;
 import com.studyus.common.PageInfo;
@@ -31,11 +31,15 @@ public class BoardServiceImpl implements BoardService {
 	public Board printOneReply(int boMotherNo) {
 		return boStore.selectOneReply(boMotherNo);
 	}
+	
+	@Override
+	public int getSearchCount(HashMap<String, Object> map) {
+		return boStore.getSearchCount(map);
+	}
 
 	@Override
-	public ArrayList<Board> printSearchAll(Search search, Board board) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Board> printSearchAll(PageInfo pi, HashMap<String, Object> map) {
+		return boStore.selectSearchAll(pi, map);
 	}
 
 	@Override
@@ -48,6 +52,8 @@ public class BoardServiceImpl implements BoardService {
 		return boStore.selectAllReply(pi, boMotherNo);
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public int getListCountByMemberNo(Board board, int selected) {
 		// TODO Auto-generated method stub
@@ -73,7 +79,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public ArrayList<Board> printSearchAllReply(Search search, int stNo) {
+	public ArrayList<Board> printSearchAllReply(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -90,6 +96,8 @@ public class BoardServiceImpl implements BoardService {
 		return null;
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public int registerBoard(Board board) {
 		return boStore.insertBoard(board);

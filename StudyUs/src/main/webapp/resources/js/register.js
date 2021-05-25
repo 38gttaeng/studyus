@@ -28,7 +28,7 @@ $(function() {
 		  [{ 'direction': 'rtl' }],                         // text direction
 		  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 			
-		  ['image', 'video', 'formula', 'code-block'],
+		  ['link', 'image', 'video', 'formula', 'code-block'],
 		  
 		  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
 		  [{ 'align': [] }],
@@ -39,19 +39,30 @@ $(function() {
 	
 	var quill = new Quill('#editor', {
 		modules: {
-			//videoResize: {},
 			imageResize: {},
-			imageDrop: {},
+			//videoResize: {},
+			imageUpload: {
+				url: '/file/upload/image',
+				method: 'POST',
+				name: 'uploadImage',
+				withCredentials: false,
+				//customUploader: () => {},
+				callbackOK: (serverResponse, next) => {
+			    	next(serverResponse);
+			    },
+				callbackKO: serverError => {
+					alert(serverError);
+				},
+				checkBeforeSend: (file, next) => {
+			    	console.log(file);
+			    	next(file); // go back to component and send to the server
+			    }
+			},
           "toolbar": toolbarOptions,
           "emoji-toolbar": true,
 		},
 		placeholder: '내용을 입력하세요.',
 		theme: 'snow'
-	});
-	
-		// 이미지 로컬에 업로드
-	quill.getModule("toolbar").addHandler("image", function() {
-		selectLocalImage();
 	});
 	
 		// 글자수 제한
@@ -60,7 +71,7 @@ $(function() {
 	    quill.deleteText(limit, quill.getLength());
 	  }
 	});
-
+	
 	// 유효성 검사
 	var title = $("input[name=boTitle]");
 	var titleMsg = $("#title-msg");
@@ -80,6 +91,12 @@ $(function() {
 	});
 	
 	$("#submit-btn").on("click", function() {
+	
+		// 수정파일인지 여부 체크
+		if($("input[name=viewCheck]").val() == "modifyView") {
+			titleCheckFlag = true;
+		}
+	
 		if(titleCheckFlag && title.val() != "") {
 			var html = quill.root.innerHTML;
 			
@@ -93,32 +110,3 @@ $(function() {
 		}
 	});
 });
-
-function selectLocalImage() {
-	const input = document.createElement("input");
-	input.setAttribute("type", "file");
-	input.click();
-	
-	input.onchange = function() {
-		const fd = new FormData();
-		const file = $(this)[0].files[0];
-		fd.append("image", file);
-		
-		//////////////////////mbNo도 같이 보내주기(파일 db 저장용)
-		$.ajax({
-			url: "/file/upload/image",
-			type: "post",
-			enctype: "multipart/form-data",
-			data: {"uploadImage": fd},
-			processData: false,
-			contextData: false,
-			success: function(data) {
-				const range = quill.getSelection();
-				quill.insertEmbed(range.index, "image", "/resources/images/" + data);
-			},
-			error: function() {
-				alert("전송 실패!");
-			}
-		});
-	}
-}
