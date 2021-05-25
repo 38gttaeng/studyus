@@ -89,10 +89,12 @@
                 	</div>
                 </div>  
                 
-                <!-- top으로 가는 버튼 -->
-                <button id="top-btn" onclick="location.href='#'"><i class="fas fa-angle-up"></i></button>
-                <!-- 글쓰기 버튼 --> 
-				<button id="write-btn" onclick="location.href='/study/board/registerView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
+                <div id="float-btn">
+	                <!-- top으로 가는 버튼 -->
+	                <button id="top-btn" onclick="location.href='#'"><i class="fas fa-angle-up"></i></button>
+	                <!-- 글쓰기 버튼 --> 
+					<button id="write-btn" onclick="location.href='/study/board/registerView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
+                </div>
 			</div>
             <!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>

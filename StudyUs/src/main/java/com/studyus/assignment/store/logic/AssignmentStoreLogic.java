@@ -49,8 +49,7 @@ public class AssignmentStoreLogic implements AssignmentStore {
 
 	@Override
 	public int insertAssignment(Assignment assignment) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("assignmentMapper.insertAssignment", assignment);
 	}
 
 	@Override

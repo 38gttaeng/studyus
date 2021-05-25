@@ -111,24 +111,31 @@
 	border : none !important;
 }
 
+/* float 버튼 */
+#float-btn {
+	position : fixed;
+	bottom : 12%;
+	right : 2%;
+}
+
 /* top 버튼 */
 #top-btn {
 	background-color : rgba(232, 234, 236, 0.5);
 	color : #fff;
-	position : fixed;
-	bottom : 21%;
-	right : 3%;
 	border : none;
 	border-radius: 100%;
 	width: 42px;
 	height: 42px;
+	display : block;
+	margin : 10px auto;
+}
+
+#top-btn:hover {
+	background-color : rgba(232, 234, 236, 1);
 }
 
 /* 글쓰기 버튼 */
 #write-btn {
-	position : fixed;
-	bottom : 10%;
-	right : 2%;
 	border : none;
 	border-radius: 100%;
 	width: 60px;
@@ -144,6 +151,10 @@
 		display : none;
 		font-size : 14px;
 		font-weight:500;
+	}
+	
+	#write-btn:hover {
+		background-color: #3e00cc;
 	}
 	
 	#write-btn:hover i {

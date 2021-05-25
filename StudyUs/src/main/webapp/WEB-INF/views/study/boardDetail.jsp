@@ -50,8 +50,15 @@
                     	<div class="float-right">
 	                    	<c:if test="${ loginUser.mbNo == board.mbNo }">
                     		<div class="btn-group">
-		                    	<button onclick="location.href='#'" class="btn btn-secondary">수정</button>
-		                    	<button onclick="location.href='#'" class="btn btn-secondary">삭제</button>
+				                <c:url var="bModify" value="/study/board/modifyView">
+									<c:param name="boNo" value="${ board.boNo }"></c:param>
+								</c:url>
+								<c:url var="bDelete" value="/study/board/delete">
+									<c:param name="boNo" value="${ board.boNo }"></c:param>
+									<c:param name="boFileName" value="${ board.boFileName }"></c:param>
+								</c:url>
+		                    	<a href="${ bModify }" class="btn btn-secondary">수정</a>
+		                    	<a href="${ bDelete }" onclick="return confirm('정말 삭제하시겠습니까?');" class="btn btn-secondary">삭제</a>
                     		</div>
                     		</c:if>
 	                    	<button onclick="location.href='/study/board?boCategory=${ category }'" class="btn btn-primary">목록</button>
@@ -92,7 +99,7 @@
                             </div>
                             <c:if test="${ !empty board.boFileName }">
 	                            <div class="card-body file-box">
-	                            	${ board.boFileName }
+	                            	${ board.fiRealName }
 	                            </div>
                             </c:if>
                             <div class="card-body">

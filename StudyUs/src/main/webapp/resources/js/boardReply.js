@@ -54,7 +54,7 @@ function getReplyList(page) {
 			var pi = map.page;
 			
 			page = pi.maxPage;///////////////////////
-			replyList(data, pi.listCount);
+			replyList(data, pi.listCount, loginMbNo);
 			replyPage(pi);
 		},
 		error : function() {
@@ -65,7 +65,7 @@ function getReplyList(page) {
 }
 
 // 댓글 리스트
-function replyList(data, listCount) {
+function replyList(data, listCount, loginMbNo) {
 	var $rList = $("#rList");
 	$rList.html("");
 	
@@ -189,7 +189,7 @@ function modifyReplyCommit(boNo) {
 		data : { "boNo" : boNo, "boContents" : mReply },
 		success : function(data) {
 			if(data == "success") {
-				getReplyList(page);
+				getReplyList();
 			} else {
 				alert("댓글 수정 실패!");
 			}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fileMapper">
+
+	<insert id="insertFile" parameterType="FileVO">
+		INSERT INTO FILE_TABLE VALUES (
+			SEQ_FILE.NEXTVAL, #{mbNo}, DEFAULT, #{fiRealName}, #{fiStoredName}, #{fiDirectory}, DEFAULT
+		)
+	</insert>
+	
+	<update id="updateFile" parameterType="FileVO">
+		UPDATE FILE_TABLE SET
+		FI_REALNAME = #{fiRealName}, FI_STOREDNAME = #{fiStoredName}, FI_DIRECTORY = #{fiDirectory}
+		WHERE FI_NO = #{mbNo}
+		<!-- 생성자 같은거 써서(둘다 int) 이름을 이렇게 넣었어여 사실은 fiNo 자리 맞아여 -->
+	</update>
+	
+	<update id="deleteFile">
+		UPDATE FILE_TABLE SET
+		FI_STATUS = 0
+		WHERE FI_STOREDNAME = #{fiStoredName}
+	</update>
+	
+	<select id="selectOne" parameterType="String" resultType="_int">
+		SELECT FI_NO FROM FILE_TABLE
+		WHERE FI_STOREDNAME = #{fiStoredName}
+	</select>
+</mapper>

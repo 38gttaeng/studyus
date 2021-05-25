@@ -46,8 +46,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
 	@Override
 	public int registerAssignment(Assignment assignment) {
-		// TODO Auto-generated method stub
-		return 0;
+		return asStore.insertAssignment(assignment);
 	}
 
 	@Override

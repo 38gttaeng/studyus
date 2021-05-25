@@ -69,6 +69,9 @@
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
+                    	<div class="card">
+                    		과제 리스트...?
+                        </div>
                         <div class="card">
                             <table>
                             	<thead>
@@ -81,7 +84,7 @@
                             	</thead>
                             	<tbody>
                             		<c:forEach items="${ aList }" var="aOne">
-	                            	<tr onclick="location.href='/study/assignment/detail?asNo='${ aOne.asNo }">
+	                            	<tr onclick="location.href='/study/assignment/detail?asNo=${ aOne.asNo }'">
 	                            		<td>${ aOne.asNo }</td>
                             			<td>${ aOne.asName }</td>
                             			<td>${ aOne.asInsertDate } ~ ${ aOne.asDeadLine }</td>
@@ -95,7 +98,7 @@
                 </div>
                 
                 <!-- 글쓰기 버튼 --> 
-				<button id="write-btn" onclick="location.href='/study/board/registerView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
+				<button id="write-btn" onclick="location.href='/study/assignment/registerView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
             </div>
             <!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>

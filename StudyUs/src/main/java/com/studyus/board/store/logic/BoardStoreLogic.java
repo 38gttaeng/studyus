@@ -107,7 +107,9 @@ public class BoardStoreLogic implements BoardStore{
 
 	@Override
 	public int deleteBoard(int boNo) {
-		return sqlSession.update("boardMapper.deleteBoard", boNo);
+		int reResult = sqlSession.update("boardMapper.deleteReply", boNo);
+		int boResult = sqlSession.update("boardMapper.deleteBoard", boNo);
+		return reResult + boResult;
 	}
 
 }
