@@ -1,5 +1,7 @@
 package com.studyus.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.member.service.MemberService;
 
@@ -86,45 +89,73 @@ public class MemberController {
 	// 아이디/비번찾기 뷰
 	@RequestMapping(value = "/member/findView", method = RequestMethod.GET)
 	public String findView() {
-		
-		return "member/findView";
+		return "member/findIdPwd";
 	}
 	
 	// 아이디찾기
 	@RequestMapping(value = "/member/findId", method = RequestMethod.POST)
-	public String findId(@RequestParam("mbEmail") String mbEmail,
-						@RequestParam("mbName") String maName) {
-		
-		return null;
+	public String findId(HttpServletRequest request,
+			@ModelAttribute Member member, Model model) {
+		Member mOne = new Member(member.getMbId(), member.getMbName(), member.getMbEmail());
+		Member findId = service.findMemId(mOne);
+		if(findId != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("findId", findId);
+			return "redirect:/member/findIdResultView";
+		}else {
+			model.addAttribute("msg", "아이디 찾기에 실패했습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 아이디찾기 결과 뷰
+	@RequestMapping(value = "/member/findIdResultView", method = RequestMethod.GET)
+	public String findIdResultView() {
+		return "member/findIdResult";
 	}
 	
 	// 비밀번호찾기
 	@RequestMapping(value = "/member/findPwd", method = RequestMethod.POST)
-	public String findPwd(@RequestParam("mbEmail") String mbEmail,
-						@RequestParam("mbId") String mbId,
-						@RequestParam("mbName") String maName) {
-		
-		return null;
+	public String findPwd(HttpServletRequest request,
+			@ModelAttribute Member member, Model model) {
+		Member mOne = new Member(member.getMbId(), member.getMbName(), member.getMbEmail());
+		Member findPwd = service.findMemPw(mOne);
+		if(findPwd != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("findPwd", findPwd);
+			return "redirect:/member/findPwdResultView";
+		}else {
+			model.addAttribute("msg", "비밀번호 찾기에 실패했습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 비밀번호찾기 결과 뷰
+	@RequestMapping(value = "/member/findPwdResultView", method = RequestMethod.GET)
+	public String findPwdResultView() {
+		return "member/findPwdResult";
 	}
 	
 	// 마이페이지 뷰
 	@RequestMapping(value = "/member/myPage", method = RequestMethod.GET)
-	public String myPageView() {
+	public String myPageView(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("loginUser");
+//		ArrayList<Enrollment> myStudy = service.myStudyList(member.getMbNo());
 		
-		return null;
+		
+		return "member/myPage";
 	}
 	
 	// 회원정보 뷰
 	@RequestMapping(value = "/member/myInfo", method = RequestMethod.GET)
 	public String myInfoView() {
-		
-		return null;
+		return "member/myInfo";
 	}
 	
 	// 정보수정
 	@RequestMapping(value="/member/modify", method=RequestMethod.POST)
 	public String modifyMember(@ModelAttribute Member member,
-								@RequestParam("post") String post,
 								Model model,
 								HttpServletRequest request) {
 		

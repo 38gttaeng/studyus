@@ -12,7 +12,7 @@
 		<result property="mbReputation" column="MB_REPUTATION"/>
 		<result property="mbPhoto" column="MB_PHOTO"/>
 		<result property="mbStatus" column="MB_STATUS"/>
-	</resultMap> 
+	</resultMap>
 	
 	<select id="selectOneMember" parameterType="Member" resultMap="memberResultMap">
 		SELECT * FROM MEMBER WHERE MB_ID = #{mbId} AND MB_PASSWORD = #{mbPassword} 
@@ -21,6 +21,14 @@
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{mbId}, #{mbPassword}, #{mbName}, #{mbEmail}, #{mbNickname}, #{mbPhone}, 0, DEFAULT, DEFAULT)
 	</insert>
+	
+	<select id="findMemId" parameterType="Member" resultMap="memberResultMap">
+		SELECT * FROM MEMBER WHERE MB_EMAIL = #{mbEmail} AND MB_NAME = #{mbName}
+	</select>
+	
+	<select id="findMemPwd" parameterType="Member" resultMap="memberResultMap">
+		SELECT * FROM MEMBER WHERE MB_ID = #{mbId} AND MB_EMAIL = #{mbEmail} AND MB_NAME = #{mbName}
+	</select>
 	
 	<select id="checkIdDup" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER WHERE MB_ID = #{mbId}

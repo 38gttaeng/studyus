@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #6927FF !important;
+	height: 700px;
+}
+
+span {
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: -20px;
+}
+
+.find-box {
+	width: 650px;
+	height: 550px;
+	background-color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 150px;
+	padding: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	border-radius: 5px;
+}
+
+.find-zone {
+	height: 430px;
+	width: 500px;
+	margin: auto;
+}
+
+.home-link {
+	text-align: right;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.home-link a {
+	color: #111111;
+	text-decoration: none;
+}
+
+.select-zone {
+	height: 45px;
+	width: 500px;
+	text-align: center;
+}
+
+.page.change {
+	height: 45px;
+	width: 250px;
+	margin-left: -3px;
+	margin-right: -3px;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	font-weight: bold;
+}
+
+input[type=button] {
+	border: none;
+    outline:none;
+}
+
+.common {
+	background-color: #ffffff;
+	color: #111111;
+}
+
+.selected {
+	background-color: #6927FF;
+	color: #ffffff;
+}
+
+.line {
+	height: 5px;
+	width: 500px;
+	float: left;
+	background-color: #6927FF !important;
+	margin-bottom: 15px;
+}
+
+.input-zone {
+	height: 390px;
+	width: 500px;
+	float: left;
+	text-align: center;
+}
+
+.main-text {
+	font-size: 14px;
+	color: #111111;
+	margin-top: 10px;
+}
+
+.sub-text {
+	font-size: 14px;
+	color: #bbbbbb;
+	margin-bottom: 20px;
+}
+
+.form-control {
+	display: block;
+    width: 300px;
+    padding: .375rem .75rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -10px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.submit-btn {
+	display: block;
+    width: 330px;
+    height: 40px;
+    background-color: #6927FF;
+    color: #ffffff;
+    box-sizing: border-box;
+    padding: 1px 6px;
+    text-align: center;
+    border-radius: 5px;
+    border-width: 0;
+    border-style: none;
+    border-color: #6927FF;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+hr {
+	margin: 0;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+.result-zone {
+	height: 390px;
+	width: 500px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
