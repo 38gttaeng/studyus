@@ -8,9 +8,9 @@ import com.studyus.notice.domain.Search;
 
 public interface NoticeStore {
 	public int selectListCount();
-	public ArrayList<Notice> selectList(PageInfo pi, int studyNo);
+	public ArrayList<Notice> selectList(PageInfo pi);
 	public int addReadCount(int noticeNo);
-	public ArrayList<Notice> selectSearchList(Search search, int studyNo);
+	public ArrayList<Notice> selectSearchList(Search search);
 	public Notice selectOne(int noticeNo);
 	public int insertNotice(Notice notice);
 	public int updateNotice(Notice notice);

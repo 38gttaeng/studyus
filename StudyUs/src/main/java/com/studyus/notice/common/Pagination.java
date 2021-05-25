@@ -8,7 +8,7 @@ public class Pagination {
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 		PageInfo pi = new PageInfo();
 		int pageLimit = 10; // 한 페이지에서 보여줄 네비게이션 수
-		int boardLimit = 10;	// 한 페이지에서 보여줄 게시글의 수
+		int boardLimit = 5;	// 한 페이지에서 보여줄 게시글의 수
 		int maxPage; 		// 전체 페이지 중 가장 마지막 페이지
 		int startPage;		// 현재 페이지에서 시작하는 첫번째 페이지
 		int endPage;		// 현재 페이지에서 끝나는 마지막 페이지

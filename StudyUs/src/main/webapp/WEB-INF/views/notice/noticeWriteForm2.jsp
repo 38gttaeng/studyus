@@ -7,6 +7,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/summernote/summernote-lite.css">
+<link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
 <title>StudyUs : 공지사항</title>
 
 </head>
@@ -59,7 +61,7 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="card-body">
-										<form class="" role="form" action="/notice/noticeWrite" method="post"
+										<form class="" role="form" action="noticeRegister.kh" method="post"
 											enctype="multipart/form-data">
 											<table class="table-responsive col-md-12 ">
 												<tr class="row" >
@@ -76,7 +78,16 @@
 													<td class="col-md-2 text-center">내용</td>
 													<td class="col-md-10">
 													<!-- <textarea class="form-control" id="summernote" name="noticeContents"></textarea> -->
-													<textarea class="" id="summernote" name="noticeContents"></textarea>
+													<!-- <textarea class="" id="summernote" name="editordata"></textarea> -->
+													<div id="editor">
+
+  <p>Hello World!</p>
+
+  <p>Some initial <strong>bold</strong> text</p>
+
+  <p><br></p>
+
+</div>
 													</td>
 												</tr>
 												<tr><td>&nbsp;</td></tr>
@@ -85,7 +96,7 @@
 													<td class="col-md-1"></td>
 													<td class="col-md-8">
 													<!-- <input type="file" class=""  name="uploadFile"> -->
-													<input type="file" class="custom-file-input" id="customFile" name="uploadFile">
+													<input type="file" class="custom-file-input" id="customFile">
             										<label class="custom-file-label" for="customFile">파일선택</label>
 													</td>
 												</tr>
@@ -118,8 +129,11 @@
 		src="/resources/css/study/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
 	<script src="/resources/css/study/assets/libs/moment/min/moment.min.js"></script> 
 	
-	<script src="/resources/js/summernote/summernote-lite.js"></script>
-  <script src="/resources/js/summernote/lang/summernote-ko-KR.js"></script>
+	<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+	<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+	
+<!-- 	<script src="/resources/js/summernote/summernote-lite.js"></script>
+  <script src="/resources/js/summernote/lang/summernote-ko-KR.js"></script> -->
   
 	
 	<!-- <script
@@ -129,14 +143,56 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script> -->
 	<script>
-				$('#summernote').summernote({
+				/* $('#summernote').summernote({
 					height : 400, // set editor height
 					minHeight : null, // set minimum height of editor
 					maxHeight : null, // set maximum height of editor
 					focus : true,
 					lang : 'ko-KR' // 기본 메뉴언어 US->KR로 변경
 					
-				});
+				}); */
+				
+				var quill = new Quill('#editor', {
+
+					  modules: {
+
+					    toolbar: [
+
+					      [{ header: [1, 2, false] }],
+
+					      ['bold', 'italic', 'underline'],
+
+					      ['image', 'code-block']
+
+					    ]
+
+					  },
+
+					  placeholder: 'Compose an epic...',
+
+					  readOnly: true,
+
+					  theme: 'snow'  // or 'bubble'
+
+					});
+
+					 
+
+					// 폼(input)에 자동저장
+
+					quill.on('text-change', function() {
+
+					  var delta = quill.getContents();
+
+					  var text = quill.getText();
+
+					  var justHtml = quill.root.innerHTML;
+
+					  $('input[name="content"]').val(JSON.stringify(justHtml));
+
+					  console.log(JSON.stringify(delta['ops']));
+
+					});
 
 			$("#sidebarnav>li:nth-child(5)").addClass("selected");
 			$("#sidebarnav>li:nth-child(5) a").addClass("active");

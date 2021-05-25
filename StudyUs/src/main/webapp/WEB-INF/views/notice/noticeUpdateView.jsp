@@ -63,8 +63,7 @@
 										<input type="hidden" name="boardNo" value="${notice.noticeNo }">
 										<input type="hidden" name="originalFilename" value="${notice.noticeFileName }">
 										<input type="hidden" name="renameFilename" value="${notice.noticeReFileName }">
-										<form class="" role="form" action="noticeRegister.kh" method="post"
-											enctype="multipart/form-data">
+										<form class="" role="form" action="/notice/noticeUpdate" method="post" enctype="multipart/form-data">
 											<table class="table-responsive col-md-12 ">
 												<tr class="row" >
 													<td class="col-md-2 text-center">제목</td>
