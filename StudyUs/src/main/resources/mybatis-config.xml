@@ -22,5 +22,6 @@
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/assignment-mapper.xml"/>
 		<mapper resource="mappers/file-mapper.xml"/>
+		<mapper resource="mappers/cafe-mapper.xml" />
 	</mappers> 
 </configuration>

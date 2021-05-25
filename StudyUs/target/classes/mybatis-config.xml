@@ -11,7 +11,8 @@
 		<typeAlias type="com.studyus.member.domain.Member" alias="Member" />
 		<typeAlias type="com.studyus.board.domain.Board" alias="Board"/>
 		<typeAlias type="com.studyus.assignment.domain.Assignment" alias="Assignment"/>
-		<typeAlias type="com.studyus.file.domain.FileVO" alias="FileVO"/> 
+		<typeAlias type="com.studyus.file.domain.FileVO" alias="FileVO"/>
+		<typeAlias type="com.studyus.cafe.domain.Cafe" alias="Cafe" />
 	</typeAliases>
 	
 	<mappers>
@@ -21,5 +22,6 @@
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/assignment-mapper.xml"/>
 		<mapper resource="mappers/file-mapper.xml"/>
+		<mapper resource="mappers/cafe-mapper.xml" />
 	</mappers> 
 </configuration>

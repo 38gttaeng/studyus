@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +19,7 @@
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3">
 				<div class="col-md-7 text-center heading-section ftco-animate">
+				 <div class="overlay"></div>
 					<h2 class="mb-4">스터디어스 카페</h2>
 					<p>언택트를 넘어서 온택트로 만나는 스터디어스만의 특별한 공간</p>
 				</div>
@@ -31,8 +32,11 @@
 							<p>${cafe.caAddr }</p>
 						</div>
 						<p>
-							<a href="#" class="btn btn-primary px-4 py-3"
-								style="background-color: white; color: purple">예약하기</a>
+						<c:url var="cModify" value="modifyView">
+							<c:param name="caNo" value="${cafe.caNo }"></c:param>
+						</c:url>
+							<a href="${cModify }" class="btn btn-primary px-4 py-3"
+								style="background-color: white; color: purple">수정하기</a>
 						</p>
 					</div>
 				</div>
@@ -66,7 +70,10 @@
 							</div>
 							<div class="col-md-6 ">
 								<img width="100%" alt="cafe_img"
-									src="/resources/images/cafe_img.jpg">
+									src="/resources/images/${cafe.caFiName}" />
+<%-- 									src="<c:if test="${ !empty cafe.caFiName }"> --%>
+<%-- 							${ file.fiRealName } --%>
+<%-- 							</c:if>"> --%>
 							</div>
 							<div class="col-md-6 pr-md-5">
 								<form action="#">
@@ -91,8 +98,8 @@
 									</div>
 									<div class="form-group">
 										<ul class="pricing-text mb-4">
-											<li><strong>주소</strong>
-												<h3 class="heading-2 mb-3">${cafe.caAddr }</h3></li>
+											<li><strong>오시는 길</strong>
+												<h3 class="heading-2 mb-3">${cafe.caRoute }</h3></li>
 										</ul>
 									</div>
 								</form>
@@ -133,7 +140,7 @@
 										</div>
 									</div>
 								</div>
-									<script>
+	<!-- 								<script>
 		// 댓글 목록
 		$(function() {
 			getReviewList(); 
@@ -266,7 +273,7 @@
 				}
 			});
 		}
-	</script>
+	</script> -->
 
  
 							</section>

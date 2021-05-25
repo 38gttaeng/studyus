@@ -32,8 +32,7 @@ public class CafeStoreLogic implements CafeStore{
 
 	@Override
 	public int updateCafe(Cafe cafe) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("cafeMapper.updateCafe", cafe);
 	}
 
 	@Override

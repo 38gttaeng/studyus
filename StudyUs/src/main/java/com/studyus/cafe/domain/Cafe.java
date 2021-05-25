@@ -15,6 +15,8 @@ public class Cafe {
 	private String caTel;
 	private String caTime;
 	private String caInfo;
+	private String caRoute;
+	private String caFiName;
 	private String caStatus; 
 	
 	public Cafe() {}
