@@ -15,15 +15,8 @@ public class Cafe {
 	private String caTel;
 	private String caTime;
 	private String caInfo;
-	private String caFilename;
-	private String caReFilename;
-	private String caStatus;
+	private String caStatus; 
 	
 	public Cafe() {}
-
-	public void setCafeFilename(String originalFilename) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -58,8 +58,8 @@
 	                </div>
 	          	</li>
 	          	<li class="nav-item"><a href="#" class="nav-link">스터디샵</a></li>
-	          	<li class="nav-item"><a href="#" class="nav-link">스터디카페</a></li>
-	          	<!-- 로그인 전 -->
+	          	<li class="nav-item"><a href="/cafe/list" class="nav-link">스터디카페</a></li>
+	          	<!-- 로그인 전 --> 
 	          	<c:if test="${ empty loginUser }">
 		          	<li class="nav-item cta">
 		          		<a href="/member/loginView" class="nav-link">

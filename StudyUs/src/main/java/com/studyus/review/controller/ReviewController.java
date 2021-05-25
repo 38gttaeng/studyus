@@ -28,7 +28,7 @@ public class ReviewController {
 	private ReviewService rService;
 
 	// 리뷰리스트
-	@RequestMapping(value = "reviewList", method = RequestMethod.GET)
+	@RequestMapping(value = "review/list", method = RequestMethod.GET)
 	public void getReviewList(HttpServletResponse response, @RequestParam("rvNo") int rvNo)
 			throws JsonIOException, IOException {
 		ArrayList<Review> rList = rService.printAll();
@@ -36,13 +36,13 @@ public class ReviewController {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson(rList, response.getWriter());
 		} else {
-			System.out.println("데이터가 없습니다.");
+			System.out.println("데이터가 없습니다."); 
 		}
 	}
 
 	// 리뷰 등록
 	@ResponseBody
-	@RequestMapping(value = "reviewRegister", method = RequestMethod.POST)
+	@RequestMapping(value = "review/register", method = RequestMethod.POST)
 	public String registerReview(@ModelAttribute Review review, HttpSession session) {
 //		Member loginMember = (Member) session.getAttribute("loginMember");
 //		review.setmbId(loginMember.getMbId());
@@ -57,7 +57,7 @@ public class ReviewController {
 
 	// 리뷰 수정
 	@ResponseBody
-	@RequestMapping(value = "reviewUpdate", method = RequestMethod.POST)
+	@RequestMapping(value = "review/update", method = RequestMethod.POST)
 	public String reviewUpdate(@ModelAttribute Review review) {
 		int result = rService.modifyReview(review);
 		if (result > 0) {
@@ -69,7 +69,7 @@ public class ReviewController {
 
 	// 리뷰 삭제
 	@ResponseBody
-	@RequestMapping(value = "reviewDelete", method = RequestMethod.GET)
+	@RequestMapping(value = "review/delete", method = RequestMethod.GET)
 	public String reviewDelete(@ModelAttribute int review) {
 		//int확인 필요
 		int result = rService.removeReview(review);

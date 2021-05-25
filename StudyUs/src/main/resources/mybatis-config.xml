@@ -12,6 +12,7 @@
 		<typeAlias type="com.studyus.board.domain.Board" alias="Board"/>
 		<typeAlias type="com.studyus.assignment.domain.Assignment" alias="Assignment"/>
 		<typeAlias type="com.studyus.file.domain.FileVO" alias="FileVO"/>
+		<typeAlias type="com.studyus.cafe.domain.Cafe" alias="Cafe" />
 	</typeAliases>
 	
 	<mappers>

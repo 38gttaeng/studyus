@@ -22,14 +22,12 @@ public class CafeServiceImpl implements CafeService{
 
 	@Override
 	public Cafe printOne(int caNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return cStore.selectOne(caNo); 
 	}
 
 	@Override
 	public int registerCafe(Cafe cafe) {
-		// TODO Auto-generated method stub
-		return 0;
+		return cStore.insertCafe(cafe);
 	}
 
 	@Override
