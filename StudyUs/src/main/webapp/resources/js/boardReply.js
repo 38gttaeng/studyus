@@ -1,40 +1,82 @@
-$(function() {
+var data = null;
+var pi = null;
+var page = 1;
 
-	var page = 1;
+const limit = 1000; // 1000자 제한
+
+$(function() {
+	var check = $("#menuCheck").val();
 	getReplyList(page);
 	
-	// 페이징 버튼
-	$("#rPage li").on("click", function() {
-		alert("클릭");
+	// Quill
+	var toolbarOptions = {
+		container : [
+		  ['link', 'image', 'video', 'formula', 'code-block'],
+		  ['emoji'],
+		]
+	};
 	
-    	//page = $(this).text(); // 목록 페이지 번호 추출
-		//alert(page);
-		//getReplyList(page); 
+	var quill = new Quill('#editor', {
+		modules: {
+			imageResize: {},
+			imageUpload: {
+				url: '/file/upload/image',
+				method: 'POST',
+				name: 'uploadImage',
+				withCredentials: false,
+				callbackOK: (serverResponse, next) => {
+			    	next(serverResponse);
+			    },
+				callbackKO: serverError => {
+					alert(serverError);
+				},
+				checkBeforeSend: (file, next) => {
+			    	console.log(file);
+			    	next(file);
+			    }
+			},
+          "toolbar": toolbarOptions,
+          "emoji-toolbar": true,
+		},
+		placeholder: '댓글을 입력하세요.',
+		theme: 'bubble'
+	});
+	
+		// 글자수 제한
+	quill.on('text-change', function (delta, old, source) {
+	  if (quill.getLength() > limit) {
+	    quill.deleteText(limit, quill.getLength());
+	  }
 	});
 	
 	// 등록하기
 	$("#rSubmit").on("click", function() {
 		var rMotherNo = $("#rMotherNo").val();
-		var rContent = $("#rContent").val();
+		var rContent = quill.root.innerHTML;
 		var rMbNo = $("#loginMbNo").val();
 		
-		$.ajax({
-			url : "/study/board/addReply",
-			type : "post",
-			data : {"boMotherNo": rMotherNo , "boContents" : rContent, "mbNo" : rMbNo},
-			success : function(result) {
-				if(result == "success") {
-					/* 댓글 불러오기 */
-					getReplyList(page);
-					$("#rContent").val("");
-				} else if(result == "fail") {
-					alert("댓글 등록 실패..");
+		if(rContent != "") {
+			$.ajax({
+				url : "/study/board/addReply",
+				type : "post",
+				data : {"boMotherNo": rMotherNo , "boContents" : rContent, "mbNo" : rMbNo},
+				success : function(result) {
+					if(result == "success") {
+						/* 댓글 불러오기 */
+						getReplyList(page);
+						quill.deleteText(0,100000000);
+					} else if(result == "fail") {
+						alert("댓글 등록 실패..");
+					}
+				},
+				error : function() {
+					alert("전송 실패!");
 				}
-			},
-			error : function() {
-				alert("전송 실패!");
-			}
-		});
+			});
+		} else {
+			alert("댓글 내용을 입력하세요.");
+		}
+		
 	});
 });
 
@@ -46,14 +88,14 @@ function getReplyList(page) {
 	
 	$.ajax({
 		url : "/study/board/replyList",
-		type : "get",
 		data : {"boMotherNo" : rMotherNo, "page" : page},
+		type : "get",
 		dataType : "json",
 		success : function(map) {
-			var data = map.rList;
-			var pi = map.page;
+			data = map.rList;
+			pi = map.page;
 			
-			page = pi.maxPage;///////////////////////
+			page = pi.maxPage;
 			replyList(data, pi.listCount, loginMbNo);
 			replyPage(pi);
 		},
@@ -96,7 +138,7 @@ function replyList(data, listCount, loginMbNo) {
 			}
 			$rWriter.append("<span>" + data[i].boInsertDate + "</span>");
 			
-			$rContent = $("<div>").text(data[i].boContents);
+			$rContent = $("<div>").append(data[i].boContents);
 			
 			$btnArea = $("<div>")
 			.append("<button class='btn btn-sm btn-light'>답글</button>");
@@ -131,30 +173,31 @@ function replyPage(pi) {
 	$ul = $("<ul class='pagination pagination-sm justify-content-center'>");
 
 	if(pi.currentPage > 1) {
-		$liBefore = $("<li class='page-item' value='" + (pi.currentPage - 1) + "'>");
-		$aTag = $("<span class=page-link' aria-label='Previous'>")
+		$liBefore = $("<li class='page-item' onclick='getReplyList(" + (pi.currentPage - 1) + ")'>");
+		$spanTag = $("<span class='page-link' aria-label='Next'>")
 		.append("<span>&laquo;</span>");
-		$liBefore.append($aTag);
+		$liBefore.append($spanTag);
 	}
 	$ul.append($liBefore);
 	
 	for(var p = pi.startPage; p < pi.endPage + 1; p++) {
+		// onclick='getReplyList(p)'
 		if(p == pi.currentPage) {
-			$liCurrent = $("<li class='page-item active' value='" + p + "'>");
+			$liCurrent = $("<li class='page-item active'>");
 		} else {
-			$liCurrent = $("<li class='page-item' value='" + p + "'>");
+			$liCurrent = $("<li class='page-item' onclick='getReplyList(" + p + ")'>");
 		}
 		
-		$liCurrent.append("<span class='page-link'>" + p + "</span>");
+		$liCurrent.append("<span onclick='getReplyList(p)' class='page-link'>" + p + "</span>");
 		
 		$ul.append($liCurrent);
 	}
 	
 	if(pi.currentPage < pi.maxPage) {
-		$liAfter = $("<li class='page-item' value='" + (pi.currentPage + 1) + "'>");
-		$aTag = $("<span class='page-link' aria-label='Next'>")
+		$liAfter = $("<li class='page-item' onclick='getReplyList(" + (pi.currentPage + 1) + ")'>");
+		$spanTag = $("<span class='page-link' aria-label='Next'>")
 		.append("<span>&raquo;</span>");
-		$liAfter.append($aTag);
+		$liAfter.append($spanTag);
 	}
 	$ul.append($liAfter);
 	
@@ -170,10 +213,10 @@ function modifyReply(obj, boNo, replyContent) {
 	$btnArea.html("");
 	$btnArea.addClass("btn-group");
 	
-	$text = $("<textarea id='mReply' class='form-control' rows='3' placeholder='댓글을 입력하세요.'>" + replyContent + "</textarea>");
+	$text = $("<div id='editor'>" + replyContent + "</div>");
 	$btnArea
 	.append("<button class='btn btn-sm btn-secondary' onclick='modifyReplyCommit(" + boNo + ");'>수정</button>")
-	.append("<button class='btn btn-sm btn-secondary' onclick='getReplyList();'>취소</button>");
+	.append("<button class='btn btn-sm btn-secondary' onclick='getReplyList(page);'>취소</button>");
 	
 	$divModify.append($text);
 	$divModify.parent().css("height", "190px");
@@ -189,7 +232,7 @@ function modifyReplyCommit(boNo) {
 		data : { "boNo" : boNo, "boContents" : mReply },
 		success : function(data) {
 			if(data == "success") {
-				getReplyList();
+				getReplyList(page);
 			} else {
 				alert("댓글 수정 실패!");
 			}

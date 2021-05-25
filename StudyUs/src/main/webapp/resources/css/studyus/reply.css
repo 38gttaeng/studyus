@@ -69,9 +69,19 @@
 	color : #fff;
 }
 
+#editor {
+	border : 1px solid #e9ecef;
+	min-height : 100px;
+	width : 90%;
+}
+
 /* 댓글 페이징 */
 #rPage {
 	padding : 20px 0 10px 0;
+}
+
+#rPage li {
+	cursor : pointer;
 }
 
 /*******************************************************************/

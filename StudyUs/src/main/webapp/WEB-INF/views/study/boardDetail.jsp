@@ -116,13 +116,14 @@
                             	<input id="rMotherNo" type="hidden" value="${ board.boNo }">
                             	<input id="rMbNo" type="hidden" value="${ board.mbNo }">
                             	<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
+                            	<input id="menuCheck" type="hidden" value="b"><!-- 메뉴 체크 -->
                             
                                 <h6 class="card-subtitle" style="float:right;">댓글 <span id="rCount"></span></h6>
                                 <hr>
                                 
 								<!-- 댓글 등록 -->
 								<div class="reply-enter">
-									<textarea id="rContent" class="form-control" rows="3" placeholder="댓글을 입력하세요."></textarea>
+      								<div id="editor"></div>
 									<button id="rSubmit" class="reply-enter-btn">등록</button>
 								</div>
 								
@@ -144,6 +145,5 @@
     
     <!-- 해당 페이지 JS 파일 -->
     <script src="/resources/js/boardReply.js"></script>
-    
 </body>
 </html>

@@ -20,7 +20,7 @@ $(function() {
 	var toolbarOptions = {
 		container : [
 		  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-		  ['blockquote', 'code-block'],
+		  ['blockquote'],
 	
 		  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
 		  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
