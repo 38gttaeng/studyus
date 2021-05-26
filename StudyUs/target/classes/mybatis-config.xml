@@ -26,5 +26,6 @@
 		<mapper resource="mappers/assignment-mapper.xml"/>
 		<mapper resource="mappers/file-mapper.xml"/>
 		<mapper resource="mappers/enrollment-mapper.xml"/>
+		<mapper resource="mappers/cafe-mapper.xml"/>
 	</mappers> 
 </configuration> 

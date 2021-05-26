@@ -12,7 +12,7 @@
 		<result property="caFiName" column="CA_FINAME" />
 		<result property="caStatus" column="CA_STATUS" />
 	</resultMap> 
- 
+
 	<select id="selectAllList" resultMap="cafeResultMap">
 		SELECT * FROM CAFE
 	</select>
@@ -30,6 +30,10 @@
 		UPDATE CAFE
 		SET CA_NAME = #{caName}, CA_ADDR = #{caAddr}, CA_TEL=#{caTel}, CA_TIME=#{caTime}, CA_INFO=#{caInfo}, CA_ROUTE=#{caRoute},CA_FINAME=#{caFiName}
 		WHERE CA_NO = #{caNo}
+	</update>
+	
+	<update id="deleteCafe" parameterType="_int">
+		UPDATE CAFE SET CA_STATUS = 0 WHERE CA_NO = #{caNo}
 	</update>
 
 </mapper> 

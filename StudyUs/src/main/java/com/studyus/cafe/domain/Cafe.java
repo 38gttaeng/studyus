@@ -20,5 +20,5 @@ public class Cafe {
 	private String caStatus; 
 	
 	public Cafe() {}
-
+	
 }

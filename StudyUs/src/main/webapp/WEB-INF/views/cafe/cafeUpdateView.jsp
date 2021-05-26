@@ -25,6 +25,7 @@
 				</div>
 			</div>
 			<form action="/cafe/modify" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="caNo" value="${cafe.caNo }">
 				<div class="row">
 					<div class="col-md-12 d-flex align-self-stretch">
 						<div class="media block-6 services d-flex align-items-center">
@@ -56,7 +57,7 @@
 								</div>
 								<div class="col-md-6 ">
 								 <div class="form-group">
-									<input type="file" size="50" name="uploadFile">
+									<input type="file" size="50" name="reloadFile">
 									</div>
 								</div>
 								<div class="col-md-6 pr-md-5">
@@ -91,7 +92,7 @@
 										<ul class="pricing-text mb-4">
 											<li><strong>오시는 길</strong>
 												<h3 class="heading-2 mb-3">
-													<input class="form-control" type="text" size="50" name="caAddr"
+													<input class="form-control" type="text" size="50" name="caRoute"
 														value="${cafe.caRoute }">
 												</h3></li>
 										</ul>
@@ -103,8 +104,9 @@
 				</div>
 				<div align="center">
 					<p>
-					<c:url var="cDelete" value="listView">
+					<c:url var="cDelete" value="/cafe/delete">
 							<c:param name="caNo" value="${cafe.caNo }"></c:param>
+							<c:param name="caFiName" value="${cafe.caFiName }"></c:param>
 						</c:url>
 							<a href="${cDelete}" class="btn btn-primary px-4 py-3 mt-5 mr-3"
 								style="background-color: white; color: purple">삭제하기</a>

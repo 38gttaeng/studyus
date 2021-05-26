@@ -68,6 +68,14 @@
 	<br>
 	<!-- 지도를 표시할 div 입니다 --> 
 	<div id="map" style="width: 100%; height: 630px;"></div>
+	<div align = "center">
+		<c:url var="cRegister" value="registerForm">
+		</c:url>
+		<c:if test="${loginUser.mbNo == 1}">
+			<a href="${cRegister }" class="btn btn-primary px-4 py-3" style= "width:100%; border-radius: 0px;" >
+				등록하기</a>
+		</c:if>
+	</div>
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=063f4122c75f35436f584eefe1993776"></script>

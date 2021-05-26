@@ -35,26 +35,21 @@
 						<c:url var="cModify" value="modifyView">
 							<c:param name="caNo" value="${cafe.caNo }"></c:param>
 						</c:url>
+						<c:url var="cReserv" value="reservation">
+							<c:param name="caNo" value="${cafe.caNo }"></c:param>
+						</c:url>
+							<c:if test="${loginUser.mbNo == 1}">
 							<a href="${cModify }" class="btn btn-primary px-4 py-3"
 								style="background-color: white; color: purple">수정하기</a>
+							</c:if>
+							<c:if test="${loginUser.mbNo != 1}">
+							<a href="${cReserv }" class="btn btn-primary px-4 py-3"
+								style="background-color: white; color: purple">예약하기</a>
+							</c:if>
 						</p> 
 					</div>
 				</div>
 			</div>
-			<!-- 보라색으로 나오는 버튼(문제) -->
-			<!-- 			<div class="row">
-				<div class="col-md-12 d-flex align-self-stretch ftco-animate">
-					<div class="media block-6 services d-flex align-items-center">
-						<div class="media-body pl-4">
-							<h3 class="heading">스터디어스 종로점 // 이름</h3>
-							<p>서울특별시 중구 남대문로 120 대일빌딩 2F, 3F // 주소</p>
-						</div>
-						<p>
-							<a href="#" class="btn btn-primary px-4 py-3">예약하기</a>
-						</p>
-					</div>
-				</div>
-			</div> -->
 
 			<div class="row justify-content-center mb-5 pb-3">
 				<div class="col-md-7 text-center heading-section ftco-animate">
@@ -70,10 +65,7 @@
 							</div>
 							<div class="col-md-6 ">
 								<img width="100%" alt="cafe_img"
-									src="/resources/images/${cafe.caFiName}" />
-<%-- 									src="<c:if test="${ !empty cafe.caFiName }"> --%>
-<%-- 							${ file.fiRealName } --%>
-<%-- 							</c:if>"> --%>
+									src="/resources/cuploadFiles/${cafe.caFiName}" />
 							</div>
 							<div class="col-md-6 pr-md-5">
 								<form action="#">
