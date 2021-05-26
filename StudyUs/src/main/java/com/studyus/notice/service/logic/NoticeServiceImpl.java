@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.studyus.common.PageInfo;
 import com.studyus.notice.domain.Notice;
-import com.studyus.notice.domain.PageInfo;
 import com.studyus.notice.domain.Search;
 import com.studyus.notice.service.NoticeService;
 import com.studyus.notice.store.NoticeStore;
@@ -16,15 +16,20 @@ public class NoticeServiceImpl implements NoticeService{
 	
 	@Autowired
 	public NoticeStore nStore;
-
+	
 	@Override
 	public int getListCount() {
 		return nStore.selectListCount();
 	}
+
+	@Override
+	public int getListCount(Notice notice) {
+		return nStore.selectListCount(notice);
+	}
  
 	@Override
-	public ArrayList<Notice> printAll(PageInfo pi) {
-		return nStore.selectList(pi);
+	public ArrayList<Notice> printAll(PageInfo pi, Notice notice) {
+		return nStore.selectList(pi, notice);
 	}
 
 	@Override
@@ -58,8 +63,13 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public ArrayList<Notice> printAllComment(int noticeNo) {
-		return nStore.printAllComment(noticeNo);
+	public ArrayList<Notice> printAllComment(PageInfo pi, int nMotherNo) {
+		return nStore.printAllComment(pi, nMotherNo);
+	}
+	
+	@Override
+	public Notice printOneComment(int nMotherNo) {
+		return nStore.selectOneComment(nMotherNo);
 	}
 	
 	@Override
@@ -76,5 +86,8 @@ public class NoticeServiceImpl implements NoticeService{
 	public int removeComment(Notice notice) {
 		return nStore.deleteComment(notice);
 	}
+
+
+
 
 }

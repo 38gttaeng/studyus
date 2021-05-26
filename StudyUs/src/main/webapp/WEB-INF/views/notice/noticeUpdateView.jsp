@@ -60,10 +60,11 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="card-body">
-										<input type="hidden" name="boardNo" value="${notice.noticeNo }">
-										<input type="hidden" name="originalFilename" value="${notice.noticeFileName }">
-										<input type="hidden" name="renameFilename" value="${notice.noticeReFileName }">
 										<form class="" role="form" action="/notice/noticeUpdate" method="post" enctype="multipart/form-data">
+										<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
+										<input type="hidden" name="noticeFileName" value="${notice.noticeFileName }">
+										<input type="hidden" name="noticeReFileName" value="${notice.noticeReFileName }">
+										<input type="hidden" name="noticeWriter" value="${notice.noticeWriter }">
 											<table class="table-responsive col-md-12 ">
 												<tr class="row" >
 													<td class="col-md-2 text-center">제목</td>
@@ -79,7 +80,7 @@
 													<td class="col-md-2 text-center">내용</td>
 													<td class="col-md-10">
 													<!-- <textarea class="form-control" id="summernote" name="noticeContents"></textarea> -->
-													<textarea class="" id="summernote" name="editordata">${notice.noticeContents }</textarea>
+													<textarea class="" id="summernote" name="noticeContents">${notice.noticeContents }</textarea>
 													</td>
 												</tr>
 												<tr><td>&nbsp;</td></tr>
