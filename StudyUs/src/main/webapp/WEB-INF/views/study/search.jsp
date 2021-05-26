@@ -55,7 +55,7 @@
 			<div class="form-row p-4">
 				<div class="form-group col-9">
 					<!-- <label for="inputHashtag">해시태그</label>  -->
-					<input type="text" class="form-control" id="searchInput" name="searchKeyword" onkeyup="onSearchKeyUp(this);" placeholder="검색어 or #해시태그">
+					<input type="text" class="form-control" id="searchInput" name="keyword" onkeyup="onSearchKeyUp(this);" placeholder="검색어 or #해시태그">
 				</div>
 				<div class="form group col-3" align="center">
 					<input type="button" class="btn btn-primary btn-lg" id="hashtagButton" onclick="onAddHashtag();" value="추가">
@@ -66,6 +66,7 @@
 				<span>현재 태그: &nbsp;</span>
 				<!-- <span class="btn btn-primary btn-sm mr-2" style="margin: 4px;" onclick="onRemoveHashtagClicked(this);">수채화&nbsp;<i class="fas fa-times"></i></span> -->
 			</div>
+			<input type="hidden" name="page" value="1">
 		</form>
 	</div>
 	

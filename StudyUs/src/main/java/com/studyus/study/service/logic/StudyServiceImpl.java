@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.studyus.hashtag.service.HashtagService;
 import com.studyus.hashtag.store.HashtagStore;
 import com.studyus.study.domain.Study;
-import com.studyus.study.domain.StudyPageInfo;
+import com.studyus.study.domain.StudySearchCriteria;
 import com.studyus.study.domain.StudyWithDays_dep;
 import com.studyus.study.service.StudyService;
 import com.studyus.study.store.StudyStore;
@@ -20,8 +21,11 @@ public class StudyServiceImpl implements StudyService {
 	@Autowired
 	StudyStore sStore;
 	
+	//TODO 해시태그 store --> service 전
 	@Autowired
 	HashtagStore hStore;
+	@Autowired
+	HashtagService hService;
 	
 	
 	@Override
@@ -53,19 +57,18 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public ArrayList<Study> printSearchResult(String keyword, String[] hashtags, StudyPageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<StudySearchCriteria> printSearchResult(String keyword, String[] hashtags, StudySearchCriteria pi) {
+		return sStore.selectAllBySearch(pi);
 	}
 	
 	@Override
-	public ArrayList<Study> printAll(StudyPageInfo pi) {
+	public ArrayList<Study> printAll(StudySearchCriteria pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Study> printAllByStudyName(String studyName, StudyPageInfo pi) {
+	public ArrayList<Study> printAllByStudyName(String studyName, StudySearchCriteria pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}

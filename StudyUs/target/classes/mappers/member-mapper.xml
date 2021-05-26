@@ -25,11 +25,11 @@
 	<select id="findMemId" parameterType="Member" resultMap="memberResultMap">
 		SELECT * FROM MEMBER WHERE MB_EMAIL = #{mbEmail} AND MB_NAME = #{mbName}
 	</select>
-	 
+	
 	<select id="findMemPwd" parameterType="Member" resultMap="memberResultMap">
 		SELECT * FROM MEMBER WHERE MB_ID = #{mbId} AND MB_EMAIL = #{mbEmail} AND MB_NAME = #{mbName}
 	</select>
-	 
+	
 	<select id="checkIdDup" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER WHERE MB_ID = #{mbId}
 	</select>

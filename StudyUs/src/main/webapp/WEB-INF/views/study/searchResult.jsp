@@ -51,11 +51,11 @@
     </div>
 
 	<div class="container">
-		<form class="py-5 pt-5 mx-auto" id="searchForm" style="max-width: 600px; min-height: 400px;">
+		<form class="py-4 pt-5 mx-auto" id="searchForm" style="max-width: 600px; min-height:240px;">
 			<div class="form-row p-4">
 				<div class="form-group col-9">
 					<!-- <label for="inputHashtag">해시태그</label>  -->
-					<input type="text" class="form-control" id="searchInput" name="searchKeyword" onkeyup="onSearchKeyUp(this);" placeholder="검색어 or #해시태그">
+					<input type="text" class="form-control" id="searchInput" name="keyword" onkeyup="onSearchKeyUp(this);" placeholder="검색어 or #해시태그">
 				</div>
 				<div class="form group col-3" align="center">
 					<input type="button" class="btn btn-primary btn-lg" id="hashtagButton" onclick="onAddHashtag();" value="추가">
@@ -67,6 +67,81 @@
 				<!-- <span class="btn btn-primary btn-sm mr-2" style="margin: 4px;" onclick="onRemoveHashtagClicked(this);">수채화&nbsp;<i class="fas fa-times"></i></span> -->
 			</div>
 		</form>
+		
+		<div class="row">
+		  <div class="col-4 mb-4">
+		    <div class="card h-100">
+		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
+		      <div class="card-body">
+		        <h5 class="card-title">자바 스터디</h5>
+		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-4 mb-4">
+		    <div class="card h-100">
+		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
+		      <div class="card-body">
+		        <h5 class="card-title">자바 스터디</h5>
+		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-4 mb-4">
+		    <div class="card h-100">
+		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
+		      <div class="card-body">
+		        <h5 class="card-title">자바 스터디</h5>
+		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-4 mb-4">
+		    <div class="card h-100">
+		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
+		      <div class="card-body">
+		        <h5 class="card-title">자바 스터디</h5>
+		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-4 mb-4">
+		    <div class="card h-100">
+		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
+		      <div class="card-body">
+		        <h5 class="card-title">자바 스터디</h5>
+		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-4 mb-4">
+		    <div class="card h-100">
+		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
+		      <div class="card-body">
+		        <h5 class="card-title">자바 스터디</h5>
+		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<nav class="py-4">
+		  <ul class="pagination justify-content-center">
+		    <li class="page-item">
+		      <a class="page-link" href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <li class="page-item"><a class="page-link" href="#">1</a></li>
+		    <li class="page-item"><a class="page-link" href="#">2</a></li>
+		    <li class="page-item"><a class="page-link" href="#">3</a></li>
+		    <li class="page-item">
+		      <a class="page-link" href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

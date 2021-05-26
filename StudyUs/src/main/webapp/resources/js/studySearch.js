@@ -78,6 +78,7 @@ function removeHashtag(e) {
     e.remove();
 }
 
+// 검색 실행
 function onSearch() {
     for (var i = 0; i < hashtags.length; i ++) {
         var newHashtag = document.createElement("input");

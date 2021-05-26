@@ -12,7 +12,7 @@
 		<result property="caFiName" column="CA_FINAME" />
 		<result property="caStatus" column="CA_STATUS" />
 	</resultMap> 
- 
+
 	<select id="selectAllList" resultMap="cafeResultMap">
 		SELECT * FROM CAFE
 	</select>

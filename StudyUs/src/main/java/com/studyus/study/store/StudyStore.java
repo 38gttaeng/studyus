@@ -3,7 +3,7 @@ package com.studyus.study.store;
 import java.util.ArrayList;
 
 import com.studyus.study.domain.Study;
-import com.studyus.study.domain.StudyPageInfo;
+import com.studyus.study.domain.StudySearchCriteria;
 
 public interface StudyStore {
 	
@@ -15,9 +15,9 @@ public interface StudyStore {
 	 */
 	public int insertStudy(Study study) throws Exception;
 	public int checkUrl(String url);
-	public ArrayList<Study> selectAllBySearch(String keyword, String[] hashtags, StudyPageInfo pi);
-	public ArrayList<Study> selectAll(StudyPageInfo pi);
-	public ArrayList<Study> selectAllByStudyName(String studyName, StudyPageInfo pi);
+	public ArrayList<StudySearchCriteria> selectAllBySearch(StudySearchCriteria sc);
+	public ArrayList<Study> selectAll(StudySearchCriteria pi);
+	public ArrayList<Study> selectAllByStudyName(String studyName, StudySearchCriteria pi);
 	public Study selectOneByNo(int studyNo);
 	public ArrayList<Study> selectAllEnrolledByMemberNo(int memberNo);
 	

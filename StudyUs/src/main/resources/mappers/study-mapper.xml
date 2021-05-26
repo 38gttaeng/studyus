@@ -60,7 +60,7 @@
 		SELECT S.ST_NO, S.ST_NAME, S.ST_URL FROM STUDY S JOIN ENROLLMENT E ON S.ST_NO = E.ST_NO WHERE E.EN_STATUS = 1 AND E.MB_NO = #{memberNo}
 	</select>
 	
-	<select id="selectAllSearch" parameterType="HashMap" resultMap="studyResultMap">
+	<select id="selectAllSearch" parameterType="StudySearchCriteria">
 		SELECT * FROM (SELECT S.ST_NO
 		    FROM STUDY S 
 		    LEFT OUTER JOIN HASHTAG_RELATION R ON S.ST_NO = R.ST_NO 

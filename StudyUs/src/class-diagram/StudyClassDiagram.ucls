@@ -72,8 +72,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="com.studyus.study.domain.StudyPageInfo" project="StudyUs" 
-    file="/StudyUs/src/main/java/com/studyus/study/domain/StudyPageInfo.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="com.studyus.study.domain.StudySearchCriteria" project="StudyUs" 
+    file="/StudyUs/src/main/java/com/studyus/study/domain/StudySearchCriteria.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="75" y="595"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

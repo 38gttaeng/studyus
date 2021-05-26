@@ -17,6 +17,7 @@ import com.studyus.common.RedirectWithMsg;
 import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.member.domain.Member;
 import com.studyus.study.domain.Study;
+import com.studyus.study.domain.StudySearchCriteria;
 import com.studyus.study.service.StudyService;
 
 @Controller
@@ -95,8 +96,25 @@ public class StudyController {
 	
 	// 스터디 검색 결과페이지 get
 	@RequestMapping(value="/study/search/result", method=RequestMethod.GET)
-	public String searchStudy(@RequestParam String searchKeyword,
-							@RequestParam(value="hashtag", required=false) String[] hashtags) {
+	public String searchStudy(@RequestParam(value="keyword") String keyword,
+							@RequestParam(value="hashtag", required=false) String[] hashtags,
+							@RequestParam(value="page", required=false) int page) {
+		// page가 0이면 1로 설정
+		page = (page == 0) ? 1 : page;
+		
+		StudySearchCriteria sc = new StudySearchCriteria();
+		sc.setPage(page);
+		sc.setHashtags(hashtags);
+		sc.setKeyword(keyword);
+		
+		if (hashtags != null) {
+			for (String h : hashtags) {
+				System.out.println(h);
+			}
+		}
+		System.out.println("keyword: " + keyword);
+		
+		ArrayList<StudySearchCriteria> studyList = sService.printSearchResult(keyword, hashtags, sc);
 		
 		return "study/searchResult";
 	}

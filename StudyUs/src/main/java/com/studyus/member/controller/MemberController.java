@@ -47,7 +47,6 @@ public class MemberController {
 			
 			// 가입한 스터디 리스트를 세션에 저장
 			ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
-			System.out.println(enrolledStudyList);
 			session.setAttribute("enrolledStudyList", enrolledStudyList);
 			
 			return "redirect:/";
