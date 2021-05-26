@@ -21,10 +21,10 @@ public class NoticeServiceImpl implements NoticeService{
 	public int getListCount() {
 		return nStore.selectListCount();
 	}
-
+ 
 	@Override
-	public ArrayList<Notice> printAll(PageInfo pi, int studyNo) {
-		return nStore.selectList(pi, studyNo);
+	public ArrayList<Notice> printAll(PageInfo pi) {
+		return nStore.selectList(pi);
 	}
 
 	@Override
@@ -33,8 +33,8 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public ArrayList<Notice> printSearchAll(Search search, int studyNo) {
-		return nStore.selectSearchList(search, studyNo);
+	public ArrayList<Notice> printSearchAll(Search search) {
+		return nStore.selectSearchList(search);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class NoticeServiceImpl implements NoticeService{
 	public ArrayList<Notice> printAllComment(int noticeNo) {
 		return nStore.printAllComment(noticeNo);
 	}
-
+	
 	@Override
 	public int registerComment(Notice notice) {
 		return nStore.insertComment(notice);
@@ -76,6 +76,5 @@ public class NoticeServiceImpl implements NoticeService{
 	public int removeComment(Notice notice) {
 		return nStore.deleteComment(notice);
 	}
-
 
 }

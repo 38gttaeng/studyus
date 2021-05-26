@@ -29,20 +29,19 @@ import com.studyus.notice.service.NoticeService;
 
 @Controller
 public class NoticeController {
-
+ 
 	@Autowired
 	private NoticeService nService;
 	
 	// 전체 목록 조회 
 	@RequestMapping(value="/notice/noticeList", method=RequestMethod.GET)
 	public ModelAndView noticeList(ModelAndView mv, 
-										@RequestParam(value="page", required=false) Integer page,
-										@ModelAttribute("studyNo") int studyNo) {
+										@RequestParam(value="page", required=false) Integer page) {
 		int currentPage = (page != null) ? page : 1;
 		int listCount = nService.getListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		ArrayList<Notice> nList = nService.printAll(pi, studyNo);
-		if(!nList.isEmpty()) {
+		ArrayList<Notice> nList = nService.printAll(pi);
+		if(nList != null) {
 			mv.addObject("nList", nList);
 			mv.addObject("pi", pi);
 			mv.setViewName("notice/noticeListView");
@@ -51,7 +50,7 @@ public class NoticeController {
 			mv.setViewName("common/errorPage");
 		}
 		return mv;
-	}
+		}
 	
 	// 상세 조회 
 	@RequestMapping(value="/notice/noticeDetail", method= {RequestMethod.GET, RequestMethod.POST})
@@ -62,7 +61,7 @@ public class NoticeController {
 		Notice notice = nService.printOne(noticeNo);
 		if(notice != null) {
 			// 메소드 체이닝 방식 
-			mv.addObject("notice", notice).setViewName("notice/noticeDetailView");
+			mv.addObject("notice", notice).setViewName("notice/noticeDetail");
 		}else {
 			mv.addObject("msg", "공지사항 상세 조회 실패");
 			mv.setViewName("common/errorPage");
@@ -72,11 +71,11 @@ public class NoticeController {
 	
 	// 검색 
 	@RequestMapping(value="/notice/noticeSearch", method=RequestMethod.GET)
-	public String noticeSearch(@ModelAttribute Search search, @RequestParam("studyNo") int studyNo, Model model) {
+	public String noticeSearch(@ModelAttribute Search search, Model model) {
 		// 2개의 값을 하나에 담아서 보내는 방법
 		// 1. Domain(VO) 클래스 이용
 		// 2. HashMap 사용하기
-		ArrayList<Notice> searchList = nService.printSearchAll(search, studyNo);
+		ArrayList<Notice> searchList = nService.printSearchAll(search);
 		if(!searchList.isEmpty()) {
 			model.addAttribute("nList", searchList);
 			model.addAttribute("search", search);
@@ -96,30 +95,49 @@ public class NoticeController {
 	// 등록 
 	@RequestMapping(value="/notice/noticeWrite", method=RequestMethod.POST)
 	public ModelAndView registerNotice(ModelAndView mv,
-												@ModelAttribute Notice notice,
-												@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile,
-												HttpServletRequest request, Model model) {
-		// 서버에 파일을 저장하는 작업 
-		if(!uploadFile.getOriginalFilename().equals("")) {
+															@ModelAttribute Notice notice,
+															@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile,
+															HttpServletRequest request) {
+		// 서버에 파일을 저장하는 작업
+		if(uploadFile.getOriginalFilename().equals("")) {
 			String renameFileName = saveFile(uploadFile, request);
 			if(renameFileName != null) {
 				notice.setNoticeFileName(uploadFile.getOriginalFilename());
 				notice.setNoticeReFileName(renameFileName);
 			}
 		}
-		// DB에 데이터를 저장하는 작업
+		//디비에 데이터를 저장하는 작업 
 		int result = 0;
 		String path = "";
 		result = nService.registerNotice(notice);
 		if(result > 0) {
 			path = "redirect:noticeList";
 		}else {
-			mv.addObject("msg", "공지사항 등록 실패");
+			mv.addObject("msg", "등록 실패");
 			path = "common/errorPage";
 		}
 		mv.setViewName(path);
 		return mv;
 	}
+//	@RequestMapping(value="/notice/noticeWrite", method=RequestMethod.POST)
+//	public String registerNotice(@ModelAttribute Notice notice,
+//												@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile,
+//												HttpServletRequest request, Model model) {
+//		if(!uploadFile.getOriginalFilename().equals("")) {
+//			String filePath = saveFile(uploadFile, request);
+//			if(filePath != null) {
+//				notice.setNoticeFileName(uploadFile.getOriginalFilename());
+//			}
+//		}
+//		int result = 0;
+//		result = nService.registerNotice(notice);
+//		if(result > 0) {
+//			return "redirect:noticeList";
+//		}else {
+//			model.addAttribute("msg", "등록 실패");
+//			return "common/errorPage.jsp";
+//		}
+//	}
 	
 	// 파일 저장 
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
@@ -182,7 +200,7 @@ public class NoticeController {
 		// DB 수정 
 		int result = nService.modifyNotice(notice);
 		if(result > 0) {
-			mv.setViewName("redirect:noticeList");
+			mv.setViewName("redirect:/notice/noticeList");
 		}else {
 			mv.addObject("msg", "수정 실패").setViewName("common/errorPage");
 		}
@@ -200,7 +218,7 @@ public class NoticeController {
 		//디비에 데이터 업데이트 
 		int result = nService.removeNotice(noticeNo);
 		if(result > 0) {
-			return "redirect:noticeList";
+			return "redirect:/notice/noticeList";
 		}else {
 			model.addAttribute("msg", "삭제 실패");
 			return "common/errorPage";

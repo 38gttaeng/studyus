@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import com.studyus.notice.domain.Notice;
 import com.studyus.notice.domain.PageInfo;
 import com.studyus.notice.domain.Search;
-
+ 
 public interface NoticeService {
 	// 전체 조회수 
 	public int getListCount();
 	// 공지사항 전체 출력  
-	public ArrayList<Notice> printAll(PageInfo pi, int studyNo);
+	public ArrayList<Notice> printAll(PageInfo pi);
 	// 조회수 증가 
 	public int addReadCount(int noticeNo);
 	// 검색 
-	public ArrayList<Notice> printSearchAll(Search search, int studyNo);
+	public ArrayList<Notice> printSearchAll(Search search);
 	// 상세 조회 
 	public Notice printOne(int noticeNo);
 	

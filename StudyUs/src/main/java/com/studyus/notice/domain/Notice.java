@@ -5,13 +5,15 @@ import java.sql.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
+ 
 public class Notice {
 	private int noticeNo;
+	private int rowNum;
 	private int studyNo;
 	private int memberNo;
 	private int nMotherNo;
 	private String noticeWriter;
+	private String commentWriter;
 	private String replyWriter;
 	private Date nInsertDate;
 	private String noticeTitle;
@@ -20,6 +22,7 @@ public class Notice {
 	private String noticeReFileName;
 	private int noticeStatus;
 	private int noticeCount;
+	private int commentCnt; // 게시글 댓글 수 
 	
 	public Notice() {}
 
@@ -29,6 +32,14 @@ public class Notice {
 
 	public void setNoticeNo(int noticeNo) {
 		this.noticeNo = noticeNo;
+	}
+
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
 	}
 
 	public int getStudyNo() {
@@ -61,6 +72,14 @@ public class Notice {
 
 	public void setNoticeWriter(String noticeWriter) {
 		this.noticeWriter = noticeWriter;
+	}
+
+	public String getCommentWriter() {
+		return commentWriter;
+	}
+
+	public void setCommentWriter(String commentWriter) {
+		this.commentWriter = commentWriter;
 	}
 
 	public String getReplyWriter() {
@@ -127,15 +146,22 @@ public class Notice {
 		this.noticeCount = noticeCount;
 	}
 
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+
 	@Override
 	public String toString() {
-		return "Notice [noticeNo=" + noticeNo + ", studyNo=" + studyNo + ", memberNo=" + memberNo + ", nMotherNo="
-				+ nMotherNo + ", noticeWriter=" + noticeWriter + ", replyWriter=" + replyWriter + ", nInsertDate="
-				+ nInsertDate + ", noticeTitle=" + noticeTitle + ", noticeContents=" + noticeContents
-				+ ", noticeFileName=" + noticeFileName + ", noticeReFileName=" + noticeReFileName + ", noticeStatus="
-				+ noticeStatus + ", noticeCount=" + noticeCount + "]";
+		return "Notice [noticeNo=" + noticeNo + ", rowNum=" + rowNum + ", studyNo=" + studyNo + ", memberNo=" + memberNo
+				+ ", nMotherNo=" + nMotherNo + ", noticeWriter=" + noticeWriter + ", commentWriter=" + commentWriter
+				+ ", replyWriter=" + replyWriter + ", nInsertDate=" + nInsertDate + ", noticeTitle=" + noticeTitle
+				+ ", noticeContents=" + noticeContents + ", noticeFileName=" + noticeFileName + ", noticeReFileName="
+				+ noticeReFileName + ", noticeStatus=" + noticeStatus + ", noticeCount=" + noticeCount + ", commentCnt="
+				+ commentCnt + "]";
 	}
-	
-	
-	
+		
 }

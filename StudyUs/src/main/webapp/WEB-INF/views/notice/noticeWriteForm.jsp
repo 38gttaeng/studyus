@@ -59,14 +59,14 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="card-body">
-										<form class="" role="form" action="noticeRegister.kh" method="post"
+										<form class="" role="form" action="/notice/noticeWrite" method="post"
 											enctype="multipart/form-data">
 											<table class="table-responsive col-md-12 ">
 												<tr class="row" >
 													<td class="col-md-2 text-center">제목</td>
 													<td class="col-md-10" ><input type="text" class="form-control" name="noticeTitle"></td>
 												</tr>
-<%-- 												<tr class="row">
+<%-- 	 											<tr class="row">
 													<td class="col-3">작성자</td>
 													<td class="col-9"><input type="text" size="50" class="form-control" name="noticeWriter"
 														value="${loginUser.userId }" readonly></td>
@@ -76,7 +76,7 @@
 													<td class="col-md-2 text-center">내용</td>
 													<td class="col-md-10">
 													<!-- <textarea class="form-control" id="summernote" name="noticeContents"></textarea> -->
-													<textarea class="" id="summernote" name="editordata"></textarea>
+													<textarea class="" id="summernote" name="noticeContents"></textarea>
 													</td>
 												</tr>
 												<tr><td>&nbsp;</td></tr>
@@ -85,7 +85,7 @@
 													<td class="col-md-1"></td>
 													<td class="col-md-8">
 													<!-- <input type="file" class=""  name="uploadFile"> -->
-													<input type="file" class="custom-file-input" id="customFile">
+													<input type="file" class="custom-file-input" id="customFile" name="uploadFile">
             										<label class="custom-file-label" for="customFile">파일선택</label>
 													</td>
 												</tr>

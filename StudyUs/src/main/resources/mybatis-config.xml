@@ -6,21 +6,23 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	
-	<typeAliases> 
+	<typeAliases>  
 		<typeAlias type="com.studyus.study.domain.Study" alias="Study" />
 		<typeAlias type="com.studyus.member.domain.Member" alias="Member" />
 		<typeAlias type="com.studyus.board.domain.Board" alias="Board"/>
+		<typeAlias type="com.studyus.notice.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.studyus.assignment.domain.Assignment" alias="Assignment"/>
 		<typeAlias type="com.studyus.file.domain.FileVO" alias="FileVO"/>
 		<typeAlias type="com.studyus.cafe.domain.Cafe" alias="Cafe" />
 		<typeAlias type="com.studyus.enrollment.domain.Enrollment" alias="Enrollment" />
 	</typeAliases>
 	
-	<mappers>
+	<mappers> 
 		<mapper resource="mappers/study-mapper.xml" />
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/hashtag-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/assignment-mapper.xml"/>
 		<mapper resource="mappers/file-mapper.xml"/>
 		<mapper resource="mappers/enrollment-mapper.xml"/>
