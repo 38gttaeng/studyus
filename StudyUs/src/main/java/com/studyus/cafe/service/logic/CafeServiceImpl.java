@@ -32,8 +32,7 @@ public class CafeServiceImpl implements CafeService{
 
 	@Override
 	public int modifyCafe(Cafe cafe) {
-		// TODO Auto-generated method stub
-		return 0;
+		return cStore.updateCafe(cafe); 
 	}
 
 	@Override

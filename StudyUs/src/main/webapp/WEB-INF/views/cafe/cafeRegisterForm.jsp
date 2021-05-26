@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>스터디카페 등록</title>
+<title>스터디카페 등록</title> 
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"></jsp:include>
@@ -90,8 +90,8 @@
 										<ul class="pricing-text mb-4">
 											<li><strong>주소</strong>
 												<h3 class="heading-2 mb-3">
-													<input class="form-control" type="text" size="50" name="caAddr"
-														placeholder="ex) 서울특별시 강남구 테헤란로 14길 6 남도빌딩 2F ">
+													<input class="form-control" type="text" size="50" name="caRoute"
+														placeholder="ex) 지하철 2호선 을지로입구역 3번출구 100M ">
 												</h3></li>
 										</ul>
 									</div>

@@ -14,7 +14,7 @@
 		<typeAlias type="com.studyus.file.domain.FileVO" alias="FileVO"/>
 		<typeAlias type="com.studyus.cafe.domain.Cafe" alias="Cafe" />
 		<typeAlias type="com.studyus.enrollment.domain.Enrollment" alias="Enrollment" />
-	</typeAliases>
+	</typeAliases> 
 	
 	<mappers>
 		<mapper resource="mappers/study-mapper.xml" />
