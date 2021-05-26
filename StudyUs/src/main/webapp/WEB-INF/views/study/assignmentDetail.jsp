@@ -75,7 +75,7 @@
                             	<h4 class="card-title">
                             		${ assignment.asName }
                             	</h4>
-                            	<div class="row">
+                            	<div>
 	                                <h6 class="card-subtitle float-right">${ assignment.asInsertDate }</h6>
                             	</div>
                             </div>
@@ -89,7 +89,7 @@
                             </div>
                             
                             <!-- 댓글 -->
-                            <%-- <div class="card-body">
+                            <div class="card-body">
                             	<!-- board.js 파일과 연동하기 위해서 -->
                             	<input id="rMotherNo" type="hidden" value="${ board.boNo }">
                             	<input id="rMbNo" type="hidden" value="${ board.mbNo }">
@@ -109,7 +109,7 @@
                                 <!-- 페이징 -->
                                 <nav id='rPage'></nav>
 								
-                            </div> --%>
+                            </div>
                             
                         </div>
                     </div>

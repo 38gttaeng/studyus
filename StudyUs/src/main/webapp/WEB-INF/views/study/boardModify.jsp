@@ -39,7 +39,7 @@
 	                    <nav aria-label="breadcrumb">
 	                        <ol class="breadcrumb m-0 p-0">
 	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board">Board</a></li>
+	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board?boCategory=${ category }">Board</a></li>
 	                            <li class="breadcrumb-item text-muted active" aria-current="page">Modify</li>
 	                        </ol>
 	                    </nav>
@@ -63,6 +63,8 @@
 									
 									<input type="hidden" name="boNo" value="${ board.boNo }">
 									<input type="hidden" name="boFileName" value="${ board.boFileName }">
+									<!-- register.js 파일에 수정임을 알리기 위해서 -->
+									<input type="hidden" name="viewCheck" value="modifyView">
 									
 	                        		<div id="table-box">
 										<table class="table-responsive">
@@ -93,7 +95,8 @@
 											<tr>
 												<td valign=top>내용</td>
 												<td>
-													<textarea rows="22" cols="120" class="form-control" name="boContents">${ board.boContents }</textarea>
+													<input type="hidden" name="boContents">
+      												<div id="editor" style="min-height:400px;">${ board.boContents }</div>
 												</td>
 											</tr>
 											<tr>

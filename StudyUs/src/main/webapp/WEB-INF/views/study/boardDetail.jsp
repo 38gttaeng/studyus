@@ -99,10 +99,14 @@
                             </div>
                             <c:if test="${ !empty board.boFileName }">
 	                            <div class="card-body file-box">
-	                            	${ board.fiRealName }
+	                            	<c:url var="fileDownload" value="/study/board/downloadFile">
+										<c:param name="boFileName" value="${ board.boFileName }"></c:param>
+										<c:param name="fiRealName" value="${ board.fiRealName }"></c:param>
+									</c:url>
+		                            <a class="text-muted" href="${ fileDownload }" onclick="return confirm('파일을 다운로드하시겠습니까?');">${ board.fiRealName }</a>
 	                            </div>
                             </c:if>
-                            <div class="card-body">
+                            <div class="card-body content">
 	                            <p>${ board.boContents }</p>
                             </div>
                             
@@ -110,15 +114,16 @@
                             <div class="card-body">
                             	<!-- board.js 파일과 연동하기 위해서 -->
                             	<input id="rMotherNo" type="hidden" value="${ board.boNo }">
-                            	<input id="rMbNo" type="hidden" value="${ board.mbNo }">
+                            	<input id="boMbNo" type="hidden" value="${ board.mbNo }">
                             	<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
+                            	<input id="menuCheck" type="hidden" value="b"><!-- 메뉴 체크 -->
                             
                                 <h6 class="card-subtitle" style="float:right;">댓글 <span id="rCount"></span></h6>
                                 <hr>
                                 
 								<!-- 댓글 등록 -->
 								<div class="reply-enter">
-									<textarea id="rContent" class="form-control" rows="3" placeholder="댓글을 입력하세요."></textarea>
+      								<div id="editor"></div>
 									<button id="rSubmit" class="reply-enter-btn">등록</button>
 								</div>
 								
@@ -126,7 +131,6 @@
                                 <div id="rList"></div>
                                 <!-- 페이징 -->
                                 <nav id='rPage'></nav>
-								
                             </div>
                              
                         </div>
@@ -141,6 +145,5 @@
     
     <!-- 해당 페이지 JS 파일 -->
     <script src="/resources/js/boardReply.js"></script>
-    
 </body>
 </html>

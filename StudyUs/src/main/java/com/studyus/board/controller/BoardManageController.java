@@ -1,5 +1,7 @@
 package com.studyus.board.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -8,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.studyus.board.domain.Search;
 import com.studyus.board.service.BoardService;
 
 @Controller
@@ -32,7 +33,7 @@ public class BoardManageController {
 	}
 	
 	// 게시물 검색
-	public void myBoardSearch(HttpSession session, HttpServletResponse response, @ModelAttribute Search search) {
+	public void myBoardSearch(HttpSession session, HttpServletResponse response, HashMap<String, Object> map) {
 	
 	}
 	
@@ -47,7 +48,7 @@ public class BoardManageController {
 	}
 	
 	// 댓글 검색
-	public void myReplySearch(HttpSession session, HttpServletResponse response, @ModelAttribute Search search) {
+	public void myReplySearch(HttpSession session, HttpServletResponse response, HashMap<String, Object> map) {
 	
 	}
 	

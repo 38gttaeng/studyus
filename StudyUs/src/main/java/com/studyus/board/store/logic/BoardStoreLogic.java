@@ -1,6 +1,7 @@
 package com.studyus.board.store.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studyus.board.domain.Board;
-import com.studyus.board.domain.Search;
 import com.studyus.board.store.BoardStore;
 import com.studyus.common.PageInfo;
 
@@ -36,9 +36,15 @@ public class BoardStoreLogic implements BoardStore{
 	}
 
 	@Override
-	public ArrayList<Board> selectSearchAll(Search search, Board board) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getSearchCount(HashMap<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.selectSearchCount", map);
+	}
+
+	@Override
+	public ArrayList<Board> selectSearchAll(PageInfo pi, HashMap<String, Object> map) {
+		int offset = (pi.getCurrentPage() - 1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
 	}
 
 	@Override
@@ -53,6 +59,8 @@ public class BoardStoreLogic implements BoardStore{
 		return (ArrayList)sqlSession.selectList("boardMapper.selectAllReply", boMotherNo, rowBounds);
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public int getListCountByMemberNo(Board board, int selected) {
 		// TODO Auto-generated method stub
@@ -78,7 +86,7 @@ public class BoardStoreLogic implements BoardStore{
 	}
 
 	@Override
-	public ArrayList<Board> selectSearchAllReply(Search search, int stNo) {
+	public ArrayList<Board> selectSearchAllReply(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -95,6 +103,8 @@ public class BoardStoreLogic implements BoardStore{
 		return null;
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public int insertBoard(Board board) {
 		return sqlSession.insert("boardMapper.insertBoard", board);

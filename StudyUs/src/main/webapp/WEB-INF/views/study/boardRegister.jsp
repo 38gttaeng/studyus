@@ -39,7 +39,7 @@
 	                    <nav aria-label="breadcrumb">
 	                        <ol class="breadcrumb m-0 p-0">
 	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board">Board</a></li>
+	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board?boCategory=${ category }">Board</a></li>
 	                            <li class="breadcrumb-item text-muted active" aria-current="page">Write</li>
 	                        </ol>
 	                    </nav>
@@ -89,11 +89,8 @@
 											<tr>
 												<td valign=top>내용</td>
 												<td>
-													<!-- <textarea rows="22" cols="120" class="form-control" name="boContents"></textarea> -->
 													<input type="hidden" name="boContents">
-													<div class="container">
-      													<div id="editor" style="min-height:450px;"></div>
-    												</div>
+      												<div id="editor" style="min-height:400px;"></div>
 												</td>
 											</tr>
 											<tr>

@@ -1,13 +1,17 @@
 @charset "UTF-8";
 
 /* 댓글 리스트 */
+#rList {
+	margin-top : 10px;
+}
+
 .reply-box {
 	border-bottom: 1px solid #edf2f9 !important;
 	padding : 15px 10px 5px 10px;
 	position : relative; 
 }
 
-.reply-box img {
+.reply-box .rounded-circle {
 	width: 25px;
 }
 
@@ -15,11 +19,11 @@
 	padding-bottom:10px;
 }
 
-.reply-box span:nth-child(2) {
+.reply-box .nickName {
 	font-weight: 500;
 }
 
-.reply-box div:first-child div:first-of-type {
+.reply-box .writerTag {
 	display: inline-block;
 	height: 24px;
 	border-radius: 2em;
@@ -30,7 +34,7 @@
   	line-height: 1;
 }
 
-.reply-box span:last-child {
+.reply-box .insertDate {
 	font-size : 13px;
 	font-weight: 300;
   	margin-bottom: 10px;
@@ -38,8 +42,16 @@
 	float: right;
 }
 
-.reply-box div:nth-child(2) {
-	padding-bottom : 10px;
+.reply-box .contents-box {
+	padding : 10px;
+	font-size : 14px;
+	overflow : auto;
+}
+
+@media screen and (max-width:321px) {
+	.reply-box div:nth-child(2) img {
+		width : 100%;
+	}
 }
 
 .reply-box .btn-group {
@@ -69,9 +81,26 @@
 	color : #fff;
 }
 
+#editor {
+	border : 1px solid #e9ecef;
+	min-height : 100px;
+	width : 90%;
+}
+
+#editor2 {
+	border : 1px solid #e9ecef;
+	background-color : #fff;
+	min-height : 100px;
+	width : 90%;
+}
+
 /* 댓글 페이징 */
 #rPage {
 	padding : 20px 0 10px 0;
+}
+
+#rPage li {
+	cursor : pointer;
 }
 
 /*******************************************************************/
@@ -92,19 +121,24 @@
 	margin:0 24px 25px 24px;
 }
 
-/* 내용 영역 보이기 제한(전체보기에서만) */
-#list-content {
-	padding-top : 0;
-	max-height : 300px;
+/* 내용 */
+.content {
+	padding : 0 35px !important;
 }
 
-#list-content p {
-	display : -webkit-box;
-	overflow : hidden;
-	text-overflow : ellipsis;
-	-webkit-line-clamp : 6; 
-	-webkit-box-orient : vertical;
-}
+	/* 내용 영역 보이기 제한(전체보기에서만) */
+	.list-content {
+		max-height : 500px;
+		overflow : hidden;
+	}
+	
+	.list-content p {
+		display : -webkit-box;
+		overflow : hidden;
+		text-overflow : ellipsis;
+		-webkit-line-clamp : 6; 
+		-webkit-box-orient : vertical;
+	}
 
 /* 전체 리스트에서는 댓글 영역 border 없애기 */
 .list-reply {
@@ -164,6 +198,12 @@
 	#write-btn:hover span {
 		display : block;
 	}
+	
+.reBtn {
+	position : absolute;
+	bottom : 38px;
+	right : 17px;
+}
 
 /* 태그들 */
 

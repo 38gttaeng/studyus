@@ -6,31 +6,35 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.service.FileService;
 
+@Controller
 public class FileController {
 	@Autowired
 	private FileService fiService;
 	
-	@ResponseBody
 	@RequestMapping(value="/file/upload/image", method=RequestMethod.POST)
-	public String saveImage(HttpServletRequest request, @RequestParam("uploadImage") MultipartFile uploadImage) {
+	public void saveImage(HttpServletRequest request, HttpServletResponse response, @RequestParam("uploadImage") MultipartFile uploadImage) throws Exception {
 		
 		FileVO fileVO = saveFile(uploadImage, request);
-		System.out.println(uploadImage);/******************************/
-		System.out.println(request);/******************************/
 		
-		// 파일명 리턴
-		return fileVO.getFiStoredName();
+		String image = "/resources/uploadFiles/" + fileVO.getFiStoredName();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(image, response.getWriter());
 	}
 	
 	public FileVO saveFile(MultipartFile file, HttpServletRequest request) {

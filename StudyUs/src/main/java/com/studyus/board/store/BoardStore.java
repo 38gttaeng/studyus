@@ -1,9 +1,9 @@
 package com.studyus.board.store;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.studyus.board.domain.Board;
-import com.studyus.board.domain.Search;
 import com.studyus.common.PageInfo; 
 
 public interface BoardStore {
@@ -33,13 +33,21 @@ public interface BoardStore {
 	public Board selectOneReply(int boMotherNo);
 	
 	/**
+	 * 검색한 게시물 총 개수 - 전체 / 마이페이지 / 팀장페이지
+	 * (마이페이지 검색은 멤버가 null이 아닐 때)
+	 * @param map
+	 * @return
+	 */
+	public int getSearchCount(HashMap<String, Object> map);
+	
+	/**
 	 * 검색하기 - 전체 / 마이페이지 / 팀장페이지
 	 * (마이페이지 검색은 멤버가 null이 아닐 때)
-	 * @param search
+	 * @param pi
 	 * @param board(stNo, boCategory)
 	 * @return
 	 */
-	public ArrayList<Board> selectSearchAll(Search search, Board board);
+	public ArrayList<Board> selectSearchAll(PageInfo pi, HashMap<String, Object> map);
 	
 	/**
 	 * 한개 보기 (WHERE BO_NO)
@@ -55,6 +63,8 @@ public interface BoardStore {
 	 * @return
 	 */
 	public ArrayList<Board> selectAllReply(PageInfo pi, int boMotherNo);
+	
+	/////////////////////////////////////////////////////////////////////////////////
 	
 	// 내가 쓴 게시물 보기 (게시물 + 과제제출)
 	
@@ -102,7 +112,7 @@ public interface BoardStore {
 	 * @param stNo
 	 * @return
 	 */
-	public ArrayList<Board> selectSearchAllReply(Search search, int stNo);
+	public ArrayList<Board> selectSearchAllReply(HashMap<String, Object> map);
 	
 	// 내가 쓴 댓글 보기 (게시물 + 과제제출)
 	
@@ -122,6 +132,8 @@ public interface BoardStore {
 	 * @return
 	 */
 	public ArrayList<Board> selectAllReplyByMemberNo(PageInfo pi, Board board, int selected);
+	
+	/////////////////////////////////////////////////////////////////////////////////	
 	
 	// 게시물 추가, 수정, 삭제
 	public int insertBoard(Board board);

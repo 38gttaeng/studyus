@@ -6,6 +6,9 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- 추가 css -->
+    <link href="/resources/css/studyus/register.css" rel="stylesheet">
 	<title>StudyUs : 스터디룸</title>
 </head>
 <body>
@@ -18,8 +21,8 @@
         <!-- menubar -->
 	    <jsp:include page="../common/studyMenubar.jsp"/>
 	    <script>
-	    	$("#sidebarnav>li:nth-child(6)").addClass("selected");
-	    	$("#sidebarnav>li:nth-child(6) a").addClass("active");
+	    	$("#sidebarnav>li:nth-child(7)").addClass("selected");
+	    	$("#sidebarnav>li:nth-child(7) a").addClass("active");
 	    </script>
         
         <!-- ============================================================== -->
@@ -52,48 +55,83 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-12">
+                	<div class="col-1"></div>
+                    <div class="col-10">
                         <div class="card">
-                            <div class="card-body ">
-                            	<h4 class="card-title">글쓰기</h4>
-                            		<form action="/study/assignment/register" method="post" enctype="multipart/form-data">
-										<table align="center" border="1" cellspacing="0">
+                            <div class="card-body">
+	                        	<form id="postForm" action="/study/board/register" method="post" enctype="multipart/form-data">
+	                        		<div id="table-box">
+										<table class="table-responsive">
 											<tr>
-												<td>기한</td>
+												<td>카테고리</td>
 												<td>
-													<!-- 기한에 제한두기 -->
-													<input type="date" name="asDeadLine">
+													<select id="select-box" class="form-control" name="boCategory">
+														<option selected value="1">자유</option>
+														<option value="2">공유</option>
+														<option value="3">질문</option>
+													</select>
 												</td>
 											</tr>
 											<tr>
 												<td>제목</td>
-												<td><input type="text" size="50" name="asName"></td>
+												<td>
+													<input type="text" class="form-control" name="boTitle">
+													<span id="title-msg" class="invalid-feedback">제목을 1자 이상 입력하세요.</span>
+												</td>
 											</tr>
 											<tr>
-												<td>내용</td>
-												<td><textarea rows="7" cols="50" name="asContents"></textarea></td>
+												<td>작성자</td>
+												<td>
+													<input type="text" class="form-control" size="50" value="${ loginUser.mbNickname }" readonly>
+													<input type="hidden" name="mbNo" value="${ loginUser.mbNo }">
+												</td> 
+											</tr>
+											<tr>
+												<td valign=top>내용</td>
+												<td>
+													<!-- <textarea rows="22" cols="120" class="form-control" name="boContents"></textarea> -->
+													<input type="hidden" name="boContents">
+													<div class="container">
+      													<div id="editor" style="min-height:450px;"></div>
+    												</div>
+												</td>
 											</tr>
 											<tr>
 												<td>첨부파일</td>
-												<td><input type="file" size="50" name="uploadFile"></td>
+												<td>
+													<label class="btn btn-light" for="input-file">파일 선택</label>&nbsp;&nbsp;
+													<input id="input-file" type="file" name="uploadFile">
+													<span id="filename" class="text-muted">
+														<c:if test="${ !empty board.fiRealName }">
+															${ board.fiRealName }
+														</c:if>
+														<c:if test="${ empty board.fiRealName }">
+															파일을 선택해주세요.
+														</c:if>
+													</span>
+												</td>
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<input type="submit" value="등록">&nbsp;&nbsp;
-													<input type="reset" value="취소">
+													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/board?boCategory=${category}'">
+													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="등록">
 												</td>
 											</tr>
 										</table>
-									</form>	
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+									</div>
+								</form>	
+                    		</div>
+                		</div>
+            		</div>
+            		<div class="col-1"></div>
+           	</div>
 
             <!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>
         </div>
     </div>
+    
+    <!-- 해당 페이지 JS 파일 -->
+    <script src="/resources/js/register.js"></script>
 </body>
 </html>

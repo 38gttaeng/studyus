@@ -42,17 +42,17 @@
                         </div>
                     </div>
                     <div class="col-lg-8 align-self-center">
-        				<form>
+        				<form id="searchForm" action="/study/board/search" method="get">
 		                    <div class="customize-input float-right">
-                            	<input class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="Search" aria-label="Search">
-                            	<i class="form-control-icon" data-feather="search"></i>
+                            	<input name="searchValue" class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="Search" aria-label="Search">
+                            	<i class="form-control-icon" data-feather="search" onclick="$('#searchForm').submit();"></i>
 	                    	</div>
 	                    	<div class="customize-input float-right" style="margin-right:10px;">
-		                        <select class="custom-select bg-white custom-radius border-0 custom-shadow">
-		                            <option selected>제목+내용</option>
-		                            <option value="1">제목</option>
-		                            <option value="2">내용</option>
-		                            <option value="3">작성자</option>
+		                        <select name="searchCondition" class="custom-select bg-white custom-radius border-0 custom-shadow">
+		                            <option selected value="all">제목+내용</option>
+		                            <option value="title">제목</option>
+		                            <option value="content">내용</option>
+		                            <option value="writer">작성자</option>
 		                        </select>
 		                    </div>
                    		</form>
@@ -84,12 +84,17 @@
                             	</thead>
                             	<tbody>
                             		<c:forEach items="${ aList }" var="aOne">
-	                            	<tr onclick="location.href='/study/assignment/detail?asNo=${ aOne.asNo }'">
+                            		
+                            		<c:url var="asDetail" value="/study/assignment/detail">
+										<c:param name="asNo" value="${ aOne.asNo }"></c:param>
+									</c:url>
+	                            	<tr onclick="location.href='${ asDetail }'">
 	                            		<td>${ aOne.asNo }</td>
                             			<td>${ aOne.asName }</td>
                             			<td>${ aOne.asInsertDate } ~ ${ aOne.asDeadLine }</td>
                             			<td></td>
 	                            	</tr>
+	                            	
 	                            	</c:forEach>
                             	</tbody>
                             </table>
@@ -98,7 +103,9 @@
                 </div>
                 
                 <!-- 글쓰기 버튼 --> 
-				<button id="write-btn" onclick="location.href='/study/assignment/registerView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
+                <div id="float-btn">
+					<button id="write-btn" onclick="location.href='/study/assignment/registerView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
+            	</div>
             </div>
             <!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>

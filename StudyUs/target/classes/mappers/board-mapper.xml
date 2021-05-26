@@ -27,6 +27,7 @@
 			</if>
 		AND BO_STATUS = 1
 		</if>
+		
 		<if test="boMotherNo != 0">
 		WHERE BO_MOTHER_NO = #{boMotherNo}
 		AND BO_STATUS = 1
@@ -90,6 +91,74 @@
 		AND B.BO_STATUS = 1
 		ORDER BY B.BO_NO DESC
 	</select>
+	
+	<!-- 검색 -->
+	<select id="selectSearchCount" parameterType="Map" resultType="_int">
+		SELECT COUNT(*) FROM BOARD B
+		
+		JOIN MEMBER M
+		USING(MB_NO)
+		
+		WHERE B.BO_MOTHER_NO IS NULL
+		AND B.ST_NO = #{stNo}
+			<if test="boCategory > 0">
+			AND BO_CATEGORY = #{boCategory}
+			</if>
+		AND B.BO_STATUS = 1
+		<if test="searchCondition.toString() == 'all'">
+		AND (B.BO_TITLE LIKE '%' || #{searchValue} || '%'
+			OR B.BO_CONTENTS LIKE '%' || #{searchValue} || '%'
+			OR M.MB_NICKNAME LIKE '%' || #{searchValue} || '%')
+		</if>
+		<if test="searchCondition.toString() == 'title'">
+		AND B.BO_TITLE LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition.toString() == 'content'">
+		AND B.BO_CONTENTS LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition.toString() == 'writer'">
+		AND M.MB_NICKNAME LIKE '%' || #{searchValue} || '%'
+		</if>
+	</select>
+	
+	<select id="selectSearchList" parameterType="Map" resultMap="boardResultMap">
+		SELECT
+		    B.BO_NO, B.ST_NO, B.MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE,
+		    B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, F.FI_REALNAME,
+		    B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM BOARD B
+		
+		JOIN MEMBER M
+		ON B.MB_NO = M.MB_NO
+		
+		LEFT OUTER JOIN FILE_TABLE F
+		ON B.BO_FILENAME = F.FI_STOREDNAME
+		
+		WHERE BO_MOTHER_NO IS NULL
+		AND B.ST_NO = #{stNo}
+		<if test="boCategory > 0">
+		AND B.BO_CATEGORY = #{boCategory}
+		</if>
+		AND B.BO_STATUS = 1
+		
+		<if test="searchCondition.toString() == 'all'">
+		AND (B.BO_TITLE LIKE '%' || #{searchValue} || '%'
+		    OR B.BO_CONTENTS LIKE '%' || #{searchValue} || '%'
+		    OR M.MB_NICKNAME LIKE '%' || #{searchValue} || '%')
+		</if>
+		<if test="searchCondition.toString() == 'title'">
+		AND B.BO_TITLE LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition.toString() == 'content'">
+		AND B.BO_CONTENTS LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition.toString() == 'writer'">
+		AND M.MB_NICKNAME LIKE '%' || #{searchValue} || '%'
+		</if>
+		
+		ORDER BY B.BO_NO DESC
+	</select>
+	
 	
 	<!-- 등록 -->
 	<insert id="insertBoard" parameterType="Board">
