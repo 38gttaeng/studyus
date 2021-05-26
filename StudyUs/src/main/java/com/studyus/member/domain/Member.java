@@ -21,20 +21,12 @@ public class Member {
 		this.mbPassword = mbPassword;
 	}
 
-	public Member(int mbNo, String mbId, String mbPassword, String mbName, String mbEmail, String mbNickname,
-			String mbPhone, int mbReputation, int mbPhoto, int mbStatus) {
+	public Member(String mbId, String mbName, String mbEmail) {
 		super();
-		this.mbNo = mbNo;
 		this.mbId = mbId;
-		this.mbPassword = mbPassword;
 		this.mbName = mbName;
 		this.mbEmail = mbEmail;
-		this.mbNickname = mbNickname;
-		this.mbPhone = mbPhone;
-		this.mbReputation = mbReputation;
-		this.mbPhoto = mbPhoto;
-		this.mbStatus = mbStatus;
-	}
+	} 
 
 	public int getMbNo() {
 		return mbNo;
@@ -122,7 +114,5 @@ public class Member {
 				+ ", mbEmail=" + mbEmail + ", mbNickname=" + mbNickname + ", mbPhone=" + mbPhone + ", mbReputation="
 				+ mbReputation + ", mbPhoto=" + mbPhoto + ", mbStatus=" + mbStatus + "]";
 	}
-
-	
 
 }

@@ -37,7 +37,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="#">
+	      <a class="navbar-brand" href="/">
 	      	<img src="/resources/css/study/assets/images/logo-icon2.png"/>
 	      	<img src="/resources/css/study/assets/images/logo-text2.png" alt="StudyUs"/>
 	      </a>
@@ -46,7 +46,7 @@
 	      </button>
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	        	<li class="nav-item"><a href="#" class="nav-link">홈</a></li>
+	        	<li class="nav-item"><a href="/" class="nav-link">홈</a></li>
 	        	<li class="nav-item dropdown">
 		          	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">스터디</a>
 	              	<div class="dropdown-menu">
@@ -94,7 +94,7 @@
 		                        	로그아웃
 		                    </a>
 		                </div>
-		            </li>
+		            </li> 
 	              </c:if>
 	            </ul>
 	      </div>

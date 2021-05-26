@@ -1,8 +1,11 @@
 package com.studyus.member.service;
 
+import java.util.ArrayList;
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.member.store.MemberStore;
 import com.studyus.review.domain.Review;
@@ -49,20 +52,26 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member findMemId(Member member) {
-		// TODO Auto-generated method stub
-		return null;
+		Member mOne = store.findMemId(member);
+		return mOne;
 	}
 
 	@Override
 	public Member findMemPw(Member member) {
+		Member mOne = store.findMemPw(member);
+		return mOne;
+	}
+
+	@Override
+	public ArrayList<Enrollment> myStudyList(int mbNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public Review myReviewList(String mbId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }

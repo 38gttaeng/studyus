@@ -1,9 +1,12 @@
 package com.studyus.member.store;
+ 
+import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.review.domain.Review;
 
@@ -49,20 +52,26 @@ public class MemberStoreLogic implements MemberStore {
 
 	@Override
 	public Member findMemId(Member member) {
-		// TODO Auto-generated method stub
-		return null;
+		Member findId = sqlSession.selectOne("memberMapper.findMemId", member);
+		return findId;
 	}
 
 	@Override
 	public Member findMemPw(Member member) {
-		// TODO Auto-generated method stub
-		return null;
+		Member findPwd = sqlSession.selectOne("memberMapper.findMemPwd", member);
+		return findPwd;
 	}
 
 	@Override
-	public Review myReviewList(String mbId) {
+	public ArrayList<Enrollment> myStudyList(int mbNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	
+	@Override
+	public Review myReviewList(String mbId) {
+		
+		return null;
+	}
 }

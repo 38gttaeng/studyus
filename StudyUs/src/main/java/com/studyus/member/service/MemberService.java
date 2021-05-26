@@ -1,5 +1,8 @@
 package com.studyus.member.service;
 
+import java.util.ArrayList;
+ 
+import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.review.domain.Review;
 
@@ -20,6 +23,8 @@ public interface MemberService {
 	public Member findMemId(Member member);
 	
 	public Member findMemPw(Member member);
+	
+	public ArrayList<Enrollment> myStudyList(int mbNo);
 	
 	public Review myReviewList(String mbId);
 }
