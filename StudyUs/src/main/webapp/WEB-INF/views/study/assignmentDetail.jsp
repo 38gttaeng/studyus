@@ -21,8 +21,8 @@
         <!-- menubar -->
 	    <jsp:include page="../common/studyMenubar.jsp"/>
 	    <script>
-	    	$("#sidebarnav>li:nth-child(6)").addClass("selected");
-	    	$("#sidebarnav>li:nth-child(6) a").addClass("active");
+	    	$("#sidebarnav>li:nth-child(7)").addClass("selected");
+	    	$("#sidebarnav>li:nth-child(7) a").addClass("active");
 	    </script>
         
         <!-- ============================================================== -->
@@ -50,6 +50,13 @@
                     	<div class="float-right">
 	                    	<%-- <c:if test="${ loginUser.mbNo ==  }"> --%>
 	                    	<!-- 로그인한 사람이 세션에서 가져온 팀장정보랑 일치하면 -->
+	                    	<%-- <c:url var="bModify" value="/study/board/modifyView">
+								<c:param name="boNo" value="${ board.boNo }"></c:param>
+							</c:url>
+							<c:url var="bDelete" value="/study/board/delete">
+								<c:param name="boNo" value="${ board.boNo }"></c:param>
+								<c:param name="boFileName" value="${ board.boFileName }"></c:param>
+							</c:url> --%>
                     		<div class="btn-group">
 		                    	<button onclick="location.href='#'" class="btn btn-secondary">수정</button>
 		                    	<button onclick="location.href='#'" class="btn btn-secondary">삭제</button>
@@ -91,8 +98,8 @@
                             <!-- 댓글 -->
                             <div class="card-body">
                             	<!-- board.js 파일과 연동하기 위해서 -->
-                            	<input id="rMotherNo" type="hidden" value="${ board.boNo }">
-                            	<input id="rMbNo" type="hidden" value="${ board.mbNo }">
+                            	<input id="rMotherNo" type="hidden" value="${ assginment.asNo }">
+                            	<input id="rMbNo" type="hidden" value="${ assignment.mbNo }">
                             	<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
                             
                                 <h6 class="card-subtitle" style="float:right;">댓글 <span id="rCount"></span></h6>
@@ -100,7 +107,7 @@
                                 
 								<!-- 댓글 등록 -->
 								<div class="reply-enter">
-									<textarea id="rContent" class="form-control" rows="3" placeholder="댓글을 입력하세요."></textarea>
+									<div id="editor"></div>
 									<button id="rSubmit" class="reply-enter-btn">등록</button>
 								</div>
 								
@@ -122,7 +129,7 @@
     </div>
     
     <!-- 해당 페이지 JS 파일 -->
-    <script src="/resources/js/boardReply.js"></script>
+    <script src="/resources/js/assignmentReply.js"></script>
     
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.studyus.assignment.domain;
+package com.studyus.submittedAssignment.domain;
 
 public class SubmittedAssignment {
 	private int suNo;

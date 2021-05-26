@@ -116,7 +116,6 @@
                             	<input id="rMotherNo" type="hidden" value="${ board.boNo }">
                             	<input id="boMbNo" type="hidden" value="${ board.mbNo }">
                             	<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
-                            	<input id="menuCheck" type="hidden" value="b"><!-- 메뉴 체크 -->
                             
                                 <h6 class="card-subtitle" style="float:right;">댓글 <span id="rCount"></span></h6>
                                 <hr>

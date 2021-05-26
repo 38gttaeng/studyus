@@ -11,7 +11,6 @@ var toolbarOptions = {
 const limit = 1000; // 1000자 제한
 
 $(function() {
-	var check = $("#menuCheck").val();
 	getReplyList(page);
 	
 	// Quill
