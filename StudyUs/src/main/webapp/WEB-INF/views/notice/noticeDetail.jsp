@@ -84,6 +84,8 @@
 	                            	<p>${ notice.noticeContents }</p>
                             	</c:if>
                             </div>
+                             
+                            
                             <div class="card-body">
                             	<!-- board.js 파일과 연동하기 위해서 -->
                             	<input id="rMotherNo" type="hidden" value="${ notice.nMotherNo }">
@@ -132,7 +134,7 @@
     </div>
     
     <!-- 해당 페이지 JS 파일 -->
-    <script src="/resources/js/boardReply.js"></script>
+   <!--  <script src="/resources/js/noticeReply.js"></script> -->
     
 </body>
 </html>

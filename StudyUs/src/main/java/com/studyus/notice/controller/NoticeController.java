@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.studyus.notice.common.Pagination;
+import com.google.gson.Gson; 
+import com.google.gson.GsonBuilder;
+import com.studyus.common.PageInfo;
+import com.studyus.common.Pagination10;
 import com.studyus.notice.domain.Notice;
-import com.studyus.notice.domain.PageInfo;
 import com.studyus.notice.domain.Search;
 import com.studyus.notice.service.NoticeService;
 
@@ -35,22 +38,23 @@ public class NoticeController {
 	
 	// 전체 목록 조회 
 	@RequestMapping(value="/notice/noticeList", method=RequestMethod.GET)
-	public ModelAndView noticeList(ModelAndView mv, 
-										@RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView noticeList(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+		Notice notice = new Notice();
+		int listCount = nService.getListCount(notice);
 		int currentPage = (page != null) ? page : 1;
-		int listCount = nService.getListCount();
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		ArrayList<Notice> nList = nService.printAll(pi);
-		if(nList != null) {
+		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
+		ArrayList<Notice> nList = nService.printAll(pi, notice);
+		System.out.println(pi.toString());
+		if(!nList.isEmpty()) {
 			mv.addObject("nList", nList);
 			mv.addObject("pi", pi);
 			mv.setViewName("notice/noticeListView");
 		}else {
-			mv.addObject("msg", "공지사항 전체 조회 실패");
+			mv.addObject("msg", "조회 실패");
 			mv.setViewName("common/errorPage");
 		}
 		return mv;
-		}
+	}
 	
 	// 상세 조회 
 	@RequestMapping(value="/notice/noticeDetail", method= {RequestMethod.GET, RequestMethod.POST})
@@ -85,89 +89,65 @@ public class NoticeController {
 			return "common/errorPage";
 		}
 	}
-	
+
 	// 작성 뷰 
-	@RequestMapping(value="/notice/noticeWriteView", method=RequestMethod.GET)
-	public String noticeWriteView() {
-		return "notice/noticeWriteForm";
-	}
-	
-	// 등록 
-	@RequestMapping(value="/notice/noticeWrite", method=RequestMethod.POST)
-	public ModelAndView registerNotice(ModelAndView mv,
-															@ModelAttribute Notice notice,
-															@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile,
-															HttpServletRequest request) {
-		// 서버에 파일을 저장하는 작업
-		if(uploadFile.getOriginalFilename().equals("")) {
-			String renameFileName = saveFile(uploadFile, request);
-			if(renameFileName != null) {
-				notice.setNoticeFileName(uploadFile.getOriginalFilename());
-				notice.setNoticeReFileName(renameFileName);
+		@RequestMapping(value="/notice/noticeWriteView", method=RequestMethod.GET)
+		public String noticeWriteView() {
+			return "notice/noticeWriteForm";
+		}
+		
+		// 등록 
+		@RequestMapping(value="/notice/noticeWrite", method=RequestMethod.POST)
+		public String registerNotice(@ModelAttribute Notice notice,
+													@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile,
+													HttpServletRequest request, Model model) {
+			if(!uploadFile.getOriginalFilename().equals("")) {
+				String filePath = saveFile(uploadFile, request);
+				if(filePath != null) {
+					notice.setNoticeFileName(uploadFile.getOriginalFilename());
+					notice.setNoticeReFileName(filePath);
+				}
+			}
+			int result = 0;
+			result = nService.registerNotice(notice);
+			System.out.println(notice.toString());
+			if(result > 0) {
+				return "redirect:noticeList";
+			}else {
+				model.addAttribute("msg", "등록 실패");
+				return "common/errorPage";
 			}
 		}
-		//디비에 데이터를 저장하는 작업 
-		int result = 0;
-		String path = "";
-		result = nService.registerNotice(notice);
-		if(result > 0) {
-			path = "redirect:noticeList";
-		}else {
-			mv.addObject("msg", "등록 실패");
-			path = "common/errorPage";
-		}
-		mv.setViewName(path);
-		return mv;
-	}
-//	@RequestMapping(value="/notice/noticeWrite", method=RequestMethod.POST)
-//	public String registerNotice(@ModelAttribute Notice notice,
-//												@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile,
-//												HttpServletRequest request, Model model) {
-//		if(!uploadFile.getOriginalFilename().equals("")) {
-//			String filePath = saveFile(uploadFile, request);
-//			if(filePath != null) {
-//				notice.setNoticeFileName(uploadFile.getOriginalFilename());
-//			}
-//		}
-//		int result = 0;
-//		result = nService.registerNotice(notice);
-//		if(result > 0) {
-//			return "redirect:noticeList";
-//		}else {
-//			model.addAttribute("msg", "등록 실패");
-//			return "common/errorPage.jsp";
-//		}
-//	}
-	
-	// 파일 저장 
-	public String saveFile(MultipartFile file, HttpServletRequest request) {
-		// 파일 저장 경로 설정 
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "/nuploadFiles";
-		// 저장 폴더 선택 
-		File folder = new File(savePath);
-		// 폴더가 없으면 자동으로 생성 
-		if(!folder.exists()) {
-			folder.mkdir();
-		}
-		// 파일명 변경하기 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		String originalFileName = file.getOriginalFilename();
-		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
-		String filePath = folder + "/" + renameFileName;
 		
 		// 파일 저장 
-		try {
-			file.transferTo(new File(filePath));
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		public String saveFile(MultipartFile file, HttpServletRequest request) {
+			// 파일 저장 경로 설정 
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "/nuploadFiles";
+			// 저장 폴더 선택 
+			File folder = new File(savePath);
+			// 폴더가 없으면 자동으로 생성 
+			if(!folder.exists()) {
+				folder.mkdir();
+			}
+			// 파일명 변경하기 
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			String originalFileName = file.getOriginalFilename();
+			String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+			String filePath = folder + "/" + renameFileName;
+			
+			// 파일 저장 
+			try {
+				file.transferTo(new File(filePath));
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return filePath;
 		}
-		return renameFileName;
-	}
 	
 	// 수정 뷰 
 	@RequestMapping(value="/notice/noticeModifyView", method=RequestMethod.GET)
@@ -199,6 +179,7 @@ public class NoticeController {
 		}
 		// DB 수정 
 		int result = nService.modifyNotice(notice);
+		System.out.println(notice.toString());
 		if(result > 0) {
 			mv.setViewName("redirect:/notice/noticeList");
 		}else {
@@ -210,15 +191,16 @@ public class NoticeController {
 	// 삭제
 	@RequestMapping(value="/notice/noticeDelete", method=RequestMethod.GET)
 	public String noticeDelete(@RequestParam("noticeNo") int noticeNo, @RequestParam("noticeReFileName") String noticeReFileName, Model model, HttpServletRequest request) {
+		Notice notice = nService.printOne(noticeNo);
 		// 업로드된 파일 삭제 
-		if(noticeReFileName != "") {
+		if(noticeReFileName != null) {
 			deleteFile(noticeReFileName, request);
 		}
 		
 		//디비에 데이터 업데이트 
 		int result = nService.removeNotice(noticeNo);
 		if(result > 0) {
-			return "redirect:/notice/noticeList";
+			return "redirect:noticeList";
 		}else {
 			model.addAttribute("msg", "삭제 실패");
 			return "common/errorPage";
@@ -235,13 +217,48 @@ public class NoticeController {
 		}
 	}
 	
+	// 댓글 목록 
+	@RequestMapping(value="/notice/nCommentList")
+	public void getCommentList(HttpServletResponse response, @RequestParam("nMotherNo") int nMotherNo, @RequestParam(value="page", required=false) Integer page) throws Exception {
+		Notice notice = new Notice();
+		notice.setnMotherNo(nMotherNo);
+		int listCount = nService.getListCount(notice);
+		
+		int currentPage = (page != null) ? page : 1;
+		// PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
+		ArrayList<Notice> rList = nService.printAllComment(pi, nMotherNo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("page", pi);
+		map.put("cList", rList);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(map, response.getWriter());
+	}
+	// 댓글 하나 
+	@RequestMapping(value="/notice/nCommentOne")
+	public void getCommentOne(HttpServletResponse response, @RequestParam("nMotherNo") int nMotherNo) throws Exception {
+		Notice nOne = nService.printOneComment(nMotherNo);
+		// 댓글 총 갯수
+		Notice notice = new Notice();
+		notice.setnMotherNo(nMotherNo);
+		int count = nService.getListCount(notice);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("nOne", nOne);
+		map.put("count", count);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(map, response.getWriter());
+	}
 	// 댓글 작성 
 	@ResponseBody
-	@RequestMapping(value="/notice/addComment", method=RequestMethod.POST)
+	@RequestMapping(value="/notice/nCommentWrite", method=RequestMethod.POST)
 	public String registerComment(@ModelAttribute Notice notice, HttpSession session) {
 		// 세션 추가하기 
 		//Member loginUser = (Member)session.getAttribute("loginUser");
 		//notice.setCommentWriter(loginUser.getUserId());
+		notice.setStudyNo(1);
+		
 		int result = nService.registerComment(notice);
 		if(result > 0) {
 			return "success";
@@ -249,10 +266,19 @@ public class NoticeController {
 			return "fail"; 
 		}
 	}
+	@RequestMapping(value="/notice/nCommentUpdate", method=RequestMethod.POST)
+	public String updateComment(@ModelAttribute Notice notice) {
+		int result = nService.modifyComment(notice);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 	
 	// 댓글 삭제 
 	@ResponseBody
-	@RequestMapping(value="/notice/deleteComment")
+	@RequestMapping(value="/notice/nCommentDelete", method=RequestMethod.GET)
 	public String removeComment(@ModelAttribute Notice notice) {
 		int result = nService.removeComment(notice);
 		if(result > 0) {
@@ -262,15 +288,5 @@ public class NoticeController {
 		}
 	}
 	
-	@RequestMapping(value="/notice/commentList")
-	public void getCommentList(HttpServletResponse response, @RequestParam("noticeNo") int noticeNo) {
-		ArrayList<Notice> cList = nService.printAllComment(noticeNo);
-		if(!cList.isEmpty()) {
-//			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-//			gson.toJson(cList, response.getWriter());
-		}else {
-			System.out.println("데이터가 없습니다.");
-		}
-	}
 	
 }

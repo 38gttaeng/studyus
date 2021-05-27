@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.studyus.common.PageInfo;
 import com.studyus.notice.domain.Notice;
-import com.studyus.notice.domain.PageInfo;
 import com.studyus.notice.domain.Search;
 import com.studyus.notice.store.NoticeStore;
 
@@ -17,14 +17,19 @@ public class NoticeStoreLogic implements NoticeStore{
  
 	@Autowired
 	public SqlSession sqlSession;
-
+	
 	@Override
 	public int selectListCount() {
 		return sqlSession.selectOne("noticeMapper.selectListCount");
 	}
 
 	@Override
-	public ArrayList<Notice> selectList(PageInfo pi) {
+	public int selectListCount(Notice notice) {
+		return sqlSession.selectOne("noticeMapper.selectListCount", notice);
+	}
+
+	@Override
+	public ArrayList<Notice> selectList(PageInfo pi, Notice notice) {
 		// RowBounds는 쿼리문을 변경하지 않고도 페이징을 처리할 수있게 해주는 클래스
 		// RowBounds의 동작은 offset값과 limit값을 이용해서 동작함
 		// offset값은 변하는 값이고 limit값은 고정값
@@ -35,7 +40,7 @@ public class NoticeStoreLogic implements NoticeStore{
 
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("noticeMapper.selectNoticeList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectNoticeList", notice, rowBounds);
 	}
 
 
@@ -56,7 +61,8 @@ public class NoticeStoreLogic implements NoticeStore{
 
 	@Override
 	public int insertNotice(Notice notice) {
-		return sqlSession.insert("noticeMapper.insertNotice", notice);
+		sqlSession.insert("noticeMapper.insertNotice", notice);
+		return notice.getNoticeNo();
 	}
 
 	@Override
@@ -70,8 +76,15 @@ public class NoticeStoreLogic implements NoticeStore{
 	}
 
 	@Override
-	public ArrayList<Notice> printAllComment(int noticeNo) {
-		return (ArrayList)sqlSession.selectList("noticeMapper.selectCommentList", noticeNo);
+	public ArrayList<Notice> printAllComment(PageInfo pi, int nMotherNo) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectCommentList", nMotherNo, rowBounds);
+	} 
+	
+	@Override
+	public Notice selectOneComment(int nMotherNo) {
+		return sqlSession.selectOne("noticeMapper.selectOneComment", nMotherNo);
 	}
 
 	@Override
@@ -88,5 +101,6 @@ public class NoticeStoreLogic implements NoticeStore{
 	public int deleteComment(Notice notice) {
 		return sqlSession.update("noticeMapper.deleteComment", notice);
 	}
+
 	
 }
