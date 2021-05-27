@@ -57,18 +57,18 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public ArrayList<StudySearchCriteria> printSearchResult(String keyword, String[] hashtags, StudySearchCriteria pi) {
-		return sStore.selectAllBySearch(pi);
+	public StudySearchCriteria printSearchResult(StudySearchCriteria sc) {
+		return sStore.selectAllBySearch(sc);
 	}
 	
 	@Override
-	public ArrayList<Study> printAll(StudySearchCriteria pi) {
+	public ArrayList<Study> printAll(StudySearchCriteria sc) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Study> printAllByStudyName(String studyName, StudySearchCriteria pi) {
+	public ArrayList<Study> printAllByStudyName(String studyName, StudySearchCriteria sc) {
 		// TODO Auto-generated method stub
 		return null;
 	}

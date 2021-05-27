@@ -88,6 +88,8 @@ function onSearch() {
         searchForm.appendChild(newHashtag);
     }
 
+    window.name = hashtags.toString();
+
     searchForm.setAttribute("action", "/study/search/result");
     searchForm.setAttribute("method", "get");
     searchForm.submit();

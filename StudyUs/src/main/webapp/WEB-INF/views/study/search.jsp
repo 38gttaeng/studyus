@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>스터디 등록 - StudyUs</title>
+	<title>스터디 검색 - StudyUs</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
@@ -64,7 +64,7 @@
 			</div>
 			<div class="form-row" id="hashtagView">
 				<span>현재 태그: &nbsp;</span>
-				<!-- <span class="btn btn-primary btn-sm mr-2" style="margin: 4px;" onclick="onRemoveHashtagClicked(this);">수채화&nbsp;<i class="fas fa-times"></i></span> -->
+				<!-- <span class="btn btn-primary btn-sm mr-2" style="margin: 4px;" onclick="removeHashtag(this);">수채화&nbsp;<i class="fas fa-times"></i></span> -->
 			</div>
 			<input type="hidden" name="page" value="1">
 		</form>

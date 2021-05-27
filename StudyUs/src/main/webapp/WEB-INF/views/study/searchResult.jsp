@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>스터디 등록 - StudyUs</title>
+	<title>스터디 검색 - StudyUs</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
@@ -55,21 +56,22 @@
 			<div class="form-row p-4">
 				<div class="form-group col-9">
 					<!-- <label for="inputHashtag">해시태그</label>  -->
-					<input type="text" class="form-control" id="searchInput" name="keyword" onkeyup="onSearchKeyUp(this);" placeholder="검색어 or #해시태그">
+					<input type="text" class="form-control" id="searchInput" name="keyword" onkeyup="onSearchKeyUp(this);" value="${keyword }" placeholder="검색어 or #해시태그">
 				</div>
 				<div class="form group col-3" align="center">
-					<input type="button" class="btn btn-primary btn-lg" id="hashtagButton" onclick="onAddHashtag();" value="추가">
-					<input type="button" class="btn btn-primary btn-lg d-none" id="searchButton" onclick="onSearch();" value="검색">
+					<input type="button" class="btn btn-primary btn-lg d-none" id="hashtagButton" onclick="onAddHashtag();" value="추가">
+					<input type="button" class="btn btn-primary btn-lg" id="searchButton" onclick="onSearch();" value="검색">
 				</div>
 			</div>
 			<div class="form-row" id="hashtagView">
 				<span>현재 태그: &nbsp;</span>
 				<!-- <span class="btn btn-primary btn-sm mr-2" style="margin: 4px;" onclick="onRemoveHashtagClicked(this);">수채화&nbsp;<i class="fas fa-times"></i></span> -->
 			</div>
+			<input type="hidden" name="page" value="1">
 		</form>
 		
 		<div class="row">
-		  <div class="col-4 mb-4">
+		  <!-- <div class="studyContainer col-lg-4 mb-4">
 		    <div class="card h-100">
 		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
 		      <div class="card-body">
@@ -77,76 +79,32 @@
 		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
 		      </div>
 		    </div>
-		  </div>
-		  <div class="col-4 mb-4">
-		    <div class="card h-100">
-		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
-		      <div class="card-body">
-		        <h5 class="card-title">자바 스터디</h5>
-		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="col-4 mb-4">
-		    <div class="card h-100">
-		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
-		      <div class="card-body">
-		        <h5 class="card-title">자바 스터디</h5>
-		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="col-4 mb-4">
-		    <div class="card h-100">
-		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
-		      <div class="card-body">
-		        <h5 class="card-title">자바 스터디</h5>
-		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="col-4 mb-4">
-		    <div class="card h-100">
-		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
-		      <div class="card-body">
-		        <h5 class="card-title">자바 스터디</h5>
-		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="col-4 mb-4">
-		    <div class="card h-100">
-		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
-		      <div class="card-body">
-		        <h5 class="card-title">자바 스터디</h5>
-		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
-		      </div>
-		    </div>
-		  </div>
+		  </div> -->
+			<c:forEach var="study" items="${studies }" varStatus="i">
+				<div class="studyContainer col-lg-4 mb-4">
+					<div class="card h-100">
+						<img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title"><c:out value="${study.studyName }"></c:out></h5>
+							<p class="card-text"><c:out value="${study.introduce}"></c:out></p>
+						</div>
+					</div>
+					<input type="hidden" class="url" value="${study.url }">
+				</div>
+			</c:forEach>
 		</div>
 		
-		<nav class="py-4">
-		  <ul class="pagination justify-content-center">
-		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
-		</nav>
+		<div id="additionalLoadProperties">
+			<input type="hidden" id="currentPage" value="${page }"/>
+		</div>
+		
+		<div class="py-4"></div>
+		
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	
-	<script src="/resources/js/studySearch.js"></script>
+	<script src="/resources/js/studySearchResult.js"></script>
     
   </body>
 </html>

@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.studyus.common.RedirectWithMsg;
 import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.member.domain.Member;
@@ -96,27 +99,34 @@ public class StudyController {
 	
 	// 스터디 검색 결과페이지 get
 	@RequestMapping(value="/study/search/result", method=RequestMethod.GET)
-	public String searchStudy(@RequestParam(value="keyword") String keyword,
-							@RequestParam(value="hashtag", required=false) String[] hashtags,
-							@RequestParam(value="page", required=false) int page) {
-		// page가 0이면 1로 설정
-		page = (page == 0) ? 1 : page;
+	public ModelAndView searchStudy(ModelAndView mv,
+									@RequestParam(value="keyword") String keyword,
+									@RequestParam(value="hashtag", required=false) String[] hashtags,
+									@RequestParam(value="page", required=false) int page) throws Exception {
 		
-		StudySearchCriteria sc = new StudySearchCriteria();
-		sc.setPage(page);
-		sc.setHashtags(hashtags);
-		sc.setKeyword(keyword);
+		StudySearchCriteria sc = StudySearchCriteria.searchReady(page + 1, hashtags, keyword);
+		sc = sService.printSearchResult(sc);
 		
-		if (hashtags != null) {
-			for (String h : hashtags) {
-				System.out.println(h);
-			}
-		}
-		System.out.println("keyword: " + keyword);
+		mv.addObject("studies", sc.getStudies());
+		mv.addObject("page", page);
+		mv.addObject("keyword", keyword);
+		mv.setViewName("/study/searchResult");
 		
-		ArrayList<StudySearchCriteria> studyList = sService.printSearchResult(keyword, hashtags, sc);
+		return mv;
+	}
+	
+	// 스터디 검색 비동기 추가로딩
+	@ResponseBody
+	@RequestMapping(value="/study/search/additional", method=RequestMethod.GET)
+	public String searchAdditionally(@RequestParam(required=false) String keyword,
+							@RequestParam(required=false) String[] hashtags,
+							@RequestParam(required=false) int page) throws Exception {
 		
-		return "study/searchResult";
+		StudySearchCriteria sc = StudySearchCriteria.searchReady(page + 1, hashtags, keyword);
+		
+		JsonObject load = new JsonObject();
+//		load.addProperty("key", value);
+		return new Gson().toJson(load);
 	}
 	
 	// 스터디 상세 페이지 get

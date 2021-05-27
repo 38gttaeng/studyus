@@ -16,9 +16,7 @@ public class StudySearchCriteria {
 	/**
 	 * 페이지당 글 갯수
 	 */
-	private int countPerPage;
-	private int leftLimit;
-	private int rightLimit;
+	private int countPerPage = 6;
 	/**
 	 * 검색어
 	 */
@@ -49,5 +47,13 @@ public class StudySearchCriteria {
 //	private int maxPage;
 	
 	public StudySearchCriteria () {}
+	
+	public static StudySearchCriteria searchReady(int page, String[] hashtags, String keyword) {
+		StudySearchCriteria sc = new StudySearchCriteria();
+		sc.setPage(page);
+		sc.setHashtags(hashtags);
+		sc.setKeyword(keyword);
+		return sc;
+	}
 
 }

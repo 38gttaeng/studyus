@@ -17,7 +17,7 @@ public interface StudyService {
 	public int checkUrl(String name);
 	
 	// 스터디 검색 결과페이지 get
-	public ArrayList<StudySearchCriteria> printSearchResult(String keyword, String[] hashtags, StudySearchCriteria sc);
+	public StudySearchCriteria printSearchResult(StudySearchCriteria sc);
 	
 	// 관리자 페이지 스터디 리스트 get
 	public ArrayList<Study> printAll(StudySearchCriteria sc);

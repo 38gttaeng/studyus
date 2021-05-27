@@ -22,6 +22,7 @@
 		<result property="start" column="ST_START"></result>
 		<result property="end" column="ST_END"></result>
 	</resultMap>
+	
 	<!-- useGeneratedKeys="true"  keyProperty="caNo" keyColumn="CA_NO" -->
 	<insert id="insertStudy" parameterType="Study">
 		<selectKey keyProperty="studyNo" resultType="int" order="AFTER">
@@ -60,15 +61,26 @@
 		SELECT S.ST_NO, S.ST_NAME, S.ST_URL FROM STUDY S JOIN ENROLLMENT E ON S.ST_NO = E.ST_NO WHERE E.EN_STATUS = 1 AND E.MB_NO = #{memberNo}
 	</select>
 	
-	<select id="selectAllSearch" parameterType="StudySearchCriteria">
-		SELECT * FROM (SELECT S.ST_NO
-		    FROM STUDY S 
-		    LEFT OUTER JOIN HASHTAG_RELATION R ON S.ST_NO = R.ST_NO 
-		    LEFT OUTER JOIN HASHTAG H ON R.HA_NAME = H.HA_NAME
-		    WHERE S.ST_URL LIKE '%a%' 
-		    OR H.HA_NAME LIKE '%J%'
-		    GROUP BY S.ST_NO) RESULT_TBL LEFT OUTER JOIN STUDY S ON (RESULT_TBL.ST_NO = S.ST_NO)
-		    ORDER BY S.ST_NO
+	<select id="selectAllSearch" parameterType="StudySearchCriteria" resultMap="studyResultMap">
+		SELECT * FROM 
+			(SELECT S.*, 
+					ROWNUM AS RNUM
+					FROM (SELECT S.ST_NO
+		    	FROM STUDY S 
+				    LEFT OUTER JOIN HASHTAG_RELATION R ON S.ST_NO = R.ST_NO 
+				    LEFT OUTER JOIN HASHTAG H ON R.HA_NAME = H.HA_NAME
+				    	WHERE S.ST_URL LIKE '%' || #{keyword} || '%'
+				        OR S.ST_NAME LIKE '%' || #{keyword} || '%'
+				        OR S.ST_INTRODUCE LIKE '%' || #{keyword} || '%'
+				        <if test="hashtags != null">
+					        OR
+					    	<foreach collection="hashtags" item="hashtag" separator="OR">
+					    		H.HA_NAME LIKE '%' || #{hashtag} || '%'
+					    	</foreach>
+					    </if>
+				    GROUP BY S.ST_NO) RESULT_TBL LEFT OUTER JOIN STUDY S ON (RESULT_TBL.ST_NO = S.ST_NO)
+				    ORDER BY S.ST_NO)
+		WHERE RNUM BETWEEN ((#{page} - 1) * #{countPerPage} + 1) AND (#{page} * #{countPerPage})
 	</select>
 	
 	<!-- <select id="selectAllEnrolledByMemberNo" resultMap="studyResultMap">
