@@ -2,11 +2,19 @@ package com.studyus.submittedAssignment.service.logic;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.submittedAssignment.domain.SubmittedAssignment;
 import com.studyus.submittedAssignment.service.SAssignmentService;
+import com.studyus.submittedAssignment.store.SAssignmentStore;
 
+@Service
 public class SAssignmentServiceImpl implements SAssignmentService {
+	
+	@Autowired
+	private SAssignmentStore suStore;
 
 	@Override
 	public int submittedCheckList(int asNo) {

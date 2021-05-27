@@ -1,10 +1,6 @@
 package com.studyus.assignment.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +22,6 @@ import com.studyus.assignment.service.AssignmentService;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
 import com.studyus.common.RedirectWithMsg;
-import com.studyus.submittedAssignment.domain.SubmittedAssignment;
 import com.studyus.submittedAssignment.service.SAssignmentService;
 
 @Controller
@@ -107,16 +103,16 @@ public class AssignmentController {
 //		세션에서 스터디 번호 가져오기
 		assignment.setStNo(1);
 		
-		// 서버에 파일을 저장하는 작업
-		if(!uploadFile.getOriginalFilename().equals("")) {
-			String renameFilename = saveFile(uploadFile, request);
-			if(renameFilename != null) {
-				// 파일 테이블에 파일정보 저장 //////////////////////////////////////////////
-				
-				// board에 파일이름 저장
-				assignment.setAsFileName(renameFilename);
-			}
-		}
+//		// 서버에 파일을 저장하는 작업
+//		if(!uploadFile.getOriginalFilename().equals("")) {
+//			String renameFilename = saveFile(uploadFile, request);
+//			if(renameFilename != null) {
+//				// 파일 테이블에 파일정보 저장 //////////////////////////////////////////////
+//				
+//				// board에 파일이름 저장
+//				assignment.setAsFileName(renameFilename);
+//			}
+//		}
 		
 		// DB에 데이터를 저장하는 작업
 		int result = 0;
@@ -127,38 +123,6 @@ public class AssignmentController {
 		} else {
 			return new RedirectWithMsg().redirect(request, "게시글 등록 실패!!!!", "/study/assignment");
 		}
-	}
-	
-	public String saveFile(MultipartFile file, HttpServletRequest request) {
-		// 파일 저장경로 설정
-		String savePath = request.getSession().getServletContext().getRealPath("resources") + "\\auploadFiles";
-		
-		// 저장폴더 선택
-		File folder = new File(savePath);
-		
-		// 폴더가 없을 경우 자동 생성 (한번만 만들면 됨!)
-		if(!folder.exists()) {
-			folder.mkdir();
-		}
-		
-		// 파일명 변경하기
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmSS");
-		String originalFilename = file.getOriginalFilename();
-		String renameFilename = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-		
-		String filePath = folder + "\\" + renameFilename;
-		
-		// 파일 저장
-		try {
-			file.transferTo(new File(filePath));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		// 파일이름 리턴
-		return renameFilename;
 	}
 	
 	// 수정
@@ -183,6 +147,8 @@ public class AssignmentController {
 	/******************* 과제 댓글 등록, 수정, 삭제 *******************/
 	
 	// 등록
+	@ResponseBody
+	@RequestMapping(value="/study/assignment/addReply", method=RequestMethod.POST)
 	public String replyRegister(HttpSession session, @ModelAttribute Assignment assignment) {
 		/////////////////////////////
 		// 세션에서 스터디정보 가져와서 넣어주기
@@ -197,17 +163,27 @@ public class AssignmentController {
 	}
 	
 	// 수정
-	public void replyModifyView(@RequestParam("asNo") int asNo) {
-		
-	}
-	
+	@ResponseBody
+	@RequestMapping(value="/study/assignment/modifyReply", method=RequestMethod.POST)
 	public String replyUpdate(@ModelAttribute Assignment assignment) {
-		return null;
+		int result = asService.modifyAssignment(assignment);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
 	// 삭제
+	@ResponseBody
+	@RequestMapping(value="/study/assignment/deleteReply", method=RequestMethod.GET)
 	public String replyDelete(@RequestParam("asNo") int asNo) {
-		return null;
+		int result = asService.removeAssignment(asNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 
 	/******************* 과제율 산정 *******************/

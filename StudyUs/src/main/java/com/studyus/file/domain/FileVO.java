@@ -11,21 +11,39 @@ public class FileVO {
 	private String fiStoredName;
 	private String fiDirectory;
 	private int fiStatus;
+	private int fiBoardType;
+	private int fiMotherNo;
 	
 	public FileVO() {}
-	
-	// 등록용
-	public FileVO(int mbNo, String fiRealName, String fiStoredName, String fiDirectory) {
+
+	public FileVO(int fiBoardType, int fiMotherNo) {
+		super();
+		this.fiBoardType = fiBoardType;
+		this.fiMotherNo = fiMotherNo;
+	}
+
+	public FileVO(String fiRealName, String fiStoredName, String fiDirectory, int fiBoardType) {
+		super();
+		this.fiRealName = fiRealName;
+		this.fiStoredName = fiStoredName;
+		this.fiDirectory = fiDirectory;
+		this.fiBoardType = fiBoardType;
+	}
+
+	public FileVO(int mbNo, String fiRealName, String fiStoredName, String fiDirectory, int fiBoardType,
+			int fiMotherNo) {
+		super();
 		this.mbNo = mbNo;
 		this.fiRealName = fiRealName;
 		this.fiStoredName = fiStoredName;
 		this.fiDirectory = fiDirectory;
+		this.fiBoardType = fiBoardType;
+		this.fiMotherNo = fiMotherNo;
 	}
 	
 	public int getFiNo() {
 		return fiNo;
 	}
-
 
 	public void setFiNo(int fiNo) {
 		this.fiNo = fiNo;
@@ -78,11 +96,27 @@ public class FileVO {
 	public void setFiStatus(int fiStatus) {
 		this.fiStatus = fiStatus;
 	}
+	
+	public int getFiBoardType() {
+		return fiBoardType;
+	}
+
+	public void setFiBoardType(int fiBoardType) {
+		this.fiBoardType = fiBoardType;
+	}
+
+	public int getFiMotherNo() {
+		return fiMotherNo;
+	}
+
+	public void setFiMotherNo(int fiMotherNo) {
+		this.fiMotherNo = fiMotherNo;
+	}
 
 	@Override
 	public String toString() {
-		return "File [fiNo=" + fiNo + ", mbNo=" + mbNo + ", fiInsertDate=" + fiInsertDate + ", fiRealName=" + fiRealName
-				+ ", fiStoredName=" + fiStoredName + ", fiDirectory=" + fiDirectory + ", fiStatus=" + fiStatus + "]";
+		return "FileVO [fiNo=" + fiNo + ", mbNo=" + mbNo + ", fiInsertDate=" + fiInsertDate + ", fiRealName="
+				+ fiRealName + ", fiStoredName=" + fiStoredName + ", fiDirectory=" + fiDirectory + ", fiStatus="
+				+ fiStatus + ", fiBoardType=" + fiBoardType + ", fiMotherNo=" + fiMotherNo + "]";
 	}
-	
 }

@@ -97,15 +97,7 @@
 												<td>첨부파일</td>
 												<td>
 													<label class="btn btn-light" for="input-file">파일 선택</label>&nbsp;&nbsp;
-													<input id="input-file" type="file" name="uploadFile">
-													<span id="filename" class="text-muted">
-														<c:if test="${ !empty board.fiRealName }">
-															${ board.fiRealName }
-														</c:if>
-														<c:if test="${ empty board.fiRealName }">
-															파일을 선택해주세요.
-														</c:if>
-													</span>
+													<input id="input-file" multiple="multiple" type="file" name="uploadFile">
 												</td>
 											</tr>
 											<tr>

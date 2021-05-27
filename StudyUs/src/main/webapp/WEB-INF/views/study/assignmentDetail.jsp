@@ -99,7 +99,7 @@
                             <div class="card-body">
                             	<!-- board.js 파일과 연동하기 위해서 -->
                             	<input id="rMotherNo" type="hidden" value="${ assginment.asNo }">
-                            	<input id="rMbNo" type="hidden" value="${ assignment.mbNo }">
+                            	<input id="asMbNo" type="hidden" value="${ assignment.mbNo }">
                             	<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
                             
                                 <h6 class="card-subtitle" style="float:right;">댓글 <span id="rCount"></span></h6>

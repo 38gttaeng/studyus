@@ -1,7 +1,9 @@
 package com.studyus.board.domain;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
+import com.studyus.file.domain.FileVO;
 import com.studyus.member.domain.Member;
 
 public class Board {
@@ -12,12 +14,10 @@ public class Board {
 	private Date boInsertDate;
 	private String boTitle;
 	private String boContents;
-	private String boFileName;
-	private String fiRealName;
 	private int boCategory;
 	private int boStatus; 
-	
 	private Member member;
+	private ArrayList<FileVO> boFiles;
 	
 	public Board() {}
 	
@@ -77,22 +77,6 @@ public class Board {
 		this.boContents = boContents;
 	}
 
-	public String getBoFileName() {
-		return boFileName;
-	}
-
-	public void setBoFileName(String boFileName) {
-		this.boFileName = boFileName;
-	}
-	
-	public String getFiRealName() {
-		return fiRealName;
-	}
-
-	public void setFiRealName(String fiRealName) {
-		this.fiRealName = fiRealName;
-	}
-
 	public int getBoCategory() {
 		return boCategory;
 	}
@@ -116,12 +100,21 @@ public class Board {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	
+	public ArrayList<FileVO> getBoFiles() {
+		return boFiles;
+	}
+
+	public void setBoFiles(ArrayList<FileVO> boFiles) {
+		this.boFiles = boFiles;
+	}
 
 	@Override
 	public String toString() {
 		return "Board [boNo=" + boNo + ", stNo=" + stNo + ", mbNo=" + mbNo + ", boMotherNo=" + boMotherNo
 				+ ", boInsertDate=" + boInsertDate + ", boTitle=" + boTitle + ", boContents=" + boContents
-				+ ", boFileName=" + boFileName + ", fiRealName=" + fiRealName + ", boCategory=" + boCategory
-				+ ", boStatus=" + boStatus + ", member=" + member + "]";
+				+ ", boCategory=" + boCategory + ", boStatus=" + boStatus + ", member=" + member + ", boFiles="
+				+ boFiles + "]";
 	}
+
 }

@@ -7,7 +7,6 @@ public class SubmittedAssignment {
 	private int suMotherNo;
 	private String suInsertDate;
 	private String suContents;
-	private String suFileName;
 	private int suStatus;
 	
 	public SubmittedAssignment() {}
@@ -60,14 +59,6 @@ public class SubmittedAssignment {
 		this.suContents = suContents;
 	}
 
-	public String getSuFileName() {
-		return suFileName;
-	}
-
-	public void setSuFileName(String suFileName) {
-		this.suFileName = suFileName;
-	}
-
 	public int getSuStatus() {
 		return suStatus;
 	}
@@ -78,8 +69,8 @@ public class SubmittedAssignment {
 
 	@Override
 	public String toString() {
-		return "SubmittedAssginment [suNo=" + suNo + ", mbNo=" + mbNo + ", asNo=" + asNo + ", suMotherNo=" + suMotherNo
-				+ ", suInsertDate=" + suInsertDate + ", suContents=" + suContents + ", suFileName=" + suFileName
-				+ ", suStatus=" + suStatus + "]";
+		return "SubmittedAssignment [suNo=" + suNo + ", mbNo=" + mbNo + ", asNo=" + asNo + ", suMotherNo=" + suMotherNo
+				+ ", suInsertDate=" + suInsertDate + ", suContents=" + suContents + ", suStatus=" + suStatus + "]";
 	}
+
 }

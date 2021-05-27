@@ -1,5 +1,7 @@
 package com.studyus.file.service.iogic;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +21,22 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public int modifyFile(FileVO fileVO) {
-		return fiStore.updateFile(fileVO);
+	public int removeFile(FileVO fileVO) {
+		return fiStore.deleteFile(fileVO);
 	}
 
 	@Override
-	public int removeFile(String fiStoredName) {
-		return fiStore.deleteFile(fiStoredName);
+	public int removeFileByFiNo(int fiNo) {
+		return fiStore.deleteFileByFiNo(fiNo);
 	}
 
 	@Override
-	public int selectOne(String fiStoredName) {
-		return fiStore.selectOne(fiStoredName);
+	public ArrayList<FileVO> selectList(FileVO fileVO) {
+		return fiStore.selectList(fileVO);
 	}
-
+	
+	@Override
+	public FileVO selectOne(int fiNo) {
+		return fiStore.selectOne(fiNo);
+	}
 }

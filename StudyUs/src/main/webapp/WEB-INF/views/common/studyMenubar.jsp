@@ -197,7 +197,7 @@
                                         class="svg-icon mr-2 ml-1"></i>
                                     마이페이지</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="power"
+                                <a class="dropdown-item" href="/member/logout"><i data-feather="power"
                                         class="svg-icon mr-2 ml-1"></i>
                                     로그아웃</a>
                             </div>

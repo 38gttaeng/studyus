@@ -9,8 +9,6 @@
 		<result property="boInsertDate" column="BO_INSERTDATE"></result>
 		<result property="boTitle" column="BO_TITLE"></result>
 		<result property="boContents" column="BO_CONTENTS"></result>
-		<result property="boFileName" column="BO_FILENAME"></result>
-		<result property="fiRealName" column="FI_REALNAME"></result>
 		<result property="boCategory" column="BO_CATEGORY"></result>
 		<result property="boStatus" column="BO_STATUS"></result>
 		<collection property="member" resultMap="memberMapper.memberResultMap" />
@@ -36,16 +34,13 @@
 	
 	<select id="selectAllList" parameterType="Board" resultMap="boardResultMap">
 		SELECT
-		    B.BO_NO, B.ST_NO, B.MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE,
-		    B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, F.FI_REALNAME,
+		    B.BO_NO, B.ST_NO, B.MB_NO, B.BO_MOTHER_NO,
+		    B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS,
 		    B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
 		FROM BOARD B
 		
 		JOIN MEMBER M
 		ON B.MB_NO = M.MB_NO
-		
-		LEFT OUTER JOIN FILE_TABLE F
-		ON B.BO_FILENAME = F.FI_STOREDNAME
 		
 		WHERE BO_MOTHER_NO IS NULL
 		AND B.ST_NO = #{stNo}
@@ -67,23 +62,20 @@
 	<!-- 디테일 -->
 	<select id="selectOne" resultMap="boardResultMap">
 		SELECT
-		    B.BO_NO, B.ST_NO, B.MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE,
-		    B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, F.FI_REALNAME,
+		    B.BO_NO, B.ST_NO, B.MB_NO, B.BO_MOTHER_NO,
+		    B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS,
 		    B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
 		FROM BOARD B
 		
 		JOIN MEMBER M
 		ON B.MB_NO = M.MB_NO
 		
-		LEFT OUTER JOIN FILE_TABLE F
-		ON B.BO_FILENAME = F.FI_STOREDNAME
-		
 		WHERE B.BO_NO = #{boNo}
 		AND B.BO_STATUS = 1
 	</select>
 	
 	<select id="selectAllReply" resultMap="boardResultMap">
-		SELECT B.BO_NO, B.ST_NO, MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		SELECT B.BO_NO, B.ST_NO, MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS, B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
 		FROM BOARD B
 		JOIN MEMBER M
 		USING(MB_NO)
@@ -123,16 +115,13 @@
 	
 	<select id="selectSearchList" parameterType="Map" resultMap="boardResultMap">
 		SELECT
-		    B.BO_NO, B.ST_NO, B.MB_NO, B.BO_MOTHER_NO, B.BO_INSERTDATE,
-		    B.BO_TITLE, B.BO_CONTENTS, B.BO_FILENAME, F.FI_REALNAME,
+		    B.BO_NO, B.ST_NO, B.MB_NO, B.BO_MOTHER_NO,
+		    B.BO_INSERTDATE, B.BO_TITLE, B.BO_CONTENTS,
 		    B.BO_CATEGORY, B.BO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
 		FROM BOARD B
 		
 		JOIN MEMBER M
 		ON B.MB_NO = M.MB_NO
-		
-		LEFT OUTER JOIN FILE_TABLE F
-		ON B.BO_FILENAME = F.FI_STOREDNAME
 		
 		WHERE BO_MOTHER_NO IS NULL
 		AND B.ST_NO = #{stNo}
@@ -162,12 +151,17 @@
 	
 	<!-- 등록 -->
 	<insert id="insertBoard" parameterType="Board">
+	
+		<selectKey resultType="int" keyProperty="boNo" order="AFTER">
+			SELECT MAX(BO_NO) FROM BOARD
+		</selectKey>
+	
 		INSERT INTO BOARD VALUES (
 		<if test="boMotherNo == 0">
-			SEQ_BOARD.NEXTVAL, #{stNo}, #{mbNo}, DEFAULT, SYSDATE, #{boTitle}, #{boContents}, #{boFileName}, #{boCategory}, DEFAULT
+			SEQ_BOARD.NEXTVAL, #{stNo}, #{mbNo}, DEFAULT, SYSDATE, #{boTitle}, #{boContents}, #{boCategory}, DEFAULT
 		</if>
 		<if test="boMotherNo != 0">
-			SEQ_BOARD.NEXTVAL, #{stNo}, #{mbNo}, #{boMotherNo}, SYSDATE, DEFAULT, #{boContents}, DEFAULT, DEFAULT, DEFAULT
+			SEQ_BOARD.NEXTVAL, #{stNo}, #{mbNo}, #{boMotherNo}, SYSDATE, DEFAULT, #{boContents}, DEFAULT, DEFAULT
 		</if>
 		)
 	</insert>
@@ -178,9 +172,6 @@
 		
 		<if test="boTitle != null">
 		BO_CATEGORY = #{boCategory}, BO_TITLE = #{boTitle},
-		</if>
-		<if test="boFileName != null">
-		BO_FILENAME = #{boFileName},
 		</if>
 		BO_CONTENTS = #{boContents}
 		

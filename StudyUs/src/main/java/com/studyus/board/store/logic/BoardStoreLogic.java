@@ -113,6 +113,8 @@ public class BoardStoreLogic implements BoardStore{
 	@Override 
 	public int updateBoard(Board board) {
 		return sqlSession.update("boardMapper.updateBoard", board);
+		// 리턴값은 등록된 boNo(성공시)+1/
+		// 댓글도 마찬가지지만 굳이 사용할 필요 없음!
 	}
 
 	@Override
