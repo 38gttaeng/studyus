@@ -1,12 +1,15 @@
 package com.studyus.cafe.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,8 +34,6 @@ public class CafeController {
 
 	@Autowired
 	private FileService fiService;
-
-	private Cafe cafe;
 
 	// 스터디카페 목록(지도)
 	@RequestMapping(value = "/cafe/list", method = RequestMethod.GET)
@@ -59,13 +60,38 @@ public class CafeController {
 		return "cafe/cafeRegisterForm";
 	}
 
+
 	// 스터디카페 등록
 	@RequestMapping(value = "/cafe/register", method = RequestMethod.POST)
 	public ModelAndView cafeRegister(ModelAndView mv, @ModelAttribute Cafe cafe,
-			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile,
-			HttpServletRequest request) {
-//		HttpSession session = request.getSession();
-//		cafe.setCaNo(1);
+									@RequestParam("admCd") String admCd,
+									@RequestParam("rnMgtSn") String rnMgtSn,
+									@RequestParam("udrtYn") String udrtYn,
+									@RequestParam("buldMnnm") String buldMnnm,
+									@RequestParam("buldSlno") String buldSlno,
+									@RequestParam("confmKey") String confmKey,
+									@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile,
+									HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		// 주소 검색
+		// OPEN API 호출 URL 정보 설정
+		String apiUrl = "https://www.juso.go.kr/addrlink/addrCoordApi.do?admCd ="+admCd+"&rnMgtSn="+rnMgtSn+"&udrtYn="+udrtYn+"&buldMnnm="+buldMnnm+"&buldSlno="+buldSlno+"&confmKey="+confmKey;
+		URL url = new URL(apiUrl);
+    	BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
+    	StringBuffer sb = new StringBuffer();
+    	String tempStr = null;
+
+    	while(true){
+    		tempStr = br.readLine();
+    		if(tempStr == null) break;
+    		sb.append(tempStr);		// 응답결과 XML 저장
+    	}
+    	br.close();
+    	response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/xml");
+		response.getWriter().write(sb.toString());
+		
+		// 파일 등록
 		if (!uploadFile.getOriginalFilename().equals("")) {
 			FileVO fileVO = saveFile(uploadFile, request);
 			if (fileVO.getFiStoredName() != null) {
@@ -107,10 +133,8 @@ public class CafeController {
 		try {
 			file.transferTo(new File(filePath));
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -120,6 +144,12 @@ public class CafeController {
 		return fileVO;
 	}
 
+	// 주소 팝업창
+	@RequestMapping(value = "/cafe/caAddrPop")
+	public String cafeAddrPop() {
+		return "cafe/caAddrPop";
+	}
+	
 	// 스터디 카페 수정화면
 	@RequestMapping(value = "/cafe/modifyView")
 	public ModelAndView cafeModifyView(ModelAndView mv, @RequestParam("caNo") int caNo) {

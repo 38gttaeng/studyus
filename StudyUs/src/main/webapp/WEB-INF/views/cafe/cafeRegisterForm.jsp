@@ -33,8 +33,11 @@
 										placeholder="카페 이름을 입력해주세요">
 								</h3>
 								<p>
-									<input class="form-control" type="text" size="50" name="caAddr"
-										placeholder="주소를 입력해주세요">
+									<input class="form-control" type="text" size="50" id="caAddr" name="caAddr" placeholder="주소를 입력해주세요" readonly>
+									<input type="button" onclick="goPopup();" class="btn btn-primary px-3 py-2 mt-2" style="background-color: white; color: purple" value="검색">
+								    <input type="hidden" id="confmKey" name="confmKey" value=""  >
+									<input type="hidden" id="caLat"  name="caLat" value="">
+									<input type="hidden" id="caLong" name="caLong" value="">
 								</p>
 							</div>
 						</div>
@@ -88,11 +91,12 @@
 									</div>
 									<div class="form-group">
 										<ul class="pricing-text mb-4">
-											<li><strong>주소</strong>
+											<li><strong>오시는 길</strong>
 												<h3 class="heading-2 mb-3">
 													<input class="form-control" type="text" size="50" name="caRoute"
 														placeholder="ex) 지하철 2호선 을지로입구역 3번출구 100M ">
-												</h3></li>
+												</h3>
+											</li>
 										</ul>
 									</div>
 								</div>
@@ -102,13 +106,26 @@
 				</div>
 				<div align="center">
 					<p>
-						<button type="submit" class="btn btn-primary px-4 py-3 mt-5">등록하기</button>
+						<button type="submit" class="btn btn-primary px-4 py-3 mt-5" style="width:200px">등록하기</button>
 					</p>
 				</div>
 			</form>
 		</div>
 	</section>
-
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+	
+	<script>
+		function goPopup(){
+			// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrCoordUrl.do)를 호출하게 됩니다.
+		    var pop = window.open("/cafe/caAddrPop","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+		}
+		function jusoCallBack(roadFullAddr, entX, entY){
+			// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+			var addressEl = document.querySelector("#caAddr");
+			addressEl.value = roadFullAddr;
+			document.getElementById("caLat").value = entX;
+			document.getElementById("caLong").value = entY;
+		}
+		</script>
 </body>
 </html>
