@@ -19,7 +19,7 @@ public class FileStoreLogic implements FileStore {
 	public int insertFile(FileVO fileVO) {
 		return sqlSession.insert("fileMapper.insertFile", fileVO);
 	}
-
+ 
 	@Override
 	public int deleteFile(FileVO fileVO) {
 		return sqlSession.update("fileMapper.deleteFile", fileVO);

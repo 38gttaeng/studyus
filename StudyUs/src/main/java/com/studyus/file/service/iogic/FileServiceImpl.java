@@ -29,7 +29,7 @@ public class FileServiceImpl implements FileService {
 	public int removeFileByFiNo(int fiNo) {
 		return fiStore.deleteFileByFiNo(fiNo);
 	}
-
+ 
 	@Override
 	public ArrayList<FileVO> selectList(FileVO fileVO) {
 		return fiStore.selectList(fileVO);

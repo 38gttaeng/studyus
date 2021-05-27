@@ -29,7 +29,7 @@ public class FileVO {
 		this.fiDirectory = fiDirectory;
 		this.fiBoardType = fiBoardType;
 	}
-
+ 
 	public FileVO(int mbNo, String fiRealName, String fiStoredName, String fiDirectory, int fiBoardType,
 			int fiMotherNo) {
 		super();

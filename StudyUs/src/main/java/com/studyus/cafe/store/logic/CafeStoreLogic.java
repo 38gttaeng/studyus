@@ -37,8 +37,7 @@ public class CafeStoreLogic implements CafeStore{
 
 	@Override
 	public int deleteCafe(int caNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("cafeMapper.deleteCafe", caNo);
 	}
-
+ 
 }

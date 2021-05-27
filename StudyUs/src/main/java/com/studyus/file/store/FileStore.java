@@ -7,7 +7,7 @@ import com.studyus.file.domain.FileVO;
 public interface FileStore {
 
 	public int insertFile(FileVO fileVO);
-	
+	 
 	public int deleteFile(FileVO fileVO);
 	
 	public ArrayList<FileVO> selectList(FileVO fileVO);
