@@ -7,7 +7,6 @@ public class Assignment {
 	private String asContents;
 	private String asInsertDate;
 	private String asDeadLine;
-	private String asFileName;
 	private int asMotherNo;
 	private int asStatus;
 	
@@ -61,14 +60,6 @@ public class Assignment {
 		this.asDeadLine = asDeadLine;
 	}
 
-	public String getAsFileName() {
-		return asFileName;
-	}
-
-	public void setAsFileName(String asFileName) {
-		this.asFileName = asFileName;
-	}
-
 	public int getAsMotherNo() {
 		return asMotherNo;
 	}
@@ -88,7 +79,8 @@ public class Assignment {
 	@Override
 	public String toString() {
 		return "Assignment [asNo=" + asNo + ", stNo=" + stNo + ", asName=" + asName + ", asContents=" + asContents
-				+ ", asInsertDate=" + asInsertDate + ", asDeadLine=" + asDeadLine + ", asFileName=" + asFileName
-				+ ", asMotherNo=" + asMotherNo + ", asStatus=" + asStatus + "]";
+				+ ", asInsertDate=" + asInsertDate + ", asDeadLine=" + asDeadLine + ", asMotherNo=" + asMotherNo
+				+ ", asStatus=" + asStatus + "]";
 	}
+
 }

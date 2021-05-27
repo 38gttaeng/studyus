@@ -56,9 +56,9 @@ $(function() {
 		
 		if(quill.getLength() > 3) {
 			$.ajax({
-				url : "/study/board/addReply",
+				url : "/study/assignment/addReply",
 				type : "post",
-				data : {"boMotherNo": rMotherNo , "boContents" : rContent, "mbNo" : rMbNo},
+				data : {"asMotherNo": rMotherNo , "asContents" : rContent, "mbNo" : rMbNo},
 				success : function(result) {
 					if(result == "success") {
 						/* 댓글 불러오기 */
@@ -86,8 +86,8 @@ function getReplyList(page) {
 	var loginMbNo = $("#loginMbNo").val();
 	
 	$.ajax({
-		url : "/study/board/replyList",
-		data : {"boMotherNo" : rMotherNo, "page" : page},
+		url : "/study/assignment/replyList",
+		data : {"asMotherNo" : rMotherNo, "page" : page},
 		type : "get",
 		dataType : "json",
 		success : function(map) {
@@ -110,7 +110,7 @@ function replyList(data, listCount, loginMbNo) {
 	var $rList = $("#rList");
 	$rList.html("");
 	
-	var boMbNo = $("#boMbNo").val();
+	var asMbNo = $("#asMbNo").val();
 	
 	var $div;
 	var $rWriter;
@@ -137,9 +137,9 @@ function replyList(data, listCount, loginMbNo) {
 			if(boMbNo == data[i].mbNo) {
 				$rWriter.append("&nbsp<div class='writerTag'>작성자</div>");
 			}
-			$rWriter.append("<span class='insertDate'>" + data[i].boInsertDate + "</span>");
+			$rWriter.append("<span class='insertDate'>" + data[i].asInsertDate + "</span>");
 			
-			$rContent = $("<div class='contents-box'>").append(data[i].boContents);
+			$rContent = $("<div class='contents-box'>").append(data[i].asContents);
 			
 			$btnArea = $("<div>")
 			.append("<button class='btn btn-sm btn-light'>답글</button>");
@@ -147,15 +147,15 @@ function replyList(data, listCount, loginMbNo) {
 			// 수정+삭제 버튼
 			if(loginMbNo == data[i].mbNo) {
 				$btnTool =$("<div class='btn-group'>");
-				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].boNo + ");'>수정</button>")
-				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].boNo + ");'>삭제</button>");
+				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].asNo + ");'>수정</button>")
+				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].asNo + ");'>삭제</button>");
 				$btnArea.append($btnTool);
 			}
 			
 			$div.append($rWriter);
 			$div.append($rContent);
 			$div.append($btnArea);
-			$div.attr("id", "boReply" + data[i].boNo);//////////////////
+			$div.attr("id", "asReply" + data[i].asNo);//////////////////
 			
 			$rList.append($div);
 		}
@@ -207,8 +207,8 @@ function replyPage(pi) {
 }
 
 // 수정하기
-function modifyReply(obj, boNo) {
-	$reply = $("#boReply" + boNo).children("div:eq(1)");
+function modifyReply(obj, asNo) {
+	$reply = $("#asReply" + asNo).children("div:eq(1)");
 	var replyContent = $reply.html();
 
 	$divModify = $(obj).parent().parent().prev();
@@ -256,7 +256,7 @@ function modifyReply(obj, boNo) {
 	
 		if(quill2.getLength() > 3) {
 			$.ajax({
-				url : "/study/board/modifyReply",
+				url : "/study/assignment/modifyReply",
 				type : "post",
 				data : { "boNo" : boNo, "boContents" : mContents },
 				success : function(data) {

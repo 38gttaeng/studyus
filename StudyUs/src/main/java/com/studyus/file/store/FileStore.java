@@ -1,14 +1,18 @@
 package com.studyus.file.store;
 
+import java.util.ArrayList;
+
 import com.studyus.file.domain.FileVO;
 
 public interface FileStore {
 
 	public int insertFile(FileVO fileVO);
 	
-	public int updateFile(FileVO fileVO);
+	public int deleteFile(FileVO fileVO);
 	
-	public int deleteFile(String fiStoredName);
+	public ArrayList<FileVO> selectList(FileVO fileVO);
 	
-	public int selectOne(String fiStoredName);
+	public FileVO selectOne(int fiNo);
+	
+	public int deleteFileByFiNo(int fiNo);
 }

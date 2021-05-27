@@ -1,5 +1,7 @@
 package com.studyus.file.store.logic;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,18 +21,23 @@ public class FileStoreLogic implements FileStore {
 	}
 
 	@Override
-	public int updateFile(FileVO fileVO) {
-		return sqlSession.update("fileMapper.updateFile", fileVO);
+	public int deleteFile(FileVO fileVO) {
+		return sqlSession.update("fileMapper.deleteFile", fileVO);
+	}
+	
+	@Override
+	public ArrayList<FileVO> selectList(FileVO fileVO) {
+		return (ArrayList)sqlSession.selectList("fileMapper.selectList", fileVO);
 	}
 
 	@Override
-	public int deleteFile(String fiStoredName) {
-		return sqlSession.update("fileMapper.deleteFile", fiStoredName);
+	public FileVO selectOne(int fiNo) {
+		return sqlSession.selectOne("fileMapper.selectOne", fiNo);
 	}
-
+	
 	@Override
-	public int selectOne(String fiStoredName) {
-		return sqlSession.selectOne("fileMapper.selectOne", fiStoredName);
+	public int deleteFileByFiNo(int fiNo) {
+		return sqlSession.update("fileMapper.deleteFileByFiNo", fiNo);
 	}
 
 }

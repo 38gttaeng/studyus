@@ -55,7 +55,6 @@
 								</c:url>
 								<c:url var="bDelete" value="/study/board/delete">
 									<c:param name="boNo" value="${ board.boNo }"></c:param>
-									<c:param name="boFileName" value="${ board.boFileName }"></c:param>
 								</c:url>
 		                    	<a href="${ bModify }" class="btn btn-secondary">수정</a>
 		                    	<a href="${ bDelete }" onclick="return confirm('정말 삭제하시겠습니까?');" class="btn btn-secondary">삭제</a>
@@ -97,13 +96,14 @@
 	                                <h6 class="card-subtitle col-6" style="text-align:right">${ board.boInsertDate }</h6>
                             	</div>
                             </div>
-                            <c:if test="${ !empty board.boFileName }">
+                            <c:if test="${ !empty board.boFiles }">
 	                            <div class="card-body file-box">
-	                            	<c:url var="fileDownload" value="/study/board/downloadFile">
-										<c:param name="boFileName" value="${ board.boFileName }"></c:param>
-										<c:param name="fiRealName" value="${ board.fiRealName }"></c:param>
-									</c:url>
-		                            <a class="text-muted" href="${ fileDownload }" onclick="return confirm('파일을 다운로드하시겠습니까?');">${ board.fiRealName }</a>
+									<c:forEach var="file" items="${ board.boFiles }">
+		                            	<c:url var="fileDownload" value="/file/download">
+											<c:param name="boNo" value="${ file.fiNo }"></c:param>
+										</c:url>
+		                            	<a class="text-muted" href="${ fileDownload }" onclick="return confirm('파일을 다운로드하시겠습니까?');">${ file.fiRealName }</a>
+	                            	</c:forEach>
 	                            </div>
                             </c:if>
                             <div class="card-body content">
@@ -116,7 +116,6 @@
                             	<input id="rMotherNo" type="hidden" value="${ board.boNo }">
                             	<input id="boMbNo" type="hidden" value="${ board.mbNo }">
                             	<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
-                            	<input id="menuCheck" type="hidden" value="b"><!-- 메뉴 체크 -->
                             
                                 <h6 class="card-subtitle" style="float:right;">댓글 <span id="rCount"></span></h6>
                                 <hr>

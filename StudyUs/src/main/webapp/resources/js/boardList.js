@@ -34,7 +34,6 @@ $(function() {
 			getSearchList(searchPage, searchValue, searchCondition);
     	}
     });
-	console.log(searchPage);/////////////////
 })
 
 function getList() {
@@ -88,8 +87,15 @@ function getList() {
 				var bodyEnd = "</div>";
 				
 				var file = "";
-				if(bList[i].boFileName != null) {
-					file = "<div class='card-body file-box'>" + bList[i].fiRealName + "</div>";
+				var fList = bList[i].boFiles;
+				if(fList.length > 0) {
+					file = "<div class='card-body file-box'>";
+					for( var j=0; j<fList.length; j++ ) {
+						var newDiv = "";
+						newDiv = "<div><b>첨부파일 " + (i+1) + "</b> : " + fList[j].fiRealName + "</div>"
+						file += newDiv;
+					}
+					file += "</div>";
 				}
 				
 				var contents = "";
@@ -201,8 +207,15 @@ function getSearchList(searchPage, searchValue, searchCondition) {
 				var bodyEnd = "</div>";
 				
 				var file = "";
-				if(bList[i].boFileName != null) {
-					file = "<div class='card-body file-box'>" + bList[i].fiRealName + "</div>";
+				var newDiv = "";
+				var fList = bList[i].boFiles;
+				if(fList.length != 0) {
+					file = "<div class='card-body file-box'>";
+					for( var j=0; j<fList.length; j++ ) {
+						newDiv = "<div><b>첨부파일 " + (j+1) + "</b> : " + fList[j].fiRealName + "</div>"
+						file += newDiv;
+					}
+					file += "</div>";
 				}
 				
 				var contents = "";

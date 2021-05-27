@@ -1,28 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fileMapper">
+	<resultMap type="FileVO" id="fileResultMap">
+		<id property="fiNo" column="FI_NO"></id>
+		<result property="mbNo" column="MB_NO"></result>
+		<result property="fiInsertDate" column="FI_INSERTDATE"></result>
+		<result property="fiRealName" column="FI_REALNAME"></result>
+		<result property="fiStoredName" column="FI_STOREDNAME"></result>
+		<result property="fiDirectory" column="FI_DIRECTORY"></result>
+		<result property="fiStatus" column="FI_STATUS"></result>
+		<result property="fiBoardType" column="FI_BOARD_TYPE"></result>
+		<result property="fiMotherNo" column="FI_MOTHER_NO"></result>
+	</resultMap>
 
 	<insert id="insertFile" parameterType="FileVO">
 		INSERT INTO FILE_TABLE VALUES (
-			SEQ_FILE.NEXTVAL, #{mbNo}, DEFAULT, #{fiRealName}, #{fiStoredName}, #{fiDirectory}, DEFAULT
+			SEQ_FILE.NEXTVAL, #{mbNo}, DEFAULT, #{fiRealName}, #{fiStoredName}, #{fiDirectory}, DEFAULT, #{fiBoardType}, #{fiMotherNo} 
 		)
 	</insert>
 	
-	<update id="updateFile" parameterType="FileVO">
-		UPDATE FILE_TABLE SET
-		FI_REALNAME = #{fiRealName}, FI_STOREDNAME = #{fiStoredName}, FI_DIRECTORY = #{fiDirectory}
-		WHERE FI_NO = #{mbNo}
-		<!-- 생성자 같은거 써서(둘다 int) 이름을 이렇게 넣었어여 사실은 fiNo 자리 맞아여 -->
-	</update>
-	
-	<update id="deleteFile">
+	<update id="deleteFile" parameterType="FileVO">
 		UPDATE FILE_TABLE SET
 		FI_STATUS = 0
-		WHERE FI_STOREDNAME = #{fiStoredName}
+		WHERE FI_BOARD_TYPE = #{fiBoardType} AND FI_MOTHER_NO = #{fiMotherNo} AND FI_STATUS = 1
 	</update>
 	
-	<select id="selectOne" parameterType="String" resultType="_int">
-		SELECT FI_NO FROM FILE_TABLE
-		WHERE FI_STOREDNAME = #{fiStoredName}
+	<select id="selectList" parameterType="FileVO" resultMap="fileResultMap">
+		SELECT * FROM FILE_TABLE
+		WHERE FI_BOARD_TYPE = #{fiBoardType} AND FI_MOTHER_NO = #{fiMotherNo}
+		AND FI_STATUS = 1
 	</select>
+	
+	<select id="selectOne" parameterType="_int" resultMap="fileResultMap">
+		SELECT * FROM FILE_TABLE
+		WHERE FI_NO = #{fiNo}
+		AND FI_STATUS = 1
+	</select>
+	
+	<update id="deleteFileByFiNo" parameterType="_int">
+		UPDATE FILE_TABLE SET
+		FI_STATUS = 0
+		WHERE FI_NO = #{fiNo} AND FI_STATUS = 1
+	</update>
 </mapper>

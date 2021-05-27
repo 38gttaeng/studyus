@@ -10,12 +10,17 @@ import com.studyus.board.domain.Board;
 import com.studyus.board.service.BoardService;
 import com.studyus.board.store.BoardStore;
 import com.studyus.common.PageInfo;
+import com.studyus.file.domain.FileVO;
+import com.studyus.file.store.FileStore;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private BoardStore boStore;
+	
+	@Autowired
+	private FileStore fiStore;
 
 	@Override
 	public int getListCount(Board board) {
@@ -24,7 +29,26 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public ArrayList<Board> printAll(PageInfo pi, Board board) {
-		return boStore.selectAll(pi, board);
+		
+		// 1. 모든 boardList 가져오기
+		ArrayList<Board> bList = boStore.selectAll(pi, board);
+		
+		// 2. 파일명 리스트 저장
+		ArrayList<FileVO> boFiles = new ArrayList<FileVO>();
+		for(Board bOne : bList) {
+			// 번호에 해당하는 파일 리스트 가져오기
+			FileVO fileVO = new FileVO(5, bOne.getBoNo());
+			ArrayList<FileVO> fList = fiStore.selectList(fileVO);
+			
+			// 파일 리스트의 파일 추가해주기
+			for(FileVO fOne : fList) {
+				boFiles.add(fOne);
+			}
+			
+			bOne.setBoFiles(boFiles);
+		}
+		
+		return bList;
 	}
 	
 	@Override
@@ -39,12 +63,42 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public ArrayList<Board> printSearchAll(PageInfo pi, HashMap<String, Object> map) {
-		return boStore.selectSearchAll(pi, map);
+		
+		// 1. 모든 검색어에 해당하는 boardList 가져오기
+		ArrayList<Board> bList = boStore.selectSearchAll(pi, map);
+		
+		// 2. 파일명 리스트 저장
+		ArrayList<FileVO> boFiles = new ArrayList<FileVO>();
+		for(Board bOne : bList) {
+			// 번호에 해당하는 파일 리스트 가져오기
+			FileVO fileVO = new FileVO(5, bOne.getBoNo());
+			ArrayList<FileVO> fList = fiStore.selectList(fileVO);
+			
+			// 파일 리스트의 파일 추가해주기
+			for(FileVO fOne : fList) {
+				boFiles.add(fOne);
+			}
+			
+			bOne.setBoFiles(boFiles);
+		}
+				
+		return bList;
 	}
 
 	@Override
 	public Board printOne(int boNo) {
-		return boStore.selectOne(boNo);
+		
+		// board 가져오기
+		Board board = boStore.selectOne(boNo);
+		
+		// 파일 가져오기
+		FileVO fileVO = new FileVO(5, boNo);
+		if(fileVO != null) {
+			ArrayList<FileVO> fList = fiStore.selectList(fileVO);
+			board.setBoFiles(fList);
+		}
+		
+		return board;
 	}
 
 	@Override
