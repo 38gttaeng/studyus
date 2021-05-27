@@ -9,6 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>StudyUs : 공지사항</title>
     <!-- 타이틀을 개별 스터디룸 이름으로 해줘도 좋을듯 ! 'StudyUs : 삼팔광땡' 이러케 -->
+    <style>
+    .noTitle{
+    	color : #7C8798;
+    }
+    .noTitle :hover{
+    	color : #6927ff;
+    }
+    </style>
 </head>
 <body>
     <!-- ============================================================== -->
@@ -80,6 +88,9 @@
 	                    		</div>
 	                    		</div>
 	                    	</div>
+	                    	<div class="float-right">
+	                    	<button id="write-btn" onclick="location.href='/notice/noticeWriteView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>
+	                    	</div>
 	                    	<table class="table">
 	                    		<thead class="thead-light">
 	                    			<tr>
@@ -94,20 +105,34 @@
 	                    		<tbody>
 	                    			<c:forEach items="${nList }" var="notice">
 	                    			<tr>
-	                    				<th><input type="hidden" name="noticeNo" value="${notice.noticeNo }"></th>
+	                    				<th>
+	                    					<input type="hidden" name="noNo" value="${notice.noNo }">
+	                    					<input type="hidden" name="noMotherNo" value="${notice.noMotherNo }">
+	                    				</th>
 	                    				<th scope="row">${notice.rowNum }</th>
 	                    				<td>
 	                    					<c:url var="nDetail" value="/notice/noticeDetail">
-	                    						<c:param name="noticeNo" value="${notice.noticeNo}"></c:param>
+	                    						<c:param name="noNo" value="${notice.noNo}"></c:param>
 	                    					</c:url>
-	                    					<a href="${nDetail }">${notice.noticeTitle }</a>
-	                    					<a href="#" class="badge badge-pill badge-primary">3</a> 
+	                    					<a href="${nDetail }" class="noTitle">${notice.noTitle }</a>
+	                    					<a href="#">
+											<span class="">
+											<!-- <span class="btn waves-effect waves-light btn-sm btn-primary"> -->
+											<c:if test="${notice.replyCnt ne 0 }">
+											[${notice.replyCnt}]
+											</c:if>
+											<c:if test="${notice.replyCnt eq 0}">
+											[${notice.replyCnt}]
+											</c:if> 
+											</span>
+										</a>
 	                    					<!-- 누르면 댓글 팝업창으로 -->
-	                    					<span class="badge badge-danger">N</span>
+	                    					<!-- <span class="badge badge-danger">N</span> -->
+	                    					<span style="color:coral;">N</span>
 	                    				</td>
-	                    				<td>대장님</td>
-	                    				<td>${notice.nInsertDate }</td>
-	                    				<td>${notice.noticeCount}</td>
+	                    				<td>${notice.noWriter }</td>
+	                    				<td>${notice.noInsertDate }</td>
+	                    				<td>${notice.noCount}</td>
 	                    			</tr>
 	                    			</c:forEach>
 	                    		</tbody>
@@ -177,53 +202,13 @@
 	                    	</table>
                 	</div>
                 </div>   
-				<button id="write-btn" onclick="location.href='/notice/noticeWriteView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
 			</div>
             <!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>
         </div>
-    </div>
 	    <script>
 		    $("#sidebarnav>li:nth-child(5)").addClass("selected");
 			$("#sidebarnav>li:nth-child(5) a").addClass("active");
-			
-			function paging(page) {
-				$('#list-body').empty();
-				var startRow = (page - 1) * pageSize; // + 1 list는 0부터 시작하니깐;
-				var endRow = page * pageSize;
-				if (endRow > totalCount) 
-				{
-					endRow = totalCount;
-				}  
-				var startPage = ((page - 1)/visibleBlock) * visibleBlock + 1;
-				var endPage = startPage + visibleBlock - 1;
-				if(endPage > totalPages) {    //
-				  endPage = totalPages;
-				}
-				for (var j = startRow; j < endRow; j++) 
-				{	
-					$('#list-body').append(''+ chatLogList[j].fileNo +''
-							+ textLengthOverCut(chatLogList[j].fileName, '25', '...') +''+ chatLogList[j].fileDate +'');
-				}
-			}
-			
-			totalPages = totalCount/pageSize;
-			if (totalCount%pageSize > 0) {
-			totalPages++;
-			}
-			
-			$('#pagination').twbsPagination({
-				   totalPages: totalPages,  // 전체 page블럭 수
-				   visiblePages: visibleBlock,  // 출력될 page 블럭수 상수로 지정해 줘도 되고, 변수로 지정해줘도 된다.
-				   prev: "이전",
-				   next: "다음",
-				   first: '«',
-				   last: '»',
-				   onPageClick: function (event, page) {
-				   $('#page-content').text('Page ' + page);
-				   paging(page);
-				   }
-				});
 			
 	    </script>
 </body>

@@ -3,47 +3,64 @@
 <mapper namespace="noticeMapper">
 
 	<resultMap type="Notice" id="noticeResultMap">
-		<id property="noticeNo" column="NO_NO"></id>
+		<id property="noNo" column="NO_NO"></id>
 		<result property="rowNum" column="NO_RNUM"></result>
-		<result property="studyNo" column="ST_NO"></result>
-		<result property="memberNo" column="MB_NO"></result>
-		<result property="nMotherNo" column="NO_MOTHER_NO"></result>
-		<result property="nInsertDate" column="NO_INSERTDATE"></result>
-		<result property="noticeTitle" column="NO_TITLE"></result>
-		<result property="noticeContents" column="NO_CONTENTS"></result>
-		<result property="noticeFileName" column="NO_FILENAME"></result>
-		<result property="noticeReFileName" column="NO_REFILENAME"></result>
-		<result property="noticeStatus" column="NO_STATUS"></result>
-		<result property="noticeCount" column="NO_COUNT"></result>
+		<result property="stNo" column="ST_NO"></result>
+		<result property="mbNo" column="MB_NO"></result>
+		<result property="noMotherNo" column="NO_MOTHER_NO"></result>
+		<result property="noInsertDate" column="NO_INSERTDATE"></result>
+		<result property="noTitle" column="NO_TITLE"></result>
+		<result property="noContents" column="NO_CONTENTS"></result>
+		<result property="noWriter" column="MB_NICKNAME"></result>
+		<result property="noFileName" column="NO_FILENAME"></result>
+		<result property="noReFileName" column="NO_REFILENAME"></result>
+		<result property="noStatus" column="NO_STATUS"></result>
+		<result property="noCount" column="NO_COUNT"></result>
+		<result property="replyCnt" column="NO_REPLY_COUNT"></result>
 	</resultMap>
 	
-	<select id="selectListCount" resultType="_int">
+	<select id="selectListCount" parameterType="Notice"  resultType="_int">
 		SELECT COUNT(*) FROM NOTICE 
-		<if test="nMotherNo == 0">
-			WHERE NO_MOTHER_NO IS NULL AND ST_NO = 1
+		<if test="noMotherNo == 0">
+			WHERE NO_MOTHER_NO IS NULL 
+			AND ST_NO = 1 AND NO_STATUS = 1
 		</if>
-		<if test="nMotherNo != 0">
-			WHERE NO_MOTHER_NO = #{nMotherNo}
-		</if> 
-		AND NO_STATUS = 1
+		<if test="noMotherNo != 0">
+			WHERE NO_MOTHER_NO = #{noMotherNo} 
+			AND NO_STATUS = 1
+		</if>
 	</select>
+	
+	<!-- <select id="selectNListCount" parameterType="Notice"  resultType="_int">
+		SELECT COUNT(*) FROM NOTICE 
+		WHERE NO_MOTHER_NO IS NULL 
+		AND ST_NO = 1
+	</select>
+	
+	<select id="selectRListCount" parameterType="Notice"  resultType="_int">
+		SELECT COUNT(*) FROM NOTICE 
+		WHERE NO_MOTHER_NO = #{noMotherNo} 
+		AND NO_STATUS = 1
+	</select> -->
 		
 	<select id="selectNoticeList" resultMap="noticeResultMap">
-		<!-- SELECT * FROM NOTICE ORDER BY NO_INSERTDATE DESC -->
 		SELECT ROW_NUMBER() OVER(ORDER BY NO_INSERTDATE) AS NO_RNUM, 
-		NO_NO, NO_TITLE, NO_INSERTDATE, NO_COUNT FROM NOTICE 
-		WHERE NO_STATUS = 1 
+		NO_NO, NO_TITLE, NO_INSERTDATE, NO_COUNT , MB_NICKNAME, NO_REPLY_COUNT
+		FROM NOTICE
+		JOIN MEMBER USING(MB_NO)
+		WHERE NO_STATUS = 1 AND NO_MOTHER_NO IS NULL
 		ORDER BY NO_RNUM DESC
 	</select>
 	
-	<select id="selectAllList" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE 
-		WHERE ST_NO = #{studyNo} AND NO_MOTHER_NO IS NULL
-		ORDER BY NO_INSERTDATE DESC
-	</select>
-	
 	<select id="selectOne" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE WHERE NO_NO = #{noticeNo }
+		SELECT * FROM NOTICE WHERE NO_NO = #{noNo }
+		
+		<!-- SELECT NO_NO, ST_NO, MB_NO, MB_NICKNAME, 
+		NO_MOTHER_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS,
+		NO_FILENAME, NO_REFILENAME, NO_STATUS, NO_COUNT, NO_REPLY_COUNT
+		FROM NOTICE 
+		JOIN MEMBER USING(MB_NO)
+		WHERE NO_NO = #{noNo } -->
 	</select>
 	
 	<select id="selectSearchList" resultMap="noticeResultMap">
@@ -62,57 +79,62 @@
 	</select>
 
 	<insert id="insertNotice" parameterType="Notice">
-		<selectKey keyProperty="noticeNo" resultType="int" order="AFTER">
+		<selectKey keyProperty="noNo" resultType="int" order="AFTER">
 			select SEQ_NOTICE.currval FROM DUAL
 		</selectKey>
 		INSERT INTO NOTICE(NO_NO, ST_NO, MB_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS, NO_FILENAME, NO_REFILENAME, NO_STATUS, NO_COUNT) 
-		VALUES (SEQ_NOTICE.NEXTVAL, 1, 1, DEFAULT, #{noticeTitle}, #{noticeContents}, #{noticeFileName}, #{noticeReFileName}, DEFAULT, DEFAULT)
+		VALUES (SEQ_NOTICE.NEXTVAL, 1, 1, DEFAULT, #{noTitle}, #{noContents}, #{noFileName}, #{noReFileName}, DEFAULT, DEFAULT)
 	</insert>
 	
 	<update id="updateNotice" parameterType="Notice">
 		UPDATE NOTICE 
-		SET NO_TITLE = #{noticeTitle }, NO_CONTENTS = #{noticeContents }, NO_FILENAME = #{noticeFileName }, NO_REFILENAME = #{noticeReFileName}
-		WHERE NO_NO = #{noticeNo }
+		SET NO_TITLE = #{noTitle }, NO_CONTENTS = #{noContents }, NO_FILENAME = #{noFileName }, NO_REFILENAME = #{noReFileName}
+		WHERE NO_NO = #{noNo }
 	</update>
 	
 	<update id="updateCount">
 		UPDATE NOTICE
 		SET NO_COUNT = NO_COUNT + 1
-		WHERE NO_NO = #{noticeNo }
+		WHERE NO_NO = #{noNo }
 	</update>
 	
 	<update id="deleteNotice" parameterType="_int">
-		UPDATE NOTICE SET NO_STATUS = 0 WHERE NO_NO = #{noticeNo}
+		UPDATE NOTICE SET NO_STATUS = 0 WHERE NO_NO = #{noNo}
 	</update>
 	
-	<!-- 댓글~~ -->
-	<select id="selectAllComment" resultMap="noticeResultMap">
-		SELECT N.NO_NO, N.ST_NO, N.MB_NO, N.NO_MOTHER_NO, N.NO_INSERTDATE, N.NO_TITLE, N.NO_CONTENTS, N.NO_FILENAME, N.NO_STATUS, M.MB_NICKNAME, M.MB_PHOTO 
+	<!-- 댓글~~ --> 
+	<select id="selectReplyList" resultMap="noticeResultMap">
+		SELECT N.NO_NO, N.ST_NO, MB_NO, N.NO_MOTHER_NO, N.NO_INSERTDATE, N.NO_TITLE, N.NO_CONTENTS, N.NO_FILENAME, N.NO_STATUS, M.MB_NICKNAME, M.MB_PHOTO 
 		FROM NOTICE N 
 		JOIN MEMBER M 
 		USING(MB_NO) 
-		WHERE N.NO_MOTHER_NO = #{nMotherNo} 
+		WHERE N.NO_MOTHER_NO = #{noMotherNo} 
 		AND N.NO_STATUS = 1 
-		ODER BY N.NO_NO DESC
+		ORDER BY N.NO_NO DESC
 	</select>
 	
-	<select id="selectOneComment">
+	<select id="selectOneReply">
 		SELECT NO_NO, ST_NO, MB_NO, NO_MOTHER_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS, NO_STATUS, M.MB_NICKNAME, M.MB_PHOTO 
-		FROM (SELECT * FROM NOTICE WHERE NO_MOTHER_NO = #{nMotherNo} AND NO_STATUS = 1 ORDER BY NO_NO DESC) 
+		FROM (SELECT * FROM NOTICE WHERE NO_MOTHER_NO = #{noMotherNo} AND NO_STATUS = 1 ORDER BY NO_NO DESC) 
 		JOIN MEMBER M
 		USING(MB_NO) 
 		WHERE ROWNUM = 1
 	</select>
 	
-	<insert id="insertComment"  parameterType="Notice">
-		<if test="nMotherNo != 0">
+	<insert id="insertReply"  parameterType="Notice">
+		<if test="noMotherNo != 0">
 			INSERT INTO NOTICE(NO_NO, ST_NO, MB_NO, NO_MOTHER_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS, NO_STATUS) 
-			VALUES(SEQ_NOTICE.NEXTVAL, 1, 1, #{nMotherNo}, DEFAULT, "댓글이야", #{noticeContents}, DEFAULT)
+			VALUES(SEQ_NOTICE.NEXTVAL, 1, 1, #{noMotherNo}, DEFAULT, '댓글이야', #{noContents}, DEFAULT)
 		</if>
 	</insert>
+	 <!-- 댓글 수 업데이트 -->
+	<update id="updateReplyCount" parameterType="_int">
+		UPDATE NOTICE SET NO_REPLY_COUNT = (SELECT COUNT(NO_NO) FROM NOTICE 
+        WHERE NO_MOTHER_NO = #{noMotherNo} ) WHERE NO_NO = #{noMotherNo} 
+	</update>
 	
-	<update id="deleteComment" parameterType="_int">
-		UPDATE NOTICE SET NO_STATUS = 0 WHERE NO_NO = #{noticeNo}
+	<update id="deleteReply" parameterType="_int">
+		UPDATE NOTICE SET NO_STATUS = 0 WHERE NO_NO = #{noNo}
 	</update>
 	
 </mapper>

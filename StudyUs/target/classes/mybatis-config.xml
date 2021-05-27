@@ -6,7 +6,7 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	
-	<typeAliases>  
+	<typeAliases>   
 		<typeAlias type="com.studyus.study.domain.Study" alias="Study" />
 		<typeAlias type="com.studyus.study.domain.StudySearchCriteria" alias="StudySearchCriteria" />
 		<typeAlias type="com.studyus.member.domain.Member" alias="Member" />
@@ -28,5 +28,5 @@
 		<mapper resource="mappers/file-mapper.xml"/>
 		<mapper resource="mappers/enrollment-mapper.xml"/>
 		<mapper resource="mappers/cafe-mapper.xml"/>
-	</mappers>
-</configuration>
+	</mappers>  
+</configuration> 

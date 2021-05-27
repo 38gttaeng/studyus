@@ -38,16 +38,22 @@ public class NoticeController {
 	
 	// 전체 목록 조회 
 	@RequestMapping(value="/notice/noticeList", method=RequestMethod.GET)
-	public ModelAndView noticeList(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView noticeList(ModelAndView mv, 			
+														@RequestParam(value="page", required=false) Integer page) {
 		Notice notice = new Notice();
 		int listCount = nService.getListCount(notice);
 		int currentPage = (page != null) ? page : 1;
 		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
 		ArrayList<Notice> nList = nService.printAll(pi, notice);
-		System.out.println(pi.toString());
+		// int rplyCnt = nService.updateReplyCount(noMotherNo);
+		for(Notice notice1 : nList) {
+			System.out.println(notice1.toString());
+		}
+//		System.out.println(pi.toString());
 		if(!nList.isEmpty()) {
 			mv.addObject("nList", nList);
 			mv.addObject("pi", pi);
+			// mv.addObject("rplyCnt", rplyCnt);
 			mv.setViewName("notice/noticeListView");
 		}else {
 			mv.addObject("msg", "조회 실패");
@@ -58,11 +64,11 @@ public class NoticeController {
 	
 	// 상세 조회 
 	@RequestMapping(value="/notice/noticeDetail", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView noticeDetail(ModelAndView mv, @RequestParam("noticeNo") int noticeNo) {
+	public ModelAndView noticeDetail(ModelAndView mv, @RequestParam("noNo") int noNo) {
 		// 조회수 증가 
-		nService.addReadCount(noticeNo);
+		nService.addReadCount(noNo);
 		// 공지사항 상세 조회 
-		Notice notice = nService.printOne(noticeNo);
+		Notice notice = nService.printOne(noNo);
 		if(notice != null) {
 			// 메소드 체이닝 방식 
 			mv.addObject("notice", notice).setViewName("notice/noticeDetail");
@@ -104,8 +110,8 @@ public class NoticeController {
 			if(!uploadFile.getOriginalFilename().equals("")) {
 				String filePath = saveFile(uploadFile, request);
 				if(filePath != null) {
-					notice.setNoticeFileName(uploadFile.getOriginalFilename());
-					notice.setNoticeReFileName(filePath);
+					notice.setNoFileName(uploadFile.getOriginalFilename());
+					notice.setNoReFileName(filePath);
 				}
 			}
 			int result = 0;
@@ -151,8 +157,8 @@ public class NoticeController {
 	
 	// 수정 뷰 
 	@RequestMapping(value="/notice/noticeModifyView", method=RequestMethod.GET)
-	public ModelAndView noticeModifyView(ModelAndView mv, @RequestParam("noticeNo") int noticeNo) {
-		Notice notice = nService.printOne(noticeNo);
+	public ModelAndView noticeModifyView(ModelAndView mv, @RequestParam("noNo") int noNo) {
+		Notice notice = nService.printOne(noNo);
 		if(notice != null) {
 			mv.addObject("notice", notice).setViewName("notice/noticeUpdateView");
 		}else {
@@ -167,14 +173,14 @@ public class NoticeController {
 		// 파일 삭제 후 업로드 (수정)
 		if(reloadFile != null && !reloadFile.isEmpty()) {
 			// 기존 파일 삭제 
-			if(notice.getNoticeFileName() != "") {
-				deleteFile(notice.getNoticeReFileName(), request);
+			if(notice.getNoFileName() != "") {
+				deleteFile(notice.getNoReFileName(), request);
 			}
 			// 새 파일 업로드 
 			String renameFileName = saveFile(reloadFile, request);
 			if(renameFileName != null) {
-				notice.setNoticeFileName(reloadFile.getOriginalFilename());
-				notice.setNoticeReFileName(renameFileName);
+				notice.setNoFileName(reloadFile.getOriginalFilename());
+				notice.setNoReFileName(renameFileName);
 			}
 		}
 		// DB 수정 
@@ -190,15 +196,15 @@ public class NoticeController {
 	
 	// 삭제
 	@RequestMapping(value="/notice/noticeDelete", method=RequestMethod.GET)
-	public String noticeDelete(@RequestParam("noticeNo") int noticeNo, @RequestParam("noticeReFileName") String noticeReFileName, Model model, HttpServletRequest request) {
-		Notice notice = nService.printOne(noticeNo);
+	public String noticeDelete(@RequestParam("noticeNo") int noNo, @RequestParam("noticeReFileName") String noticeReFileName, Model model, HttpServletRequest request) {
+		Notice notice = nService.printOne(noNo);
 		// 업로드된 파일 삭제 
 		if(noticeReFileName != null) {
 			deleteFile(noticeReFileName, request);
 		}
 		
 		//디비에 데이터 업데이트 
-		int result = nService.removeNotice(noticeNo);
+		int result = nService.removeNotice(noNo);
 		if(result > 0) {
 			return "redirect:noticeList";
 		}else {
@@ -218,57 +224,57 @@ public class NoticeController {
 	}
 	
 	// 댓글 목록 
-	@RequestMapping(value="/notice/nCommentList")
-	public void getCommentList(HttpServletResponse response, @RequestParam("nMotherNo") int nMotherNo, @RequestParam(value="page", required=false) Integer page) throws Exception {
+	@RequestMapping(value="/notice/ReplyList")
+	public void getReplyList(HttpServletResponse response, @RequestParam("noMotherNo") int noMotherNo, @RequestParam(value="page", required=false) Integer page) throws Exception {
 		Notice notice = new Notice();
-		notice.setnMotherNo(nMotherNo);
+		notice.setNoMotherNo(noMotherNo);
 		int listCount = nService.getListCount(notice);
 		
 		int currentPage = (page != null) ? page : 1;
-		// PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
-		ArrayList<Notice> rList = nService.printAllComment(pi, nMotherNo);
+		ArrayList<Notice> rList = nService.printAllReply(pi, noMotherNo);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("page", pi);
-		map.put("cList", rList);
-		
+		map.put("rList", rList);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(map, response.getWriter());
 	}
+
 	// 댓글 하나 
-	@RequestMapping(value="/notice/nCommentOne")
-	public void getCommentOne(HttpServletResponse response, @RequestParam("nMotherNo") int nMotherNo) throws Exception {
-		Notice nOne = nService.printOneComment(nMotherNo);
+	@RequestMapping(value="/notice/ReplyOne")
+	public void getReplyOne(HttpServletResponse response, @RequestParam("noMotherNo") int noMotherNo) throws Exception {
+		Notice nOne = nService.printOneReply(noMotherNo);
 		// 댓글 총 갯수
 		Notice notice = new Notice();
-		notice.setnMotherNo(nMotherNo);
+		notice.setNoMotherNo(noMotherNo);
 		int count = nService.getListCount(notice);
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("nOne", nOne);
 		map.put("count", count);
+		// map.put("update", update);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(map, response.getWriter());
 	}
 	// 댓글 작성 
 	@ResponseBody
-	@RequestMapping(value="/notice/nCommentWrite", method=RequestMethod.POST)
-	public String registerComment(@ModelAttribute Notice notice, HttpSession session) {
+	@RequestMapping(value="/notice/addReply", method=RequestMethod.POST)
+	public String registerReply(@ModelAttribute Notice notice, @RequestParam("noMotherNo") int noMotherNo, HttpSession session) {
 		// 세션 추가하기 
 		//Member loginUser = (Member)session.getAttribute("loginUser");
-		//notice.setCommentWriter(loginUser.getUserId());
-		notice.setStudyNo(1);
+		//notice.setReplyWriter(loginUser.getUserId());
+		notice.setStNo(1);
 		
-		int result = nService.registerComment(notice);
-		if(result > 0) {
+		int result = nService.registerReply(notice);
+		int update = nService.updateReplyCount(noMotherNo); // 댓글 수 업데이트
+		if(result > 0 && update > 0) {
 			return "success";
 		}else {
 			return "fail"; 
 		}
 	}
-	@RequestMapping(value="/notice/nCommentUpdate", method=RequestMethod.POST)
-	public String updateComment(@ModelAttribute Notice notice) {
-		int result = nService.modifyComment(notice);
+	@RequestMapping(value="/notice/modifyReply", method=RequestMethod.POST)
+	public String updateReply(@ModelAttribute Notice notice) {
+		int result = nService.modifyReply(notice);
 		if(result > 0) {
 			return "success";
 		}else {
@@ -278,9 +284,9 @@ public class NoticeController {
 	
 	// 댓글 삭제 
 	@ResponseBody
-	@RequestMapping(value="/notice/nCommentDelete", method=RequestMethod.GET)
-	public String removeComment(@ModelAttribute Notice notice) {
-		int result = nService.removeComment(notice);
+	@RequestMapping(value="/notice/deleteReply", method=RequestMethod.GET)
+	public String removeReply(@ModelAttribute Notice notice) {
+		int result = nService.removeReply(notice);
 		if(result > 0) {
 			return "success";
 		}else {

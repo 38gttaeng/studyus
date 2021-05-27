@@ -11,7 +11,6 @@ var toolbarOptions = {
 const limit = 1000; // 1000자 제한
 
 $(function() {
-	var check = $("#menuCheck").val();
 	getReplyList(page);
 	
 	// Quill
@@ -57,9 +56,9 @@ $(function() {
 		
 		if(quill.getLength() > 3) {
 			$.ajax({
-				url : "/study/board/addReply",
+				url : "/notice/addReply",
 				type : "post",
-				data : {"boMotherNo": rMotherNo , "boContents" : rContent, "mbNo" : rMbNo},
+				data : {"noMotherNo": rMotherNo , "noContents" : rContent, "mbNo" : rMbNo},
 				success : function(result) {
 					if(result == "success") {
 						/* 댓글 불러오기 */
@@ -87,8 +86,8 @@ function getReplyList(page) {
 	var loginMbNo = $("#loginMbNo").val();
 	
 	$.ajax({
-		url : "/study/board/replyList",
-		data : {"boMotherNo" : rMotherNo, "page" : page},
+		url : "/notice/ReplyList",
+		data : {"noMotherNo" : rMotherNo, "page" : page},
 		type : "get",
 		dataType : "json",
 		success : function(map) {
@@ -111,7 +110,7 @@ function replyList(data, listCount, loginMbNo) {
 	var $rList = $("#rList");
 	$rList.html("");
 	
-	var boMbNo = $("#boMbNo").val();
+	var noMbNo = $("#rMbNo").val();
 	
 	var $div;
 	var $rWriter;
@@ -120,7 +119,7 @@ function replyList(data, listCount, loginMbNo) {
 	var $btnTool = "";
 	
 	$("#rCount").text(listCount);
-	if(data.length > 0) {
+	//if(data.length > 0) {
 		
 		/* 댓글 */
 		for(var i in data) {
@@ -132,35 +131,35 @@ function replyList(data, listCount, loginMbNo) {
 				$div = $("<div class='reply-box my-reply'>");
 			}
 			
-			$rWriter = $("<div>")
-			.append("<img src='/resources/images/" + data[i].member.mbPhoto + ".png' class='rounded-circle'>&nbsp")
-			.append("<span class='nickName'>" + data[i].member.mbNickname + "</span>&nbsp");
-			if(boMbNo == data[i].mbNo) {
+			 $rWriter = $("<div>");
+			/**.append("<img src='/resources/images/" + data[i].member.mbPhoto + ".png' class='rounded-circle'>&nbsp")
+			.append("<span class='nickName'>" + data[i].member.mbNickname + "</span>&nbsp"); **/
+			if(noMbNo == data[i].mbNo) {
 				$rWriter.append("&nbsp<div class='writerTag'>작성자</div>");
 			}
-			$rWriter.append("<span class='insertDate'>" + data[i].boInsertDate + "</span>");
+			$rWriter.append("<span class='insertDate'>" + data[i].noInsertDate + "</span>");
 			
-			$rContent = $("<div class='contents-box'>").append(data[i].boContents);
+			$rContent = $("<div class='contents-box'>").append(data[i].noContents);
 			
-			$btnArea = $("<div>")
-			.append("<button class='btn btn-sm btn-light'>답글</button>");
+			/** $btnArea = $("<div>")
+			.append("<button class='btn btn-sm btn-light'>답글</button>"); **/
 			
 			// 수정+삭제 버튼
 			if(loginMbNo == data[i].mbNo) {
 				$btnTool =$("<div class='btn-group'>");
-				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].boNo + ");'>수정</button>")
-				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].boNo + ");'>삭제</button>");
+				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].noNo + ");'>수정</button>")
+				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].noNo + ");'>삭제</button>");
 				$btnArea.append($btnTool);
 			}
 			
 			$div.append($rWriter);
 			$div.append($rContent);
 			$div.append($btnArea);
-			$div.attr("id", "boReply" + data[i].boNo);//////////////////
+			$div.attr("id", "noReply" + data[i].noNo);//////////////////
 			
 			$rList.append($div);
 		}
-	}
+	//}
 }
 
 // 페이징
@@ -208,8 +207,8 @@ function replyPage(pi) {
 }
 
 // 수정하기
-function modifyReply(obj, boNo) {
-	$reply = $("#boReply" + boNo).children("div:eq(1)");
+function modifyReply(obj, noNo) {
+	$reply = $("#noReply" + noNo).children("div:eq(1)");
 	var replyContent = $reply.html();
 
 	$divModify = $(obj).parent().parent().prev();
@@ -257,9 +256,9 @@ function modifyReply(obj, boNo) {
 	
 		if(quill2.getLength() > 3) {
 			$.ajax({
-				url : "/study/board/modifyReply",
+				url : "/notice/modifyReply",
 				type : "post",
-				data : { "boNo" : boNo, "boContents" : mContents },
+				data : { "noNo" : noNo, "noContents" : mContents },
 				success : function(data) {
 					if(data == "success") {
 						getReplyList(page);
@@ -278,14 +277,14 @@ function modifyReply(obj, boNo) {
 }
 
 // 삭제하기
-function removeReply(boNo) {
+function removeReply(noNo) {
 	var result = confirm("댓글을 삭제하시겠습니까?");
 	
 	if(result) {
 		$.ajax({
-			url : "/study/board/deleteReply",
+			url : "/notice/deleteReply",
 			type : "get",
-			data : { "boNo" : boNo },
+			data : { "noNo" : noNo },
 			success : function(data) { 
 				if(data == "success") {
 					getReplyList();

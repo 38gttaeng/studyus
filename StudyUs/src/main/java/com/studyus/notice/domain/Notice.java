@@ -1,37 +1,40 @@
 package com.studyus.notice.domain;
 
 import java.sql.Date;
+import java.util.ArrayList;
+
+import com.studyus.file.domain.FileVO;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
  
 public class Notice {
-	private int noticeNo;
+	private int noNo;
 	private int rowNum;
-	private int studyNo;
-	private int memberNo;
-	private int nMotherNo;
-	private String noticeWriter;
-	private String commentWriter;
+	private int stNo;
+	private int mbNo;
+	private int noMotherNo;
+	private String noWriter;
 	private String replyWriter;
-	private Date nInsertDate;
-	private String noticeTitle;
-	private String noticeContents;
-	private String noticeFileName;
-	private String noticeReFileName;
-	private int noticeStatus;
-	private int noticeCount;
-	private int commentCnt; // 게시글 댓글 수 
+	private Date noInsertDate;
+	private String noTitle;
+	private String noContents;
+	private String noFileName;
+	private String noReFileName;
+	private int noStatus;
+	private int noCount;
+	private int replyCnt; // 게시글 댓글 수 
+	private ArrayList<FileVO> noFiles;
 	
 	public Notice() {}
 
-	public int getNoticeNo() {
-		return noticeNo;
+	public int getNoNo() {
+		return noNo;
 	}
 
-	public void setNoticeNo(int noticeNo) {
-		this.noticeNo = noticeNo;
+	public void setNoNo(int noNo) {
+		this.noNo = noNo;
 	}
 
 	public int getRowNum() {
@@ -42,44 +45,36 @@ public class Notice {
 		this.rowNum = rowNum;
 	}
 
-	public int getStudyNo() {
-		return studyNo;
+	public int getStNo() {
+		return stNo;
 	}
 
-	public void setStudyNo(int studyNo) {
-		this.studyNo = studyNo;
+	public void setStNo(int stNo) {
+		this.stNo = stNo;
 	}
 
-	public int getMemberNo() {
-		return memberNo;
+	public int getMbNo() {
+		return mbNo;
 	}
 
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
+	public void setMbNo(int mbNo) {
+		this.mbNo = mbNo;
 	}
 
-	public int getnMotherNo() {
-		return nMotherNo;
+	public int getNoMotherNo() {
+		return noMotherNo;
 	}
 
-	public void setnMotherNo(int nMotherNo) {
-		this.nMotherNo = nMotherNo;
+	public void setNoMotherNo(int noMotherNo) {
+		this.noMotherNo = noMotherNo;
 	}
 
-	public String getNoticeWriter() {
-		return noticeWriter;
+	public String getNoWriter() {
+		return noWriter;
 	}
 
-	public void setNoticeWriter(String noticeWriter) {
-		this.noticeWriter = noticeWriter;
-	}
-
-	public String getCommentWriter() {
-		return commentWriter;
-	}
-
-	public void setCommentWriter(String commentWriter) {
-		this.commentWriter = commentWriter;
+	public void setNoWriter(String noWriter) {
+		this.noWriter = noWriter;
 	}
 
 	public String getReplyWriter() {
@@ -90,78 +85,85 @@ public class Notice {
 		this.replyWriter = replyWriter;
 	}
 
-	public Date getnInsertDate() {
-		return nInsertDate;
+	public Date getNoInsertDate() {
+		return noInsertDate;
 	}
 
-	public void setnInsertDate(Date nInsertDate) {
-		this.nInsertDate = nInsertDate;
+	public void setNoInsertDate(Date noInsertDate) {
+		this.noInsertDate = noInsertDate;
 	}
 
-	public String getNoticeTitle() {
-		return noticeTitle;
+	public String getNoTitle() {
+		return noTitle;
 	}
 
-	public void setNoticeTitle(String noticeTitle) {
-		this.noticeTitle = noticeTitle;
+	public void setNoTitle(String noTitle) {
+		this.noTitle = noTitle;
 	}
 
-	public String getNoticeContents() {
-		return noticeContents;
+	public String getNoContents() {
+		return noContents;
 	}
 
-	public void setNoticeContents(String noticeContents) {
-		this.noticeContents = noticeContents;
+	public void setNoContents(String noContents) {
+		this.noContents = noContents;
 	}
 
-	public String getNoticeFileName() {
-		return noticeFileName;
+	public String getNoFileName() {
+		return noFileName;
 	}
 
-	public void setNoticeFileName(String noticeFileName) {
-		this.noticeFileName = noticeFileName;
+	public void setNoFileName(String noFileName) {
+		this.noFileName = noFileName;
 	}
 
-	public String getNoticeReFileName() {
-		return noticeReFileName;
+	public String getNoReFileName() {
+		return noReFileName;
 	}
 
-	public void setNoticeReFileName(String noticeReFileName) {
-		this.noticeReFileName = noticeReFileName;
+	public void setNoReFileName(String noReFileName) {
+		this.noReFileName = noReFileName;
 	}
 
-	public int getNoticeStatus() {
-		return noticeStatus;
+	public int getNoStatus() {
+		return noStatus;
 	}
 
-	public void setNoticeStatus(int noticeStatus) {
-		this.noticeStatus = noticeStatus;
+	public void setNoStatus(int noStatus) {
+		this.noStatus = noStatus;
 	}
 
-	public int getNoticeCount() {
-		return noticeCount;
+	public int getNoCount() {
+		return noCount;
 	}
 
-	public void setNoticeCount(int noticeCount) {
-		this.noticeCount = noticeCount;
+	public void setNoCount(int noCount) {
+		this.noCount = noCount;
 	}
 
-	public int getCommentCnt() {
-		return commentCnt;
+	public int getReplyCnt() {
+		return replyCnt;
 	}
 
-	public void setCommentCnt(int commentCnt) {
-		this.commentCnt = commentCnt;
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
+
+	public ArrayList<FileVO> getNoFiles() {
+		return noFiles;
+	}
+
+	public void setNoFiles(ArrayList<FileVO> noFiles) {
+		this.noFiles = noFiles;
 	}
 
 	@Override
 	public String toString() {
-		return "Notice [noticeNo=" + noticeNo + ", rowNum=" + rowNum + ", studyNo=" + studyNo + ", memberNo=" + memberNo
-				+ ", nMotherNo=" + nMotherNo + ", noticeWriter=" + noticeWriter + ", commentWriter=" + commentWriter
-				+ ", replyWriter=" + replyWriter + ", nInsertDate=" + nInsertDate + ", noticeTitle=" + noticeTitle
-				+ ", noticeContents=" + noticeContents + ", noticeFileName=" + noticeFileName + ", noticeReFileName="
-				+ noticeReFileName + ", noticeStatus=" + noticeStatus + ", noticeCount=" + noticeCount + ", commentCnt="
-				+ commentCnt + "]";
+		return "Notice [noNo=" + noNo + ", rowNum=" + rowNum + ", stNo=" + stNo + ", mbNo=" + mbNo + ", noMotherNo="
+				+ noMotherNo + ", noWriter=" + noWriter + ", replyWriter=" + replyWriter + ", noInsertDate="
+				+ noInsertDate + ", noTitle=" + noTitle + ", noContents=" + noContents + ", noFileName=" + noFileName
+				+ ", noReFileName=" + noReFileName + ", noStatus=" + noStatus + ", noCount=" + noCount + ", replyCnt="
+				+ replyCnt + ", noFiles=" + noFiles + "]";
 	}
-		
+
 }

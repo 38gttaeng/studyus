@@ -61,14 +61,14 @@
 								<div class="col-12">
 									<div class="card-body"> 
 										<form class="" role="form" action="/notice/noticeUpdate" method="post" enctype="multipart/form-data">
-										<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
-										<input type="hidden" name="noticeFileName" value="${notice.noticeFileName }">
-										<input type="hidden" name="noticeReFileName" value="${notice.noticeReFileName }">
-										<input type="hidden" name="noticeWriter" value="${notice.noticeWriter }">
+										<input type="hidden" name="noNo" value="${notice.noNo }">
+										<input type="hidden" name="noFileName" value="${notice.noFileName }">
+										<input type="hidden" name="noReFileName" value="${notice.noReFileName }">
+										<input type="hidden" name="noWriter" value="${notice.noWriter }">
 											<table class="table-responsive col-md-12 ">
 												<tr class="row" >
 													<td class="col-md-2 text-center">제목</td>
-													<td class="col-md-10" ><input type="text" class="form-control" name="noticeTitle" value="${notice.noticeTitle }"></td>
+													<td class="col-md-10" ><input type="text" class="form-control" name="noTitle" value="${notice.noTitle }"></td>
 												</tr>
 <%-- 	  											<tr class="row">
 													<td class="col-3">작성자</td>
@@ -79,8 +79,7 @@
 												<tr class="row">
 													<td class="col-md-2 text-center">내용</td>
 													<td class="col-md-10">
-													<!-- <textarea class="form-control" id="summernote" name="noticeContents"></textarea> -->
-													<textarea class="" id="summernote" name="noticeContents">${notice.noticeContents }</textarea>
+													<textarea class="" id="summernote" name="noContents">${notice.noContents }</textarea>
 													</td>
 												</tr>
 												<tr><td>&nbsp;</td></tr>
@@ -89,12 +88,12 @@
 													<td class="col-md-1"></td>
 													<td class="col-md-8">
 													<!-- <input type="file" class=""  name="uploadFile"> -->
-													<input type="file" class="custom-file-input" id="customFile">
+													<input type="file" class="custom-file-input" id="customFile" name="reloadFile">
             										<label class="custom-file-label" for="customFile">
-            										<c:if test="${ !empty notice.noticeFileName  }">
-														${notice.noticeFileName }
+            										<c:if test="${ !empty notice.noFileName  }">
+														${notice.noFileName }
 													</c:if>
-													<c:if test="${empty notice.noticeFileName }">
+													<c:if test="${empty notice.noFileName }">
             											파일선택
             										</c:if>
             										</label>
@@ -103,9 +102,9 @@
 												<tr><td>&nbsp;</td></tr>
 												<tr class="row">
 													<td class="col-md-10"></td>
-													<td align="center"><input type="reset" class="btn waves-effect waves-light btn-light"
-														value="취소">&nbsp;&nbsp; <input type="submit" class="btn waves-effect waves-light btn-primary"
-														value="등록"></td>
+													<td align="center">
+													<input type="reset" class="btn waves-effect waves-light btn-light" value="취소"  onclick="history.back()">&nbsp;&nbsp; 
+													<input type="submit" class="btn waves-effect waves-light btn-primary" value="등록"></td>
 												</tr>
 											</table>
 										</form>

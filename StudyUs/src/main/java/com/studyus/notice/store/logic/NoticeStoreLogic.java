@@ -17,16 +17,21 @@ public class NoticeStoreLogic implements NoticeStore{
  
 	@Autowired
 	public SqlSession sqlSession;
-	
-	@Override
-	public int selectListCount() {
-		return sqlSession.selectOne("noticeMapper.selectListCount");
-	}
 
 	@Override
 	public int selectListCount(Notice notice) {
 		return sqlSession.selectOne("noticeMapper.selectListCount", notice);
 	}
+	
+//	@Override
+//	public int selectNListCount(Notice notice) {
+//		return sqlSession.selectOne("noticeMapper.selectNListCount", notice);
+//	}
+//
+//	@Override
+//	public int selectRListCount(Notice notice) {
+//		return sqlSession.selectOne("noticeMapper.selectRListCount", notice);
+//	}
 
 	@Override
 	public ArrayList<Notice> selectList(PageInfo pi, Notice notice) {
@@ -43,6 +48,10 @@ public class NoticeStoreLogic implements NoticeStore{
 		return (ArrayList)sqlSession.selectList("noticeMapper.selectNoticeList", notice, rowBounds);
 	}
 
+	@Override
+	public int updateReplyCount(int noMotherNo) {
+		return sqlSession.update("noticeMapper.updateReplyCount", noMotherNo);
+	}
 
 	@Override
 	public int addReadCount(int noticeNo) {
@@ -62,7 +71,7 @@ public class NoticeStoreLogic implements NoticeStore{
 	@Override
 	public int insertNotice(Notice notice) {
 		sqlSession.insert("noticeMapper.insertNotice", notice);
-		return notice.getNoticeNo();
+		return notice.getNoNo();
 	}
 
 	@Override
@@ -76,31 +85,30 @@ public class NoticeStoreLogic implements NoticeStore{
 	}
 
 	@Override
-	public ArrayList<Notice> printAllComment(PageInfo pi, int nMotherNo) {
+	public ArrayList<Notice> printAllReply(PageInfo pi, int noMotherNo) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("noticeMapper.selectCommentList", nMotherNo, rowBounds);
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectReplyList", noMotherNo, rowBounds);
 	} 
 	
 	@Override
-	public Notice selectOneComment(int nMotherNo) {
-		return sqlSession.selectOne("noticeMapper.selectOneComment", nMotherNo);
+	public Notice selectOneReply(int noMotherNo) {
+		return sqlSession.selectOne("noticeMapper.selectOneReply", noMotherNo);
 	}
 
 	@Override
-	public int insertComment(Notice notice) {
-		return sqlSession.insert("noticeMapper.insertComment", notice);
+	public int insertReply(Notice notice) {
+		return sqlSession.insert("noticeMapper.insertReply", notice);
 	}
 
 	@Override
-	public int updateComment(Notice notice) {
-		return sqlSession.update("noticeMapper.updateComment", notice);
+	public int updateReply(Notice notice) {
+		return sqlSession.update("noticeMapper.updateReply", notice);
 	}
 
 	@Override
-	public int deleteComment(Notice notice) {
-		return sqlSession.update("noticeMapper.deleteComment", notice);
+	public int deleteReply(Notice notice) {
+		return sqlSession.update("noticeMapper.deleteReply", notice);
 	}
 
-	
 }

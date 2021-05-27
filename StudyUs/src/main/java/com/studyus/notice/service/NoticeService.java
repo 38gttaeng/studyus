@@ -7,12 +7,14 @@ import com.studyus.notice.domain.Notice;
 import com.studyus.notice.domain.Search;
  
 public interface NoticeService {
-	// 전체 조회수 
-	public int getListCount();
-	// 댓글관련 
+	// 전체 글 수
 	public int getListCount(Notice notice);
+//	public int getNListCount(Notice notice);
+//	public int getRListCount(Notice notice);
 	// 공지사항 전체 출력  
 	public ArrayList<Notice> printAll(PageInfo pi, Notice notice);
+	// 댓글 수 
+	public int updateReplyCount(int noMotherNo);
 	// 조회수 증가 
 	public int addReadCount(int noticeNo);
 	// 검색 
@@ -26,10 +28,10 @@ public interface NoticeService {
 	public int removeNotice(int noticeNo);
 	
 	// 댓글
-	public ArrayList<Notice> printAllComment(PageInfo pi, int nMotherNo);
-	public int registerComment(Notice notice);
-	public int modifyComment(Notice notice);
-	public int removeComment(Notice notice);
-	public Notice printOneComment(int nMotherNo);
+	public ArrayList<Notice> printAllReply(PageInfo pi, int noMotherNo);
+	public Notice printOneReply(int noMotherNo);
+	public int registerReply(Notice notice);
+	public int modifyReply(Notice notice);
+	public int removeReply(Notice notice);
 	
 }
