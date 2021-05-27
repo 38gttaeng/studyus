@@ -152,16 +152,16 @@
 	<!-- 등록 -->
 	<insert id="insertBoard" parameterType="Board">
 	
-		<selectKey resultType="int" keyProperty="boNo" order="AFTER">
-			SELECT MAX(BO_NO) FROM BOARD
+		<selectKey resultType="int" keyProperty="boNo" order="BEFORE">
+			SELECT SEQ_BOARD.NEXTVAL FROM DUAL
 		</selectKey>
 	
 		INSERT INTO BOARD VALUES (
 		<if test="boMotherNo == 0">
-			SEQ_BOARD.NEXTVAL, #{stNo}, #{mbNo}, DEFAULT, SYSDATE, #{boTitle}, #{boContents}, #{boCategory}, DEFAULT
+			#{boNo}, #{stNo}, #{mbNo}, DEFAULT, SYSDATE, #{boTitle}, #{boContents}, #{boCategory}, DEFAULT
 		</if>
 		<if test="boMotherNo != 0">
-			SEQ_BOARD.NEXTVAL, #{stNo}, #{mbNo}, #{boMotherNo}, SYSDATE, DEFAULT, #{boContents}, DEFAULT, DEFAULT
+			#{boNo}, #{stNo}, #{mbNo}, #{boMotherNo}, SYSDATE, DEFAULT, #{boContents}, DEFAULT, DEFAULT
 		</if>
 		)
 	</insert>

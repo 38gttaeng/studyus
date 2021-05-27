@@ -98,11 +98,19 @@
                             </div>
                             <c:if test="${ !empty board.boFiles }">
 	                            <div class="card-body file-box">
-									<c:forEach var="file" items="${ board.boFiles }">
-		                            	<c:url var="fileDownload" value="/file/download">
-											<c:param name="boNo" value="${ file.fiNo }"></c:param>
-										</c:url>
-		                            	<a class="text-muted" href="${ fileDownload }" onclick="return confirm('파일을 다운로드하시겠습니까?');">${ file.fiRealName }</a>
+									<c:forEach var="file" items="${ board.boFiles }" varStatus="i">
+		                            	<div>
+		                            		<b>첨부파일${ i.count } : </b>
+		                            		<c:if test="${ file.fiRealName.substring(file.fiRealName.lastIndexOf('.') + 1) != 'pdf'}">
+				                            	<c:url var="fileDownload" value="/file/download">
+													<c:param name="fiNo" value="${ file.fiNo }"></c:param>
+												</c:url>
+		                            			<a class="text-muted" href="${ fileDownload }" onclick="return confirm('파일을 다운로드하시겠습니까?');">${ file.fiRealName }</a>
+		                            		</c:if>
+		                            		<c:if test="${ file.fiRealName.substring(file.fiRealName.lastIndexOf('.') + 1) == 'pdf'}">
+		                            			<a class="text-muted" href="/resources/js/pdf/web/viewer.html?file=/resources/buploadFiles/${ file.fiStoredName }" target="_blank">${ file.fiRealName }</a>
+		                            		</c:if>
+		                            	</div>
 	                            	</c:forEach>
 	                            </div>
                             </c:if>
@@ -117,7 +125,7 @@
                             	<input id="boMbNo" type="hidden" value="${ board.mbNo }">
                             	<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
                             
-                                <h6 class="card-subtitle" style="float:right;">댓글 <span id="rCount"></span></h6>
+                                <h6 class="card-subtitle float-right">댓글 <span id="rCount"></span></h6>
                                 <hr>
                                 
 								<!-- 댓글 등록 -->

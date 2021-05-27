@@ -18,15 +18,14 @@ table td:first-child {
 	width : 100px !important; 
 }
 
-input[type=file] {
+/* input[type=file] {
 	display : none;
-}
+} */
 
 .invalid-feedback {
 	display : none;
 }
 
-/*  */
-#editor iframe {
+/* #editor iframe {
     pointer-events: none;
-}
+} */

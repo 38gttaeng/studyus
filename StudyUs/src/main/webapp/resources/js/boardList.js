@@ -87,12 +87,11 @@ function getList() {
 				var bodyEnd = "</div>";
 				
 				var file = "";
-				var fList = bList[i].boFiles;
-				if(fList.length > 0) {
+				if( Array.isArray(bList[i].boFiles) && bList[i].boFiles.length !== 0 ) {
 					file = "<div class='card-body file-box'>";
-					for( var j=0; j<fList.length; j++ ) {
+					for( var j=0; j<bList[i].boFiles.length; j++ ) {
 						var newDiv = "";
-						newDiv = "<div><b>첨부파일 " + (i+1) + "</b> : " + fList[j].fiRealName + "</div>"
+						newDiv = "<div><b>첨부파일 " + (j+1) + "</b> : " + bList[i].boFiles[j].fiRealName + "</div>"
 						file += newDiv;
 					}
 					file += "</div>";

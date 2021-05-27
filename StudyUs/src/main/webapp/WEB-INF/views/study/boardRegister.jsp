@@ -96,8 +96,8 @@
 											<tr>
 												<td>첨부파일</td>
 												<td>
-													<label class="btn btn-light" for="input-file">파일 선택</label>&nbsp;&nbsp;
-													<input id="input-file" multiple="multiple" type="file" name="uploadFile">
+													<button type="button" id='button-add-file' class="btn text-primary"><i class="fas fa-plus"></i>  파일 추가</button>
+													<div id="my-form"></div>
 												</td>
 											</tr>
 											<tr>
@@ -113,14 +113,16 @@
                 		</div>
             		</div>
             		<div class="col-1"></div>
-           	</div>
+           		</div>
 
-            <!-- footer -->
-			<jsp:include page="../common/studyFooter.jsp"/>
-        </div>
-    </div>
+            	<!-- footer -->
+				<jsp:include page="../common/studyFooter.jsp"/>
+       		</div>
+   		</div>
+	</div>
     
     <!-- 해당 페이지 JS 파일 -->
     <script src="/resources/js/register.js"></script>
+    
 </body>
 </html>

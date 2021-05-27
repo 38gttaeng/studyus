@@ -22,6 +22,7 @@ import com.studyus.assignment.service.AssignmentService;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
 import com.studyus.common.RedirectWithMsg;
+import com.studyus.study.domain.Study;
 import com.studyus.submittedAssignment.service.SAssignmentService;
 
 @Controller
@@ -39,8 +40,7 @@ public class AssignmentController {
 	@RequestMapping(value="study/assignment", method=RequestMethod.GET)
 	public ModelAndView assignmentListView(HttpSession session, ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
 		
-		//////////////////////////////////세션에서 스터디번호 가져와서 넣어주기
-		int stNo = 1;
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		
 		//////////////////////////////////// 과제제출 확인 관련 메소드도 함께 호출
 		
@@ -87,6 +87,20 @@ public class AssignmentController {
 
 	}
 	
+	/******************* 과제 분류 등록, 삭제 *******************/
+	
+	public String asGroupRegisterView() {
+		return null;
+	}
+	
+	public String asGroupRegister() {
+		return null;
+	}
+	
+	public String asGroupDelete() {
+		return null;
+	}
+	
 	/******************* 과제 등록, 수정, 삭제 *******************/
 	
 	// 등록
@@ -98,10 +112,10 @@ public class AssignmentController {
 	@RequestMapping(value="/study/assignment/register", method=RequestMethod.POST)
 	public String assignmentRegister(HttpServletRequest request,
 			@ModelAttribute Assignment assignment, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile) {
-		//////////////////////////////////////////////
-//		HttpSession session = request.getSession();
-//		세션에서 스터디 번호 가져오기
-		assignment.setStNo(1);
+		
+		HttpSession session = request.getSession();
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		assignment.setStNo(stNo);
 		
 //		// 서버에 파일을 저장하는 작업
 //		if(!uploadFile.getOriginalFilename().equals("")) {

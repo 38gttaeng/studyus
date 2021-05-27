@@ -3,6 +3,7 @@ package com.studyus.assignment.domain;
 public class Assignment {
 	private int asNo;
 	private int stNo;
+	private int grNo;
 	private String asName;
 	private String asContents;
 	private String asInsertDate;
@@ -26,6 +27,14 @@ public class Assignment {
 
 	public void setStNo(int stNo) {
 		this.stNo = stNo;
+	}
+	
+	public int getGrNo() {
+		return grNo;
+	}
+
+	public void setGrNo(int grNo) {
+		this.grNo = grNo;
 	}
 
 	public String getAsName() {
@@ -78,9 +87,9 @@ public class Assignment {
 
 	@Override
 	public String toString() {
-		return "Assignment [asNo=" + asNo + ", stNo=" + stNo + ", asName=" + asName + ", asContents=" + asContents
-				+ ", asInsertDate=" + asInsertDate + ", asDeadLine=" + asDeadLine + ", asMotherNo=" + asMotherNo
-				+ ", asStatus=" + asStatus + "]";
+		return "Assignment [asNo=" + asNo + ", stNo=" + stNo + ", grNo=" + grNo + ", asName=" + asName + ", asContents="
+				+ asContents + ", asInsertDate=" + asInsertDate + ", asDeadLine=" + asDeadLine + ", asMotherNo="
+				+ asMotherNo + ", asStatus=" + asStatus + "]";
 	}
-
+	
 }

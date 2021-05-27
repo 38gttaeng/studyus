@@ -218,7 +218,7 @@
                 <ul id="sidebarnav">
                     <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study"
                             aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
-                                class="hide-menu">{ 스터디명 } </span></a></li>
+                                class="hide-menu">${ study.stName } </span></a></li>
                     <li class="list-divider"></li>
                     
                 	<!-- STUDY -->
@@ -254,9 +254,19 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/assignment"
+                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="javascript:void(0)""
                             aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
                                 class="hide-menu">과제 </span></a>
+                    	<ul aria-expanded="false" class="collapse  first-level base-level-line">
+                            <li class="sidebar-item"><a href="/study/assignment" class="sidebar-link"><span
+                                        class="hide-menu"> 과제
+                                    </span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="/study/assignment/file" class="sidebar-link"><span
+                                        class="hide-menu"> 파일함
+                                    </span></a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
                             aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
