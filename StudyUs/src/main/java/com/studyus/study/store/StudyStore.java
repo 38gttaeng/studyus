@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudySearchCriteria;
+import com.studyus.study.domain.StudySearchResult;
 
 public interface StudyStore {
 	
@@ -15,7 +16,7 @@ public interface StudyStore {
 	 */
 	public int insertStudy(Study study) throws Exception;
 	public int checkUrl(String url);
-	public StudySearchCriteria selectAllBySearch(StudySearchCriteria sc);
+	public ArrayList<StudySearchResult> selectAllBySearch(StudySearchCriteria sc) throws Exception;
 	public ArrayList<Study> selectAll(StudySearchCriteria pi);
 	public ArrayList<Study> selectAllByStudyName(String studyName, StudySearchCriteria pi);
 	public Study selectOneByNo(int studyNo);

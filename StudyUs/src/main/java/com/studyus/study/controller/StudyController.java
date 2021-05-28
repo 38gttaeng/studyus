@@ -1,6 +1,7 @@
 package com.studyus.study.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +22,7 @@ import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.member.domain.Member;
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudySearchCriteria;
+import com.studyus.study.domain.StudySearchResult;
 import com.studyus.study.service.StudyService;
 
 @Controller
@@ -104,12 +106,11 @@ public class StudyController {
 									@RequestParam(value="hashtag", required=false) String[] hashtags,
 									@RequestParam(value="page", required=false) int page) throws Exception {
 		
-		StudySearchCriteria sc = StudySearchCriteria.searchReady(page + 1, hashtags, keyword);
-		sc = sService.printSearchResult(sc);
+		StudySearchCriteria sc = StudySearchCriteria.searchReady(page, hashtags, keyword);
+		ArrayList<StudySearchResult> searchResult = sService.printSearchResult(sc);
 		
-		mv.addObject("studies", sc.getStudies());
+		mv.addObject("searchResult", searchResult);
 		mv.addObject("page", page);
-		mv.addObject("keyword", keyword);
 		mv.setViewName("/study/searchResult");
 		
 		return mv;
@@ -123,10 +124,12 @@ public class StudyController {
 							@RequestParam(required=false) int page) throws Exception {
 		
 		StudySearchCriteria sc = StudySearchCriteria.searchReady(page + 1, hashtags, keyword);
+		ArrayList<StudySearchResult> searchResult = sService.printSearchResult(sc);
 		
-		JsonObject load = new JsonObject();
-//		load.addProperty("key", value);
-		return new Gson().toJson(load);
+//		HashMap<String, Object> hm = new HashMap<String, Object>();
+//		hm.put("searchResult", searchResult);
+		
+		return new Gson().toJson(searchResult);
 	}
 	
 	// 스터디 상세 페이지 get

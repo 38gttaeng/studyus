@@ -23,6 +23,43 @@
 		<result property="end" column="ST_END"></result>
 	</resultMap>
 	
+	<resultMap id="studySearchMap" type="com.studyus.study.domain.StudySearchResult">
+		<id property="studyNo" column="ST_NO"></id>
+		<result property="rNum" column="RNUM"></result>
+		<result property="leaderNo" column="MB_NO"></result>
+		<result property="filename" column="ST_FILENAME"></result>
+		<result property="studyName" column="ST_NAME"></result>
+		<result property="introduce" column="ST_INTRODUCE"></result>
+		<result property="maxPersonnel" column="ST_MAX_PERSONNEL"></result>
+		<result property="insertDate" column="ST_INSERTDATE"></result>
+		<result property="status" column="ST_STATUS"></result>
+		<result property="url" column="ST_URL"></result>
+		<result property="monday" column="ST_MON"></result>
+		<result property="tuesday" column="ST_TUE"></result>
+		<result property="wednesday" column="ST_WED"></result>
+		<result property="thursday" column="ST_THU"></result>
+		<result property="friday" column="ST_FRI"></result>
+		<result property="saturday" column="ST_SAT"></result>
+		<result property="sunday" column="ST_SUN"></result>
+		<result property="start" column="ST_START"></result>
+		<result property="end" column="ST_END"></result>
+		<collection property="hashtagList" ofType="com.studyus.hashtag.domain.Hashtag" autoMapping="true">
+			<id property="hashtagNo" column="HA_NO" javaType="int"></id>
+			<result property="name" column="HA_NAME" javaType="String"></result>
+		</collection>
+	
+	
+		<!-- <id property="studyNo" column="ST_NO"></id>
+		<result property="hashtagList" column="HA_NAME"></result>
+		<association property="study" resultMap="studyResultMap"></association> -->
+		
+		
+		<!-- <collection property="hashtags" javaType="String">
+			<result property="hashtags" column="HA_NAME"></result>
+		</collection> -->
+		<!-- <result property="hashtags" column="HA_NAME"></result> -->
+	</resultMap>
+	
 	<!-- useGeneratedKeys="true"  keyProperty="caNo" keyColumn="CA_NO" -->
 	<insert id="insertStudy" parameterType="Study">
 		<selectKey keyProperty="studyNo" resultType="int" order="AFTER">
@@ -61,26 +98,67 @@
 		SELECT S.ST_NO, S.ST_NAME, S.ST_URL FROM STUDY S JOIN ENROLLMENT E ON S.ST_NO = E.ST_NO WHERE E.EN_STATUS = 1 AND E.MB_NO = #{memberNo}
 	</select>
 	
-	<select id="selectAllSearch" parameterType="StudySearchCriteria" resultMap="studyResultMap">
+	<select id="selectAllSearch" parameterType="StudySearchCriteria" resultMap="studySearchMap">
 		SELECT * FROM 
-			(SELECT S.*, 
-					ROWNUM AS RNUM
-					FROM (SELECT S.ST_NO
-		    	FROM STUDY S 
-				    LEFT OUTER JOIN HASHTAG_RELATION R ON S.ST_NO = R.ST_NO 
-				    LEFT OUTER JOIN HASHTAG H ON R.HA_NAME = H.HA_NAME
-				    	WHERE S.ST_URL LIKE '%' || #{keyword} || '%'
+			(SELECT 
+				DENSE_RANK() OVER (ORDER BY S.ST_NO DESC) RNUM, 
+				S.*, 
+				H.* 
+				FROM STUDY S 
+				    LEFT OUTER JOIN HASHTAG_RELATION R 
+				        ON S.ST_NO = R.ST_NO
+				    LEFT OUTER JOIN HASHTAG H
+				        ON R.HA_NAME = H.HA_NAME
+				    WHERE S.ST_URL LIKE '%' || #{keyword} || '%'
 				        OR S.ST_NAME LIKE '%' || #{keyword} || '%'
 				        OR S.ST_INTRODUCE LIKE '%' || #{keyword} || '%'
-				        <if test="hashtags != null">
-					        OR
-					    	<foreach collection="hashtags" item="hashtag" separator="OR">
-					    		H.HA_NAME LIKE '%' || #{hashtag} || '%'
-					    	</foreach>
-					    </if>
-				    GROUP BY S.ST_NO) RESULT_TBL LEFT OUTER JOIN STUDY S ON (RESULT_TBL.ST_NO = S.ST_NO)
-				    ORDER BY S.ST_NO)
+				    <if test="hashtags != null">
+				        OR
+				    	<foreach collection="hashtags" item="hashtag" separator="OR">
+				    		H.HA_NAME LIKE '%' || #{hashtag} || '%'
+				    	</foreach>
+				    </if>
+		    )
 		WHERE RNUM BETWEEN ((#{page} - 1) * #{countPerPage} + 1) AND (#{page} * #{countPerPage})
+	
+		<!-- SELECT * FROM 
+		    (SELECT ROWNUM AS RNUM,
+		            ST_NO,
+		            MB_NO,
+		            ST_FILENAME,
+		            ST_NAME,
+		            ST_INTRODUCE,
+		            ST_MAX_PERSONNEL,
+		            ST_INSERTDATE,
+		            ST_STATUS,
+		            ST_URL,
+		            ST_MON,
+		            ST_TUE,
+		            ST_WED,
+		            ST_THU,
+		            ST_FRI,
+		            ST_SAT,
+		            ST_SUN,
+		            ST_START,
+		            ST_END,
+		            HA_NAME,
+		            HA_NO
+		    FROM (SELECT S.*, H.* FROM STUDY S 
+		        LEFT OUTER JOIN HASHTAG_RELATION R 
+		            ON S.ST_NO = R.ST_NO
+		        LEFT OUTER JOIN HASHTAG H
+		            ON R.HA_NAME = H.HA_NAME
+		        WHERE S.ST_URL LIKE '%' || #{keyword} || '%'
+			        OR S.ST_NAME LIKE '%' || #{keyword} || '%'
+			        OR S.ST_INTRODUCE LIKE '%' || #{keyword} || '%'
+	        	<if test="hashtags != null">
+			        OR
+			    	<foreach collection="hashtags" item="hashtag" separator="OR">
+			    		H.HA_NAME LIKE '%' || #{hashtag} || '%'
+			    	</foreach>
+			    </if>
+		    ORDER BY S.ST_NO DESC))
+		WHERE RNUM BETWEEN ((#{page} - 1) * #{countPerPage} + 1) AND (#{page} * #{countPerPage}) -->
 	</select>
 	
 	<!-- <select id="selectAllEnrolledByMemberNo" resultMap="studyResultMap">

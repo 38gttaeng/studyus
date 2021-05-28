@@ -134,51 +134,12 @@ $(window).scroll(function() {
     }
 });
 
-// 추가검색
-// $(window).scroll(function() {
-//     console.log("1");
-//     // 추가검색이 이미 실행중이면 return
-//     if (!loadAvailable) {
-//         return false;
-//     }
-//     console.log("2");
-//     console.log(distance);
-//     // 하단에 스크롤 접근시
-//     if (distance < 0) {
-//         console.log("3");
-//         loadAvailable = false;
-//         $.ajax({
-//             type: 'GET',
-//             url: '/study/search/additional',
-//             // 인자
-//             data: {
-//                 'keyword' : document.getElementById("searchInput").value,
-//                 'hashtags' : hashtags,
-//                 'page' : document.getElementById("currentPage").value
-//                 // , 구분자로 추가
-//             },
-//             dataType: "text",
-//             success: function(result) {
-//                 console.log("불러왔다! " + result.toString());
-//             },
-//             error: function(result) {
-//                 console.log("비동기 error");
-//             },
-//             complete: function(result) {
-//                 loadAvailable = true;
-//                 console.log("비동기 요청 완료. loadAvailable: " + loadAvailable);
-//             }
-//         });
-//     }
-// });
-
 function loadAdditionally() {
-    console.log("1");
     if (loadAvailable == false) {
         return false;
     }
-    console.log("2");
     loadAvailable = false;
+
     $.ajax({
         type: 'GET',
         url: '/study/search/additional',
@@ -191,14 +152,62 @@ function loadAdditionally() {
         },
         dataType: "text",
         success: function(result) {
-            console.log("불러왔다! " + result.toString());
+            // 검색결과 최종 페이지 도달
+            if (result.length < 3) {
+                document.getElementById("searchGuide").innerHTML = '마지막 검색 결과입니다.';
+                loadAvailable = false;
+            }
+
+            var result = JSON.parse(result);
+            var printArea = document.getElementById("search-result-grid");
+
+            // 검색결과를 출력할 element model
+            // var studyContainerModel = document.getElementsByClassName("study-container d-none");
+
+            for (var i = 0; i < result.length; i ++) {
+                // var studyContainer = studyContainerModel.clone(false).appendTo("#search-result-grid");
+                // studyContainer.classList.remove("d-none");
+                // studyContainer.getElementsByClassName("study-name").innerHTML = result[i].studyName;
+                // studyContainer.getElementsByClassName("study-introduce").innerHTML = result[i].introduce;
+                // studyContainer.getElementsByClassName("study-hashtags").innerHTML = result[i].hashtags;
+                // studyContainer.getElementsByClassName("study-url").value = result[i].url;
+                var sStudyName = result[i].studyName;
+                var sIntroduce = result[i].introduce;
+                var sHashtags = result[i].hashtags;
+                var sUrl = result[i].url;
+
+                console.log(sHashtags == undefined);
+                if (sHashtags == undefined) {
+                    sHashtags = 'asdf';
+                    console.log(sHashtags);
+                }
+
+                var studyText = '<div class="study-container col-lg-4 mb-4">' +
+                                    '<div class="card h-100">' +
+                                        '<img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">' +
+                                        '<div class="card-body">' +
+                                            '<h5 class="card-title study-name">' + sStudyName + '</h5>' +
+                                            '<p class="card-text study-introduce">' + sIntroduce + '</p>' +
+                                            '<div class="card-text study-hashtags">' +
+                                                + sHashtags +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div> ' +
+				                    '<input type="hidden" class="url study-url" value="' + sUrl + '">' +
+                                '</div>';
+                
+                console.log(sHashtags);
+                printArea.innerHTML += studyText;
+            }
+
+            document.getElementById("currentPage").value = parseInt(document.getElementById("currentPage").value, 10) + 1;
         },
         error: function(result) {
-            console.log("비동기 error");
+            console.log("비동기 검색 error");
         },
         complete: function(result) {
             loadAvailable = true;
-            console.log("비동기 요청 완료. loadAvailable: " + loadAvailable);
+            console.log("비동기 검색 완료. loadAvailable: " + loadAvailable);
         }
     });
 }

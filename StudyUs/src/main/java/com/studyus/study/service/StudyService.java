@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudySearchCriteria;
+import com.studyus.study.domain.StudySearchResult;
 import com.studyus.study.domain.StudyWithDays_dep;
 
 public interface StudyService {
@@ -17,7 +18,7 @@ public interface StudyService {
 	public int checkUrl(String name);
 	
 	// 스터디 검색 결과페이지 get
-	public StudySearchCriteria printSearchResult(StudySearchCriteria sc);
+	public ArrayList<StudySearchResult> printSearchResult(StudySearchCriteria sc) throws Exception;
 	
 	// 관리자 페이지 스터디 리스트 get
 	public ArrayList<Study> printAll(StudySearchCriteria sc);

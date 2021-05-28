@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class Hashtag {
 	
-	private int number;
+	private int hashtagNo;
 	private String name;
 
 }

@@ -11,6 +11,7 @@ import com.studyus.hashtag.service.HashtagService;
 import com.studyus.hashtag.store.HashtagStore;
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudySearchCriteria;
+import com.studyus.study.domain.StudySearchResult;
 import com.studyus.study.domain.StudyWithDays_dep;
 import com.studyus.study.service.StudyService;
 import com.studyus.study.store.StudyStore;
@@ -57,7 +58,7 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public StudySearchCriteria printSearchResult(StudySearchCriteria sc) {
+	public ArrayList<StudySearchResult> printSearchResult(StudySearchCriteria sc) throws Exception {
 		return sStore.selectAllBySearch(sc);
 	}
 	

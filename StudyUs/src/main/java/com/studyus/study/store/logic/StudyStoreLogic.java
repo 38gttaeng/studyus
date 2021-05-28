@@ -1,8 +1,6 @@
 package com.studyus.study.store.logic;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.annotations.SelectKey;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudySearchCriteria;
+import com.studyus.study.domain.StudySearchResult;
 import com.studyus.study.store.StudyStore;
 
 @Repository
@@ -32,17 +31,14 @@ public class StudyStoreLogic implements StudyStore {
 	}
 
 	@Override
-	public StudySearchCriteria selectAllBySearch(StudySearchCriteria sc) {
-		List<Study> studyList = sqlSession.selectList("studyMapper.selectAllSearch", sc);
-		
-		// select한 Study들을 sc에 저장
-		Study[] studies = new Study[studyList.size()]; 
-		for (int i = 0; i < studyList.size(); i ++) {
-			studies[i] = studyList.get(i);
-		}
-		sc.setStudies(studies);
-		
-		return sc;
+	public ArrayList<StudySearchResult> selectAllBySearch(StudySearchCriteria sc) throws Exception {
+//		System.out.println(sc.toString());
+		List<StudySearchResult> resultList = sqlSession.selectList("studyMapper.selectAllSearch", sc);
+//		for (StudySearchResult s : resultList) {
+//			System.out.println(s);
+//		}
+	
+		return (ArrayList<StudySearchResult>) resultList;
 	}
 
 	@Override

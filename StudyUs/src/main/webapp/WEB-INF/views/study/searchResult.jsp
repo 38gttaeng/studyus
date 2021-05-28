@@ -31,8 +31,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
-	#meetingDayDisplay.btn:hover {
-		cursor: normal;
+	.card-hashtags {
+		color: gray;
 	}
 </style>
 <body>
@@ -70,29 +70,47 @@
 			<input type="hidden" name="page" value="1">
 		</form>
 		
-		<div class="row">
-		  <!-- <div class="studyContainer col-lg-4 mb-4">
-		    <div class="card h-100">
-		      <img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
-		      <div class="card-body">
-		        <h5 class="card-title">자바 스터디</h5>
-		        <p class="card-text">자바 스터디 입니다. 스프링 프레임워크를 이용해 웹 사이트 제작하실 분 오세요.</p>
-		      </div>
-		    </div>
-		  </div> -->
-			<c:forEach var="study" items="${studies }" varStatus="i">
-				<div class="studyContainer col-lg-4 mb-4">
+		<div id="search-result-grid" class="row">
+			<div class="study-container col-lg-4 mb-4 d-none">
+				<div class="card h-100">
+					<img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title study-name">{스터디명}</h5>
+						<p class="card-text study-introduce">{스터디소개}</p>
+						<div class="card-text study-hashtags">
+							{#해시태그} {#해시태그}
+						</div>
+					</div>
+					<!-- <div class="card-footer">
+				    </div> -->
+				</div>
+				<input type="hidden" class="url study-url" value="{url}">
+			</div>
+			<c:forEach var="study" items="${searchResult }" varStatus="i">
+				<div class="study-container col-lg-4 mb-4">
 					<div class="card h-100">
 						<img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
 						<div class="card-body">
 							<h5 class="card-title"><c:out value="${study.studyName }"></c:out></h5>
 							<p class="card-text"><c:out value="${study.introduce}"></c:out></p>
+							<div class="card-text card-hashtags">
+								<c:if test="${not empty study.hashtagList }">
+									<c:forEach var="hashtag" items="${study.hashtagList }" varStatus="j">
+					    			#<c:out value="${hashtag.name }"></c:out>
+					    		</c:forEach>
+								</c:if>
+							</div>
 						</div>
+						<!-- <div class="card-footer">
+					    </div> -->
 					</div>
 					<input type="hidden" class="url" value="${study.url }">
 				</div>
 			</c:forEach>
 		</div>
+
+		<!-- 검색 끝 안내 -->		
+		<div id="searchGuide" align="center"></div>
 		
 		<div id="additionalLoadProperties">
 			<input type="hidden" id="currentPage" value="${page }"/>

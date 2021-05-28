@@ -22,7 +22,6 @@ public class StudySearchCriteria {
 	 */
 	private String keyword;
 	private String[] hashtags;
-	private Study[] studies;
 	
 	
 //	// 현재 페이지 
