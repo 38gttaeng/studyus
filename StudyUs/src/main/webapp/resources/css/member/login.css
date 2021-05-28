@@ -73,10 +73,10 @@ body, html {
 }
 
 .input-group {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
 }
 
 .input-group-text {
@@ -92,7 +92,7 @@ body, html {
 }
 
 .input-group-append {
-    margin-left: -1px;
+	margin-left: -1px;
 }
 
 #input1 {
@@ -114,13 +114,14 @@ body, html {
 	background: #6927FF !important;
 	color: white !important;
 	box-sizing: border-box;
-    padding: 1px 6px;
-    text-align: center;
-    border-radius: 5px;
-    border-width: 0;
-    border-style: none;
-    border-color: #6927FF;
-    margin-bottom: 5px;
+	padding: 1px 6px;
+	text-align: center;
+	border-radius: 5px;
+	border-width: 0;
+	border-style: none;
+	border-color: #6927FF;
+	margin-bottom: 5px;
+	cursor: pointer;
 }
 
 .login_btn:focus {

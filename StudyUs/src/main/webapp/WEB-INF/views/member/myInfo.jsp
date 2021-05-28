@@ -11,7 +11,7 @@
 <body>
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-	
+	<div class="grey-zone"></div>
 	<div class="myPage-box">
 		<div class="info-zone">
 			<img src="/resources/images/${loginUser.mbPhoto}.png" class="rounded-circle" width="100" style="margin-top: -10px; margin-left: 15px;">
@@ -24,6 +24,17 @@
 			<hr width="470" style="margin-bottom: 30px;">
 			<div class="info-view">
 				<form action="/member/modify" method="post">
+					<div class="input-zone">
+						<label for="mbPhoto">프로필 이미지</label>
+						<select size="1" name="mbPhoto" class="img-select">
+							<option value="none" disabled selected>==선택==</option>
+							<option value="1">지구</option>
+							<option value="2">보라 행성</option>
+							<option value="3">목성</option>
+							<option value="4">수성</option>
+							<option value="5">화성</option>
+						</select>
+					</div>
 					<div class="input-zone">
 						<label for="mbId">아이디</label>
 						<input type="text" name="mbId" value="${loginUser.mbId}" readonly class="form-input">
@@ -52,9 +63,16 @@
 						<label for="mbPhone">휴대폰 번호</label>
 						<input type="text" name="mbPhone" value="${loginUser.mbPhone}" class="form-input">
 					</div>
-					<div class=""></div>
-					<input type="submit" value="수정">
+					<input type="text" name="mbPhoto" value="${loginUser.mbPhoto}" style="display: none;">
+					<div class="btn-box">
+						<input type="button" value="이전" onclick="location.href='/member/myPage'" class="myInfo-btn1">
+						<input type="submit" value="수정" class="myInfo-btn2">
+						<div class="delete-zone">
+							<a href="/member/deleteView">회원탈퇴</a>
+						</div>
+					</div>
 				</form>
+				
 			</div>
 		</div>
 	</div>

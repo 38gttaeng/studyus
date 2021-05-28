@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/resources/css/member/memberJoin.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/resources/js/memberJoin.js"></script>
 <title>회원가입</title>
 <style type="text/css">
 	span.ok{
@@ -69,92 +70,5 @@
 			</form>
 		</div>
 	</div>
-	
-	<script>
-		$(document).ready(function(){
-			//한글입력 안되게 처리
-			$("input[name=mbId]").keyup(function(event){ 
-				if (!(event.keyCode >=37 && event.keyCode<=40)) {
-					var inputVal = $(this).val();
-					$(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
-				}
-			});
-		});
-	
-		$("#mbId").on("blur", function() {
-			var mbId = $("#mbId").val();
-			$.ajax({
-				url : "/member/dupId",
-				data : { "mbId" : mbId },
-				success : function(result) {
-					if(mbId != "") {
-						if(result != 0) {
-							$(".id.ok").hide();
-							$(".id.error").show();
-							$(".enroll-btn").attr("disabled", "disabled");
-						}else{
-							$(".id.ok").show();
-							$(".id.error").hide();
-							$(".enroll-btn").removeAttr("disabled");
-						}
-					}else {
-						$(".id.ok").hide();
-						$(".id.error").hide();
-					}
-				},
-				error : function() {
-					console.log("전송 실패");
-				}
-			});
-			
-		});
-		
-		 $("#mbPwdCheck").on("blur", function () {
-		        var pwd1 = $("#mbPassword").val();
-		        var pwd2 = $("#mbPwdCheck").val();
-		        if ( pwd1 != '' && pwd2 != '' ) {
-		            if (pwd1 != pwd2) {
-		            	$(".pwd.ok").hide();
-						$(".pwd.error").show();
-						$(".enroll-btn").attr("disabled", "disabled");
-		            } else {
-						$(".pwd.ok").show();
-						$(".pwd.error").hide();
-						$(".enroll-btn").removeAttr("disabled");
-		            }
-		        } else {
-		        	$(".pwd.ok").hide();
-		        	$(".pwd.error").hide();
-		        }
-		    });
-		
-		
-		$("#mbNickname").on("blur", function() {
-			var mbNickname = $("#mbNickname").val();
-			$.ajax({
-				url : "/member/dupNick",
-				data : { "mbNickname" : mbNickname },
-				success : function(result) {
-					if(mbNickname != "") {
-						if(result != 0) {
-							$(".nick.ok").hide();
-							$(".nick.error").show();
-							$(".enroll-btn").attr("disabled", "disabled");
-						}else{
-							$(".nick.ok").show();
-							$(".nick.error").hide();
-							$(".enroll-btn").removeAttr("disabled");
-						}
-					}else {
-						$(".nick.ok").hide();
-						$(".nick.error").hide();
-					}
-				},
-				error : function() {
-					console.log("전송 실패");
-				}
-			});
-		});
-	</script>
 </body>
 </html>
