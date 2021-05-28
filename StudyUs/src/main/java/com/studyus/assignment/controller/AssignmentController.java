@@ -1,5 +1,6 @@
 package com.studyus.assignment.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
@@ -38,17 +42,28 @@ public class AssignmentController {
 	/******************* 과제 + 과제제출 보기 *******************/
 	
 	// 리스트
+	@RequestMapping(value="/study/assignment/groupList", method=RequestMethod.GET)
+	public void groupListView(HttpSession session, HttpServletResponse response, @RequestParam("grStatus") int grStatus) throws IOException {
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		AssignmentGroup asGroup = new AssignmentGroup();
+		asGroup.setStNo(stNo);
+		asGroup.setGrStatus(grStatus);
+		ArrayList<AssignmentGroup> grList = asService.printAllGroup(asGroup);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(grList, response.getWriter());
+	}
+	
 	@RequestMapping(value="study/assignment", method=RequestMethod.GET)
 	public ModelAndView assignmentListView(HttpSession session, ModelAndView mv, 
 			@RequestParam("grNo") int grNo, @RequestParam(value="page", required=false) Integer page) {
 		
-		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		// 상단에서 해당 그룹을 선택한 경우
 		// 세션에 선택한 그룹 등록 (이전에 등록된 정보는 삭제)
 		if(session.getAttribute("grNo") != null) {
-			session.removeAttribute("grNo");
+			session.removeAttribute("groupNo");
 		}
-		session.setAttribute("grNo", grNo);
+		session.setAttribute("groupNo", grNo);
 		
 		int currentPage = (page != null) ? page : 1;
 		int listCount = asService.getListCount(grNo);
@@ -56,11 +71,11 @@ public class AssignmentController {
 		
 		ArrayList<Assignment> asList = asService.printAll(pi, grNo);
 		
-		ArrayList<AssignmentGroup> grList = asService.printAllGroup(stNo);
+		AssignmentGroup asGroup = asService.printOneGroup(grNo);
 		
 		mv.addObject("asList", asList);
 		mv.addObject("pi", pi);
-		mv.addObject("grList", grList);
+		mv.addObject("asGroup", asGroup);
 		mv.setViewName("study/assignmentList");
 		//////////////////////////////////// 과제제출 확인 관련 메소드도 함께 호출
 		
@@ -98,9 +113,10 @@ public class AssignmentController {
 
 	}
 	
-	/******************* 과제 분류 등록, 삭제 *******************/
+	/******************* 과제 분류 등록, 수정, 삭제, 숨김 *******************/
 	
 	public String asGroupRegisterView() {
+		///////////////////////////// 분류 등록시 할당 멤버도 정해질 수 있도록 해야
 		return null;
 	}
 	
@@ -109,6 +125,10 @@ public class AssignmentController {
 	}
 	
 	public String asGroupDelete() {
+		return null;
+	}
+	
+	public String asGroupHide() {
 		return null;
 	}
 	

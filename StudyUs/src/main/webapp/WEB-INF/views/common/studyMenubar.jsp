@@ -25,7 +25,6 @@
 	<link href="/resources/css/study/dist/css/style.min.css" rel="stylesheet" />
 
 	<script src="/resources/css/study/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="/resources/css/study/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 	<link href="/resources/css/study/adminmart.css" rel="stylesheet">
 	
 	<title>study menubar</title>
@@ -257,7 +256,7 @@
 	                            </li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)""
+	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
 	                            aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
 	                                class="hide-menu">과제 </span></a>
 	                    	<ul aria-expanded="false" class="collapse  first-level base-level-line">

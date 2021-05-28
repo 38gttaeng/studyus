@@ -17,6 +17,7 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="/resources/css/study/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/resources/css/study/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
     <script src="/resources/css/study/dist/js/app-style-switcher.js"></script>
     <script src="/resources/css/study/dist/js/feather.min.js"></script>

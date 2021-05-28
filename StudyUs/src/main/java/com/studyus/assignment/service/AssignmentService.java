@@ -27,10 +27,17 @@ public interface AssignmentService {
 	
 	/**
 	 * 과제 그룹정보 모두 보기
-	 * @param stNo
+	 * @param asGroup(stNo, grStatus)
 	 * @return
 	 */
-	public ArrayList<AssignmentGroup> printAllGroup(int stNo);
+	public ArrayList<AssignmentGroup> printAllGroup(AssignmentGroup asGroup);
+	
+	/**
+	 * 과제 그룹정보 하나 보기
+	 * @param grNo
+	 * @return
+	 */
+	public AssignmentGroup printOneGroup(int grNo);
 	
 	/**
 	 * 스터디에 해당하는 과제 전체보기(일정용)

@@ -29,8 +29,13 @@ public class AssignmentServiceImpl implements AssignmentService {
 	}
 	
 	@Override
-	public ArrayList<AssignmentGroup> printAllGroup(int stNo) {
-		return asStore.selectAllGroup(stNo);
+	public ArrayList<AssignmentGroup> printAllGroup(AssignmentGroup asGroup) {
+		return asStore.selectAllGroup(asGroup);
+	}
+	
+	@Override
+	public AssignmentGroup printOneGroup(int grNo) {
+		return asStore.selectOneGroup(grNo);
 	}
 	
 	@Override

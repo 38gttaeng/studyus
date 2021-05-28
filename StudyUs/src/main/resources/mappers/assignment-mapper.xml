@@ -39,13 +39,21 @@
 		ORDER BY AS_NO DESC
 	</select>
 	
-	<select id="selectAllGroup" parameterType="_int" resultMap="asGroupResultMap">
+	<select id="selectAllGroup" parameterType="AssignmentGroup" resultMap="asGroupResultMap">
 		SELECT * FROM ASSIGNMENT_GROUP
 		WHERE ST_NO = #{stNo}
+		AND GR_STATUS = 1
+			<if test="grStatus == 2">
+			AND GR_STATUS = 2
+			</if>
 		ORDER BY GR_NO DESC
 	</select>
 	
-	<!-- 과제 그룹 등록 -->
+	<select id="selectOneGroup" parameterType="_int" resultMap="asGroupResultMap">
+		SELECT * FROM ASSIGNMENT_GROUP
+		WHERE GR_NO = #{grNo}
+		AND GR_STATUS = 1
+	</select>
 	
 	<!-- 디테일 -->
 	<select id="selectOne" resultMap="assignmentResultMap">
@@ -53,6 +61,8 @@
 		WHERE AS_NO = #{asNo}
 		AND AS_STATUS = 1
 	</select>
+	
+	<!-- 과제 그룹 등록 -->
 	
 	<!-- 등록 -->
 	<insert id="insertAssignment" parameterType="Assignment">

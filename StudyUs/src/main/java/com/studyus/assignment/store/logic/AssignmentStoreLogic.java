@@ -32,8 +32,13 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	}
 	
 	@Override
-	public ArrayList<AssignmentGroup> selectAllGroup(int stNo) {
-		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllList", stNo);
+	public ArrayList<AssignmentGroup> selectAllGroup(AssignmentGroup asGroup) {
+		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllGroup", asGroup);
+	}
+	
+	@Override
+	public AssignmentGroup selectOneGroup(int grNo) {
+		return sqlSession.selectOne("assignmentMapper.selectOneGroup", grNo);
 	}
 	
 	@Override
