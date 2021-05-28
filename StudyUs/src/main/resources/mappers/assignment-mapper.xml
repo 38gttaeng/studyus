@@ -3,31 +3,49 @@
 <mapper namespace="assignmentMapper">
 	<resultMap type="Assignment" id="assignmentResultMap">
 		<id property="asNo" column="AS_NO"></id>
-		<result property="stNo" column="ST_NO"></result>
+		<result property="grNo" column="GR_NO"></result>
 		<result property="asName" column="AS_NAME"></result>
 		<result property="asContents" column="AS_CONTENTS"></result>
 		<result property="asInsertDate" column="AS_INSERTDATE"></result>
 		<result property="asDeadLine" column="AS_DEADLINE"></result>
-		<result property="asFileName" column="AS_FILENAME"></result>
 		<result property="asMotherNo" column="AS_MOTHER_NO"></result>
 		<result property="asStatus" column="AS_STATUS"></result>
 	</resultMap>
 	
-	<!-- 리스트 -->
-	<select id="selectListCount" resultType="_int">
+	<resultMap type="AssignmentGroup" id="asGroupResultMap">
+		<id property="grNo" column="GR_NO"></id>
+		<result property="stNo" column="ST_NO"></result>
+		<result property="grName" column="GR_NAME"></result>
+		<result property="grColor" column="GR_COLOR"></result>
+	</resultMap>
+	
+	<!-- 과제 리스트 -->
+	<select id="selectListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM ASSIGNMENT
 		WHERE AS_MOTHER_NO IS NULL 
-		AND ST_NO = #{stNo}
+			<if test="value > 0">
+			AND GR_NO = #{grNo}
+			</if>
 		AND AS_STATUS = 1
 	</select>
 	
-	<select id="selectAllList" resultMap="assignmentResultMap">
+	<select id="selectAllList" parameterType="_int" resultMap="assignmentResultMap">
 		SELECT * FROM ASSIGNMENT
 		WHERE AS_MOTHER_NO IS NULL
-		AND ST_NO = #{stNo}
+			<if test="value > 0">
+			AND GR_NO = #{grNo}
+			</if>
 		AND AS_STATUS = 1
 		ORDER BY AS_NO DESC
 	</select>
+	
+	<select id="selectAllGroup" parameterType="_int" resultMap="asGroupResultMap">
+		SELECT * FROM ASSIGNMENT_GROUP
+		WHERE ST_NO = #{stNo}
+		ORDER BY GR_NO DESC
+	</select>
+	
+	<!-- 과제 그룹 등록 -->
 	
 	<!-- 디테일 -->
 	<select id="selectOne" resultMap="assignmentResultMap">
@@ -39,7 +57,7 @@
 	<!-- 등록 -->
 	<insert id="insertAssignment" parameterType="Assignment">
 		INSERT INTO ASSIGNMENT VALUES (
-			SEQ_ASSIGNMENT.NEXTVAL, #{stNo}, #{asName}, #{asContents}, TO_CHAR(SYSDATE), TO_CHAR(#{asDeadLine}), #{asFileName}, DEFAULT, DEFAULT 
+			SEQ_ASSIGNMENT.NEXTVAL, #{grNo}, #{asName}, #{asContents}, TO_CHAR(SYSDATE), TO_CHAR(#{asDeadLine}), DEFAULT, DEFAULT 
 		)
 	</insert>
 </mapper>

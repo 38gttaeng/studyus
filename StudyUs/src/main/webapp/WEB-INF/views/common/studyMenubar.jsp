@@ -15,6 +15,8 @@
     <link href="/resources/css/study/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
     <link href="/resources/css/study/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="/resources/css/study/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/resources/css/main/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/resources/css/main/css/owl.theme.default.min.css">
     	<!-- Quill -->
     <link href="/resources/js/quill/quill-emoji.css" rel="stylesheet" type="text/css">
     <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -213,93 +215,95 @@
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin6">
-            <!-- Sidebar navigation-->
-            <nav class="sidebar-nav">
-                <ul id="sidebarnav">
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study"
-                            aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
-                                class="hide-menu">${ study.stName } </span></a></li>
-                    <li class="list-divider"></li>
-                    
-                	<!-- STUDY -->
-                    <li class="nav-small-cap"><span class="hide-menu">study</span></li>
-
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/calendar"
-                            aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
-                                class="hide-menu">일정 </span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/notice/noticeList"
-                            aria-expanded="false"><i data-feather="sidebar" class="feather-icon"></i><span
-                                class="hide-menu">공지사항 
-                            </span></a>
-                    </li>
-                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                            aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-                                class="hide-menu">게시판 </span></a>
-                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                            <li class="sidebar-item"><a href="/study/board?boCategory=0" class="sidebar-link"><span
-                                        class="hide-menu"> 전체
-                                    </span></a>
-                            </li>
-                            <li class="sidebar-item"><a href="/study/board?boCategory=1" class="sidebar-link"><span
-                                        class="hide-menu"> 자유
-                                    </span></a>
-                            </li>
-                            <li class="sidebar-item"><a href="/study/board?boCategory=2" class="sidebar-link"><span
-                                        class="hide-menu"> 공유
-                                    </span></a>
-                            </li>
-                            <li class="sidebar-item"><a href="/study/board?boCategory=3" class="sidebar-link"><span
-                                        class="hide-menu"> 질문
-                                    </span></a> 
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="javascript:void(0)""
-                            aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
-                                class="hide-menu">과제 </span></a>
-                    	<ul aria-expanded="false" class="collapse  first-level base-level-line">
-                            <li class="sidebar-item"><a href="/study/assignment" class="sidebar-link"><span
-                                        class="hide-menu"> 과제
-                                    </span></a>
-                            </li>
-                            <li class="sidebar-item"><a href="/study/assignment/file" class="sidebar-link"><span
-                                        class="hide-menu"> 파일함
-                                    </span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
-                            aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
-                                class="hide-menu">채팅 </span></a></li>
-		
-					<!-- MANAGEMENT -->
-                    <li class="list-divider"></li>
-                    <li class="nav-small-cap"><span class="hide-menu">management</span></li>
-                    
-                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                            aria-expanded="false"><i data-feather="bar-chart" class="feather-icon"></i><span
-                                class="hide-menu">출석 확인 </span></a>
-                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
-                                        class="hide-menu"> 개인 출석
-                                    </span></a>
-                            </li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
-                                        class="hide-menu"> 전체 출석
-                                    </span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
-                            aria-expanded="false"><i data-feather="box" class="feather-icon"></i><span
-                                class="hide-menu">회원 목록 </span></a>
-                    </li>
-                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
-                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-                                class="hide-menu">게시물 관리 </span></a>
-                    </li>
-                </ul>
-            </nav>
+        	<div class="scroll-sidebar" data-sidebarbg="skin6">
+            	<!-- Sidebar navigation-->
+	            <nav class="sidebar-nav">
+	                <ul id="sidebarnav">
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study"
+	                            aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
+	                                class="hide-menu">${ study.studyName } </span></a></li>
+	                    <li class="list-divider"></li>
+	                    
+	                	<!-- STUDY -->
+	                    <li class="nav-small-cap"><span class="hide-menu">study</span></li>
+	
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/calendar"
+	                            aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
+	                                class="hide-menu">일정 </span></a></li>
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/notice/noticeList"
+	                            aria-expanded="false"><i data-feather="sidebar" class="feather-icon"></i><span
+	                                class="hide-menu">공지사항 
+	                            </span></a>
+	                    </li>
+	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+	                            aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
+	                                class="hide-menu">게시판 </span></a>
+	                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
+	                            <li class="sidebar-item"><a href="/study/board?boCategory=0" class="sidebar-link"><span
+	                                        class="hide-menu"> 전체
+	                                    </span></a>
+	                            </li>
+	                            <li class="sidebar-item"><a href="/study/board?boCategory=1" class="sidebar-link"><span
+	                                        class="hide-menu"> 자유
+	                                    </span></a>
+	                            </li>
+	                            <li class="sidebar-item"><a href="/study/board?boCategory=2" class="sidebar-link"><span
+	                                        class="hide-menu"> 공유
+	                                    </span></a>
+	                            </li>
+	                            <li class="sidebar-item"><a href="/study/board?boCategory=3" class="sidebar-link"><span
+	                                        class="hide-menu"> 질문
+	                                    </span></a> 
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)""
+	                            aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
+	                                class="hide-menu">과제 </span></a>
+	                    	<ul aria-expanded="false" class="collapse  first-level base-level-line">
+	                            <li class="sidebar-item"><a href="/study/assignment?grNo=0" class="sidebar-link"><span
+	                                        class="hide-menu"> 과제
+	                                    </span></a>
+	                            </li>
+	                            <li class="sidebar-item"><a href="/study/assignment/file" class="sidebar-link"><span
+	                                        class="hide-menu"> 파일함
+	                                    </span></a>
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+	                            aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
+	                                class="hide-menu">채팅 </span></a></li>
+			
+						<!-- MANAGEMENT -->
+	                    <li class="list-divider"></li>
+	                    <li class="nav-small-cap"><span class="hide-menu">management</span></li>
+	                    
+	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+	                            aria-expanded="false"><i data-feather="bar-chart" class="feather-icon"></i><span
+	                                class="hide-menu">출석 확인 </span></a>
+	                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
+	                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
+	                                        class="hide-menu"> 개인 출석
+	                                    </span></a>
+	                            </li>
+	                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
+	                                        class="hide-menu"> 전체 출석
+	                                    </span></a>
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+	                            aria-expanded="false"><i data-feather="box" class="feather-icon"></i><span
+	                                class="hide-menu">회원 목록 </span></a>
+	                    </li>
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+	                                class="hide-menu">게시물 관리 </span></a>
+	                    </li>
+	                </ul>
+	            </nav>
+        	</div>
             <!-- End Sidebar navigation -->
         </aside>
         <!-- ============================================================== -->

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -306,9 +305,9 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value="/study/board/addReply", method=RequestMethod.POST)
 	public String replyRegister(HttpSession session, @ModelAttribute Board board) {
-		/////////////////////////////
-		// 세션에서 스터디정보 가져와서 넣어주기
-		board.setStNo(1);
+		
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		board.setStNo(stNo);
 		
 		int result = boService.registerBoard(board);
 		if(result > 0) {

@@ -22,6 +22,7 @@
     <script src="/resources/css/study/dist/js/feather.min.js"></script>
     <script src="/resources/css/study/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="/resources/css/study/dist/js/sidebarmenu.js"></script>
+    <script src="/resources/css/main/js/owl.carousel.min.js"></script>
     <!--Custom JavaScript -->
     <script src="/resources/css/study/dist/js/custom.js"></script>
     <!--Chart-->

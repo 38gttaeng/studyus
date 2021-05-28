@@ -3,8 +3,8 @@ package com.studyus.assignment.service;
 import java.util.ArrayList;
 
 import com.studyus.assignment.domain.Assignment;
+import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.common.PageInfo;
-import com.studyus.submittedAssignment.domain.SubmittedAssignment;
 
 public interface AssignmentService {
 	
@@ -12,21 +12,28 @@ public interface AssignmentService {
 	
 	/**
 	 * 전체 게시물수(원글번호가 null인 것만 가져오기)
-	 * @param stNo
+	 * @param grNo
 	 * @return
 	 */
-	public int getListCount(int stNo);
+	public int getListCount(int grNo);
 	
 	/**
 	 * 전체보기 (5개씩)
 	 * @param pi
+	 * @param grNo
+	 * @return
+	 */
+	public ArrayList<Assignment> printAll(PageInfo pi, int grNo);
+	
+	/**
+	 * 과제 그룹정보 모두 보기
 	 * @param stNo
 	 * @return
 	 */
-	public ArrayList<Assignment> printAll(PageInfo pi, int stNo);
+	public ArrayList<AssignmentGroup> printAllGroup(int stNo);
 	
 	/**
-	 * 스터디에 해당하는 과제 전체보기
+	 * 스터디에 해당하는 과제 전체보기(일정용)
 	 * @param stNo
 	 * @return
 	 */

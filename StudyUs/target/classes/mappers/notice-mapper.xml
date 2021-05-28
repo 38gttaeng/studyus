@@ -85,7 +85,7 @@
 		UPDATE NOTICE SET NO_STATUS = 0 WHERE NO_NO = #{noticeNo}
 	</update>
 	
-	<!-- 댓글~~ -->
+	<!-- 댓글~~ --> 
 	<select id="selectAllComment" resultMap="noticeResultMap">
 		SELECT N.NO_NO, N.ST_NO, N.MB_NO, N.NO_MOTHER_NO, N.NO_INSERTDATE, N.NO_TITLE, N.NO_CONTENTS, N.NO_FILENAME, N.NO_STATUS, M.MB_NICKNAME, M.MB_PHOTO 
 		FROM NOTICE N 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.studyus.assignment.domain.Assignment;
+import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
 import com.studyus.assignment.store.AssignmentStore;
 import com.studyus.common.PageInfo;
@@ -18,15 +19,20 @@ public class AssignmentServiceImpl implements AssignmentService {
 	private AssignmentStore asStore;
 
 	@Override
-	public int getListCount(int stNo) {
-		return asStore.getListCount(stNo);
+	public int getListCount(int grNo) {
+		return asStore.getListCount(grNo);
 	}
 
 	@Override
-	public ArrayList<Assignment> printAll(PageInfo pi, int stNo) {
-		return asStore.selectAll(pi, stNo);
+	public ArrayList<Assignment> printAll(PageInfo pi, int grNo) {
+		return asStore.selectAll(pi, grNo);
 	}
-
+	
+	@Override
+	public ArrayList<AssignmentGroup> printAllGroup(int stNo) {
+		return asStore.selectAllGroup(stNo);
+	}
+	
 	@Override
 	public ArrayList<Assignment> printAllByStudyNo(int stNo) {
 		// TODO Auto-generated method stub

@@ -1,6 +1,7 @@
 package com.studyus.submittedAssignment.domain;
 
 public class SubmittedAssignment {
+	
 	private int suNo;
 	private int mbNo;
 	private int asNo;

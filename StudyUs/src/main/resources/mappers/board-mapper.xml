@@ -166,7 +166,7 @@
 		)
 	</insert>
 	
-	<!-- !수정 -->
+	<!-- 수정 -->
 	<update id="updateBoard" parameterType="Board">
 		UPDATE BOARD SET
 		

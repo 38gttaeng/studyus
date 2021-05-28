@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.studyus.assignment.domain.Assignment;
+import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
@@ -38,20 +39,30 @@ public class AssignmentController {
 	
 	// 리스트
 	@RequestMapping(value="study/assignment", method=RequestMethod.GET)
-	public ModelAndView assignmentListView(HttpSession session, ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView assignmentListView(HttpSession session, ModelAndView mv, 
+			@RequestParam("grNo") int grNo, @RequestParam(value="page", required=false) Integer page) {
 		
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
-		
-		//////////////////////////////////// 과제제출 확인 관련 메소드도 함께 호출
+		// 상단에서 해당 그룹을 선택한 경우
+		// 세션에 선택한 그룹 등록 (이전에 등록된 정보는 삭제)
+		if(session.getAttribute("grNo") != null) {
+			session.removeAttribute("grNo");
+		}
+		session.setAttribute("grNo", grNo);
 		
 		int currentPage = (page != null) ? page : 1;
-		int listCount = asService.getListCount(stNo);
+		int listCount = asService.getListCount(grNo);
 		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Assignment> aList = asService.printAll(pi, stNo);
-		mv.addObject("aList", aList);
+		ArrayList<Assignment> asList = asService.printAll(pi, grNo);
+		
+		ArrayList<AssignmentGroup> grList = asService.printAllGroup(stNo);
+		
+		mv.addObject("asList", asList);
 		mv.addObject("pi", pi);
+		mv.addObject("grList", grList);
 		mv.setViewName("study/assignmentList");
+		//////////////////////////////////// 과제제출 확인 관련 메소드도 함께 호출
 		
 		return mv;
 	}
@@ -115,7 +126,6 @@ public class AssignmentController {
 		
 		HttpSession session = request.getSession();
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
-		assignment.setStNo(stNo);
 		
 //		// 서버에 파일을 저장하는 작업
 //		if(!uploadFile.getOriginalFilename().equals("")) {
@@ -166,7 +176,6 @@ public class AssignmentController {
 	public String replyRegister(HttpSession session, @ModelAttribute Assignment assignment) {
 		/////////////////////////////
 		// 세션에서 스터디정보 가져와서 넣어주기
-		assignment.setStNo(1);
 		
 		int result = 0;
 		if(result > 0) {

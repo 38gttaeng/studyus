@@ -11,8 +11,8 @@
 		<result property="fiStatus" column="FI_STATUS"></result>
 		<result property="fiBoardType" column="FI_BOARD_TYPE"></result>
 		<result property="fiMotherNo" column="FI_MOTHER_NO"></result>
-	</resultMap>
- 
+	</resultMap> 
+
 	<insert id="insertFile" parameterType="FileVO">
 		INSERT INTO FILE_TABLE VALUES (
 			SEQ_FILE.NEXTVAL, #{mbNo}, DEFAULT, #{fiRealName}, #{fiStoredName}, #{fiDirectory}, DEFAULT, #{fiBoardType}, #{fiMotherNo} 
