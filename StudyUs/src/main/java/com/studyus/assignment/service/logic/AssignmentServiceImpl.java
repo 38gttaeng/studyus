@@ -56,6 +56,21 @@ public class AssignmentServiceImpl implements AssignmentService {
 	}
 
 	@Override
+	public int registerGroup(AssignmentGroup asGroup) {
+		return asStore.insertGroup(asGroup);
+	}
+
+	@Override
+	public int modifyGroup(AssignmentGroup asGroup) {
+		return asStore.updateGroup(asGroup);
+	}
+
+	@Override
+	public int removeGroup(AssignmentGroup asGroup) {
+		return asStore.deleteGroup(asGroup);
+	}
+
+	@Override
 	public int registerAssignment(Assignment assignment) {
 		return asStore.insertAssignment(assignment);
 	}

@@ -16,7 +16,9 @@
 		<id property="grNo" column="GR_NO"></id>
 		<result property="stNo" column="ST_NO"></result>
 		<result property="grName" column="GR_NAME"></result>
+		<result property="grInfo" column="GR_INFO"></result>
 		<result property="grColor" column="GR_COLOR"></result>
+		<result property="grStatus" column="GR_STATUS"></result>
 	</resultMap>
 	
 	<!-- 과제 리스트 -->
@@ -55,6 +57,7 @@
 		AND GR_STATUS = 1
 	</select>
 	
+	
 	<!-- 디테일 -->
 	<select id="selectOne" resultMap="assignmentResultMap">
 		SELECT * FROM ASSIGNMENT
@@ -62,9 +65,41 @@
 		AND AS_STATUS = 1
 	</select>
 	
-	<!-- 과제 그룹 등록 -->
 	
-	<!-- 등록 -->
+	<!-- 과제 그룹 등록 -->
+	<insert id="insertGroup" parameterType="AssignmentGroup">
+		<selectKey resultType="int" keyProperty="grNo" order="BEFORE">
+			SELECT SEQ_AS_GROUP.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO ASSIGNMENT_GROUP VALUES (
+			#{grNo}, #{stNo}, #{grName}, #{grInfo}, #{grColor}, DEFAULT
+		)
+	</insert>
+	
+	<!-- 과제 그룹 수정 -->
+	<update id="updateGroup" parameterType="AssignmentGroup">
+		UPDATE ASSIGNMENT_GROUP SET
+		GR_NAME = #{grName}, GR_INFO = #{grInfo}, GR_COLOR = #{grColor}
+		WHERE GR_NO = #{grNo}
+		AND GR_STATUS = 1
+	</update>
+	
+	<!-- 과제 그룹 삭제 -->
+	<update id="deleteGroup" parameterType="AssignmentGroup">
+		UPDATE ASSIGNMENT_GROUP SET
+		<if test="grStatus == 0">
+		GR_STATUS = 0
+		</if>
+		<if test="grStatus == 2">
+		GR_STATUS = 2
+		</if>
+		WHERE GR_NO = #{grNo}
+		AND GR_STATUS = 1
+	</update>
+	
+	
+	<!-- 과제 등록 -->
 	<insert id="insertAssignment" parameterType="Assignment">
 		INSERT INTO ASSIGNMENT VALUES (
 			SEQ_ASSIGNMENT.NEXTVAL, #{grNo}, #{asName}, #{asContents}, TO_CHAR(SYSDATE), TO_CHAR(#{asDeadLine}), DEFAULT, DEFAULT 

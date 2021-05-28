@@ -60,6 +60,11 @@ public interface AssignmentService {
 	 */
 	public ArrayList<Assignment> printAllReply(int asNo);
 	
+	// 과제 그룹 추가, 수정, 삭제
+	public int registerGroup(AssignmentGroup asGroup);
+	public int modifyGroup(AssignmentGroup asGroup);
+	public int removeGroup(AssignmentGroup asGroup);
+	
 	// 과제와 댓글 추가, 수정, 삭제
 	
 	public int registerAssignment(Assignment assignment);

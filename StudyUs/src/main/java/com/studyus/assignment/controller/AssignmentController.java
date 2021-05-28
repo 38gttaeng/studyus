@@ -39,7 +39,7 @@ public class AssignmentController {
 	@Autowired
 	private SAssignmentService suService;
 	
-	/******************* 과제 + 과제제출 보기 *******************/
+	/******************* 그룹에 따른 리스트 보기 *******************/
 	
 	// 리스트
 	@RequestMapping(value="/study/assignment/groupList", method=RequestMethod.GET)
@@ -87,6 +87,8 @@ public class AssignmentController {
 		return null;
 	}
 	
+	/******************* 과제1 + 과제제출 리스트 보기 *******************/
+	
 	// 디테일
 	@RequestMapping(value="study/assignment/detail", method=RequestMethod.GET)
 	public ModelAndView assignmentDetail(HttpSession session, ModelAndView mv, @RequestParam("asNo") int asNo) {
@@ -114,22 +116,46 @@ public class AssignmentController {
 	}
 	
 	/******************* 과제 분류 등록, 수정, 삭제, 숨김 *******************/
-	
-	public String asGroupRegisterView() {
+	@ResponseBody
+	@RequestMapping(value="/study/assignment/addGroup", method=RequestMethod.POST)
+	public String asGroupRegister(HttpSession session, @ModelAttribute AssignmentGroup asGroup) {
 		///////////////////////////// 분류 등록시 할당 멤버도 정해질 수 있도록 해야
-		return null;
+		
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		asGroup.setStNo(stNo);
+		
+		int grNo = asService.registerGroup(asGroup);
+		if(grNo > 0) {
+			return grNo + "";
+		} else {
+			return "fail";
+		}
 	}
 	
-	public String asGroupRegister() {
-		return null;
+	@ResponseBody
+	@RequestMapping(value="/study/assignment/modifyGroup", method=RequestMethod.POST)
+	public String asGroupDelete(@ModelAttribute AssignmentGroup asGroup) {
+		///////////////////////////// 분류 등록시 할당 멤버도 수정할 수 있도록 해야
+		
+		int result = asService.modifyGroup(asGroup);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
-	public String asGroupDelete() {
-		return null;
-	}
-	
-	public String asGroupHide() {
-		return null;
+	@ResponseBody
+	@RequestMapping(value="/study/assignment/deleteGroup", method=RequestMethod.GET)
+	public String asGroupHide(@ModelAttribute AssignmentGroup asGroup) {
+		///////////////////////////// 분류 등록시 할당 멤버 정보도 삭제
+		
+		int result = asService.removeGroup(asGroup);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
 	/******************* 과제 등록, 수정, 삭제 *******************/

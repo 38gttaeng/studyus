@@ -1,3 +1,5 @@
+var grStatus = 1;
+
 $(document).ready(function(){
 
 	// Carousel
@@ -18,6 +20,8 @@ $(document).ready(function(){
 
 	// Each Group
 	// $(".item").css("background-color", value);////////////////////////
+	
+	////////////////////////////////////////////////////////////////
 	
 	// selectBox
 	$("#group-color").change(function(){
@@ -60,6 +64,18 @@ $(document).ready(function(){
 		$(this).css("background-color", color);
 	});
 	
+	////////////////////////////////////////////////////////////////
+	
+	// 그룹 리스트
+	$("#customCheck").change(function(){
+        if($("#customCheck").is(":checked")){
+            grStatus = 2;
+        }else{
+            grStatus = 1;
+        }
+    });
+	
+	
 	// 그룹 등록
 	$("#addGroup-btn").on("click", function() {
 		var grName = $("#group-name").val();
@@ -72,9 +88,9 @@ $(document).ready(function(){
 			data : { "grName" : grName, "grInfo" : grInfo, "grColor" : grColor },
 			type : "post",
 			success : function(result) {
-				if(result == "success") {
-					/* 리스트 불러오기 */
-					// getReplyList(page);
+				if(result != "fail") {
+					var url = "/study/assignment?grNo=" + result;
+					window.location.href = url;
 				} else if(result == "fail") {
 					alert("그룹 등록 실패..");
 				}
@@ -85,21 +101,50 @@ $(document).ready(function(){
 		});
 	});
 	
+	// 수정
+	$("#modifyGroup-btn").on("click", function() {
+		var grNo = $("#re-group-no").val();
+		var grName = $("#re-group-name").val();
+		var grInfo = $("#re-group-info").val();
+		var grColor = $("#re-group-color").val();
+		
+		$.ajax ({
+			url : "/study/assignment/addGroup",
+			data : { "grNo" : grNo, "grName" : grName, "grInfo" : grInfo, "grColor" : grColor },
+			type : "post",
+			success : function(result) {
+				if(result == "success") {
+					///////////////////////////////////////////리스트 페이지로 이동?
+					alert("그룹 수정 성공!");
+				} else if(result == "fail") {
+					alert("그룹 수정 실패..");
+				}
+			},
+			error : function() {
+				alert("전송 실패..");
+			}
+		});
+	});
+	
+	// 숨김 또는 삭제
+	
+	////////////////////////////////////////////////////////////////
+	
 	// 스터디 하나 정보와 과제 리스트 테이블 색상 변경
 	var tBoxColor = $("#tBox-color").val();
 	var textColor = "#fff";
 	
 	switch(tBoxColor) {
-	case 1: 
+	case "1": 
 		tBoxColor = "rgb(196, 178, 234)";
 		break;
-	case 2: 
+	case "2": 
 		tBoxColor = "rgb(165, 228, 216)";
 		break;
-	case 3: 
+	case "3": 
 		tBoxColor = "rgb(243, 211, 244)";
 		break;
-	case 4: 
+	case "4": 
 		tBoxColor = "rgb(188, 209, 241)";
 		break;
 	default: 
@@ -112,5 +157,23 @@ $(document).ready(function(){
 	$("#theadColor").css("background-color", tBoxColor);
 	$("#theadColor").css("color", textColor);
 	$("#tbodyColor").css("border", "1px solid" + tBoxColor);
+	$("#re-group-color").css("background-color", tBoxColor);
     
 });
+
+function getAllGroup() {
+	$.ajax ({
+		url : "/study/assignment/groupList",
+		data : { "grStatus" : grStatus },
+		type : "get",
+		dataType : "json",
+		success : function(grList) {
+			for(var i in grList) {
+							
+			}
+		},
+		error : function() {
+			alert("전송 실패..");////////////////// 데이터 없으면 여기로 이동
+		}
+	});
+}

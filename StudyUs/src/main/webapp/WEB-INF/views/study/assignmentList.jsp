@@ -146,14 +146,14 @@
                     	<!-- 프로젝트 하나 정보 ----------------------------------->
                     	
                     	<!-- assignmentList.js에 보내주는 용도 -->
-                    	<input type="hidden" id="tBOx-color" value="${ asGroup.grColor }">
+                    	<input type="hidden" id="tBox-color" value="${ asGroup.grColor }">
                     	
                     	<c:if test="${ groupNo > 0 }">
                     	<div class="oneStudy card">
                         	<div class="card-body">
                         		<h5 class="card-title text-white">${ asGroup.grName }</h5>
                         		<hr>
-                        		<div class="text-light">
+                        		<div class="text-white">
 	                        		${ asGroup.grInfo }
                         		</div>
                         		<div>
@@ -174,6 +174,7 @@
 									 				</button>
 									 			</div>
 										      	<div class="modal-body">
+										      		<input type="hidden" id="re-group-no" value="${ asGroup.grNo }">
 										        	<div class="form-group">
 										        		<label for="re-group-name">프로젝트명</label>
 										        		<input class="form-control" type="text" id="re-group-name" required value="${ asGroup.grName }">
@@ -204,7 +205,7 @@
 										      	</div>
 										      	<div class="modal-footer">
 										        	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-										        	<button type="button" class="btn btn-primary">수정</button>
+										        	<button id="modifyGroup-btn" type="button" class="btn btn-primary">수정</button>
 										   		</div>
 									    	</div>
 										</div>

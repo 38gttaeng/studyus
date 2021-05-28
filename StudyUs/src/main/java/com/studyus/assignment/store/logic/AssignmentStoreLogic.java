@@ -57,12 +57,30 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	@Override
+	public int insertGroup(AssignmentGroup asGroup) {
+		sqlSession.insert("assignmentMapper.insertGroup", asGroup);
+		return asGroup.getGrNo();
+	}
+
+	@Override
+	public int updateGroup(AssignmentGroup asGroup) {
+		return sqlSession.insert("assignmentMapper.updateGroup", asGroup);
+	}
+
+	@Override
+	public int deleteGroup(AssignmentGroup asGroup) {
+		return sqlSession.insert("assignmentMapper.deleteGroup", asGroup);
+	}
+	
 
 	@Override
 	public int insertAssignment(Assignment assignment) {
 		return sqlSession.insert("assignmentMapper.insertAssignment", assignment);
 	}
-
+	
 	@Override
 	public int updateAssignment(Assignment assignment) {
 		// TODO Auto-generated method stub
