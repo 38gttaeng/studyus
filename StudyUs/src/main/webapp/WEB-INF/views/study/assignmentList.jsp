@@ -66,35 +66,13 @@
                     	<div class="card">
                     		<div class="card-body">
 	                    		<h5 class="card-title group-title">현재 진행중인 프로젝트</h5>
-								<div class="owl-carousel owl-theme">
-									<%-- <c:forEach var="group" items="${ grList }"> --%>
-										<div class="item" style="background-color : rgb(196, 178, 234)" onclick="location.href='/study/assignment?grNo='">
-											<div class="dropdown">
-												<a id="group-delete" class="btn dropdown-toggle float-right" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											    	<i class="fas fa-times"></i>
-												</a>
-												<div class="dropdown-menu text-center" aria-labelledby="dropdownMenuLink">
-											    	<a class="dropdown-item" href="#">숨김</a>
-											    	<a class="dropdown-item" href="#">삭제</a>
-											  	</div>
-											</div>
-											<div>{ 프로젝트명 }</div>
-											<div>인원수</div>
-										</div>
-									<%-- </c:forEach> --%>
-								</div>
-	                    		<label class="btn btn-outline-secondary float-right">
-	                                <div class="custom-control custom-radio">
-	                                    <input type="checkbox" id="customCheck" name="options" value="oldView"
-	                                        class="custom-control-input">
-	                                    <label class="custom-control-label" for="customCheck">
-	                                    	숨김 프로젝트 보기
-	                                    </label>
-	                                </div>
-	                            </label>
+								<div id="group-list-box" class="owl-carousel owl-theme"></div>
+								<input type="hidden" id="memberNo" value="${ loginUser.mbNo }">
+								<input type="hidden" id="leaderNo" value="${ study.leaderNo }">
 	                            <c:if test="${ loginUser.mbNo == study.leaderNo }">
                             	<button class="btn btn-secondary float-right addGroup" data-toggle="modal" data-target="#addGroup">추가</button>
                             	
+	                            <form id="groupWriteForm" action="/study/assignment/addGroup" method="post">
                             	<div class="modal fade" id="addGroup" tabindex="-1" aria-labelledby="addGroupLabel" aria-hidden="true" data-backdrop="static">
                             		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 								    	<div class="modal-content">
@@ -107,21 +85,22 @@
 									      	<div class="modal-body">
 									        	<div class="form-group">
 									        		<label for="group-name">프로젝트명</label>
-									        		<input class="form-control" type="text" id="group-name" required placeholder="프로젝트명">
+									        		<input name="grName" class="form-control" type="text" id="group-name" required placeholder="프로젝트명">
 									        	</div>
 									        	<div class="form-group">
 									        		<label for="group-info">설명</label>
-									        		<textarea class="form-control" id="group-info" rows="5" placeholder="프로젝트명 설명"></textarea>
+									        		<textarea name="grInfo" class="form-control" id="group-info" rows="5" placeholder="프로젝트명 설명"></textarea>
 									        	</div>
 									        	<div class="form-group">
 									        		<label for="group-color">색</label>
-									        		<select id="group-color" class="custom-select">
+									        		<select name="grColor" id="group-color" class="custom-select">
 							                            <option selected value="1"></option>
 							                            <option value="2"></option>
 							                            <option value="3"></option>
 							                            <option value="4"></option>
 							                        </select>
 									        	</div>
+									        	<!-- 여기 추가해야함 -------------------------------------->
 									        	<div class="form-group">
 									        		<label for="group-member">참여 스터디원</label>
 									        		<select id="group-member" class="custom-select">
@@ -139,6 +118,7 @@
 								    	</div>
 									</div>
                             	</div>
+                            	</form>
 	                            </c:if>
                     		</div>
                     	</div>
@@ -164,6 +144,7 @@
                         			<c:if test="${ loginUser.mbNo == study.leaderNo }">
                         			<button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#modifyGroup">수정</button>
                         			
+                        			<form id="groupModifyForm" action="/study/assignment/modifyGroup" method="post">
                         			<div class="modal fade" id="modifyGroup" tabindex="-1" aria-labelledby="modifyGroupLabel" aria-hidden="true" data-backdrop="static">
 	                            		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 									    	<div class="modal-content">
@@ -174,18 +155,18 @@
 									 				</button>
 									 			</div>
 										      	<div class="modal-body">
-										      		<input type="hidden" id="re-group-no" value="${ asGroup.grNo }">
+										      		<input type="hidden" name="grNo" value="${ asGroup.grNo }">
 										        	<div class="form-group">
 										        		<label for="re-group-name">프로젝트명</label>
-										        		<input class="form-control" type="text" id="re-group-name" required value="${ asGroup.grName }">
+										        		<input name="grName" class="form-control" type="text" id="re-group-name" required value="${ asGroup.grName }">
 										        	</div>
 										        	<div class="form-group">
 										        		<label for="re-group-info">설명</label>
-										        		<textarea class="form-control" id="re-group-info" rows="5">${ asGroup.grInfo }</textarea>
+										        		<textarea name="grInfo" class="form-control" id="re-group-info" rows="5">${ asGroup.grInfo }</textarea>
 										        	</div>
 										        	<div class="form-group">
 										        		<label for="re-group-color">색</label>
-										        		<select id="re-group-color" class="custom-select">
+										        		<select name="grColor" id="re-group-color" class="custom-select">
 								                            <option value="1" <c:if test="${ asGroup.grColor == 1 }">selected</c:if>></option>
 								                            <option value="2" <c:if test="${ asGroup.grColor == 2 }">selected</c:if>></option>
 								                            <option value="3" <c:if test="${ asGroup.grColor == 3 }">selected</c:if>></option>
@@ -210,6 +191,7 @@
 									    	</div>
 										</div>
 	                            	</div>
+	                            	</form>
 	                            	</c:if>
 	                            	
                         		</div>
@@ -247,7 +229,47 @@
 	                            	</tbody>
 	                            </table>
 	                            
-	                            <nav id='asPage'></nav>
+	                            <nav id='asPage'>
+	                            	<ul class='pagination pagination-sm justify-content-center'>
+	                            	
+		                            	<c:url var="before" value="study/assignment?grNo=${ asGroup.grNo }">
+											<c:param name="page" value="${ pi.currentPage - 1 }"/>
+										</c:url>
+										<c:if test="${ pi.currentPage > 1 }">
+		                            		<li class="page-item" onclick="location.href='${ before }'">
+		                            			<span class='page-link' aria-label='Next'></span>
+		                            			<span>&laquo;</span>
+		                            		</li>
+	                            		</c:if>
+	                            		
+	                            		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+	                            		<c:url var="pagination" value="study/assignment?grNo=${ asGroup.grNo }">
+											<c:param name="page" value="${ p }"/>
+										</c:url>
+										<c:if test="${ p eq pi.currentPage }">
+											<li class='page-item active'>
+												<span class='page-link'>" + p + "</span>
+											</li>
+										</c:if>
+										<c:if test="${ p ne pi.currentPage }">
+											<li class='page-item' onclick="location.href='${ pagination }'">
+												<span class='page-link'>" + p + "</span>
+											</li>
+										</c:if>
+	                            		</c:forEach>
+	                            		
+	                            		<c:url var="after" value="study/assignment?grNo=${ asGroup.grNo }">
+											<c:param name="page" value="${ pi.currentPage + 1 }"/>
+										</c:url>
+										<c:if test="${ pi.currentPage < pi.maxPage }">
+		                            		<li class="page-item" onclick="location.href='${ after }'">
+		                            			<span class='page-link' aria-label='Next'></span>
+		                            			<span>&raquo;</span>
+		                            		</li>
+	                            		</c:if>
+	                            		
+	                            	</ul>
+	                            </nav>
                             </div>
                         </div>
                         
@@ -258,7 +280,7 @@
                 <!-- 글쓰기 버튼 --> 
                 <c:if test="${ loginUser.mbNo == study.leaderNo }">
                 <div id="float-btn">
-					<button id="write-btn" onclick="location.href='/study/assignment/registerView'"><i class="fas fa-edit"></i><span>추가</span></button>          
+					<button id="write-btn" onclick="location.href='/study/assignment/registerView'"><i class="fas fa-edit"></i><span>과제 등록</span></button>          
             	</div>
             	</c:if>
             </div>

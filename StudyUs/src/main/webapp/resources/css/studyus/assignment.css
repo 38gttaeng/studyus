@@ -5,7 +5,7 @@
 }
 
 .owl-carousel {
-	margin-bottom : 10px;
+	margin-bottom : 20px;
 }
 
 .owl-nav {
@@ -13,13 +13,13 @@
 }
 
 .owl-dots {
-	padding : 10px;
+	display : none;
 }
 
 .item {
 	height : 150px;
 	border-radius : 20px;
-	color : #fff;	
+	color : #fff;
 }
 
 .item:hover #group-delete {
@@ -28,6 +28,28 @@
 
 #group-delete {
 	display : none;
+	position : absolute;
+	color : #fff;
+}
+
+	#group-delete:hover{
+		color : #dadada;
+	}
+
+.item-name {
+	text-align : center;
+	padding : 35px 0;
+	font-weight : bolder;
+	cursor : pointer;
+}
+
+	.item-name:hover {
+		font-size : 18px;
+	}
+
+.item-mem {
+	text-align : center;
+	font-size : 14px;
 }
 
 /* 그룹 등록 */
@@ -62,6 +84,10 @@
 	float : right;
 }
 
+#group-color {
+	background-color : rgb(196, 178, 234);
+}
+
 /* 스터디 정보 */
 
 .oneStudy {
@@ -85,7 +111,7 @@
 	height: 60px;
 	line-height: 20px;
 	padding: 10px;
-	background-color: #6927ff;
+	background-color: #5a6268;
 	color : #fff;
 	font-size : 20px;
 }
@@ -97,7 +123,7 @@
 	}
 	
 	#write-btn:hover {
-		background-color: #3e00cc;
+		background-color: #484f53;
 	}
 	
 	#write-btn:hover i {

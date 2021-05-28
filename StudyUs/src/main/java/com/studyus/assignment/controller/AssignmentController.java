@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
@@ -43,12 +42,9 @@ public class AssignmentController {
 	
 	// 리스트
 	@RequestMapping(value="/study/assignment/groupList", method=RequestMethod.GET)
-	public void groupListView(HttpSession session, HttpServletResponse response, @RequestParam("grStatus") int grStatus) throws IOException {
+	public void groupListView(HttpSession session, HttpServletResponse response) throws IOException {
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
-		AssignmentGroup asGroup = new AssignmentGroup();
-		asGroup.setStNo(stNo);
-		asGroup.setGrStatus(grStatus);
-		ArrayList<AssignmentGroup> grList = asService.printAllGroup(asGroup);
+		ArrayList<AssignmentGroup> grList = asService.printAllGroup(stNo);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(grList, response.getWriter());
@@ -116,46 +112,43 @@ public class AssignmentController {
 	}
 	
 	/******************* 과제 분류 등록, 수정, 삭제, 숨김 *******************/
-	@ResponseBody
 	@RequestMapping(value="/study/assignment/addGroup", method=RequestMethod.POST)
-	public String asGroupRegister(HttpSession session, @ModelAttribute AssignmentGroup asGroup) {
+	public String asGroupRegister(HttpServletRequest request, @ModelAttribute AssignmentGroup asGroup) {
 		///////////////////////////// 분류 등록시 할당 멤버도 정해질 수 있도록 해야
 		
+		HttpSession session = request.getSession();
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		asGroup.setStNo(stNo);
 		
 		int grNo = asService.registerGroup(asGroup);
 		if(grNo > 0) {
-			return grNo + "";
+			return new RedirectWithMsg().redirect(request, "프로젝트가 등록되었습니다!", "/study/assignment?grNo=" + grNo);
 		} else {
-			return "fail";
+			return new RedirectWithMsg().redirect(request, "프로젝트 등록 실패!", "/study/assignment?grNo=0");
 		}
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/study/assignment/modifyGroup", method=RequestMethod.POST)
 	public String asGroupDelete(@ModelAttribute AssignmentGroup asGroup) {
 		///////////////////////////// 분류 등록시 할당 멤버도 수정할 수 있도록 해야
 		
 		int result = asService.modifyGroup(asGroup);
-		if(result > 0) {
-			return "success";
-		} else {
-			return "fail";
+		if(result == 0) {
+			System.out.println("프로젝트 수정 실패");
 		}
+		
+		return "redirect:/study/assignment?grNo=" + asGroup.getGrNo();
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/study/assignment/deleteGroup", method=RequestMethod.GET)
-	public String asGroupHide(@ModelAttribute AssignmentGroup asGroup) {
+	public String asGroupHide(@RequestParam int grNo) {
 		///////////////////////////// 분류 등록시 할당 멤버 정보도 삭제
 		
-		int result = asService.removeGroup(asGroup);
-		if(result > 0) {
-			return "success";
-		} else {
-			return "fail";
+		int result = asService.removeGroup(grNo);
+		if(result == 0) {
+			System.out.println("프로젝트 삭제/숨김 실패");
 		}
+		return "redirect:/study/assignment?grNo=0";
 	}
 	
 	/******************* 과제 등록, 수정, 삭제 *******************/

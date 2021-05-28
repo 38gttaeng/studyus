@@ -2,26 +2,7 @@ var grStatus = 1;
 
 $(document).ready(function(){
 
-	// Carousel
-    var owl = $('.owl-carousel');
-    owl.owlCarousel({
-        items:5,                 // 한번에 보여줄 아이템 수
-        loop:false,               // 반복여부
-        margin:30,               // 오른쪽 간격
-        autoplay:false,           // 자동재생 여부
-        autoplayHoverPause:true,  // 마우스오버시 멈출지 여부
-		responsive:{
-			0:{items:1},
-			600:{items:3},
-			1000:{items:5}
-		},
-		nav: true
-    });
-
-	// Each Group
-	// $(".item").css("background-color", value);////////////////////////
-	
-	////////////////////////////////////////////////////////////////
+	getAllGroup();
 	
 	// selectBox
 	$("#group-color").change(function(){
@@ -36,8 +17,6 @@ $(document).ready(function(){
 		case "3": color = "rgb(243, 211, 244)";
 			break;
 		case "4": color = "rgb(188, 209, 241)";
-			break;
-		default: color = "rgb(196, 178, 234)";
 			break;
 		}
 		
@@ -64,17 +43,7 @@ $(document).ready(function(){
 		$(this).css("background-color", color);
 	});
 	
-	////////////////////////////////////////////////////////////////
-	
-	// 그룹 리스트
-	$("#customCheck").change(function(){
-        if($("#customCheck").is(":checked")){
-            grStatus = 2;
-        }else{
-            grStatus = 1;
-        }
-    });
-	
+	// 유효성 체크 //////////////////////////////////////////////////////////!!
 	
 	// 그룹 등록
 	$("#addGroup-btn").on("click", function() {
@@ -83,50 +52,24 @@ $(document).ready(function(){
 		var grColor = $("#group-color").val();
 		//var list...로 멤버들 for문으로 할당 등록
 		
-		$.ajax ({
-			url : "/study/assignment/addGroup",
-			data : { "grName" : grName, "grInfo" : grInfo, "grColor" : grColor },
-			type : "post",
-			success : function(result) {
-				if(result != "fail") {
-					var url = "/study/assignment?grNo=" + result;
-					window.location.href = url;
-				} else if(result == "fail") {
-					alert("그룹 등록 실패..");
-				}
-			},
-			error : function() {
-				alert("전송 실패..");
-			}
-		});
+		if(grName != "") {
+			$("#groupWriteForm").submit();
+		} else {
+			alert("프로젝트명을 입력해주세요!");
+			$("#group-name").addClass("is-invalid");
+		}
 	});
 	
-	// 수정
 	$("#modifyGroup-btn").on("click", function() {
-		var grNo = $("#re-group-no").val();
 		var grName = $("#re-group-name").val();
-		var grInfo = $("#re-group-info").val();
-		var grColor = $("#re-group-color").val();
 		
-		$.ajax ({
-			url : "/study/assignment/addGroup",
-			data : { "grNo" : grNo, "grName" : grName, "grInfo" : grInfo, "grColor" : grColor },
-			type : "post",
-			success : function(result) {
-				if(result == "success") {
-					///////////////////////////////////////////리스트 페이지로 이동?
-					alert("그룹 수정 성공!");
-				} else if(result == "fail") {
-					alert("그룹 수정 실패..");
-				}
-			},
-			error : function() {
-				alert("전송 실패..");
-			}
-		});
+		if(grName != "") {
+			$("#groupModifyForm").submit();
+		} else {
+			alert("프로젝트명을 입력해주세요!");
+			$("#re-group-name").addClass("is-invalid");
+		}
 	});
-	
-	// 숨김 또는 삭제
 	
 	////////////////////////////////////////////////////////////////
 	
@@ -162,18 +105,81 @@ $(document).ready(function(){
 });
 
 function getAllGroup() {
+	
+	var memberNo = $("#memberNo").val();
+	var leaderNo = $("#leaderNo").val();
+	
+	$box = $("#group-list-box");
+	$box.html("");
+
 	$.ajax ({
 		url : "/study/assignment/groupList",
 		data : { "grStatus" : grStatus },
 		type : "get",
 		dataType : "json",
 		success : function(grList) {
+			var $div;
+			var $dropdown;
+			var $dropBtn;
+			var $dropMenu;
+			var $groupName;
+			var $groupMem;
+			
 			for(var i in grList) {
-							
+				
+				var color = "";
+				switch(grList[i].grColor) {
+				case 1: 
+					color = "rgb(196, 178, 234)";
+					break;
+				case 2: 
+					color = "rgb(165, 228, 216)";
+					break;
+				case 3: 
+					color = "rgb(243, 211, 244)";
+					break;
+				case 4: 
+					color = "rgb(188, 209, 241)";
+					break;
+				}
+			
+				$div = $("<div class='item' style='background-color : " + color + "'>");
+				
+				$dropdown = $("<div class='dropdown'>");
+					$dropBtn = $("<a id='group-delete' class='btn dropdown-toggle' href='javascript:void(0)' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>")
+					.append("<i class='fas fa-times'></i>");
+					$dropMenu = $("<div class='dropdown-menu text-center' aria-labelledby='dropdownMenuLink'>");
+					if(memberNo == leaderNo) {
+						$dropMenu.append("<a class='dropdown-item' onclick='confirm(\"정말 삭제하시겠습니까?\")' href='/study/assignment/deleteGroup?grNo=" + grList[i].grNo + "'>삭제</a>");
+					}
+					$dropdown.append($dropBtn).append($dropMenu);
+				$groupName = $("<div class='item-name' onclick='location.href=\"/study/assignment?grNo=" + grList[i].grNo + "\"'>").append(grList[i].grName);
+				$groupMem = $("<div class='item-mem'>").append("3/5");
+				
+				$div.append($dropdown);
+				$div.append($groupName);
+				$div.append($groupMem);
+				
+				$box.append($div);
 			}
+			
+			// Carousel
+		    $('.owl-carousel').owlCarousel({
+		        items:5,                 // 한번에 보여줄 아이템 수
+		        loop:false,               // 반복여부
+		        margin:30,               // 오른쪽 간격
+		        autoplay:false,           // 자동재생 여부
+		        autoplayHoverPause:true,  // 마우스오버시 멈출지 여부
+				responsive:{
+					0:{items:1},
+					600:{items:3},
+					1000:{items:5}
+				},
+				nav: true
+		    });
 		},
 		error : function() {
-			alert("전송 실패..");////////////////// 데이터 없으면 여기로 이동
+			alert("전송 실패..");
 		}
 	});
 }

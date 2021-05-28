@@ -32,8 +32,8 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	}
 	
 	@Override
-	public ArrayList<AssignmentGroup> selectAllGroup(AssignmentGroup asGroup) {
-		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllGroup", asGroup);
+	public ArrayList<AssignmentGroup> selectAllGroup(int stNo) {
+		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllGroup", stNo);
 	}
 	
 	@Override
@@ -71,8 +71,8 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	}
 
 	@Override
-	public int deleteGroup(AssignmentGroup asGroup) {
-		return sqlSession.insert("assignmentMapper.deleteGroup", asGroup);
+	public int deleteGroup(int grNo) {
+		return sqlSession.insert("assignmentMapper.deleteGroup", grNo);
 	}
 	
 

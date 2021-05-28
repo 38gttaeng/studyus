@@ -29,8 +29,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 	}
 	
 	@Override
-	public ArrayList<AssignmentGroup> printAllGroup(AssignmentGroup asGroup) {
-		return asStore.selectAllGroup(asGroup);
+	public ArrayList<AssignmentGroup> printAllGroup(int stNo) {
+		return asStore.selectAllGroup(stNo);
 	}
 	
 	@Override
@@ -66,8 +66,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 	}
 
 	@Override
-	public int removeGroup(AssignmentGroup asGroup) {
-		return asStore.deleteGroup(asGroup);
+	public int removeGroup(int grNo) {
+		return asStore.deleteGroup(grNo);
 	}
 
 	@Override

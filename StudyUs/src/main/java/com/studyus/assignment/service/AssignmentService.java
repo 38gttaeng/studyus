@@ -27,10 +27,10 @@ public interface AssignmentService {
 	
 	/**
 	 * 과제 그룹정보 모두 보기
-	 * @param asGroup(stNo, grStatus)
+	 * @param stNo
 	 * @return
 	 */
-	public ArrayList<AssignmentGroup> printAllGroup(AssignmentGroup asGroup);
+	public ArrayList<AssignmentGroup> printAllGroup(int stNo);
 	
 	/**
 	 * 과제 그룹정보 하나 보기
@@ -63,7 +63,7 @@ public interface AssignmentService {
 	// 과제 그룹 추가, 수정, 삭제
 	public int registerGroup(AssignmentGroup asGroup);
 	public int modifyGroup(AssignmentGroup asGroup);
-	public int removeGroup(AssignmentGroup asGroup);
+	public int removeGroup(int grNo);
 	
 	// 과제와 댓글 추가, 수정, 삭제
 	

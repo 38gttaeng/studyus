@@ -41,13 +41,10 @@
 		ORDER BY AS_NO DESC
 	</select>
 	
-	<select id="selectAllGroup" parameterType="AssignmentGroup" resultMap="asGroupResultMap">
+	<select id="selectAllGroup" parameterType="_int" resultMap="asGroupResultMap">
 		SELECT * FROM ASSIGNMENT_GROUP
 		WHERE ST_NO = #{stNo}
 		AND GR_STATUS = 1
-			<if test="grStatus == 2">
-			AND GR_STATUS = 2
-			</if>
 		ORDER BY GR_NO DESC
 	</select>
 	
@@ -88,16 +85,10 @@
 	<!-- 과제 그룹 삭제 -->
 	<update id="deleteGroup" parameterType="AssignmentGroup">
 		UPDATE ASSIGNMENT_GROUP SET
-		<if test="grStatus == 0">
 		GR_STATUS = 0
-		</if>
-		<if test="grStatus == 2">
-		GR_STATUS = 2
-		</if>
 		WHERE GR_NO = #{grNo}
 		AND GR_STATUS = 1
 	</update>
-	
 	
 	<!-- 과제 등록 -->
 	<insert id="insertAssignment" parameterType="Assignment">

@@ -28,10 +28,10 @@ public interface AssignmentStore {
 	
 	/**
 	 * 과제 그룹정보 모두 보기
-	 * @param asGroup(stNo, grStatus)
+	 * @param stNo
 	 * @return
 	 */
-	public ArrayList<AssignmentGroup> selectAllGroup(AssignmentGroup asGroup);
+	public ArrayList<AssignmentGroup> selectAllGroup(int stNo);
 	
 	/**
 	 * 과제 그룹정보 하나 보기
@@ -64,7 +64,7 @@ public interface AssignmentStore {
 	// 과제 그룹 추가, 수정, 삭제
 	public int insertGroup(AssignmentGroup asGroup);
 	public int updateGroup(AssignmentGroup asGroup);
-	public int deleteGroup(AssignmentGroup asGroup);
+	public int deleteGroup(int grNo);
 	
 	// 과제와 댓글 추가, 수정, 삭제
 	
