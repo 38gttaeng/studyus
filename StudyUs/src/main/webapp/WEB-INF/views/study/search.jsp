@@ -33,6 +33,15 @@
 	#meetingDayDisplay.btn:hover {
 		cursor: normal;
 	}
+	
+	.card:hover {
+		cursor: pointer;
+	}
+	
+	#study-modal {
+		min-height: 400px;
+	}
+	
 </style>
 <body>
 	
@@ -51,7 +60,7 @@
     </div>
 
 	<div class="container">
-		<form class="py-5 pt-5 mx-auto" id="searchForm" style="max-width: 600px; min-height: 400px;">
+		<form class="py-4 pt-5 mx-auto" id="searchForm" style="max-width: 600px; min-height: 240px;">
 			<div class="form-row p-4">
 				<div class="form-group col-9">
 					<!-- <label for="inputHashtag">해시태그</label>  -->
@@ -66,8 +75,41 @@
 				<span>현재 태그: &nbsp;</span>
 				<!-- <span class="btn btn-primary btn-sm mr-2" style="margin: 4px;" onclick="removeHashtag(this);">수채화&nbsp;<i class="fas fa-times"></i></span> -->
 			</div>
-			<input type="hidden" name="page" value="1">
 		</form>
+		
+		<div id="search-result-grid" class="row">
+		
+		</div>
+		
+		<!-- 검색 끝 안내 -->		
+		<div id="searchGuide" align="center"></div>
+		
+		<div id="additionalLoadProperties">
+			<input type="hidden" id="currentPage" value="0"/>
+		</div>
+		
+		<div class="py-4"></div>
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div id="study-modal" class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        ...
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

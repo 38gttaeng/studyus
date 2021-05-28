@@ -118,16 +118,13 @@ public class StudyController {
 	
 	// 스터디 검색 비동기 추가로딩
 	@ResponseBody
-	@RequestMapping(value="/study/search/additional", method=RequestMethod.GET)
+	@RequestMapping(value="/study/search/additional", method=RequestMethod.GET, produces="application/text; charset=UTF-8")
 	public String searchAdditionally(@RequestParam(required=false) String keyword,
 							@RequestParam(required=false) String[] hashtags,
 							@RequestParam(required=false) int page) throws Exception {
 		
 		StudySearchCriteria sc = StudySearchCriteria.searchReady(page + 1, hashtags, keyword);
 		ArrayList<StudySearchResult> searchResult = sService.printSearchResult(sc);
-		
-//		HashMap<String, Object> hm = new HashMap<String, Object>();
-//		hm.put("searchResult", searchResult);
 		
 		return new Gson().toJson(searchResult);
 	}
