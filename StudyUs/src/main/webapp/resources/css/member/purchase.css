@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #ffffff !important;
+}
+
+.grey-zone {
+	width: 100%;
+	height: 100px;
+	background-color: #eeeeee;
+	margin-top: 100px;
+}
+
+.info-zone {
+	width: 800px;
+	height: 130px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -80px;
+}
+
+.mem-info {
+	width: 200px;
+	display: inline-block;
+	margin-top: 45px;
+}
+
+.main-zone {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 100px;
+}
+
+.btn-zone {
+	width: 800px;
+	height: 40px;
+	text-align: right;
+	margin-top: -20px;
+}
+
+.back-btn {
+	width: 90px;
+	height: 40px;
+	background-color: #9C71FF;
+	border: 0;
+	border-radius: 5px;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.title-zone {
+	width: 800px;
+	height: 30px;;
+	text-align: center;
+}
+
+.title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #000000;
+}
+
+.line {
+	width: 800px;
+	margin-bottom: 30px;
+}
+
+.purchase-list {
+	width: 810px;
+	margin-left: auto;
+	margin-right: auto
+}
+
+.purchase {
+	width: 800px;
+	height: 165px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+}

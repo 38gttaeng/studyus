@@ -22,6 +22,10 @@
 		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{mbId}, #{mbPassword}, #{mbName}, #{mbEmail}, #{mbNickname}, #{mbPhone}, 0, DEFAULT, DEFAULT)
 	</insert> 
 	
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER SET MB_PASSWORD = #{mbPassword}, MB_NAME = #{mbName}, MB_EMAIL = #{mbEmail}, MB_NICKNAME = #{mbNickname}, MB_PHONE = #{mbPhone}, MB_PHOTO = #{mbPhoto} WHERE MB_ID = #{mbId}
+	</update>
+	
 	<select id="findMemId" parameterType="Member" resultMap="memberResultMap">
 		SELECT * FROM MEMBER WHERE MB_EMAIL = #{mbEmail} AND MB_NAME = #{mbName}
 	</select>

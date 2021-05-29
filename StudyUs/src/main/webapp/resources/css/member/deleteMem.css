@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #6927FF;
+	height: 1000px;
+}
+
+.main-box {
+	width: 600px;
+	height: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+	background-color: #ffffff;
+	padding: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	border-radius: 5px;
+}
+
+.link-zone {
+	width: 600px;
+	height: 30px;
+	text-align: right;
+	margin-top: 30px;
+}
+
+.home-link {
+	font-weight: bold;
+	font-size: 20px;
+	color: #000000;
+	text-decoration: none;
+	margin-right: 30px;
+}
+
+.notice-zone {
+	width: 600px;
+	height: 52px;
+	text-align: center;
+	padding: 1px;
+	margin-top: 10px;
+}
+
+.notice {
+	font-weight: bold;
+	font-size: 18px;
+	color: #6927FF;
+}
+
+.line {
+	width: 420px;
+	margin-top: 15px;
+	margin-bottom: 30px;
+}
+
+.delete-box {
+	width: 420px;
+	height: 620px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.check {
+	font-size: 15px;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+.study-box {
+	width: 395px;
+	height: 195px;
+	border: 1px solid #bbbbbb;
+	border-radius: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 15px;;
+	padding: 5px;
+}
+
+.reason-box {
+	width: 385px;
+	height: 135px;
+	border: 1px solid #bbbbbb;
+	border-radius: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	padding: 10px;
+	font-size: 14px;
+}
+
+.check-radio {
+	width: 350px;
+	height: 60px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.check-radio1 {
+	margin-top: 20px;
+}
+
+.check-radio3 {
+	width: 150px;
+	height: 20px;
+	float: left;
+	margin: 0;
+}
+
+.check-radio4 {
+	width: 150px;
+	height: 20px;
+	float: right;
+	margin: 0;
+}
+
+.caution {
+	font-size: 13px;
+}
+
+ul {
+	float: left;
+	margin-top: 5px;
+}
+
+.check-zone {
+	width: 420px;
+	height: 20px;
+	text-align: center;
+	font-size: 14px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.btn-zone {
+	width: 360px;
+	height: 40px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.cancel-btn {
+	width: 160px;
+	height: 40px;
+	color: #ffffff;
+	background-color: #6927FF;;
+	border: 0;
+	border-radius: 5px;
+	font-weight: bold;
+	float: left;
+}
+
+.delete-btn {
+	width: 160px;
+	height: 40px;
+	border: 0;
+	border-radius: 5px;
+	font-weight: bold;
+	float: right;
+}
+
+.

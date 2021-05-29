@@ -169,15 +169,21 @@ public class MemberController {
 	public String modifyMember(@ModelAttribute Member member,
 								Model model,
 								HttpServletRequest request) {
-		
-		return null;
+		int result = service.modifyMember(member);
+		if(result > 0) {
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", member);
+			return "redirect:/member/myInfo";
+		}else {
+			model.addAttribute("msg", "정보 수정에 실패했습니다.");
+			return "common/errorPage";
+		}
 	}
 	
 	// 회원탈퇴 뷰
 	@RequestMapping(value = "/member/deleteView", method = RequestMethod.GET)
 	public String deleteMemView() {
-		
-		return null;
+		return "member/memberDelete";
 	}
 	
 	// 회원탈퇴
@@ -187,6 +193,13 @@ public class MemberController {
 		
 		return null;
 	}
+	
+	// 결제관리 뷰
+	@RequestMapping(value = "/member/purchaseView", method = RequestMethod.GET)
+	public String memPurchaseView() {
+		return "member/memberPurchase";
+	}
+	
 	
 	// 후기모음
 	@RequestMapping(value = "/member/myReview", method = RequestMethod.GET)

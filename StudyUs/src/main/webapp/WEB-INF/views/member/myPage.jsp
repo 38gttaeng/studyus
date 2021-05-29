@@ -12,22 +12,18 @@
 <body>
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-	
+	<div class="grey-zone"></div>
 	<div class="myPage-box">
 		<div class="info-zone">
 			<img src="/resources/images/${loginUser.mbPhoto}.png" class="rounded-circle" width="100" style="margin-top: -35px; margin-left: 15px;">
 			<div class="mem-info">
 				<a style="font-weight: bold; font-size: 20px;">${loginUser.mbNickname}</a>님<br>
-				스터디 포인트 0
+				스터디 포인트 ${loginUser.mbReputation}
 			</div>
 			<div class="btn-zone">
-				<div class="myPage-btn">
-					<a href="/member/myInfo" style="color: #ffffff;">내 정보 수정</a>
-				</div>
+				<input type="button" value="내 정보 수정" class="myPage-btn" onclick="location.href='/member/myInfo'">
 				&nbsp;&nbsp;
-				<div class="myPage-btn">
-					<a href="#" style="color: #ffffff;">결제 관리</a>
-				</div>
+				<input type="button" value="결제 관리" class="myPage-btn" onclick="location.href='/member/purchaseView'">
 			</div>
 		</div>
 		<div class="box-zone">
