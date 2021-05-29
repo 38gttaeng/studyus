@@ -28,10 +28,10 @@ public class ReviewController {
 	private ReviewService rService;
 
 	// 리뷰리스트
-	@RequestMapping(value = "review/list", method = RequestMethod.GET)
-	public void getReviewList(HttpServletResponse response, @RequestParam("rvNo") int rvNo)
+	@RequestMapping(value = "/review/list", method = RequestMethod.GET)
+	public void getReviewList(HttpServletResponse response, @RequestParam("caNo") int caNo)
 			throws JsonIOException, IOException {
-		ArrayList<Review> rList = rService.printAll();
+		ArrayList<Review> rList = rService.printAllReview(caNo);
 		if (!rList.isEmpty()) {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson(rList, response.getWriter());
@@ -42,17 +42,16 @@ public class ReviewController {
 
 	// 리뷰 등록
 	@ResponseBody
-	@RequestMapping(value = "review/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/review/register", method = RequestMethod.POST)
 	public String registerReview(@ModelAttribute Review review, HttpSession session) {
-//		Member loginMember = (Member) session.getAttribute("loginMember");
-//		review.setmbId(loginMember.getMbId());
-//		int result = rService.registerReview(review);
-//		if (result > 0) {
-//			return "success"; 
-//		} else {
-//			return "fail";
-//		}
-		return null;
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		review.setMbId(loginMember.getMbId());
+		int result = rService.registerReview(review);
+		if (result > 0) {
+			return "success"; 
+		} else {
+			return "fail";
+		}
 	}
 
 	// 리뷰 수정
@@ -70,8 +69,7 @@ public class ReviewController {
 	// 리뷰 삭제
 	@ResponseBody
 	@RequestMapping(value = "review/delete", method = RequestMethod.GET)
-	public String reviewDelete(@ModelAttribute int review) {
-		//int확인 필요
+	public String reviewDelete(@ModelAttribute Review review) {
 		int result = rService.removeReview(review);
 		if (result > 0) {
 			return "success";

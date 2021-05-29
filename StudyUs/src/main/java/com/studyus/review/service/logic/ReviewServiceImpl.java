@@ -16,8 +16,8 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewStore rStore;
 
 	@Override
-	public ArrayList<Review> printAll() {
-		return rStore.selectList();
+	public ArrayList<Review> printAllReview(int caNo) {
+		return rStore.selectAllReview(caNo);
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int removeReview(int rvNo) {
-		return rStore.deleteRevice(rvNo);
+	public int removeReview(Review review) {
+		return rStore.deleteReview(review);
 	}
 
 	@Override

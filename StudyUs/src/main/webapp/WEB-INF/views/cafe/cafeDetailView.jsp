@@ -6,6 +6,14 @@
 <meta charset="UTF-8">
 <title>스터디카페 상세</title>
 </head>
+<style>
+.reviewbtn{
+	font-size: 15px; 
+	color: #999; 
+	line-height: 50%; 
+	border: none;
+}
+</style>
 <body>
 	<jsp:include page="../common/menubar.jsp"></jsp:include>
 	<script> 
@@ -96,26 +104,120 @@
 									</div>
 								</form>
 							</div>
-
+							<!-- 댓글 목록 -->
 							<section class="ftco-section" id="rtb">
 								<div class="col-md-12 mb-4">
 									<h2 class="h4 ml-3 mt-5">리뷰</h2>
 								</div>
-
-								<table class="table">
-									<!-- 	<tr>
+								<table class="table-striped col-md-12 mb-4" height="100px">
+									<thead></thead>
+									<tbody>
+										<tr>
+											<td class="pl-3" width="100"><img alt="프로필" src=""></td>
+											<td width="100">아이디</td>
+											<td width="750"></td>
+											<td>2021.05.28</td>
+										</tr>
+										<tr>
+										<td class="pl-3" colspan="3" align="left">종로점 최고라는 내용</td>
+										<td>
+											<c:url var="rvModify" value="rvModifyView">
+												<c:param name="rvNo" value="${review.rvNo }"></c:param>
+											</c:url>
+											<c:url var="rvDelete" value="rvDelete">
+												<c:param name="rvNo" value="${review.rvNo }"></c:param>
+											</c:url>
+											<c:if test="${loginUser.mbNo != 1}">
+												<a href="${rvModify }" type="button" class="reviewbtn">수정</a>
+											</c:if>
+												<a href="${rvDelete }" type="button" class="reviewbtn">삭제</a>
+										</td> 
+											</tr>
+									</tbody>
+								</table>
+								
+								
+<%-- 								<div class="table-striped col-md-12 mb-4">
+									<div>
+										<div><img alt="프로필" src=""></div>
+										<div>아이디</div>
+									</div>
+									<div>종로점 최고라는 내용</div>
+									<div>2021.05.28</div>
+									<p>
+										<c:url var="rvModify" value="rvModifyView">
+											<c:param name="rvNo" value="${review.rvNo }"></c:param>
+										</c:url>
+										<c:url var="rvDelete" value="rvDelete">
+											<c:param name="rvNo" value="${review.rvNo }"></c:param>
+										</c:url>
+										<c:if test="${loginUser.mbNo != 1}">
+											<a href="${rvModify }" type="button" class="reviewbtn">수정</a>
+										</c:if>
+											<a href="${rvDelete }" type="button" class="reviewbtn">삭제</a>
+									</p> 
+								</div> --%>
+								
+								
+								<%-- <table class="table-striped col-md-12 mb-4" style="height:500px">
+								 <input id="rvCaNo" type="hidden" value="${ cafe.caNo }">
+				                 <input id="rvMbNo" type="hidden" value="${ member.mbNo }">
+						
+										<tr>
 											<td>프로필</td>
 											<td>아이디</td>
+											<td></td>
+											<td></td>
+											<td></td>
 											<td>날짜</td>
 										</tr>
 										<tr>
-											<td colspan="3">내용</td>
-											<td>수정/삭제</td>
-										</tr> -->
-									<tbody>
-									</tbody>
-								</table>
-
+											<td colspan="4">분위기가 너무 좋았어용</td>
+											<td></td>
+											<td>
+												<p>
+													<c:url var="rvModify" value="rvModifyView">
+														<c:param name="rvNo" value="${review.rvNo }"></c:param>
+													</c:url>
+													<c:url var="rvDelete" value="rvDelete">
+														<c:param name="rvNo" value="${review.rvNo }"></c:param>
+													</c:url>
+														<c:if test="${loginUser.mbNo != 1}">
+															<a href="${rvModify }" type="button" class="reviewbtn">수정</a>
+														</c:if>
+															<a href="${rvDelete }" type="button" class="reviewbtn">삭제</a>
+												</p> 
+											</td>
+										</tr>
+										<tr>
+											<td>이미지</td>
+											<td>아이디</td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td>날짜</td>
+										</tr>
+										<tr>
+											<td colspan="4">분위기가 너무 좋았어용</td>
+											<td></td>
+											<td>
+												<p>
+													<c:url var="rvModify" value="rvModifyView">
+														<c:param name="rvNo" value="${review.rvNo }"></c:param>
+													</c:url>
+													<c:url var="rvDelete" value="rvDelete">
+														<c:param name="rvNo" value="${review.rvNo }"></c:param>
+													</c:url>
+														<c:if test="${loginUser.mbNo != 1}">
+															<a href="${rvModify }" type="button" class="reviewbtn">수정</a>
+														</c:if>
+															<a href="${rvDelete }" type="button" class="reviewbtn">삭제</a>
+												</p> 
+											</td>
+										</tr>
+								</table> --%>
+								
+								<!-- 댓글 등록 -->
 								<div class="row block-9">
 									<div class="col-md-10 pr-md-2">
 										<form action="#">
@@ -127,23 +229,26 @@
 									</div>
 									<div class="col-md-2 pr-2 pt-5">
 										<div class="form-group">
-											<input type="submit" value="등록"
+											<input type="submit" id="rvSubmit" value="등록"
 												class="btn btn-primary py-3 px-5">
 										</div>
 									</div>
 								</div>
-	<!-- 								<script>
-		// 댓글 목록
+	<script>
+		// 댓글 등록
 		$(function() {
 			getReviewList(); 
-			$("#rSubmit").on("click", function() {
+			$("#rvSubmit").on("click", function() {
+// 				alert("test");
 				var caNo = '${cafe.caNo}';
 				var rvContents = $("#rvContents").val();
+				// 				console.log(boardNo);
+				// 				console.log(rContent);
 				$.ajax({
-					url : "reviewRegister",
+					url : "/review/register",
 					type : "post",
 					data : {
-						"rvNo" : rvNo,
+						"caNo" : caNo,
 						"rvContents" : rvContents
 					},
 					success : function(data) {
@@ -160,11 +265,12 @@
 				});
 			});
 		});
-
+		
+		// 댓글 리스트
 		function getReviewList() {
 			var caNo = '${cafe.caNo}';
 			$.ajax({
-				url : "reviewList",
+				url : "/review/list",
 				type : "get",
 				data : {
 					"caNo" : caNo
@@ -210,7 +316,7 @@
 		}
 
 		// 댓글 수정 폼(수정버튼 눌렀을 때 폼 생기게 하는 함수)
-		function modifyReview(obj, cafeNo, reviewNo, reviewContents) {
+ 		function modifyReview(obj, cafeNo, reviewNo, reviewContents) {
 			$trModify = $("<tr>");
 			$trModify
 					.append("<td colspan='3'><input type='text' id='modifyReview' size='50' value='"+reviewContents+"'></td>");
@@ -264,8 +370,8 @@
 
 				}
 			});
-		}
-	</script> -->
+		} 
+	</script>
 
  
 							</section>

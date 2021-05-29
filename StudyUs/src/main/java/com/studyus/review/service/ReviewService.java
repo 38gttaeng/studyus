@@ -6,10 +6,10 @@ import com.studyus.review.domain.Review;
 
 public interface ReviewService {
 
-	public ArrayList<Review> printAll();
+	public ArrayList<Review> printAllReview(int caNo);
 	public int registerReview(Review review);
 	public int modifyReview(Review review);
-	public int removeReview(int rvNo);
+	public int removeReview(Review review);
 	public ArrayList<Review> printAllByMemberNo(int mbNo);
 	
 }

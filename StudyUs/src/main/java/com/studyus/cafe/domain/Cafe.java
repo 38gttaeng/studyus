@@ -18,6 +18,8 @@ public class Cafe {
 	private String caRoute;
 	private String caFiName;
 	private String caStatus; 
+	private String caLat;
+	private String caLng;
 	
 	public Cafe() {}
 
