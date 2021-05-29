@@ -35,6 +35,5 @@
 	<update id="deleteCafe" parameterType="_int">
 		UPDATE CAFE SET CA_STATUS = 0 WHERE CA_NO = #{caNo}
 	</update>
- 
 </mapper> 
  
