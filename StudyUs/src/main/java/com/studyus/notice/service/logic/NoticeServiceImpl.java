@@ -16,16 +16,26 @@ public class NoticeServiceImpl implements NoticeService{
 	
 	@Autowired
 	public NoticeStore nStore;
-	
-	@Override
-	public int getListCount() {
-		return nStore.selectListCount();
-	}
 
 	@Override
 	public int getListCount(Notice notice) {
 		return nStore.selectListCount(notice);
 	}
+
+	@Override
+	public int getPageCount(Search search) {
+		return nStore.selectPageCount(search);
+	}
+	
+//	@Override
+//	public int getNListCount(Notice notice) {
+//		return nStore.selectNListCount(notice);
+//	}
+//
+//	@Override
+//	public int getRListCount(Notice notice) {
+//		return nStore.selectRListCount(notice);
+//	}
   
 	@Override
 	public ArrayList<Notice> printAll(PageInfo pi, Notice notice) {
@@ -33,13 +43,18 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
+	public int updateReplyCount(int noMotherNo) {
+		return nStore.updateReplyCount(noMotherNo);
+	}
+	
+	@Override
 	public int addReadCount(int noticeNo) {
 		return nStore.addReadCount(noticeNo);
 	}
 
 	@Override
-	public ArrayList<Notice> printSearchAll(Search search) {
-		return nStore.selectSearchList(search);
+	public ArrayList<Notice> printSearchAll(PageInfo pi, Search search) {
+		return nStore.selectSearchList(pi, search);
 	}
 
 	@Override
@@ -63,31 +78,29 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public ArrayList<Notice> printAllComment(PageInfo pi, int nMotherNo) {
-		return nStore.printAllComment(pi, nMotherNo);
+	public ArrayList<Notice> printAllReply(PageInfo pi, int noMotherNo) {
+		return nStore.printAllReply(pi, noMotherNo);
 	}
 	
 	@Override
-	public Notice printOneComment(int nMotherNo) {
-		return nStore.selectOneComment(nMotherNo);
+	public Notice printOneReply(int noMotherNo) {
+		return nStore.selectOneReply(noMotherNo);
 	}
 	
 	@Override
-	public int registerComment(Notice notice) {
-		return nStore.insertComment(notice);
+	public int registerReply(Notice notice) {
+		return nStore.insertReply(notice);
 	}
 
 	@Override
-	public int modifyComment(Notice notice) {
-		return nStore.updateComment(notice);
+	public int modifyReply(Notice notice) {
+		return nStore.updateReply(notice);
 	}
 
 	@Override
-	public int removeComment(Notice notice) {
-		return nStore.deleteComment(notice);
+	public int removeReply(Notice notice) {
+		return nStore.deleteReply(notice);
 	}
-
-
 
 
 }

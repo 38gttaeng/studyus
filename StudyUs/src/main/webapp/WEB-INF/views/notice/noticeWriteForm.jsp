@@ -64,19 +64,19 @@
 											<table class="table-responsive col-md-12 ">
 												<tr class="row" >
 													<td class="col-md-2 text-center">제목</td>
-													<td class="col-md-10" ><input type="text" class="form-control" name="noticeTitle"></td>
+													<td class="col-md-10" ><input type="text" class="form-control" name="noTitle"></td>
 												</tr>
-<%-- 	 											<tr class="row">
-													<td class="col-3">작성자</td>
-													<td class="col-9"><input type="text" size="50" class="form-control" name="noticeWriter"
-														value="${loginUser.userId }" readonly></td>
-												</tr> --%>
+ 	 											<tr class="row">
+													<!-- <td class="col-3">작성자</td> -->
+													<td class="col-9"><input type="hidden" size="50" class="form-control" name="mbNo"
+														value="${loginUser.mbNo }" ></td>
+												</tr> 
 												<tr><td>&nbsp;</td></tr>
 												<tr class="row">
 													<td class="col-md-2 text-center">내용</td>
 													<td class="col-md-10">
 													<!-- <textarea class="form-control" id="summernote" name="noticeContents"></textarea> -->
-													<textarea class="" id="summernote" name="noticeContents"></textarea>
+													<textarea class="" id="summernote" name="noContents"></textarea>
 													</td>
 												</tr>
 												<tr><td>&nbsp;</td></tr>
@@ -92,9 +92,9 @@
 												<tr><td>&nbsp;</td></tr>
 												<tr class="row">
 													<td class="col-md-10"></td>
-													<td align="center"><input type="reset" class="btn waves-effect waves-light btn-light"
-														value="취소">&nbsp;&nbsp; <input type="submit" class="btn waves-effect waves-light btn-primary"
-														value="등록"></td>
+													<td align="center">
+													<input type="reset" class="btn waves-effect waves-light btn-light" value="취소"  onclick="history.back()">&nbsp;&nbsp; 
+													<input type="submit" class="btn waves-effect waves-light btn-primary" value="등록"></td>
 												</tr>
 											</table>
 										</form>
