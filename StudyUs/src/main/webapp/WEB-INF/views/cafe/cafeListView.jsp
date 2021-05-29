@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -66,7 +67,7 @@
 	<br>
 	<br>
 	<br>
-	<!-- 지도를 표시할 div 입니다 --> 
+	<!-- 지도를 표시할 div 입니다 -->
 	<div id="map" style="width: 100%; height: 630px;"></div>
 	<div align = "center">
 		<c:url var="cRegister" value="registerForm">
@@ -80,76 +81,183 @@
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=063f4122c75f35436f584eefe1993776"></script>
 	<script>
-		var mapContainer = document.getElementById('map'), 
+//////////////////////////////////////////////////////
+// 	var bodyParser = require('body-parser');
+// 	var jsonParser = bodyParser.json();
+// 	app.use(bodyParser.json());
+// 	/////////////////////////////////////////////////
+// 	app.post('/convertGsrToUtmK', function (req, res) {
+//     console.log('\n/convertGsrToUtmK');
+//     //console.log('body: ' + req.body);
+   
+//     var coordinates = req.body; // 받아온 XY좌표
+//     // point array 1
+//     var point1 = [coordinates.x1, coordinates.y1]
+   
+//     // point array 2
+//     var point2 = [coordinates.x2, coordinates.y2]
+   
+//     var firstProjection = "+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +units=m +no_defs"; // from
+//     var secondProjection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"; // to
+   
+//     // #1. 변환한 위도 경도 값 저장
+//     var lonAndLat1 = proj4(firstProjection, secondProjection, point1);// from 경위도
+//     var lonAndLat2 = proj4(firstProjection, secondProjection, point2); // to 경위도
+   
+//     // #2. 하나의 JSON ARRAY로 데이터 저장 
+//     var retPoints ={
+//         X1: lonAndLat1[0],
+//         Y1: lonAndLat1[1],
+//         X2: lonAndLat2[0],
+//         Y2: lonAndLat2[1]
+//     };
+//     // #3. json stringify → response send
+//     res.send(JSON.stringify(retPoints));
+// 	});
+	 
+// 	var bodyParser = require('body-parser');
+// 	var jsonParser = bodyParser.json();
+// 	app.use(bodyParser.json());
+
+////////////////////////////////////////////////////
+
+
+
+	var mapContainer = document.getElementById('map'),  // 지도를 표시할 div
 		mapOption = {
-			center : new kakao.maps.LatLng(37.5507874785596, 126.98537891244527), 
+			center : new kakao.maps.LatLng(37.5507874785596, 126.98537891244527), // 지도의 중심좌표
 			level : 7
 		};
-
+		 // 지도 생성
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		var positions = [];
+		<c:forEach items='${caList}' var='cafe'>
+			var cafe = new Object();
+			cafe.caName = "${cafe.caName }";
+			cafe.lat = "${cafe.caLat }";
+			cafe.lng = "${cafe.caLng }";
+			positions.push(cafe);
+		</c:forEach>
+		
+		/////////
+ 	/* 	proj4.defs('EPSG:5181', '+proj=longlat +datum=WGS84 +no_defs');
+		
+		var EPSG5179 = new OpenLayers.Projection('EPSG:5179');
+		var EPSG5181 = new OpenLayers.Projection('EPSG:5181');
+		
+		var x = "${cafe.caLat }";;
+		var y = "${cafe.caLng }";;
+		
+		// EPSG:5179 좌표를 EPSG:4326으로 변환
+		var wgs84 = proj4('EPSG:5179', 'EPSG:5181', [x,y]);
+		console.log(wgs84);
+ */ 
+		 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+			
+			for (var i = 0; i < positions.length; i++) {
 
-		var positions = [
+				var imageSize = new kakao.maps.Size(30, 41);
+				// 마커 이미지를 생성
+				var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+				
+	 			var latlng = new kakao.maps.LatLng(positions[i].lat, positions[i].lng);
+	 			
+				// 마커를 생성
+				var marker = new kakao.maps.Marker({
+					map : map, 
+					position : latlng,
+					image : markerImage
+				});
+				// 오버레이 생성
+				var overlay = new kakao.maps.CustomOverlay({
+					content : positions[i].content, 
+					map : map,
+					position : marker.getPosition()
+				});
+			}
+		// 마커를 표시할 위치와 title 객체 배열
+		/* var positions = [
 				{
 					content : '<div class="customoverlay">' + '  <a href="#">'
 							+ '    <span class="title">종로점</span>' + '  </a>'
 							+ '</div>',
-					latlng : new kakao.maps.LatLng(37.56794439504571,
-							126.98299286239576)
-				},
-				{
-					content : '<div class="customoverlay">'
-							+ '  <a href="#" target="_blank">'
-							+ '    <span class="title">강남점</span>' + '  </a>'
-							+ '</div>',
-					latlng : new kakao.maps.LatLng(37.499012225823975,
-							127.03284079298378)
-				},
-				{
-					content : '<div class="customoverlay">'
-							+ '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">'
-							+ '    <span class="title">성수점</span>' + '  </a>'
-							+ '</div>',
-					latlng : new kakao.maps.LatLng(37.544338431198774,
-							127.06302820262869)
-				},
-				{
-					content : '<div class="customoverlay">'
-							+ '  <a href="#" target="_blank">'
-							+ '    <span class="title">당산점</span>' + '  </a>'
-							+ '</div>',
-					latlng : new kakao.maps.LatLng(37.53386983751356,
-							126.89681848374141)
-				},
-				{
-					content : '<div class="customoverlay">'
-							+ '  <a href="#" target="_blank">'
-							+ '    <span class="title">신촌점</span>' + '  </a>'
-							+ '</div>',
-					latlng : new kakao.maps.LatLng(37.555031574626256,
-							126.93385054302597)
-				} ];
+					latlng : new kakao.maps.LatLng(positions[i].lat, positions[i].lng)
 
- 		var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+				} ]; */
+
+ 		
 		
-		for (var i = 0; i < positions.length; i++) {
+		
+// 		var positions = [
+// 				{
+// 					content : '<div class="customoverlay">' + '  <a href="#">'
+// 							+ '    <span class="title">종로점</span>' + '  </a>'
+// 							+ '</div>',
+// 					latlng : new kakao.maps.LatLng(positions[i].lat, positions[i].lng)
+// 				{
+// 					content : '<div class="customoverlay">' + '  <a href="#">'
+// 							+ '    <span class="title">종로점</span>' + '  </a>'
+// 							+ '</div>',
+// 					latlng : new kakao.maps.LatLng(37.56794439504571,
+// 							126.98299286239576)
+// 				},
+// 				{
+// 					content : '<div class="customoverlay">'
+// 							+ '  <a href="#" target="_blank">'
+// 							+ '    <span class="title">강남점</span>' + '  </a>'
+// 							+ '</div>',
+// 					latlng : new kakao.maps.LatLng(37.499012225823975,
+// 							127.03284079298378)
+// 				},
+// 				{
+// 					content : '<div class="customoverlay">'
+// 							+ '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">'
+// 							+ '    <span class="title">성수점</span>' + '  </a>'
+// 							+ '</div>',
+// 					latlng : new kakao.maps.LatLng(37.544338431198774,
+// 							127.06302820262869)
+// 				},
+// 				{
+// 					content : '<div class="customoverlay">'
+// 							+ '  <a href="#" target="_blank">'
+// 							+ '    <span class="title">당산점</span>' + '  </a>'
+// 							+ '</div>',
+// 					latlng : new kakao.maps.LatLng(37.53386983751356,
+// 							126.89681848374141)
+// 				},
+// 				{
+// 					content : '<div class="customoverlay">'
+// 							+ '  <a href="#" target="_blank">'
+// 							+ '    <span class="title">신촌점</span>' + '  </a>'
+// 							+ '</div>',
+// 					latlng : new kakao.maps.LatLng(37.555031574626256,
+// 							126.93385054302597)
+// 				} ];
 
-			var imageSize = new kakao.maps.Size(30, 41);
+//  		var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+		
+// 		for (var i = 0; i < positions.length; i++) {
 
-			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+// 			var imageSize = new kakao.maps.Size(30, 41);
+// 			// 마커 이미지를 생성
+// 			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+			
+// // 			var latlng = new kakao.maps.LatLng(positions[i].lat, positions[i].lng);
+// 			// 마커를 생성
+// 			var marker = new kakao.maps.Marker({
+// 				map : map, 
+// 				position : latlng,
+// 				image : markerImage
+// 			});
+// 			// 오버레이 생성
+// 			var overlay = new kakao.maps.CustomOverlay({
+// 				content : positions[i].content, 
+// 				map : map,
+// 				position : marker.getPosition()
+// 			});
 
-			var marker = new kakao.maps.Marker({
-				map : map,
-				position : positions[i].latlng,
-				image : markerImage
-			});
-
-			var overlay = new kakao.maps.CustomOverlay({
-				content : positions[i].content, 
-				map : map,
-				position : marker.getPosition()
-			});
-
-		}
+		//}
 	</script>
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>

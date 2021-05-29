@@ -16,23 +16,23 @@ public class ReviewStoreLogic implements ReviewStore{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<Review> selectList() {
-		return (ArrayList)sqlSession.selectList("cafeMapper.selectList", null);
+	public ArrayList<Review> selectAllReview(int caNo) {
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList", null);
 	}
 
 	@Override
 	public int insertReview(Review review) {
-		return sqlSession.insert("cafeMapper.insertReview", review);
+		return sqlSession.insert("reviewMapper.insertReview", review);
 	}
 
 	@Override
 	public int updateReview(Review review) {
-		return sqlSession.update("cafeMapper.updateReview", review);
+		return sqlSession.update("reviewMapper.updateReview", review);
 	}
 
 	@Override
-	public int deleteRevice(int rvNo) {
-		return sqlSession.delete("cafeMapper.deleteReview", rvNo);
+	public int deleteReview(Review review) {
+		return sqlSession.delete("reviewMapper.deleteReview", review);
 	}
 
 	@Override

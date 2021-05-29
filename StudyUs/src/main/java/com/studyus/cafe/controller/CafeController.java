@@ -1,18 +1,17 @@
 package com.studyus.cafe.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,8 +36,17 @@ public class CafeController {
 
 	// 스터디카페 목록(지도)
 	@RequestMapping(value = "/cafe/list", method = RequestMethod.GET)
-	public String cafeList() {
-		return "/cafe/cafeListView";
+	public ModelAndView cafeList(ModelAndView mv) {
+		ArrayList<Cafe> caList = cService.printAll();
+		if(!caList.isEmpty()) {
+			// 디비에서 가져온 데이터(카페리스트)를 카페리스트뷰 페이지에다가 전송 
+			mv.addObject("caList", caList);
+			mv.setViewName("cafe/cafeListView"); 
+		} else {
+			mv.addObject("msg", "카페 리스트 조회 실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 
 	// 스터디카페 상세
@@ -64,32 +72,32 @@ public class CafeController {
 	// 스터디카페 등록
 	@RequestMapping(value = "/cafe/register", method = RequestMethod.POST)
 	public ModelAndView cafeRegister(ModelAndView mv, @ModelAttribute Cafe cafe,
-									@RequestParam("admCd") String admCd,
-									@RequestParam("rnMgtSn") String rnMgtSn,
-									@RequestParam("udrtYn") String udrtYn,
-									@RequestParam("buldMnnm") String buldMnnm,
-									@RequestParam("buldSlno") String buldSlno,
-									@RequestParam("confmKey") String confmKey,
+//									@RequestParam("admCd") String admCd,
+//									@RequestParam("rnMgtSn") String rnMgtSn,
+//									@RequestParam("udrtYn") String udrtYn,
+//									@RequestParam("buldMnnm") String buldMnnm,
+//									@RequestParam("buldSlno") String buldSlno,
+//									@RequestParam("confmKey") String confmKey,
 									@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile,
 									HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// 주소 검색
 		// OPEN API 호출 URL 정보 설정
-		String apiUrl = "https://www.juso.go.kr/addrlink/addrCoordApi.do?admCd ="+admCd+"&rnMgtSn="+rnMgtSn+"&udrtYn="+udrtYn+"&buldMnnm="+buldMnnm+"&buldSlno="+buldSlno+"&confmKey="+confmKey;
-		URL url = new URL(apiUrl);
-    	BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
-    	StringBuffer sb = new StringBuffer();
-    	String tempStr = null;
-
-    	while(true){
-    		tempStr = br.readLine();
-    		if(tempStr == null) break;
-    		sb.append(tempStr);		// 응답결과 XML 저장
-    	}
-    	br.close();
-    	response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/xml");
-		response.getWriter().write(sb.toString());
+//		String apiUrl = "https://www.juso.go.kr/addrlink/addrCoordApi.do?admCd ="+admCd+"&rnMgtSn="+rnMgtSn+"&udrtYn="+udrtYn+"&buldMnnm="+buldMnnm+"&buldSlno="+buldSlno+"&confmKey="+confmKey;
+//		URL url = new URL(apiUrl);
+//    	BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
+//    	StringBuffer sb = new StringBuffer();
+//    	String tempStr = null;
+//
+//    	while(true){
+//    		tempStr = br.readLine();
+//    		if(tempStr == null) break;
+//    		sb.append(tempStr);		// 응답결과 XML 저장
+//    	}
+//    	br.close();
+//    	response.setCharacterEncoding("UTF-8");
+//		response.setContentType("text/xml");
+//		response.getWriter().write(sb.toString());
 		
 		// 파일 등록
 		if (!uploadFile.getOriginalFilename().equals("")) {

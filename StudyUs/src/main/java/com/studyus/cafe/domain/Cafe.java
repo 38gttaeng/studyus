@@ -19,7 +19,7 @@ public class Cafe {
 	private String caFiName;
 	private String caStatus; 
 	private String caLat;
-	private String caLong;
+	private String caLng;
 	
 	public Cafe() {}
 	

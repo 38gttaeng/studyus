@@ -13,8 +13,9 @@
 		<typeAlias type="com.studyus.notice.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.studyus.assignment.domain.Assignment" alias="Assignment"/>
 		<typeAlias type="com.studyus.file.domain.FileVO" alias="FileVO"/>
-		<typeAlias type="com.studyus.cafe.domain.Cafe" alias="Cafe" />
 		<typeAlias type="com.studyus.enrollment.domain.Enrollment" alias="Enrollment" />
+		<typeAlias type="com.studyus.cafe.domain.Cafe" alias="Cafe" />
+		<typeAlias type="com.studyus.review.domain.Review" alias="Review" />
 	</typeAliases>
 	
 	<mappers> 
@@ -27,5 +28,6 @@
 		<mapper resource="mappers/file-mapper.xml"/>
 		<mapper resource="mappers/enrollment-mapper.xml"/>
 		<mapper resource="mappers/cafe-mapper.xml"/>
+		<mapper resource="mappers/review-mapper.xml"/>
 	</mappers> 
 </configuration> 

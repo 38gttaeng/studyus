@@ -12,7 +12,7 @@
 		<result property="caFiName" column="CA_FINAME" />
 		<result property="caStatus" column="CA_STATUS" />
 		<result property="caLat" column="CA_LAT" />
-		<result property="caLong" column="CA_LONG" />
+		<result property="caLng" column="CA_LNG" />
 	</resultMap> 
 
 	<select id="selectAllList" resultMap="cafeResultMap">
@@ -26,19 +26,18 @@
 
 	<insert id="insertCafe" useGeneratedKeys="true"  keyProperty="caNo" keyColumn="CA_NO">
 		INSERT INTO CAFE VALUES(SEQ_CAFE.NEXTVAL,#{caName}, #{caAddr}, #{caTel}, #{caTime}, 
-								#{caInfo},#{caRoute}, #{caFiName}, DEFAULT, #{caLat},#{caLong})
+								#{caInfo},#{caRoute}, #{caFiName}, DEFAULT, #{caLat},#{caLng})
 	</insert>
 
 	<update id="updateCafe" >
 		UPDATE CAFE
 		SET CA_NAME = #{caName}, CA_ADDR = #{caAddr}, CA_TEL=#{caTel}, CA_TIME=#{caTime}, 
-						CA_INFO=#{caInfo}, CA_ROUTE=#{caRoute},CA_FINAME=#{caFiName}, CA_LAT=#{caLat}, CA_LONG=#{caLong}
+						CA_INFO=#{caInfo}, CA_ROUTE=#{caRoute},CA_FINAME=#{caFiName}, CA_LAT=#{caLat}, CA_LNG=#{caLng}
 		WHERE CA_NO = #{caNo}
 	</update>
 	
 	<update id="deleteCafe" parameterType="_int">
 		UPDATE CAFE SET CA_STATUS = 0 WHERE CA_NO = #{caNo}
 	</update>
-
 </mapper> 
  

@@ -17,7 +17,7 @@ public class CafeStoreLogic implements CafeStore{
 
 	@Override
 	public ArrayList<Cafe> selectList() {
-		return (ArrayList)sqlSession.selectList("cafeMapper.selectAll");
+		return (ArrayList)sqlSession.selectList("cafeMapper.selectAllList");
 	}
 
 	@Override

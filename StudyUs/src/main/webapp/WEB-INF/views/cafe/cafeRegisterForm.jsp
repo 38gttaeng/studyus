@@ -37,7 +37,7 @@
 									<input type="button" onclick="goPopup();" class="btn btn-primary px-3 py-2 mt-2" style="background-color: white; color: purple" value="검색">
 								    <input type="hidden" id="confmKey" name="confmKey" value=""  >
 									<input type="hidden" id="caLat"  name="caLat" value="">
-									<input type="hidden" id="caLong" name="caLong" value="">
+									<input type="hidden" id="caLong" name="caLng" value="">
 								</p>
 							</div>
 						</div>
