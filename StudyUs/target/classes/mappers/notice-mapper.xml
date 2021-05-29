@@ -31,6 +31,19 @@
 		</if>
 	</select>
 	
+	<select id="selectPageCount" parameterType="Notice"  resultType="_int">
+		SELECT COUNT(*) FROM NOTICE WHERE NO_MOTHER_NO IS NULL AND ST_NO = 1 AND NO_STATUS = 1 
+		<if test="searchCondition.toString() == 'title'">
+			AND NO_TITLE LIKE '%' || #{searchValue } || '%'
+		</if>
+		<if test="searchCondition.toString() == 'content'">
+			AND NO_CONTENTS LIKE '%' || #{searchValue } || '%'
+		</if>
+		<if test="searchCondition.toString() == 'all'">
+			AND (NO_TITLE LIKE '%' || #{searchValue } || '%'
+			OR NO_CONTENTS LIKE '%' || #{searchValue } || '%')
+		</if>
+	</select>
 	<!-- <select id="selectNListCount" parameterType="Notice"  resultType="_int">
 		SELECT COUNT(*) FROM NOTICE 
 		WHERE NO_MOTHER_NO IS NULL 
@@ -53,27 +66,30 @@
 	</select>
 	
 	<select id="selectOne" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE WHERE NO_NO = #{noNo }
-		
-		<!-- SELECT NO_NO, ST_NO, MB_NO, MB_NICKNAME, 
+		<!--  SELECT * FROM NOTICE WHERE NO_NO = #{noNo }-->
+		SELECT NO_NO, ST_NO, MB_NO, MB_NICKNAME, 
 		NO_MOTHER_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS,
 		NO_FILENAME, NO_REFILENAME, NO_STATUS, NO_COUNT, NO_REPLY_COUNT
 		FROM NOTICE 
 		JOIN MEMBER USING(MB_NO)
-		WHERE NO_NO = #{noNo } -->
+		WHERE NO_NO = #{noNo } 
 	</select>
 	
 	<select id="selectSearchList" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE
+		SELECT ROW_NUMBER() OVER(ORDER BY NO_INSERTDATE) AS NO_RNUM, 
+		NO_NO, NO_TITLE, NO_INSERTDATE, NO_COUNT , MB_NICKNAME, NO_REPLY_COUNT
+		FROM NOTICE
+		JOIN MEMBER USING(MB_NO)
+		WHERE NO_STATUS = 1 AND NO_MOTHER_NO IS NULL
 		<if test="searchCondition.toString() == 'title'">
-			WHERE NO_TITLE LIKE '%' || #{searchValue } || '%'
+			AND NO_TITLE LIKE '%' || #{searchValue } || '%'
 		</if>
 		<if test="searchCondition.toString() == 'content'">
-			WHERE NO_CONTENTS LIKE '%' || #{searchValue } || '%'
+			AND NO_CONTENTS LIKE '%' || #{searchValue } || '%'
 		</if>
 		<if test="searchCondition.toString() == 'all'">
-			WHERE NO_TITLE LIKE '%' || #{searchValue } || '%'
-			OR NO_CONTENTS LIKE '%' || #{searchValue } || '%'
+			AND (NO_TITLE LIKE '%' || #{searchValue } || '%'
+			OR NO_CONTENTS LIKE '%' || #{searchValue } || '%')
 		</if>
 		ORDER BY NO_INSERTDATE DESC
 	</select>
@@ -83,7 +99,7 @@
 			select SEQ_NOTICE.currval FROM DUAL
 		</selectKey>
 		INSERT INTO NOTICE(NO_NO, ST_NO, MB_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS, NO_FILENAME, NO_REFILENAME, NO_STATUS, NO_COUNT) 
-		VALUES (SEQ_NOTICE.NEXTVAL, 1, 1, DEFAULT, #{noTitle}, #{noContents}, #{noFileName}, #{noReFileName}, DEFAULT, DEFAULT)
+		VALUES (SEQ_NOTICE.NEXTVAL, 1, #{mbNo}, DEFAULT, #{noTitle}, #{noContents}, #{noFileName}, #{noReFileName}, DEFAULT, DEFAULT)
 	</insert>
 	
 	<update id="updateNotice" parameterType="Notice">
@@ -104,7 +120,7 @@
 	
 	<!-- 댓글~~ --> 
 	<select id="selectReplyList" resultMap="noticeResultMap">
-		SELECT N.NO_NO, N.ST_NO, MB_NO, N.NO_MOTHER_NO, N.NO_INSERTDATE, N.NO_TITLE, N.NO_CONTENTS, N.NO_FILENAME, N.NO_STATUS, M.MB_NICKNAME, M.MB_PHOTO 
+		SELECT N.NO_NO, N.ST_NO, MB_NO, N.NO_MOTHER_NO, N.NO_INSERTDATE, N.NO_TITLE, N.NO_CONTENTS, N.NO_FILENAME, N.NO_STATUS, M.MB_NICKNAME 
 		FROM NOTICE N 
 		JOIN MEMBER M 
 		USING(MB_NO) 
@@ -124,7 +140,7 @@
 	<insert id="insertReply"  parameterType="Notice">
 		<if test="noMotherNo != 0">
 			INSERT INTO NOTICE(NO_NO, ST_NO, MB_NO, NO_MOTHER_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS, NO_STATUS) 
-			VALUES(SEQ_NOTICE.NEXTVAL, 1, 1, #{noMotherNo}, DEFAULT, '댓글이야', #{noContents}, DEFAULT)
+			VALUES(SEQ_NOTICE.NEXTVAL, 1, #{mbNo}, #{noMotherNo}, DEFAULT, '댓글이야', #{noContents}, DEFAULT)
 		</if>
 	</insert>
 	 <!-- 댓글 수 업데이트 -->

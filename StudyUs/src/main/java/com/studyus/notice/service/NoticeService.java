@@ -9,6 +9,7 @@ import com.studyus.notice.domain.Search;
 public interface NoticeService {
 	// 전체 글 수
 	public int getListCount(Notice notice);
+	public int getPageCount(Search search);
 //	public int getNListCount(Notice notice);
 //	public int getRListCount(Notice notice);
 	// 공지사항 전체 출력  
@@ -18,7 +19,7 @@ public interface NoticeService {
 	// 조회수 증가 
 	public int addReadCount(int noticeNo);
 	// 검색 
-	public ArrayList<Notice> printSearchAll(Search search);
+	public ArrayList<Notice> printSearchAll(PageInfo pi, Search search);
 	// 상세 조회 
 	public Notice printOne(int noticeNo);
 	

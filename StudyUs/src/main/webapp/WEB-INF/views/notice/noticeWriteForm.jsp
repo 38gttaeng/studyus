@@ -66,11 +66,11 @@
 													<td class="col-md-2 text-center">제목</td>
 													<td class="col-md-10" ><input type="text" class="form-control" name="noTitle"></td>
 												</tr>
-<%-- 	 											<tr class="row">
-													<td class="col-3">작성자</td>
-													<td class="col-9"><input type="text" size="50" class="form-control" name="noticeWriter"
-														value="${loginUser.userId }" readonly></td>
-												</tr> --%>
+ 	 											<tr class="row">
+													<!-- <td class="col-3">작성자</td> -->
+													<td class="col-9"><input type="hidden" size="50" class="form-control" name="mbNo"
+														value="${loginUser.mbNo }" ></td>
+												</tr> 
 												<tr><td>&nbsp;</td></tr>
 												<tr class="row">
 													<td class="col-md-2 text-center">내용</td>

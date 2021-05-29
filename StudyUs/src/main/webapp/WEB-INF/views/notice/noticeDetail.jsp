@@ -55,15 +55,16 @@
 					</div>
 					<div class="col-lg-8 align-self-center">
 						<div class="float-right">
-							<!-- 작성자만 -->
-							<div class="btn-group">
-								<button
-									onclick="location.href='/notice/noticeModifyView?noNo=${notice.noNo}'"
-									class="btn btn-secondary">수정</button>
-								<button
-									onclick="location.href='/notice/noticeDelete?noNo=${notice.noNo}'"
-									class="btn btn-secondary">삭제</button>
-							</div>
+							<c:if test="${loginUser.mbNo eq notice.mbNo }">
+								<div class="btn-group">
+									<button
+										onclick="location.href='/notice/noticeModifyView?noNo=${notice.noNo}'"
+										class="btn btn-secondary">수정</button>
+									<button
+										onclick="location.href='/notice/noticeDelete?noNo=${notice.noNo}'"
+										class="btn btn-secondary">삭제</button>
+								</div>
+							</c:if>
 							<button onclick="location.href='/notice/noticeList'"
 								class="btn btn-primary">목록</button>
 						</div>
@@ -87,8 +88,8 @@
 								</h4>
 								<div class="row">
 									<h6 class="card-subtitle col-6">
-										<img src="/resources/images/1.png" class="rounded-circle">&nbsp;&nbsp;{
-										닉네임 }
+										<img src="/resources/images/1.png" class="rounded-circle">&nbsp;&nbsp;
+										${notice.noWriter }
 									</h6>
 									<h6 class="card-subtitle col-6" style="text-align: right">조회수
 										${notice.noCount} &nbsp;&nbsp;${ notice.noInsertDate }</h6>
@@ -108,23 +109,20 @@
 								<input id="rMotherNo" type="hidden" value="${ notice.noNo }"> 
 								<input id="rMbNo" type="hidden" value="${ notice.mbNo }">
 								<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
-
 								<h6 class="card-subtitle" style="float: right;">
 									댓글 <span id="rCount"></span>
 								</h6>
 								<hr>
 							</div>
-							<div class="reply-enter">
-								<div id="editor"></div>
-								<button id="rSubmit" class="reply-enter-btn">등록</button>
-							</div>
 						<!-- 댓글 리스트 -->
 						<div id="rList"></div>
 						<!-- 페이징 -->
 						<nav id='rPage'></nav>
+							<div class="reply-enter">
+								<div id="editor"></div>
+								<button id="rSubmit" class="reply-enter-btn">등록</button>
+							</div>
 						</div>
-
-
 					</div>
 				</div>
 			</div>

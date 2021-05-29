@@ -21,6 +21,11 @@ public class NoticeServiceImpl implements NoticeService{
 	public int getListCount(Notice notice) {
 		return nStore.selectListCount(notice);
 	}
+
+	@Override
+	public int getPageCount(Search search) {
+		return nStore.selectPageCount(search);
+	}
 	
 //	@Override
 //	public int getNListCount(Notice notice) {
@@ -48,8 +53,8 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public ArrayList<Notice> printSearchAll(Search search) {
-		return nStore.selectSearchList(search);
+	public ArrayList<Notice> printSearchAll(PageInfo pi, Search search) {
+		return nStore.selectSearchList(pi, search);
 	}
 
 	@Override
@@ -96,7 +101,6 @@ public class NoticeServiceImpl implements NoticeService{
 	public int removeReply(Notice notice) {
 		return nStore.deleteReply(notice);
 	}
-
 
 
 }

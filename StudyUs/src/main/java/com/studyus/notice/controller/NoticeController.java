@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,23 +42,29 @@ public class NoticeController {
 	public ModelAndView noticeList(ModelAndView mv, 			
 														@RequestParam(value="page", required=false) Integer page) {
 		Notice notice = new Notice();
+		Search search = new Search();
 		int listCount = nService.getListCount(notice);
 		int currentPage = (page != null) ? page : 1;
 		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
 		ArrayList<Notice> nList = nService.printAll(pi, notice);
-		// int rplyCnt = nService.updateReplyCount(noMotherNo);
-		for(Notice notice1 : nList) {
-			System.out.println(notice1.toString());
-		}
+//		for(Notice notice1 : nList) {
+//			System.out.println(notice1.toString());
+//		}
 //		System.out.println(pi.toString());
+		//@@@@@@@@게시글 뒤에 N 표시하기 @@@@@@
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, -2); // 2일간 보이게
+		String nowDay = format.format(cal.getTime());
+		
 		if(!nList.isEmpty()) {
 			mv.addObject("nList", nList);
 			mv.addObject("pi", pi);
-			// mv.addObject("rplyCnt", rplyCnt);
+			mv.addObject("nowDay", nowDay);
 			mv.setViewName("notice/noticeListView");
 		}else {
-			mv.addObject("msg", "조회 실패");
-			mv.setViewName("common/errorPage");
+			// mv.addObject("msg", "조회 실패");
+			mv.setViewName("notice/noData");
 		}
 		return mv;
 	}
@@ -81,18 +88,25 @@ public class NoticeController {
 	
 	// 검색 
 	@RequestMapping(value="/notice/noticeSearch", method=RequestMethod.GET)
-	public String noticeSearch(@ModelAttribute Search search, Model model) {
+	public String noticeSearch(@ModelAttribute Search search, Model model,
+											@RequestParam(value="page", required=false) Integer page) {
 		// 2개의 값을 하나에 담아서 보내는 방법
 		// 1. Domain(VO) 클래스 이용
 		// 2. HashMap 사용하기
-		ArrayList<Notice> searchList = nService.printSearchAll(search);
+		int listCount = nService.getPageCount(search);
+		int currentPage = (page != null) ? page : 1;
+		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
+		ArrayList<Notice> searchList = nService.printSearchAll(pi, search);
+		System.out.println(search.getSearchValue());
+		System.out.println(search.getSearchCondition());
 		if(!searchList.isEmpty()) {
 			model.addAttribute("nList", searchList);
+			model.addAttribute("pi", pi);
 			model.addAttribute("search", search);
 			return "notice/noticeListView";
 		}else {
-			model.addAttribute("msg", "공지사항 검색 실패");
-			return "common/errorPage";
+			// model.addAttribute("msg", "공지사항 검색 실패");
+			return "notice/noData";
 		}
 	}
 
@@ -196,11 +210,12 @@ public class NoticeController {
 	
 	// 삭제
 	@RequestMapping(value="/notice/noticeDelete", method=RequestMethod.GET)
-	public String noticeDelete(@RequestParam("noticeNo") int noNo, @RequestParam("noticeReFileName") String noticeReFileName, Model model, HttpServletRequest request) {
-		Notice notice = nService.printOne(noNo);
+	public String noticeDelete(@RequestParam("noNo") int noNo, 
+											@RequestParam(value="noReFileName", required=false) String noReFileName, 
+											Model model, HttpServletRequest request) {
 		// 업로드된 파일 삭제 
-		if(noticeReFileName != null) {
-			deleteFile(noticeReFileName, request);
+		if(noReFileName != null) {
+			deleteFile(noReFileName, request);
 		}
 		
 		//디비에 데이터 업데이트 

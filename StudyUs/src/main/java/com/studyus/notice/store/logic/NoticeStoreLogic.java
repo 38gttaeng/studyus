@@ -22,7 +22,12 @@ public class NoticeStoreLogic implements NoticeStore{
 	public int selectListCount(Notice notice) {
 		return sqlSession.selectOne("noticeMapper.selectListCount", notice);
 	}
-	
+
+	@Override
+	public int selectPageCount(Search search) {
+		return sqlSession.selectOne("noticeMapper.selectPageCount", search);
+	}
+
 //	@Override
 //	public int selectNListCount(Notice notice) {
 //		return sqlSession.selectOne("noticeMapper.selectNListCount", notice);
@@ -59,8 +64,10 @@ public class NoticeStoreLogic implements NoticeStore{
 	}
 
 	@Override
-	public ArrayList<Notice> selectSearchList(Search search) {
-		return (ArrayList)sqlSession.selectList("noticeMapper.selectSearchList", search);
+	public ArrayList<Notice> selectSearchList(PageInfo pi, Search search) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectSearchList", search, rowBounds);
 	}
 
 	@Override

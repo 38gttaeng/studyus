@@ -134,8 +134,9 @@ function replyList(data, listCount, loginMbNo) {
 			 $rWriter = $("<div>");
 			/**.append("<img src='/resources/images/" + data[i].member.mbPhoto + ".png' class='rounded-circle'>&nbsp")
 			.append("<span class='nickName'>" + data[i].member.mbNickname + "</span>&nbsp"); **/
+			
 			if(noMbNo == data[i].mbNo) {
-				$rWriter.append("&nbsp<div class='writerTag'>작성자</div>");
+				$rWriter.append("<div class='writerTag'>"+ data[i].noWriter +" </div>");
 			}
 			$rWriter.append("<span class='insertDate'>" + data[i].noInsertDate + "</span>");
 			
@@ -145,13 +146,14 @@ function replyList(data, listCount, loginMbNo) {
 			.append("<button class='btn btn-sm btn-light'>답글</button>"); **/
 			
 			// 수정+삭제 버튼
-			if(loginMbNo == data[i].mbNo) {
+			/** if(loginMbNo == data[i].mbNo) {
 				$btnTool =$("<div class='btn-group'>");
 				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].noNo + ");'>수정</button>")
 				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].noNo + ");'>삭제</button>");
-				$btnArea.append($btnTool);
-			}
-			
+				$btnArea.append($btnTool); 
+			} **/
+			console.log(loginMbNo);
+			console.log(data[i].mbNo);
 			$div.append($rWriter);
 			$div.append($rContent);
 			$div.append($btnArea);
