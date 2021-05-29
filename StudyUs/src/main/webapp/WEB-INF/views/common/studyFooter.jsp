@@ -17,11 +17,13 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="/resources/css/study/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/resources/css/study/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
     <script src="/resources/css/study/dist/js/app-style-switcher.js"></script>
     <script src="/resources/css/study/dist/js/feather.min.js"></script>
     <script src="/resources/css/study/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="/resources/css/study/dist/js/sidebarmenu.js"></script>
+    <script src="/resources/css/main/js/owl.carousel.min.js"></script>
     <!--Custom JavaScript -->
     <script src="/resources/css/study/dist/js/custom.js"></script>
     <!--Chart-->

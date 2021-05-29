@@ -1,20 +1,19 @@
 var titleCheckFlag = false;
 const limit = 3000; // 3500자 제한
 
+var n = 2;
+var delFList = [];
+
 $(function() {
 
-	// 파일
-	$("#input-file").on("change", function(){
-	    $filename = $(this).val();
-
-	    if($filename == "") {
-	    	$filename = "파일을 선택해주세요.";
-		} else {
-			$filename = $filename.split('/').pop().split('\\').pop();
+	$('#button-add-file').click(addFileForm);
+	$(document).on('click', '.button-delete-file', function(event) {
+		if($("input[name=viewCheck]").val() == "m") {
+			var delFileNo = $(this).next().val();
+			delFList.push(delFileNo);
 		}
-		
-	    $("#filename").text($filename);
-  	});
+		$(this).parent().remove();
+	})
 
 	// Quill
 	var toolbarOptions = {
@@ -93,15 +92,16 @@ $(function() {
 	$("#submit-btn").on("click", function() {
 	
 		// 수정파일인지 여부 체크
-		if($("input[name=viewCheck]").val() == "modifyView") {
+		if($("input[name=viewCheck]").val() == "m") {
 			titleCheckFlag = true;
+			$("#delFiles").val(delFList);
 		}
 	
 		if(titleCheckFlag && title.val() != "") {
+			// 내용 보내기
 			var html = quill.root.innerHTML;
-			
 			$("input[name=boContents]").val(html);
-		
+			
 			$("#postForm").submit();
 		} else {
 			title.removeClass("is-valid");
@@ -110,3 +110,13 @@ $(function() {
 		}
 	});
 });
+
+// 파일
+var count = 0;
+function addFileForm() {
+	var html = "<div id='item_"+ count +"'>";
+	html += "<input id='input" + count + "' type='file' name='fList'>";
+	html += "<a class='button-delete-file btn'><i class='fas fa-minus text-primary' style='cursor:pointer'></i></a></div>";
+	count++;
+	$("#my-form").append(html);
+}

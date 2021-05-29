@@ -6,7 +6,15 @@ import java.util.ArrayList;
 import com.studyus.file.domain.FileVO;
 import com.studyus.member.domain.Member;
 
+import lombok.Getter;
+import lombok.ToString;
+import lombok.Setter;
+
+@Getter
+@Setter
+@ToString
 public class Board {
+	
 	private int boNo;
 	private int stNo;
 	private int mbNo;
@@ -20,7 +28,7 @@ public class Board {
 	private ArrayList<FileVO> boFiles;
 	
 	public Board() {}
-	
+
 	public int getBoNo() {
 		return boNo;
 	}
@@ -92,7 +100,7 @@ public class Board {
 	public void setBoStatus(int boStatus) {
 		this.boStatus = boStatus;
 	}
-	
+
 	public Member getMember() {
 		return member;
 	}
@@ -100,7 +108,7 @@ public class Board {
 	public void setMember(Member member) {
 		this.member = member;
 	}
-	
+
 	public ArrayList<FileVO> getBoFiles() {
 		return boFiles;
 	}
@@ -116,5 +124,5 @@ public class Board {
 				+ ", boCategory=" + boCategory + ", boStatus=" + boStatus + ", member=" + member + ", boFiles="
 				+ boFiles + "]";
 	}
-
+	
 }

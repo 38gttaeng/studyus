@@ -13,6 +13,7 @@
 		<typeAlias type="com.studyus.board.domain.Board" alias="Board"/>
 		<typeAlias type="com.studyus.notice.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.studyus.assignment.domain.Assignment" alias="Assignment"/>
+		<typeAlias type="com.studyus.assignment.domain.AssignmentGroup" alias="AssignmentGroup"/>
 		<typeAlias type="com.studyus.file.domain.FileVO" alias="FileVO"/>
 		<typeAlias type="com.studyus.cafe.domain.Cafe" alias="Cafe" />
 		<typeAlias type="com.studyus.enrollment.domain.Enrollment" alias="Enrollment" />

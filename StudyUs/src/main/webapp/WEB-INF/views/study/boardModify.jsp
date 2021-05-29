@@ -62,9 +62,8 @@
 	                        	<form id="postForm" action="/study/board/modify" method="post" enctype="multipart/form-data">
 									
 									<input type="hidden" name="boNo" value="${ board.boNo }">
-									<input type="hidden" name="boFileName" value="${ board.boFileName }">
 									<!-- register.js 파일에 수정임을 알리기 위해서 -->
-									<input type="hidden" name="viewCheck" value="modifyView">
+									<input type="hidden" name="viewCheck" value="m">
 									
 	                        		<div id="table-box">
 										<table class="table-responsive">
@@ -102,16 +101,19 @@
 											<tr>
 												<td>첨부파일</td>
 												<td>
-													<label class="btn btn-light" for="input-file">파일 선택</label>&nbsp;&nbsp;
-													<input id="input-file" type="file" name="reloadFile">
-													<span id="filename" class="text-muted">
-														<c:if test="${ !empty board.fiRealName }">
-															${ board.fiRealName }
-														</c:if>
-														<c:if test="${ empty board.fiRealName }">
-															파일을 선택해주세요.
-														</c:if>
-													</span>
+													<c:if test="${ !empty board.boFiles }">
+														<c:forEach var="file" items="${ board.boFiles }" varStatus="i">
+															<div id="file" class="text-muted">
+																<b>첨부파일${ i.count } : </b>
+																${ file.fiRealName }&nbsp;&nbsp;
+																<i class='fas fa-minus text-primary button-delete-file' style='cursor:pointer'></i>
+																<input type="hidden" value="${ file.fiNo }">
+															</div>
+														</c:forEach>
+														<input id="delFiles" type="hidden" name="delFiles">
+													</c:if>
+													<button type="button" id='button-add-file' class="btn text-primary"><i class="fas fa-plus"></i>  파일 추가</button>
+													<div id="my-form"></div>
 												</td>
 											</tr>
 											<tr>

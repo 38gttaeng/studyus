@@ -56,6 +56,7 @@
                             </nav>
                         </div>
                     </div>
+                    
                     <div class="col-lg-8 align-self-center">
 	                    <div class="customize-input float-right">
                            	<input name="searchValue" class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="Search" aria-label="Search">

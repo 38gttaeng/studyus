@@ -34,7 +34,7 @@
             <div class="page-breadcrumb">
             	<div class="row">
                     <div class="col-9 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">{스터디명}</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">${ study.studyName }</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">

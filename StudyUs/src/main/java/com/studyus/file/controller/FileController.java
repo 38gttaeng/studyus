@@ -90,7 +90,7 @@ public class FileController {
     }
 	
 	// 다중파일 저장
-	public ArrayList<FileVO> saveFile(List<MultipartFile> fList, int fiBoardType , MultipartHttpServletRequest mtfRequest, HttpServletRequest request) {
+	public ArrayList<FileVO> saveFile(List<MultipartFile> fList, int fiBoardType, HttpServletRequest request) {
 
 		// 저장폴더 선택
 		String folderName = null;
@@ -147,7 +147,7 @@ public class FileController {
 		
 		// 실제 파일 경로를 만들어서 실제 파일 삭제
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\buploadFiles";
+		String savePath = root + folder;
 		File file = new File(savePath + "\\" + fileName);
 		if(file.exists()) {
 			file.delete();

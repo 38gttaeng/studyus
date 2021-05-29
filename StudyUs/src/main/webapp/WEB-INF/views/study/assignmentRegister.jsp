@@ -21,8 +21,8 @@
         <!-- menubar -->
 	    <jsp:include page="../common/studyMenubar.jsp"/>
 	    <script>
-	    	$("#sidebarnav>li:nth-child(7)").addClass("selected");
-	    	$("#sidebarnav>li:nth-child(7) a").addClass("active");
+	    	$("#sidebarnav>li:nth-child(6)").addClass("selected");
+	    	$("#sidebarnav>li:nth-child(6) a").addClass("active");
 	    </script>
         
         <!-- ============================================================== -->
@@ -39,7 +39,7 @@
 	                    <nav aria-label="breadcrumb">
 	                        <ol class="breadcrumb m-0 p-0">
 	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/assignment">Assignment</a></li>
+	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/assignment?grNo=${ groupNo }">Assignment</a></li>
 	                            <li class="breadcrumb-item text-muted active" aria-current="page">Write</li>
 	                        </ol>
 	                    </nav>
@@ -59,61 +59,43 @@
                     <div class="col-10">
                         <div class="card">
                             <div class="card-body">
-	                        	<form id="postForm" action="/study/board/register" method="post" enctype="multipart/form-data">
+	                        	<form id="postForm" action="/study/assignment/register" method="post" enctype="multipart/form-data">
 	                        		<div id="table-box">
 										<table class="table-responsive">
 											<tr>
-												<td>카테고리</td>
+												<td>기한</td>
 												<td>
-													<select id="select-box" class="form-control" name="boCategory">
-														<option selected value="1">자유</option>
-														<option value="2">공유</option>
-														<option value="3">질문</option>
-													</select>
+													<div class="dateBox">
+														<input class="form-control" type="date" name="asInsertDate" readonly>
+														<div class="dateLine">&nbsp;ㅡ&nbsp;</div>
+														<input class="form-control" type="date" name="asDeadLine">
+													</div>
 												</td>
 											</tr>
 											<tr>
 												<td>제목</td>
 												<td>
-													<input type="text" class="form-control" name="boTitle">
+													<input type="text" class="form-control" name="asName">
 													<span id="title-msg" class="invalid-feedback">제목을 1자 이상 입력하세요.</span>
 												</td>
 											</tr>
 											<tr>
-												<td>작성자</td>
-												<td>
-													<input type="text" class="form-control" size="50" value="${ loginUser.mbNickname }" readonly>
-													<input type="hidden" name="mbNo" value="${ loginUser.mbNo }">
-												</td> 
-											</tr>
-											<tr>
 												<td valign=top>내용</td>
 												<td>
-													<!-- <textarea rows="22" cols="120" class="form-control" name="boContents"></textarea> -->
-													<input type="hidden" name="boContents">
-													<div class="container">
-      													<div id="editor" style="min-height:450px;"></div>
-    												</div>
+													<input type="hidden" name="asContents">
+      												<div id="editor" style="min-height:400px;"></div>
 												</td>
 											</tr>
 											<tr>
 												<td>첨부파일</td>
 												<td>
-													<label class="btn btn-light" for="input-file">파일 선택</label>&nbsp;&nbsp;
-													<input id="input-file" type="file" name="uploadFile">
-													<span id="filename" class="text-muted">
-														<c:if test="${ !empty board.fiRealName }">
-															${ board.fiRealName }
-														</c:if>
-														<c:if test="${ empty board.fiRealName }">
-															파일을 선택해주세요.
-														</c:if>
-													</span>
+													<button type="button" id='button-add-file' class="btn text-primary"><i class="fas fa-plus"></i>  파일 추가</button>
+													<div id="my-form"></div>
 												</td>
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/board?boCategory=${category}'">
+													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/assignment?grNo=${ groupNo }'">
 													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="등록">
 												</td>
 											</tr>
@@ -124,14 +106,16 @@
                 		</div>
             		</div>
             		<div class="col-1"></div>
-           	</div>
+           		</div>
 
-            <!-- footer -->
-			<jsp:include page="../common/studyFooter.jsp"/>
-        </div>
-    </div>
+            	<!-- footer -->
+				<jsp:include page="../common/studyFooter.jsp"/>
+       		</div>
+   		</div>
+	</div>
     
     <!-- 해당 페이지 JS 파일 -->
     <script src="/resources/js/register.js"></script>
+    
 </body>
 </html>

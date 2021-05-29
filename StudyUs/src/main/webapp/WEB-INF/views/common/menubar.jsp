@@ -90,7 +90,7 @@
 		                        	마이페이지
 		                    </a>
 		                	<div class="dropdown-divider"></div>
-		                    <a class="dropdown-item" href="javascript:void(0)">
+		                    <a class="dropdown-item" href="/member/logout">
 		                        	로그아웃
 		                    </a>
 		                </div>

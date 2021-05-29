@@ -33,19 +33,14 @@ public class BoardServiceImpl implements BoardService {
 		// 1. 모든 boardList 가져오기
 		ArrayList<Board> bList = boStore.selectAll(pi, board);
 		
-		// 2. 파일명 리스트 저장
-		ArrayList<FileVO> boFiles = new ArrayList<FileVO>();
+		// 2. 파일 리스트 저장
 		for(Board bOne : bList) {
 			// 번호에 해당하는 파일 리스트 가져오기
 			FileVO fileVO = new FileVO(5, bOne.getBoNo());
 			ArrayList<FileVO> fList = fiStore.selectList(fileVO);
 			
-			// 파일 리스트의 파일 추가해주기
-			for(FileVO fOne : fList) {
-				boFiles.add(fOne);
-			}
-			
-			bOne.setBoFiles(boFiles);
+			// 파일 리스트 추가해주기
+			bOne.setBoFiles(fList);
 		}
 		
 		return bList;
@@ -67,19 +62,14 @@ public class BoardServiceImpl implements BoardService {
 		// 1. 모든 검색어에 해당하는 boardList 가져오기
 		ArrayList<Board> bList = boStore.selectSearchAll(pi, map);
 		
-		// 2. 파일명 리스트 저장
-		ArrayList<FileVO> boFiles = new ArrayList<FileVO>();
+		// 2. 파일 리스트 저장
 		for(Board bOne : bList) {
 			// 번호에 해당하는 파일 리스트 가져오기
 			FileVO fileVO = new FileVO(5, bOne.getBoNo());
 			ArrayList<FileVO> fList = fiStore.selectList(fileVO);
 			
-			// 파일 리스트의 파일 추가해주기
-			for(FileVO fOne : fList) {
-				boFiles.add(fOne);
-			}
-			
-			bOne.setBoFiles(boFiles);
+			// 파일 리스트 추가해주기
+			bOne.setBoFiles(fList);
 		}
 				
 		return bList;
@@ -93,8 +83,8 @@ public class BoardServiceImpl implements BoardService {
 		
 		// 파일 가져오기
 		FileVO fileVO = new FileVO(5, boNo);
-		if(fileVO != null) {
-			ArrayList<FileVO> fList = fiStore.selectList(fileVO);
+		ArrayList<FileVO> fList = fiStore.selectList(fileVO);
+		if(!fList.isEmpty()) {
 			board.setBoFiles(fList);
 		}
 		

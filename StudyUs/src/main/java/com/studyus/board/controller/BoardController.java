@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -31,6 +30,7 @@ import com.studyus.file.controller.FileController;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.service.FileService;
 import com.studyus.member.domain.Member;
+import com.studyus.study.domain.Study;
 
 @Controller
 public class BoardController {
@@ -62,9 +62,10 @@ public class BoardController {
 	@RequestMapping(value="/study/boardScroll", method=RequestMethod.GET)
 	public void boardListScroll(HttpSession session, HttpServletResponse response, @RequestParam("page") int page) throws Exception {
 		
-		//////////////////////////////////세션에서 스터디번호 가져와서 넣어주기
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		
 		Board board = new Board();
-		board.setStNo(1);///////////////////////
+		board.setStNo(stNo);
 		board.setBoCategory((Integer) session.getAttribute("category"));
 		
 		int listCount = boService.getListCount(board);
@@ -84,14 +85,13 @@ public class BoardController {
 	public void boardSearchView(HttpSession session, HttpServletResponse response, @RequestParam("page") int page,
 			@RequestParam("searchValue") String searchValue, @RequestParam("searchCondition") String searchCondition) throws Exception {
 		
-		//////////////////////////////////세션에서 스터디번호 가져와서 넣어주기
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("stNo", 1); ///////////////////////
+		map.put("stNo", stNo);
 		map.put("boCategory", (Integer) session.getAttribute("category"));
 		map.put("searchValue", searchValue);
 		map.put("searchCondition", searchCondition);
 		
-		System.out.println(map);/*************************************/
 		int listCount = boService.getSearchCount(map);
 		PageInfo pi = Pagination5.getPageInfo(page, listCount);
 		ArrayList<Board> searchList = boService.printSearchAll(pi, map);
@@ -99,8 +99,6 @@ public class BoardController {
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		data.put("searchList", searchList);
 		data.put("maxPage", pi.getMaxPage());
-		System.out.println(searchList);/*************************************/
-		System.out.println(pi.getMaxPage());/*************************************/
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(data, response.getWriter());
@@ -165,29 +163,27 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/study/board/register", method=RequestMethod.POST)
-	public String boardRegister(HttpServletRequest request, MultipartHttpServletRequest mtfRequest, @ModelAttribute Board board) {
-		//////////////////////////////////////////////
+	public String boardRegister(HttpServletRequest request, @ModelAttribute Board board, @RequestParam(value="fList", required=false) List<MultipartFile> fList) {
 		HttpSession session = request.getSession();
 		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
-//		세션에서 스터디 번호 가져오기
-		board.setStNo(1);
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		board.setStNo(stNo);
 		
 		// 실제 파일 저장
 		ArrayList<FileVO> boFiles = null;
-		if(!mtfRequest.getFiles("uploadFile").isEmpty()) {
-        	List<MultipartFile> fList = mtfRequest.getFiles("uploadFile");
-        	boFiles = new FileController().saveFile(fList, 5, mtfRequest, request);
+		if(fList != null && !fList.isEmpty()) {
+        	boFiles = new FileController().saveFile(fList, 5, request);
         }
 		
 		// Board DB 저장
-		int boResult = boService.registerBoard(board);
-		if(boResult > 0) {
+		int boNo = boService.registerBoard(board);
+		if(boNo > 0) {
 			// File DB 저장
 			int fiResult = 0;
 			if(boFiles != null) {
 				for(FileVO file : boFiles) {
 					file.setMbNo(mbNo);
-					file.setFiMotherNo(boResult);
+					file.setFiMotherNo(boNo);
 					
 					fiResult = fiService.uploadFile(file);
 				}
@@ -196,7 +192,7 @@ public class BoardController {
 			}
 			
 			if(fiResult > 0) {
-				return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/board/detail?boNo=" + boResult);
+				return new RedirectWithMsg().redirect(request, "게시글이 등록되었습니다!", "/study/board/detail?boNo=" + boNo);
 			} else {
 				return new RedirectWithMsg().redirect(request, "파일 등록 실패!!!!", "/study/board?boCategory=" + (Integer)session.getAttribute("category"));
 			}
@@ -219,54 +215,53 @@ public class BoardController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/study/board/modify", method=RequestMethod.POST)
-//	public ModelAndView boardUpdate(HttpServletRequest request, ModelAndView mv, @ModelAttribute Board board, @RequestParam("reloadFile") MultipartFile reloadFile) {
-//		int fiResult = 0;
-//		
-//		if(reloadFile != null && !reloadFile.isEmpty()) {
-//			// 새 파일 업로드
-//			FileVO fileVO = saveFile(reloadFile, request);
-//			
-//			if(!board.getBoFileName().equals("")) {
-//				// 1. 파일 수정 
-//				deleteFile(board.getBoFileName(), request); // 기존 파일 삭제
-//				int fiNo = fiService.selectOne(board.getBoFileName()); // 기존 파일 저장 번호 알아오기
-//				FileVO file = new FileVO(fiNo, reloadFile.getOriginalFilename(), fileVO.getFiStoredName(), fileVO.getFiDirectory());
-//				fiResult = fiService.modifyFile(file);
-//			} else {
-//				// 2. 파일 추가
-//				FileVO file = new FileVO(board.getMbNo(), reloadFile.getOriginalFilename(), fileVO.getFiStoredName(), fileVO.getFiDirectory());
-//				fiResult = fiService.uploadFile(file);				
-//			}
-//			
-//			board.setBoFileName(fileVO.getFiStoredName());
-//		} else {
-//			// 3. 파일 삭제
-//			if(!board.getBoFileName().equals("")) {
-//				deleteFile(board.getBoFileName(), request); // 기존 파일 삭제
-//				fiResult = fiService.removeFile(board.getBoFileName()); // File DB에서 삭제
-//				
-//				board.setBoFileName("");
-//			} else {
-//				fiResult = 1;
-//			}
-//		}
-//		
-//		// 파일이 잘 수정되었다면 DB 수정
-//		int result = 0;
-//		if(fiResult > 0) {
-//			result = boService.modifyBoard(board);
-//			if(result > 0) {
-//				mv.addObject("board", board).setViewName("redirect:/study/board/detail?boNo=" + board.getBoNo());
-//			} else {
-//				mv.addObject("msg", "게시물 수정 오류!").setViewName("common/errorPage");
-//			}
-//		} else {
-//			mv.addObject("msg", "파일 수정 오류!").setViewName("common/errorPage");
-//		}
-//		
-//		return mv;
-//	}
+	@RequestMapping(value="/study/board/modify", method=RequestMethod.POST)
+	public ModelAndView boardUpdate(HttpServletRequest request, ModelAndView mv, @ModelAttribute Board board, 
+			@RequestParam(value="fList", required=false) List<MultipartFile> fList,
+			@RequestParam(value="delFiles", required=false) List<String> delFiles) {
+		
+		// 기존 파일 삭제
+		if(delFiles != null && !delFiles.isEmpty()) {
+			for(int i=0; i<delFiles.size(); i++) {
+				FileVO file = fiService.selectOne(Integer.parseInt(delFiles.get(i)));
+				new FileController().deleteFile("\\buploadFiles", file.getFiStoredName(), request);
+				fiService.removeFileByFiNo(file.getFiNo());
+			}
+		}
+		
+		// 새파일 업로드
+		ArrayList<FileVO> boFiles = null;
+		if(fList != null && !fList.isEmpty()) {
+			boFiles = new FileController().saveFile(fList, 5, request);
+		}
+		
+		// Board DB 수정
+		int boResult = boService.modifyBoard(board);
+		if(boResult > 0) {
+			// 새파일 File DB 저장
+			int fiResult = 0;
+			if(boFiles != null) {
+				for(FileVO file : boFiles) {
+					file.setMbNo(board.getMbNo());
+					file.setFiMotherNo(board.getBoNo());
+					
+					fiResult = fiService.uploadFile(file);
+				}
+			} else {
+				fiResult = 1;
+			}
+			
+			if(fiResult > 0) {
+				mv.addObject("board", board).setViewName("redirect:/study/board/detail?boNo=" + board.getBoNo());
+			} else {
+				mv.addObject("msg", "파일 수정 오류!").setViewName("common/errorPage");
+			}
+		} else {
+			mv.addObject("msg", "게시물 수정 오류!").setViewName("common/errorPage");
+		}
+			
+		return mv;
+	}
 	
 	// 삭제
 	@RequestMapping(value="/study/board/delete", method=RequestMethod.GET)
@@ -310,9 +305,9 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value="/study/board/addReply", method=RequestMethod.POST)
 	public String replyRegister(HttpSession session, @ModelAttribute Board board) {
-		/////////////////////////////
-		// 세션에서 스터디정보 가져와서 넣어주기
-		board.setStNo(1);
+		
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		board.setStNo(stNo);
 		
 		int result = boService.registerBoard(board);
 		if(result > 0) {
