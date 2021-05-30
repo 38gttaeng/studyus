@@ -10,6 +10,8 @@ import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
 import com.studyus.assignment.store.AssignmentStore;
 import com.studyus.common.PageInfo;
+import com.studyus.file.domain.FileVO;
+import com.studyus.file.store.FileStore;
 import com.studyus.submittedAssignment.domain.SubmittedAssignment;
 
 @Service
@@ -17,6 +19,9 @@ public class AssignmentServiceImpl implements AssignmentService {
 	
 	@Autowired
 	private AssignmentStore asStore;
+	
+	@Autowired
+	private FileStore fiStore;
 
 	@Override
 	public int getListCount(int grNo) {
@@ -46,7 +51,18 @@ public class AssignmentServiceImpl implements AssignmentService {
 	
 	@Override
 	public Assignment printOne(int asNo) {
-		return asStore.selectOne(asNo);
+		
+		// Assignment 가져오기
+		Assignment assignment = asStore.selectOne(asNo);
+		
+		// 파일 가져오기
+		FileVO fileVO = new FileVO(2, asNo);
+		ArrayList<FileVO> fList = fiStore.selectList(fileVO);
+		if(!fList.isEmpty()) {
+			assignment.setAsFiles(fList);
+		}
+		
+		return assignment;
 	}
 
 	@Override
@@ -77,14 +93,12 @@ public class AssignmentServiceImpl implements AssignmentService {
 
 	@Override
 	public int modifyAssignment(Assignment assignment) {
-		// TODO Auto-generated method stub
-		return 0;
+		return asStore.updateAssignment(assignment);
 	}
 
 	@Override
 	public int removeAssignment(int asNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return asStore.deleteAssignment(asNo);
 	}
 
 	@Override

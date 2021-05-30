@@ -9,6 +9,7 @@
     
     <!-- 추가 css -->
     <link href="/resources/css/studyus/register.css" rel="stylesheet">
+    <link href="/resources/css/studyus/assignmentColor.css" rel="stylesheet">
 	<title>StudyUs : 스터디룸</title>
 </head>
 <body>
@@ -33,14 +34,15 @@
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
-	            <div class="col-lg-4 align-self-center">
+	            <div class="col-lg-10 align-self-center">
 	                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">과제</h4>
 	                <div class="d-flex align-items-center">
 	                    <nav aria-label="breadcrumb">
 	                        <ol class="breadcrumb m-0 p-0">
 	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/board?boCategory=${ category }">Board</a></li>
-	                            <li class="breadcrumb-item text-muted active" aria-current="page">Write</li>
+	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/assignment?grNo=${ assignmentGroup.grNo }">Assignment</a></li>
+	                            <li class="breadcrumb-item font-weight-bold" aria-current="page"><a class="text${ assignmentGroup.grColor }" href="/study/assignment?grNo=${ assignmentGroup.grNo }">${ assignmentGroup.grName }</a></li>
+	                            <li class="breadcrumb-item text-muted" aria-current="page">Modify</li>
 	                        </ol>
 	                    </nav>
 	                </div>
@@ -50,7 +52,7 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
+            <div class="container-fluid gradient${ assignmentGroup.grColor }">
             	<!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
@@ -58,51 +60,65 @@
                 	<div class="col-1"></div>
                     <div class="col-10">
                         <div class="card">
+                           	<div class="card-body back${ assignmentGroup.grColor } text-white text-right">${ assignmentGroup.grName }</div>
                             <div class="card-body">
-	                        	<form id="postForm" action="/study/board/register" method="post" enctype="multipart/form-data">
+	                        	<form id="postForm" action="/study/assignment/modify" method="post" enctype="multipart/form-data">
+	                        		
+	                        		<input type="hidden" name="boNo" value="${ assignment.asNo }">
+	                        		<input type="hidden" name="viewCheck" value="m">
+	                        		<input type="hidden" name="deadLineBefore" value="${ assignment.asDeadLine }">
+	                        		
 	                        		<div id="table-box">
 										<table class="table-responsive">
 											<tr>
-												<td>카테고리</td>
+												<td>기한</td>
 												<td>
-													<select id="select-box" class="form-control" name="boCategory">
-														<option selected value="1">자유</option>
-														<option value="2">공유</option>
-														<option value="3">질문</option>
-													</select>
+													<div class="dateBox">
+														<input class="form-control" type="date" name="asDate">
+														<input class="form-control" type="time" name="asTime">
+														<div class="clearfix"></div>
+														<span id="date-msg" class="invalid-feedback dMsg">기한 입력값을 모두 입력하세요.</span>
+														<span id="date-msg2" class="invalid-feedback dMsg">기한은 현재 시간 이후를 선택해주세요.</span>
+														
+														<input type="hidden" name="asDeadLine">
+													</div>
 												</td>
 											</tr>
 											<tr>
 												<td>제목</td>
 												<td>
-													<input type="text" class="form-control" name="boTitle">
+													<input type="text" class="form-control" name="asName" value="${ assignment.asName }">
 													<span id="title-msg" class="invalid-feedback">제목을 1자 이상 입력하세요.</span>
 												</td>
 											</tr>
 											<tr>
-												<td>작성자</td>
-												<td>
-													<input type="text" class="form-control" size="50" value="${ loginUser.mbNickname }" readonly>
-													<input type="hidden" name="mbNo" value="${ loginUser.mbNo }">
-												</td> 
-											</tr>
-											<tr>
 												<td valign=top>내용</td>
 												<td>
-													<input type="hidden" name="boContents">
-      												<div id="editor" style="min-height:400px;"></div>
+													<input type="hidden" name="asContents">
+      												<div id="editor" style="min-height:400px;">${ assignment.asContents }</div>
 												</td>
 											</tr>
 											<tr>
 												<td>첨부파일</td>
 												<td>
+													<c:if test="${ !empty assignment.asFiles }">
+														<c:forEach var="file" items="${ assignment.asFiles }" varStatus="i">
+															<div id="file" class="text-muted">
+																<b>첨부파일${ i.count } : </b>
+																${ file.fiRealName }&nbsp;&nbsp;
+																<i class='fas fa-minus text-primary button-delete-file' style='cursor:pointer'></i>
+																<input type="hidden" value="${ file.fiNo }">
+															</div>
+														</c:forEach>
+														<input id="delFiles" type="hidden" name="delFiles">
+													</c:if>
 													<button type="button" id='button-add-file' class="btn text-primary"><i class="fas fa-plus"></i>  파일 추가</button>
 													<div id="my-form"></div>
 												</td>
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/board?boCategory=${category}'">
+													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/assignment?grNo=${ assignmentGroup.grNo }'">
 													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="등록">
 												</td>
 											</tr>
@@ -122,7 +138,7 @@
 	</div>
     
     <!-- 해당 페이지 JS 파일 -->
-    <script src="/resources/js/register.js"></script>
-    
+    <script src="/resources/js/assignmentRegister.js"></script>
+    <script src="/resources/css/study/assets/libs/moment/min/moment.min.js"></script>
 </body>
 </html>

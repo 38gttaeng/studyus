@@ -46,6 +46,8 @@ public interface AssignmentService {
 	 */
 	public ArrayList<Assignment> printAllByStudyNo(int stNo);
 	
+	///////////////////////////////////////////////////////////
+	
 	/**
 	 * 한개 보기 (WHERE AS_NO)
 	 * @param asNo
@@ -59,6 +61,8 @@ public interface AssignmentService {
 	 * @return
 	 */
 	public ArrayList<Assignment> printAllReply(int asNo);
+	
+	///////////////////////////////////////////////////////////
 	
 	// 과제 그룹 추가, 수정, 삭제
 	public int registerGroup(AssignmentGroup asGroup);

@@ -1,0 +1,235 @@
+var titleCheckFlag = false;
+var dateCheckFlag = false;
+var timeCheckFlag = false;
+const limit = 3000; // 3500자 제한
+
+var n = 2;
+var delFList = [];
+
+$(function() {
+	
+	// 수정 파일의 경우 기존 날짜 집어넣는 역할
+	if($("input[name=viewCheck]").val() == "m") {
+		var deadLineBefore = $("input[name=deadLineBefore]").val();
+		var deadLineAfter = moment(deadLineBefore).format('YYYY-MM-DD');
+		var deadLineAfter2 = moment(deadLineBefore).format('HH:mm');
+	
+		$("input[name=asDate]").val(deadLineAfter);
+		$("input[name=asTime]").val(deadLineAfter2);
+	}
+	
+	// 오늘 날짜 이전 선택 막기
+	var out = new Date().toISOString().slice(0, 10);
+	$("input[name=asDate]").attr("min", out);
+
+	$('#button-add-file').click(addFileForm);
+	$(document).on('click', '.button-delete-file', function(event) {
+		if($("input[name=viewCheck]").val() == "m") {
+			var delFileNo = $(this).next().val();
+			delFList.push(delFileNo);
+		}
+		$(this).parent().remove();
+	});
+
+	// Quill
+	var toolbarOptions = {
+		container : [
+		  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+		  ['blockquote'],
+	
+		  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+		  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+		  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+		  [{ 'direction': 'rtl' }],                         // text direction
+		  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+			
+		  ['link', 'image', 'video', 'formula', 'code-block'],
+		  
+		  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+		  [{ 'align': [] }],
+	
+		  ['emoji'],
+		]
+	};
+	
+	var quill = new Quill('#editor', {
+		modules: {
+			imageResize: {},
+			//videoResize: {},
+			imageUpload: {
+				url: '/file/upload/image',
+				method: 'POST',
+				name: 'uploadImage',
+				withCredentials: false,
+				//customUploader: () => {},
+				callbackOK: (serverResponse, next) => {
+			    	next(serverResponse);
+			    },
+				callbackKO: serverError => {
+					alert(serverError);
+				},
+				checkBeforeSend: (file, next) => {
+			    	console.log(file);
+			    	next(file); // go back to component and send to the server
+			    }
+			},
+          "toolbar": toolbarOptions,
+          "emoji-toolbar": true,
+		},
+		placeholder: '내용을 입력하세요.',
+		theme: 'snow'
+	});
+	
+		// 글자수 제한
+	quill.on('text-change', function (delta, old, source) {
+	  if (quill.getLength() > limit) {
+	    quill.deleteText(limit, quill.getLength());
+	  }
+	});
+	
+	// 유효성 검사
+	$("input[name=asName]").on("keyup", function(){
+		var title = $("input[name=asName]");
+		var titleMsg = $("#title-msg");
+	
+		if(title.val() == "") {
+			$(this).removeClass("is-valid");
+			$(this).addClass("is-invalid");
+			titleMsg.css("display", "block");
+			titleCheckFlag = false;
+		} else {
+			$(this).removeClass("is-invalid");
+			$(this).addClass("is-valid");
+			titleMsg.css("display", "none");
+			titleCheckFlag = true;
+		}
+	});
+	
+	$("input[name=asDate]").on("change", function() {
+		var date = $(this).val();
+		var todayDate = moment(new Date()).format('YYYY-MM-DD');
+		
+		if(date >= todayDate) {
+			$(this).removeClass("is-invalid");
+			$(this).addClass("is-valid");
+			$(".dMsg").css("display", "none");
+			dateCheckFlag = true;
+		} else if(date < todayDate) {
+			$(this).removeClass("is-valid");
+			$(this).addClass("is-invalid");
+			$(".dMsg").css("display", "none");
+			$("#date-msg2").css("display", "block");
+			dateCheckFlag = false;
+		}
+	});
+	
+	$("input[name=asTime]").on("change", function() {
+		var date = $("input[name=asDate]");
+		var time = $("input[name=asTime]");
+		var deadline = moment(date.val() + " " + time.val()).format('YYYY/MM/DD HH:mm');
+		var today = moment(new Date()).format('YYYY/MM/DD HH:mm');
+	
+		if(date.val() != "") {
+			if(deadline <= today) {
+				time.removeClass("is-valid");
+				time.addClass("is-invalid");
+				$(".dMsg").css("display", "none");
+				$("#date-msg2").css("display", "block");
+				timeCheckFlag = false;
+			} else {
+				time.removeClass("is-invalid");
+				time.addClass("is-valid");
+				$(".dMsg").css("display", "none");
+				timeCheckFlag = true;
+			}
+		} else {
+			date.removeClass("is-valid");
+			date.addClass("is-invalid");
+			$(".dMsg").css("display", "none");
+			$("#date-msg").css("display", "block");
+			dateCheckFlag = false;
+		}
+	});
+	
+	$("#submit-btn").on("click", function() {
+	
+		var title = $("input[name=asName]");
+		var date = $("input[name=asDate]");
+		var time = $("input[name=asTime]");
+		
+		var deadline = moment(date.val() + " " + time.val()).format('YYYY/MM/DD HH:mm');
+		var today = moment(new Date()).format('YYYY/MM/DD HH:mm');
+	
+		// 수정파일인지 여부 체크
+		if($("input[name=viewCheck]").val() == "m") {
+			titleCheckFlag = true;
+			dateCheckFlag = true;
+			timeCheckFlag = true;
+			$("#delFiles").val(delFList);
+		}
+		
+		// 내용 비어있는지 체크
+		if(title.val() == "") {
+			title.addClass("is-invalid");
+			title.removeClass("is-valid");
+			$("#title-msg").css("display", "block");
+			titleCheckFlag = false;
+		}
+		
+		if(date.val() == "" && date.val() == "") {
+			date.addClass("is-invalid");
+			date.removeClass("is-valid");
+			time.addClass("is-invalid");
+			time.removeClass("is-valid");
+			$(".dMsg").css("display", "none");
+			$("#date-msg").css("display", "block");
+			dateCheckFlag = false;
+			timeCheckFlag = false;
+		} else if(date.val() == "") {
+			date.addClass("is-invalid");
+			date.removeClass("is-valid");
+			$(".dMsg").css("display", "none");
+			$("#date-msg").css("display", "block");
+			dateCheckFlag = false;
+		} else if(time.val() == "") {
+			time.addClass("is-invalid");
+			time.removeClass("is-valid");
+			$(".dMsg").css("display", "none");
+			$("#date-msg").css("display", "block");
+			timeCheckFlag = false;
+		}
+		
+		if(deadline <= today) {
+			date.removeClass("is-valid");
+			date.addClass("is-invalid");
+			time.removeClass("is-valid");
+			time.addClass("is-invalid");
+			$(".dMsg").css("display", "none");
+			$("#date-msg2").css("display", "block");
+			dateCheckFlag = false;
+			timeCheckFlag = false;
+		}
+	
+		// 전송
+		if(titleCheckFlag && dateCheckFlag && timeCheckFlag) {
+			// 내용 보내기
+			var html = quill.root.innerHTML;
+			$("input[name=asContents]").val(html);
+			
+			// 기간 보내기
+			$("input[name=asDeadLine]").val(deadline);
+			
+			$("#postForm").submit();
+		}
+	});
+});
+
+// 파일
+var count = 0;
+function addFileForm() {
+	var html = "<div id='item_"+ count +"'>";
+	html += "<input id='input" + count + "' type='file' name='fList'>";
+	html += "<a class='button-delete-file btn'><i class='fas fa-minus text-primary' style='cursor:pointer'></i></a></div>";
+	count++;
+	$("#my-form").append(html);
+}

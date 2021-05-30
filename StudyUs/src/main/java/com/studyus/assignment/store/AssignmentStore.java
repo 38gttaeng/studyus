@@ -47,6 +47,8 @@ public interface AssignmentStore {
 	 */
 	public ArrayList<Assignment> selectAllByStudyNo(int stNo);
 	
+	////////////////////////////////////////////////////////////////////
+	
 	/**
 	 * 한개 보기 (WHERE AS_NO)
 	 * @param asNo
@@ -61,6 +63,8 @@ public interface AssignmentStore {
 	 */
 	public ArrayList<Assignment> selectAllReply(int asNo);
 	
+	///////////////////////////////////////////////////////////
+	
 	// 과제 그룹 추가, 수정, 삭제
 	public int insertGroup(AssignmentGroup asGroup);
 	public int updateGroup(AssignmentGroup asGroup);
@@ -72,7 +76,7 @@ public interface AssignmentStore {
 	public int updateAssignment(Assignment assignment);
 	public int deleteAssignment(int asNo);
 	
-	////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////
 	// 현재날짜 기준으로 그 날이 속한 달!
 		
 	/**

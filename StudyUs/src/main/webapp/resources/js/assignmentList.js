@@ -70,37 +70,6 @@ $(document).ready(function(){
 			$("#re-group-name").addClass("is-invalid");
 		}
 	});
-	
-	////////////////////////////////////////////////////////////////
-	
-	// 스터디 하나 정보와 과제 리스트 테이블 색상 변경
-	var tBoxColor = $("#tBox-color").val();
-	var textColor = "#fff";
-	
-	switch(tBoxColor) {
-	case "1": 
-		tBoxColor = "rgb(196, 178, 234)";
-		break;
-	case "2": 
-		tBoxColor = "rgb(165, 228, 216)";
-		break;
-	case "3": 
-		tBoxColor = "rgb(243, 211, 244)";
-		break;
-	case "4": 
-		tBoxColor = "rgb(188, 209, 241)";
-		break;
-	default: 
-		tBoxColor = "#f5f7f8";
-		textColor = "#000";
-		break;
-	}
-	
-	$(".oneStudy").css("background-color", tBoxColor);
-	$("#theadColor").css("background-color", tBoxColor);
-	$("#theadColor").css("color", textColor);
-	$("#tbodyColor").css("border", "1px solid" + tBoxColor);
-	$("#re-group-color").css("background-color", tBoxColor);
     
 });
 
@@ -127,23 +96,7 @@ function getAllGroup() {
 			
 			for(var i in grList) {
 				
-				var color = "";
-				switch(grList[i].grColor) {
-				case 1: 
-					color = "rgb(196, 178, 234)";
-					break;
-				case 2: 
-					color = "rgb(165, 228, 216)";
-					break;
-				case 3: 
-					color = "rgb(243, 211, 244)";
-					break;
-				case 4: 
-					color = "rgb(188, 209, 241)";
-					break;
-				}
-			
-				$div = $("<div class='item' style='background-color : " + color + "'>");
+				$div = $("<div class='item backHover" + grList[i].grColor + "'>");
 				
 				$dropdown = $("<div class='dropdown'>");
 					$dropBtn = $("<a id='group-delete' class='btn dropdown-toggle' href='javascript:void(0)' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>")

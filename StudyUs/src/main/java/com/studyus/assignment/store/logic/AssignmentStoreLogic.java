@@ -47,6 +47,8 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		return null;
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public Assignment selectOne(int asNo) {
 		return sqlSession.selectOne("assignmentMapper.selectOne", asNo);
@@ -58,6 +60,7 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		return null;
 	}
 	
+	/////////////////////////////////////////////////////////////////////////////////
 	
 	@Override
 	public int insertGroup(AssignmentGroup asGroup) {
@@ -75,22 +78,22 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		return sqlSession.insert("assignmentMapper.deleteGroup", grNo);
 	}
 	
-
+	/////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public int insertAssignment(Assignment assignment) {
-		return sqlSession.insert("assignmentMapper.insertAssignment", assignment);
+		sqlSession.insert("assignmentMapper.insertAssignment", assignment);
+		return assignment.getAsNo();
 	}
 	
 	@Override
 	public int updateAssignment(Assignment assignment) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("assignmentMapper.updateAssignment", assignment);
 	}
 
 	@Override
 	public int deleteAssignment(int asNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("assignmentMapper.deleteAssignment", asNo);
 	}
 
 	@Override

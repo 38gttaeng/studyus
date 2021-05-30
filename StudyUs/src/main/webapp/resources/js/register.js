@@ -13,7 +13,7 @@ $(function() {
 			delFList.push(delFileNo);
 		}
 		$(this).parent().remove();
-	})
+	});
 
 	// Quill
 	var toolbarOptions = {

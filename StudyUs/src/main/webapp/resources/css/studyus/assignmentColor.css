@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+/* 배경 */
+
+.back0 {
+	background-color : #d7e2ea !important;
+}
+
+.back1, .backHover1 {
+	background-color : rgb(196, 178, 234) !important;
+}
+
+.back2, .backHover2 {
+	background-color : rgb(165, 228, 216) !important;
+}
+
+.back3, .backHover3 {
+	background-color : rgb(243, 211, 244) !important;
+}
+
+.back4, .backHover4 {
+	background-color : rgb(188, 209, 241) !important;
+}
+
+
+.backHover1:hover {
+	background-color : #a78cdf !important;
+}
+
+.backHover2:hover {
+	background-color : #7ed8c6 !important;
+}
+
+.backHover3:hover {
+	background-color : #e8a8ea !important;
+}
+
+.backHover4:hover {
+	background-color : #94b6e9 !important;
+}
+
+
+/* 글씨 */
+
+.text1 {
+	color : rgb(196, 178, 234) !important;
+}
+
+.text2 {
+	color : rgb(165, 228, 216) !important;
+}
+
+.text3 {
+	color : rgb(243, 211, 244) !important;
+}
+
+.text4 {
+	color : rgb(188, 209, 241) !important;
+}
+
+/* 테이블 */
+
+.tColor0 {
+	border : 1px solid #d7e2ea !important;
+}
+
+.tColor1 {
+	border : 1px solid rgb(196, 178, 234) !important;
+}
+
+.tColor2 {
+	border : 1px solid rgb(165, 228, 216) !important;
+}
+
+.tColor3 {
+	border : 1px solid rgb(243, 211, 244) !important;
+}
+
+.tColor4 {
+	border : 1px solid rgb(188, 209, 241) !important;
+}
+
+/* 그라데이션 배경 */
+
+.gradient1 {
+	background: linear-gradient(#f9fbfd 40%, rgb(196, 178, 234));
+}
+
+.gradient2 {
+	background: linear-gradient(#f9fbfd 40%, rgb(165, 228, 216));
+}
+
+.gradient3 {
+	background: linear-gradient(#f9fbfd 40%, rgb(243, 211, 244));
+}
+
+.gradient4 {
+	background: linear-gradient(#f9fbfd 40%, rgb(188, 209, 241));
+}

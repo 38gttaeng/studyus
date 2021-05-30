@@ -9,6 +9,7 @@
     
     <!-- 추가 css -->
     <link href="/resources/css/studyus/assignment.css" rel="stylesheet">
+    <link href="/resources/css/studyus/assignmentColor.css" rel="stylesheet">
 	<title>StudyUs : 스터디룸</title>
 </head>
 <body>
@@ -36,18 +37,13 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-                                    <li class="breadcrumb-item text-muted" aria-current="page">Assignment</li>
+                                    <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/assignment?grNo=0">Assignment</a></li>
+                                    <c:if test="${ !empty asGroup }">
+                                    <li class="breadcrumb-item text${ asGroup.grColor } font-weight-bold" aria-current="page">${ asGroup.grName }</li>
+                                	</c:if>
                                 </ol>
                             </nav>
                         </div>
-                    </div>
-                    <div class="col-lg-3 align-self-center">
-        				<form id="searchForm" action="/study/board/search" method="get">
-		                    <div class="customize-input float-right">
-                            	<input name="searchValue" class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="프로젝트 검색" aria-label="Search">
-                            	<i class="form-control-icon" data-feather="search" onclick="#"></i>
-	                    	</div>
-                   		</form>
                     </div>
 	            </div>
             </div>
@@ -125,11 +121,9 @@
                     	
                     	<!-- 프로젝트 하나 정보 ----------------------------------->
                     	
-                    	<!-- assignmentList.js에 보내주는 용도 -->
-                    	<input type="hidden" id="tBox-color" value="${ asGroup.grColor }">
+                    	<c:if test="${ !empty asGroup }">
                     	
-                    	<c:if test="${ groupNo > 0 }">
-                    	<div class="oneStudy card">
+                    	<div class="oneStudy back${ asGroup.grColor } card">
                         	<div class="card-body">
                         		<h5 class="card-title text-white">${ asGroup.grName }</h5>
                         		<hr>
@@ -166,7 +160,7 @@
 										        	</div>
 										        	<div class="form-group">
 										        		<label for="re-group-color">색</label>
-										        		<select name="grColor" id="re-group-color" class="custom-select">
+										        		<select name="grColor" id="re-group-color" class="custom-select back${ asGroup.grColor }">
 								                            <option value="1" <c:if test="${ asGroup.grColor == 1 }">selected</c:if>></option>
 								                            <option value="2" <c:if test="${ asGroup.grColor == 2 }">selected</c:if>></option>
 								                            <option value="3" <c:if test="${ asGroup.grColor == 3 }">selected</c:if>></option>
@@ -203,8 +197,8 @@
                         <div class="card">
                         	<div class="card-body">
                         	
-	                            <table class="table .table-hover">
-	                            	<thead id="theadColor">
+	                            <table class="table table-hover tColor${ asGroup.grColor } tColor0">
+	                            	<thead class="back${ asGroup.grColor } back0 text-white">
 	                            		<tr>
 	                            			<td>번호</td>
 	                            			<td>과제명</td>
@@ -212,15 +206,15 @@
 	                            			<td>기한</td>
 	                            		</tr>
 	                            	</thead>
-	                            	<tbody id="tbodyColor">
-	                            		<c:forEach items="${ aList }" var="aOne">
+	                            	<tbody>
+	                            		<c:forEach items="${ asList }" var="aOne">
 	                            		
 	                            		<c:url var="asDetail" value="/study/assignment/detail">
 											<c:param name="asNo" value="${ aOne.asNo }"></c:param>
 										</c:url>
-		                            	<tr onclick="location.href='${ asDetail }'">
+		                            	<tr>
 		                            		<td>${ aOne.asNo }</td>
-	                            			<td>${ aOne.asName }</td>
+	                            			<td class="tableName" onclick="location.href='${ asDetail }'">${ aOne.asName }</td>
 	                            			<td>${ aOne.asInsertDate }</td>
 	                            			<td>${ aOne.asDeadLine }</td>
 		                            	</tr>
@@ -248,12 +242,12 @@
 										</c:url>
 										<c:if test="${ p eq pi.currentPage }">
 											<li class='page-item active'>
-												<span class='page-link'>" + p + "</span>
+												<span class='page-link'>${ p }</span>
 											</li>
 										</c:if>
 										<c:if test="${ p ne pi.currentPage }">
 											<li class='page-item' onclick="location.href='${ pagination }'">
-												<span class='page-link'>" + p + "</span>
+												<span class='page-link'>${ p }</span>
 											</li>
 										</c:if>
 	                            		</c:forEach>
@@ -278,7 +272,7 @@
                 </div>
                 
                 <!-- 글쓰기 버튼 --> 
-                <c:if test="${ loginUser.mbNo == study.leaderNo }">
+                <c:if test="${ loginUser.mbNo == study.leaderNo && asGroup != null}">
                 <div id="float-btn">
 					<button id="write-btn" onclick="location.href='/study/assignment/registerView'"><i class="fas fa-edit"></i><span>과제 등록</span></button>          
             	</div>
