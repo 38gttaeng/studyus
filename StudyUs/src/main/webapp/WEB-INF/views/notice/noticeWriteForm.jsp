@@ -75,15 +75,14 @@
 												<tr class="row">
 													<td class="col-md-2 text-center">내용</td>
 													<td class="col-md-10">
-													<!-- <textarea class="form-control" id="summernote" name="noticeContents"></textarea> -->
-													<textarea class="" id="summernote" name="noContents"></textarea>
+													<textarea class="" id="summernote" name="noContents" ></textarea>
 													</td>
 												</tr>
 												<tr><td>&nbsp;</td></tr>
 												<tr class="row">
 													<td class="col-md-2 text-center">첨부파일</td>
-													<td class="col-md-1"></td>
-													<td class="col-md-8">
+													<td>&nbsp;&nbsp;&nbsp;</td>
+													<td class="col-md-9">
 													<!-- <input type="file" class=""  name="uploadFile"> -->
 													<input type="file" class="custom-file-input" id="customFile" name="uploadFile">
             										<label class="custom-file-label" for="customFile">파일선택</label>
@@ -92,8 +91,8 @@
 												<tr><td>&nbsp;</td></tr>
 												<tr class="row">
 													<td class="col-md-10"></td>
-													<td align="center">
-													<input type="reset" class="btn waves-effect waves-light btn-light" value="취소"  onclick="history.back()">&nbsp;&nbsp; 
+													<td class="col-md-2 text-center">
+													<input type="reset" class="btn waves-effect waves-light btn-light" value="취소"  onclick="history.back()">
 													<input type="submit" class="btn waves-effect waves-light btn-primary" value="등록"></td>
 												</tr>
 											</table>
@@ -134,8 +133,21 @@
 					minHeight : null, // set minimum height of editor
 					maxHeight : null, // set maximum height of editor
 					focus : true,
-					lang : 'ko-KR' // 기본 메뉴언어 US->KR로 변경
-					
+					lang : 'ko-KR',
+					toolbar: [
+					    // [groupName, [list of button]]
+					    ['fontname', ['fontname']],
+					    ['fontsize', ['fontsize']],
+					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+					    ['color', ['forecolor','color']],
+					    ['table', ['table']],
+					    ['para', ['ul', 'ol', 'paragraph']],
+					    ['height', ['height']],
+					    ['insert',['picture','link','video']],
+					    ['view', ['fullscreen', 'help']]
+					  ],
+					fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'] // 기본 메뉴언어 US->KR로 변경
 				});
 
 			$("#sidebarnav>li:nth-child(5)").addClass("selected");

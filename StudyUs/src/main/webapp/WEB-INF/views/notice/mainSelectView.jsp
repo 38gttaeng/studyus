@@ -93,15 +93,18 @@
 							</div>
 						</div>
 					</div>
+					<div class="col-md-10"></div>
 					<!-- if문 추가하기 -->
-					<div class="col-12">
-						<button onclick="location.href='/notice/mainSelectView'" class="btn waves-effect waves-light btn-primary float-right">
-							<span>메인 수정</span>
-						</button>
-						<span class="float-right">&nbsp;</span>
-						<button id="write-btn" onclick="location.href='/notice/noticeWriteView'" class="btn waves-effect waves-light btn-primary float-right">
-							<span>공지 작성</span>
-						</button>
+					<div class="">
+						<!-- <form class="" role="form" action="/notice/mainNoticeUpdate" method="post">
+							<input type="hidden" name="noNo" value="${notice.noNo }"> 
+							<input type="hidden" name="noContents" value="${notice.noContents }"> 
+							<button onclick="history.back()" class="btn waves-effect waves-light btn-light">
+								<span>취소</span>
+							</button>
+							<button onclick="location.href='/notice/mainNoticeUpdate?noNo=${notice.noNo}'"
+										class="btn waves-effect waves-light btn-primary">수정 완료</button>
+						</form> -->
 					</div>
 					<br> <br>
 					<table class="table col-lg-12" id="nTable">
@@ -112,17 +115,15 @@
 								<th scope="col" style="width: 40%">제목</th>
 								<th scope="col" style="width: 10%">작성자</th>
 								<th scope="col" style="width: 13%">작성일</th>
-								<th scope="col" style="width: 10%">조회수</th>
+								<th scope="col" style="width: 10%"> </th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${nList }" var="notice">
 								<tr>
 									<th>
-										<input type="hidden" name="noNo" value="${notice.noNo }"> 
+										<input type="hidden" name="noNo" value="${notice.noNo }">
 										<input type="hidden" name="noMotherNo" value="${notice.noMotherNo }">
-										<input type="hidden" name="mainNotice" value="${notice.mainNotice }">
-										<input type="hidden" name="mainSetDate" value="${notice.mainSetDate }">
 									</th>
 									<th scope="row">${notice.rowNum }</th>
 									<td class="">
@@ -144,14 +145,18 @@
 										<span style="color: coral;"> 
 											<c:if test="${notice.noInsertDate >= nowDay }">
 												<%-- <img class="upload" src="<c:url value='/resources/images/new2.png' />" style="width: 15px;height: 15px;"> --%>
-		                    						<!-- <sup>N</sup> -->
 		                    						N
 		                    					</c:if>
 										</span>
 									</td>
 									<td>${notice.noWriter }</td>
 									<td>${notice.noInsertDate }</td>
-									<td>${notice.noCount}</td>
+									<td>
+										<form action="/notice/mainNoticeUpdate" method="post">
+											<input type="submit" class="btn waves-effect waves-light btn-primary" value="메인 설정">
+											<input type="hidden" name="noNo" value="${notice.noNo }">
+										</form>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -295,11 +300,28 @@
 			return false;
 		});
 		
+		$('.noTitle').click(function() {  
+			return false;
+		});
+		
 		$(document).ready(function(){
 			$("#searchIcon").on("click", function(){
 				$("#searchForm").submit();
 			});
-		});	
+		});
+		
+		function checkOnlyOne(element) {
+			  
+			  const checkboxes 
+			      = document.getElementsByName("mainNotice");
+			  
+			  checkboxes.forEach((cb) => {
+			    cb.checked = false;
+			  })
+			  
+			  element.checked = true;
+			}
+		
 	</script>
 </body>
 </html>

@@ -54,13 +54,28 @@ public class NoticeStoreLogic implements NoticeStore{
 	}
 
 	@Override
+	public ArrayList<Notice> printMainNotice(Notice notice) {
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectMainNotice", notice);
+	}
+
+	@Override
+	public int resetMainNotice(Notice notice) {
+		return sqlSession.update("noticeMapper.resetMainNotice", notice);
+	}
+
+	@Override
+	public int updateMainNotice(int noNo) {
+		return sqlSession.update("noticeMapper.updateMainNotice", noNo);
+	}
+
+	@Override
 	public int updateReplyCount(int noMotherNo) {
 		return sqlSession.update("noticeMapper.updateReplyCount", noMotherNo);
 	}
 
 	@Override
-	public int addReadCount(int noticeNo) {
-		return sqlSession.update("noticeMapper.updateCount", noticeNo);
+	public int addReadCount(int noNo) {
+		return sqlSession.update("noticeMapper.updateCount", noNo);
 	}
 
 	@Override
@@ -71,8 +86,8 @@ public class NoticeStoreLogic implements NoticeStore{
 	}
 
 	@Override
-	public Notice selectOne(int noticeNo) {
-		return sqlSession.selectOne("noticeMapper.selectOne", noticeNo);
+	public Notice selectOne(int noNo) {
+		return sqlSession.selectOne("noticeMapper.selectOne", noNo);
 	}
 
 	@Override
@@ -87,8 +102,8 @@ public class NoticeStoreLogic implements NoticeStore{
 	}
 
 	@Override
-	public int deleteNotice(int noticeNo) {
-		return sqlSession.update("noticeMapper.deleteNotice", noticeNo);
+	public int deleteNotice(int noNo) {
+		return sqlSession.update("noticeMapper.deleteNotice", noNo);
 	}
 
 	@Override

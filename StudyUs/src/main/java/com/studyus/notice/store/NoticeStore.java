@@ -12,13 +12,19 @@ public interface NoticeStore {
 //	public int selectNListCount(Notice notice);
 //	public int selectRListCount(Notice notice);
 	public ArrayList<Notice> selectList(PageInfo pi, Notice notice);
+	// 메인 공지사항 가져오기
+	public ArrayList<Notice> printMainNotice(Notice notice);
+	// 메인 공지사항 업데이트 
+	public int resetMainNotice(Notice notice);
+	public int updateMainNotice(int noNo);
+	
 	public int updateReplyCount(int noMotherNo);
-	public int addReadCount(int noticeNo);
+	public int addReadCount(int noNo);
 	public ArrayList<Notice> selectSearchList(PageInfo pi, Search search);
-	public Notice selectOne(int noticeNo);
+	public Notice selectOne(int noNo);
 	public int insertNotice(Notice notice);
 	public int updateNotice(Notice notice);
-	public int deleteNotice(int noticeNo);
+	public int deleteNotice(int noNo);
 	
 	public ArrayList<Notice> printAllReply(PageInfo pi, int noMotherNo);
 	public Notice selectOneReply(int noMotherNo);
