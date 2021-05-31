@@ -2,14 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hashtagMapper">
 	
-
-	<!-- <insert id="insertOneHashtag">
-		INSERT INTO HASHTAG (HA_NO, HA_NAME) 
-		    SELECT 0, '해시' FROM DUAL
-		    WHERE NOT EXISTS 
-		    (SELECT * FROM HASHTAG WHERE (HA_NO = 0 AND HA_NAME = '해시'));
-	</insert> -->
-	
 	<insert id="insertOneHashtag">
 		INSERT INTO HASHTAG VALUES (SEQ_HASHTAG.NEXTVAL, #{hashtag})
 	</insert>

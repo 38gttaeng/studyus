@@ -27,5 +27,6 @@ public interface StudyStore {
 	public Study selectOneByUrl(String url);
 	public int updateStudy(Study study);
 	public int deleteStudy(int studyNo);
+	public int selectStudyNoByUrl(String url);
 	
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.studyus.common.RedirectWithMsg;
+import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.member.domain.Member;
 import com.studyus.study.domain.Study;
@@ -135,7 +137,7 @@ public class StudyController {
 		return "study/study";
 	}
 	
-	// TODO 스터디 상세 페이지 get by Url
+	// 스터디 상세 페이지 get by Url
 	@RequestMapping(value="/study/{url}", method=RequestMethod.GET)
 	public String mainViewUrl(HttpServletRequest request, @PathVariable("url") String url) {
 		Study study = sService.printOneByUrl(url);
@@ -143,6 +145,42 @@ public class StudyController {
 		request.getSession().setAttribute("study", study);
 		
 		return "study/study";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/study/enrollment/apply", method=RequestMethod.GET, produces="application/text; charset=UTF-8")
+	public String apply(HttpServletRequest request, 
+						@RequestParam(required=false) String url, 
+						@RequestParam(value="greeting", required=false) String message) throws Exception {
+		
+		Member loginMember = (Member) request.getSession().getAttribute("loginUser");
+		if (loginMember == null) {
+			return String.valueOf(-1);
+		}
+		
+		Enrollment enrollment = new Enrollment();
+		enrollment.setMemberNo(loginMember.getMbNo()); // TODO 세션에 저장된 회원번호로 변경
+		enrollment.setMessage(message);
+		int result = eService.apply(enrollment, url);
+		
+		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value="/study/{url}/enrollment/list")
+	public String enrollmentList(HttpServletRequest request,
+								@PathVariable(value="url") String url) throws Exception {
+		
+//		Study study = sService.printOneByUrl(url);
+		Member loginMember = (Member)request.getSession().getAttribute("loginUser");
+		
+		// 스터디 리더가 아니면 return
+//		if (study.getLeaderNo() != loginMember.getMbNo()) {
+//			return new RedirectWithMsg().redirect(request, "권한이 없습니다.", "/study/" + url);
+//		}
+		
+//		eService.printAllByStudyNo(study.getStudyNo());
+		
+		return "/enrollment/list";
 	}
 	
 	// 스터디 수정 페이지 get

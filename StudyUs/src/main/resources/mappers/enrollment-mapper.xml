@@ -2,52 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="enrollmentMapper">
 
-	<!-- <resultMap type="Study" id="studyResultMap">
-		<id property="studyNo" column="ST_NO"></id>
-		<result property="leaderNo" column="MB_NO"></result>
-		<result property="filename" column="ST_FILENAME"></result>
-		<result property="studyName" column="ST_NAME"></result>
-		<result property="introduce" column="ST_INTRODUCE"></result>
-		<result property="maxPersonnel" column="ST_MAX_PERSONNEL"></result>
-		<result property="insertDate" column="ST_INSERTDATE"></result>
-		<result property="status" column="ST_STATUS"></result>
-		<result property="url" column="ST_URL"></result>
-		<result property="monday" column="ST_MON"></result>
-		<result property="tuesday" column="ST_TUE"></result>
-		<result property="wednesday" column="ST_WED"></result>
-		<result property="thursday" column="ST_THU"></result>
-		<result property="friday" column="ST_FRI"></result>
-		<result property="saturday" column="ST_SAT"></result>
-		<result property="sunday" column="ST_SUN"></result>
-		<result property="start" column="ST_START"></result>
-		<result property="end" column="ST_END"></result>
+	<resultMap type="Enrollment" id="enrollmentStudyMap">
+		<id property="enrollmentNo" column="EN_NO"></id>
+		<result property="memberNo" column="MB_NO"></result>
+		<result property="studyNo" column="ST_NO"></result>
+		<result property="insertDate" column="EN_INSERTDATE"></result>
+		<result property="message" column="EN_MESSAGE"></result>
+		<result property="status" column="EN_STATUS"></result>
 	</resultMap>
-	useGeneratedKeys="true"  keyProperty="caNo" keyColumn="CA_NO"
-	<insert id="insertStudy" parameterType="Study">
-		<selectKey keyProperty="studyNo" resultType="int" order="AFTER">
-			select SEQ_STUDY.currval FROM DUAL
-		</selectKey>
-		INSERT INTO STUDY VALUES (SEQ_STUDY.NEXTVAL, 
-								#{leaderNo}, 
-								#{filename}, 
-								#{studyName},
-								#{introduce},
-								DEFAULT,
-								DEFAULT,
-								DEFAULT,
-								#{url},
-								#{monday},
-								#{tuesday},
-								#{wednesday},
-								#{thursday},
-								#{friday},
-								#{saturday},
-								#{sunday},
-								#{start},
-								#{end}
-							)
+	
+	<resultMap type="com.studyus.study.domain.StudyWithEnrollmentList" id="studyWithEnrollmentListResultMap">
+		<association property="study" javaType="Study">
+		
+		</association>
+		<collection property="hashtagList" ofType="com.studyus.hashtag.domain.Hashtag" autoMapping="true">
+			<id property="hashtagNo" column="HA_NO" javaType="int"></id>
+			<result property="name" column="HA_NAME" javaType="String"></result>
+		</collection>
+	</resultMap>
+
+	<insert id="insertEnrollment" parameterType="Enrollment">
+		INSERT INTO ENROLLMENT VALUES (SEQ_ENROLLMENT.NEXTVAL,
+										#{memberNo},
+										#{studyNo},
+										SYSDATE,
+										#{message},
+										DEFAULT)
 	</insert>
 	
+	<select id="selectAllByStudyNo" resultMap="enrollmentResultMap">
+		
+	</select>
+	
+	<!--
 	<select id="checkUrl" resultType="int">
 		SELECT COUNT(*) FROM STUDY WHERE ST_URL = #{url}
 	</select>

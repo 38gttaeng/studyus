@@ -8,17 +8,22 @@ import org.springframework.stereotype.Repository;
 
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.enrollment.store.EnrollmentStore;
+import com.studyus.study.store.StudyStore;
 
 @Repository
 public class EnrollmentStoreLogic implements EnrollmentStore {
 	
 	@Autowired
 	SqlSession session;
+	
+	@Autowired
+	StudyStore sStore;
 
 	@Override
-	public int insertEnrollment(Enrollment enrollment) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertEnrollment(Enrollment enrollment, String url) throws Exception {
+		int studyNo = sStore.selectStudyNoByUrl(url);
+		enrollment.setStudyNo(studyNo);
+		return session.insert("enrollmentMapper.insertEnrollment", enrollment);
 	}
 
 	@Override
@@ -35,8 +40,7 @@ public class EnrollmentStoreLogic implements EnrollmentStore {
 
 	@Override
 	public ArrayList<Enrollment> selectListByStudyNo(int studyNo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList) session.selectList("enrollmentMapper.selectAllByStudyNo", studyNo);
 	}
 
 }

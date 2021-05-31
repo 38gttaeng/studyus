@@ -16,9 +16,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	EnrollmentStore eStore;
 
 	@Override
-	public int apply(Enrollment enrollment) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int apply(Enrollment enrollment, String url) throws Exception {
+		return eStore.insertEnrollment(enrollment, url);
 	}
 
 	@Override
@@ -35,8 +34,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
 	@Override
 	public ArrayList<Enrollment> printAllByStudyNo(int studyNo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return eStore.selectListByStudyNo(studyNo);
 	}
 
 

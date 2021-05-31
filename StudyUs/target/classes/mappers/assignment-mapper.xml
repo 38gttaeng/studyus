@@ -3,7 +3,7 @@
 <mapper namespace="assignmentMapper">
 	<resultMap type="Assignment" id="assignmentResultMap">
 		<id property="asNo" column="AS_NO"></id>
-		<result property="grNo" column="GR_NO"></result> 
+		<result property="grNo" column="GR_NO"></result>
 		<result property="asName" column="AS_NAME"></result>
 		<result property="asContents" column="AS_CONTENTS"></result>
 		<result property="asInsertDate" column="AS_INSERTDATE"></result>

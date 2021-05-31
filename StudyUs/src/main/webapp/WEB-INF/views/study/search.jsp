@@ -34,6 +34,11 @@
 		cursor: normal;
 	}
 	
+	.meetingDayView.selected {
+		color: white;
+		background: #6927ff;
+	}
+	
 	.card:hover {
 		cursor: pointer;
 	}
@@ -78,40 +83,81 @@
 		</form>
 		
 		<div id="search-result-grid" class="row">
-		
+			<div class="study-container col-lg-4 mb-4 d-none">
+				<div class="card h-100" data-toggle="modal" data-target="#exampleModal" onclick="onStudyContainerClicked(this);">
+					<img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title study-name">{스터디명}</h5>
+						<p class="card-text study-introduce">{스터디 입니다.}</p>
+						<div class="card-text study-hashtags">{#해시태그 #해시태그}</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		<!-- 검색 끝 안내 -->		
 		<div id="searchGuide" align="center"></div>
-		
-		<div id="additionalLoadProperties">
-			<input type="hidden" id="currentPage" value="0"/>
-		</div>
-		
 		<div class="py-4"></div>
 	</div>
 	
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered">
-	    <div id="study-modal" class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        ...
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	      </div>
-	    </div>
-	  </div>
+		<div class="modal-dialog modal-dialog-centered">
+			<div id="study-modal" class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel">{스터디명}</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row pb-2">
+						<div class="col-3">
+							<b>소개</b>
+						</div>
+						<div id="study-introduce" class="col-9">
+							{스터디 소개}
+						</div>
+					</div>
+					<div class="row pb-2">
+						<div class="col-3">
+							<b>활동일시</b>
+						</div>
+						<div class="col-9">
+							<span class="meetingDayView btn btn-light btn-sm mr-1">월</span>
+							<span class="meetingDayView btn btn-light btn-sm mr-1">화</span>
+							<span class="meetingDayView btn btn-light btn-sm mr-1">수</span>
+							<span class="meetingDayView btn btn-light btn-sm mr-1">목</span>
+							<span class="meetingDayView btn btn-light btn-sm mr-1">금</span>
+							<span class="meetingDayView btn btn-light btn-sm mr-1">토</span>
+							<span class="meetingDayView btn btn-light btn-sm mr-1">일</span>
+						</div>
+					</div>
+					<div class="row pb-2">
+						<div class="col-3">
+						</div>
+						<div class="col-9" id="meetingTimeView">
+							00 : 00  ~  00 : 00
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-3">
+							<b>가입인사</b>
+						</div>
+						<div class="col-9">
+							<textarea id="modal-greeting" class="form-control" rows="3" cols=""></textarea>							
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+					<button type="button" id="apply-button" class="btn btn-primary" onclick="applyStudy();">가입신청</button>
+				</div>
+			</div>
+		</div>
 	</div>
-	
+
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	
 	<script src="/resources/js/studySearch.js"></script>

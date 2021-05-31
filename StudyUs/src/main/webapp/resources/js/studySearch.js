@@ -12,15 +12,26 @@ var hashtagButton = document.getElementById("hashtagButton");
 var searchButton = document.getElementById("searchButton");
 // 검색 결과를 출력하는 영역
 var resultGrid = document.getElementById("search-result-grid");
+// 검색 결과를 Json 형태로 저장하는 변수
+var studyList = [];
+// 모달 활동요일
+var meetingDayViewList = document.getElementsByClassName("meetingDayView");
+// 현재 페이지
+var currentPage = 0;
 
 /**
- * 비동기 로딩 요청이 이미 실행 중일 때 여러번 보내지 않기 위한 변수입니다.
- * loadAvailable이 true인 경우에만 다음 페이지를 비동기 요청합니다.
- * 요청 시작시 false로 변경됩니다.
- * 요청된 페이지 로딩 완료 후 true로 변경됩니다.
+ * 비동기 로딩 요청이 이미 실행 중일 때 여러번 보내지 않기 위한 변수.
+ * loadAvailable이 true인 경우에만 다음 페이지를 비동기 요청.
+ * 요청 시작시 false로 변경.
+ * 요청된 페이지 로딩 완료 후 true로 변경.
  */
 var loadAvailable = true;
-
+/**
+ * 검색을 한 번이라도 실행했는지 확인하는 변수.
+ * 검색버튼으로 검색을 실행하면 true로 변경.
+ * true인 상태에서만 비동기 검색이 실행.
+ * 검색결과 마지막 페이지 도달시 false로 변경.
+ */
 var firstSearched = false;
 
 // 엔터키로 submit 제한
@@ -58,13 +69,13 @@ function onAddHashtag() {
     
     // 해시태그 미입력시 return
     if (currentHashtag == '') {
-        return;
+        return false;
     }
     
     // 이미 입력되었을시 inputfield 초기화 후 return
     if (hashtags.includes(currentHashtag)) {
         searchInput.value = '';
-        return;
+        return false;
     }
     
     // 해시태그 리스트에 추가
@@ -104,13 +115,9 @@ function onSearch() {
 
     firstSearched = true;
 
-    document.getElementById("currentPage").value = 0;
+    currentPage = 0;
 
     loadAdditionally();
-
-    // searchForm.setAttribute("action", "/study/search/result");
-    // searchForm.setAttribute("method", "get");
-    // searchForm.submit();
 }
 
 $(window).scroll(function() {
@@ -138,7 +145,7 @@ function loadAdditionally() {
         data: {
             'keyword' : document.getElementById("searchInput").value,
             'hashtags' : hashtags,
-            'page' : document.getElementById("currentPage").value
+            'page' : currentPage
             // , 구분자로 추가
         },
         dataType: "json",
@@ -150,17 +157,10 @@ function loadAdditionally() {
             }
 
             for (var i = 0; i < result.length; i ++) {
-                // var studyContainer = studyContainerModel.clone(false).appendTo("#search-result-grid");
-                // studyContainer.classList.remove("d-none");
-                // studyContainer.getElementsByClassName("study-name").innerHTML = result[i].studyName;
-                // studyContainer.getElementsByClassName("study-introduce").innerHTML = result[i].introduce;
-                // studyContainer.getElementsByClassName("study-hashtags").innerHTML = result[i].hashtags;
-                // studyContainer.getElementsByClassName("study-url").value = result[i].url;
                 var sStudyName = result[i].studyName;
                 var sIntroduce = result[i].introduce;
                 var sHashtags = result[i].hashtagList;
                 var hashtagString = '';
-                var sUrl = result[i].url;
 
                 if (sHashtags[i] != undefined) {
                     for (var j = 0; j < sHashtags.length; j ++) {
@@ -169,7 +169,7 @@ function loadAdditionally() {
                 }
 
                 var studyText = '<div class="study-container col-lg-4 mb-4">' +
-                                    '<div class="card h-100" data-toggle="modal" data-target="#exampleModal" onclick="onStudyContainerClicked(this);">' +
+                                    '<div class="card h-100" data-toggle="modal" data-target="#exampleModal" onclick="onStudyContainerClicked(' + (i + studyList.length) + ');">' +
                                         '<img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">' +
                                         '<div class="card-body">' +
                                             '<h5 class="card-title study-name">' + sStudyName + '</h5>' +
@@ -177,12 +177,15 @@ function loadAdditionally() {
                                             '<div class="card-text study-hashtags">' + hashtagString + '</div>' +
                                         '</div>' +
                                     '</div> ' +
-				                    '<input type="hidden" class="url study-url" value="' + sUrl + '">' +
                                 '</div>';
                 resultGrid.innerHTML += studyText;
             }
+            
+            // result를 studyList에 추가
+            studyList = studyList.concat(result);
 
-            document.getElementById("currentPage").value = parseInt(document.getElementById("currentPage").value, 10) + 1;
+            // 현재 페이지수 1 추가
+            currentPage++;
         },
         error: function(result) {
             alert('검색 결과를 불러오지 못했습니다.');
@@ -193,6 +196,73 @@ function loadAdditionally() {
     });
 }
 
-function onStudyContainerClicked(e) {
-    console.log(e.getElementsByClassName('study-name').innerHTML);
+// 모달 display
+function onStudyContainerClicked(i) {
+    var s = studyList[i].start;
+    var e = studyList[i].end;
+    var studyUrl = studyList[i].url;
+
+    // 스터디명 출력
+    document.getElementById("modalLabel").innerHTML = studyList[i].studyName;
+
+    // 스터디 소개 출력
+    document.getElementById("study-introduce").innerHTML = studyList[i].introduce;
+
+    // 활동요일 출력
+    var meetingDayValues = [];
+    meetingDayValues.push(studyList[i].monday);
+    meetingDayValues.push(studyList[i].tuesday);
+    meetingDayValues.push(studyList[i].wednesday);
+    meetingDayValues.push(studyList[i].thursday);
+    meetingDayValues.push(studyList[i].friday);
+    meetingDayValues.push(studyList[i].saturday);
+    meetingDayValues.push(studyList[i].sunday);
+    for (var i = 0; i < 7; i ++) {
+        if (meetingDayValues[i] == 0) {
+            meetingDayViewList[i].classList.add("btn-light");
+            meetingDayViewList[i].classList.remove("btn-primary");
+        } else if (meetingDayValues[i] == 1) {
+            meetingDayViewList[i].classList.remove("btn-light");
+            meetingDayViewList[i].classList.add("btn-primary");
+        }
+    }
+
+    // 활동시간 출력
+    document.getElementById("meetingTimeView").innerHTML = (s + ' ~ ' + e);
+
+    // 가입신청 버튼 설정
+    document.getElementById("apply-button").setAttribute("onclick", "applyStudy('" + studyUrl + "');");
+}
+
+// 모달 가입신청 클릭
+function applyStudy(studyUrl) {
+    console.log("applyStudy clicked");
+    $.ajax({
+        type: 'GET',
+        url: '/study/enrollment/apply',
+        contentType: 'application/json; charset=UTF-8',
+        // 인자
+        data: {
+            'url': studyUrl,
+            'greeting' : document.getElementById("modal-greeting").value
+            // , 구분자로 추가
+        },
+        dataType: "json",
+        success: function(result) {
+            if (result == -1) {
+                alert('로그인이 필요합니다.');
+                window.location.href='/member/loginView';
+                return false;
+            }
+
+            $('#exampleModal').modal('hide');
+            alert('가입 신청이 완료되었습니다.');
+        },
+        error: function(result) {
+            alert('가입 신청에 실패했습니다.');
+        },
+        complete: function(result) {
+            console.log("가입신청 통신 종료");
+        }
+    });
 }

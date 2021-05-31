@@ -14,7 +14,7 @@ public interface EnrollmentStore {
 	//////////////////////////////
 	
 	// insert
-	public int insertEnrollment(Enrollment enrollment) throws Exception;
+	public int insertEnrollment(Enrollment enrollment, String url) throws Exception;
 	
 	// update
 	public int updateEnrollment(Enrollment enrollment) throws Exception;

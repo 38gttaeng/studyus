@@ -100,7 +100,6 @@
 	<script src="/resources/css/main/js/aos.js"></script>
 	<script src="/resources/css/main/js/jquery.animateNumber.min.js"></script>
 	<script src="/resources/css/main/js/bootstrap-datepicker.js"></script>
-	<script src="/resources/css/main/js/jquery.timepicker.min.js"></script>
 	<script src="/resources/css/main/js/scrollax.min.js"></script>
 	<script src="/resources/css/main/js/main.js"></script>
 </body>

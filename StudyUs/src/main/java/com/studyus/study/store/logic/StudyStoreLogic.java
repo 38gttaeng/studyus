@@ -91,5 +91,10 @@ public class StudyStoreLogic implements StudyStore {
 		return 0;
 	}
 
+	@Override
+	public int selectStudyNoByUrl(String url) {
+		return ((Study)sqlSession.selectOne("studyMapper.selectOneByUrl", url)).getStudyNo();
+	}
+
 
 }
