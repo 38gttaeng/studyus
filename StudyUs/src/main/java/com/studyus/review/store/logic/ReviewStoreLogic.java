@@ -16,8 +16,8 @@ public class ReviewStoreLogic implements ReviewStore{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<Review> selectAllReview(int caNo) {
-		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList", null);
+	public ArrayList<Review> selectReviewList(int caNo) {
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList", caNo);
 	}
 
 	@Override

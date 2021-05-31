@@ -150,7 +150,7 @@
 	
 	
 	<!-- 등록 -->
-	<insert id="insertBoard" parameterType="Board"> 
+	<insert id="insertBoard" parameterType="Board">
 	
 		<selectKey resultType="int" keyProperty="boNo" order="BEFORE">
 			SELECT SEQ_BOARD.NEXTVAL FROM DUAL

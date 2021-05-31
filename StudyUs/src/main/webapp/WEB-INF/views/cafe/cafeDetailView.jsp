@@ -109,7 +109,7 @@
 								<div class="col-md-12 mb-4">
 									<h2 class="h4 ml-3 mt-5">리뷰</h2>
 								</div>
-								<table class="table-striped col-md-12 mb-4" height="100px">
+								<table class="table table-striped col-md-12 mb-4" height="100px">
 									<thead></thead>
 									<tbody>
 										<tr>
@@ -235,17 +235,69 @@
 									</div>
 								</div>
 	<script>
+	// 댓글 리스트
+	function getReviewList(data) {
+		var caNo = '${cafe.caNo}';
+		$.ajax({
+			url : "/cafe/review/list",
+			type : "get",
+			data : {
+				"caNo" : caNo
+			},
+			dataType : "json",
+			success : function(data) {
+				var $tableBody = $("#rtb tbody");
+				$tableBody.html(""); // 비워주기
+				var $tr;
+				var $mbId;
+				var $rvContents;
+				var $rvDate;
+				var $btnArea;
+
+				if (data.length > 0) {
+					for ( var i in data) {
+						$tr = $("<tr>");
+						$mbId = $("<td width='100'>").text(data[i].mbId);
+						$rvContents = $("<td>").text(data[i].rvContents);
+						$rvDate = $("<td width='100'>").text(
+								data[i].rvDate);
+						$btnArea = $("<td>").append(
+								"<a href='#' onclick='modifyReview(this,"
+										+ rvNo + "," + data[i].rvNo
+										+ ",\"" + data[i].rvContents
+										+ "\");'>수정 </a>").append(
+								"<a href='#' onclick='removeReview("
+										+ cafeNo + "," + data[i].rvNo
+										+ ");'> 삭제</a>");
+						$tr.append($mbId);
+						$tr.append($rvContents);
+						$tr.append($rvDate);
+						$tr.append($btnArea);
+						$tableBody.append($tr);
+					}
+				}
+			},
+			error : function() {
+
+			}
+
+		});
+	}
+	
 		// 댓글 등록
 		$(function() {
 			getReviewList(); 
 			$("#rvSubmit").on("click", function() {
+// 				if(loginMbId == null){
+// 					alert("로그인을 해주세요");
+// 				}else{
 // 				alert("test");
 				var caNo = '${cafe.caNo}';
 				var rvContents = $("#rvContents").val();
-				// 				console.log(boardNo);
-				// 				console.log(rContent);
+// 								console.log(caNo);
+// 								console.log(rvContents);
 				$.ajax({
-					url : "/review/register",
+					url : "/cafe/review/register",
 					type : "post",
 					data : {
 						"caNo" : caNo,
@@ -266,55 +318,6 @@
 			});
 		});
 		
-		// 댓글 리스트
-		function getReviewList() {
-			var caNo = '${cafe.caNo}';
-			$.ajax({
-				url : "/review/list",
-				type : "get",
-				data : {
-					"caNo" : caNo
-				},
-				dataType : "json",
-				success : function(data) {
-					var $tableBody = $("#rtb tbody");
-					$tableBody.html(""); // 비워주기
-					var $tr;
-					var $mbId;
-					var $rvContents;
-					var $rvDate;
-					var $btnArea;
-
-					if (data.length > 0) {
-						for ( var i in data) {
-							$tr = $("<tr>");
-							$mbId = $("<td width='100'>").text(data[i].mbId);
-							$rvContents = $("<td>").text(data[i].rvContents);
-							$rvDate = $("<td width='100'>").text(
-									data[i].rvDate);
-							$btnArea = $("<td>").append(
-									"<a href='#' onclick='modifyReview(this,"
-											+ rvNo + "," + data[i].rvNo
-											+ ",\"" + data[i].rvContents
-											+ "\");'>수정 </a>").append(
-									"<a href='#' onclick='removeReview("
-											+ cafeNo + "," + data[i].rvNo
-											+ ");'> 삭제</a>");
-							$tr.append($mbId);
-							$tr.append($rvContents);
-							$tr.append($rvDate);
-							$tr.append($btnArea);
-							$tableBody.append($tr);
-						}
-					}
-				},
-				error : function() {
-
-				}
-
-			});
-		}
-
 		// 댓글 수정 폼(수정버튼 눌렀을 때 폼 생기게 하는 함수)
  		function modifyReview(obj, cafeNo, reviewNo, reviewContents) {
 			$trModify = $("<tr>");
@@ -329,7 +332,7 @@
 		function modifyReplyCommit(caNo, rvNo) {
 			var modifiedContent = $("#modifyReview").val();
 			$.ajax({
-				url : "modifyReview",
+				url : "/cafe/review/modify",
 				type : "post",
 				data : {
 					"refCafeNo" : cafeNo, 
@@ -353,7 +356,7 @@
 		// 댓글삭제
 		function removeReview(caNo, rvNo) {
 			$.ajax({
-				url : "deleteReview",
+				url : "/cafe/review/delete",
 				type : "get",
 				data : {
 					"cafeNo" : caNo,

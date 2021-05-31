@@ -6,7 +6,7 @@ import com.studyus.review.domain.Review;
 
 public interface ReviewStore {
 
-	public ArrayList<Review> selectAllReview(int caNo);
+	public ArrayList<Review> selectReviewList(int caNo);
 	public int insertReview(Review review);
 	public int updateReview(Review review);
 	public int deleteReview(Review review);
