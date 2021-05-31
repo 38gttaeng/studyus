@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link href="/resources/css/study/assets/libs/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+    <link href="/resources/css/studyus/assignmentColor.css" rel="stylesheet">
+    <link href="/resources/css/studyus/calendar.css" rel="stylesheet">
 	<title>StudyUs : 스터디룸</title>
 </head>
 <body>
@@ -19,11 +21,6 @@
         
         <!-- menubar -->
 	    <jsp:include page="../common/studyMenubar.jsp"/>
-	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->
-	    <script>
-	    	$("#sidebarnav>li:nth-child(4)").addClass("selected");
-	    	$("#sidebarnav>li:nth-child(4) a").addClass("active");
-	    </script>
 	    
 	    <!-- ============================================================== -->
         <!-- Page wrapper  -->
@@ -126,6 +123,43 @@
                                  </div>
                              </div>
                         </div>
+                        
+                        <div class="modal fade" id="info" tabindex="-1" aria-labelledby="infoLabel" aria-hidden="true" data-backdrop="static">
+	                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						    	<div class="modal-content">
+						    		<div id="modal-header" class="modal-header">
+						        		<h5 class="modal-title text-white" id="infoLabel">일정</h5>
+						        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          			<span aria-hidden="true" class="text-white">&times;</span>
+						 				</button>
+						 			</div>
+							      	<div class="modal-body">
+							        	<div class="form-group">
+							        		<label for="name">일정명</label>
+							        		<input id="name" class="form-control" type="text" readonly>
+							        	</div>
+							        	<div class="form-group">
+							        		<label for="inDate">시작일시</label>
+							        		<div class="clearfix">
+								        		<input id="inDate" class="form-control float-left" type="date" readonly>
+								        		<input id="inTime" class="form-control float-right" type="time" readonly>
+							        		</div>
+							        	</div>
+							        	<div class="form-group">
+							        		<label for="deDate">종료일시</label>
+							        		<div class="clearfix">
+								        		<input id="deDate" class="form-control float-left" type="date" readonly>
+								        		<input id="deTime" class="form-control float-right" type="time" readonly>
+							        		</div>
+							        	</div>
+							      	</div>
+							      	<div class="modal-footer">
+							        	<button id="info-btn" type="button" class="btn btn-primary">더보기</button>
+							   		</div>
+						    	</div>
+							</div>
+                    	</div>
+                        
                     </div>
                 </div>
            	</div>
@@ -140,7 +174,7 @@
     <script src="/resources/css/study/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
     <script src="/resources/css/study/assets/libs/moment/min/moment.min.js"></script>
     <script src="/resources/css/study/assets/libs/fullcalendar/fullcalendar.js"></script>
-    <script src="/resources/css/study/dist/js/pages/calendar/cal-init.js"></script>
+    <script src="/resources/js/calendar.js"></script>
     
 </body>
 </html>

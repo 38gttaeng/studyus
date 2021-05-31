@@ -11,7 +11,6 @@ public class Assignment {
 	private String asContents;
 	private String asInsertDate;
 	private String asDeadLine;
-	private int asMotherNo;
 	private int asStatus;
 	private ArrayList<FileVO> asFiles;
 	
@@ -65,14 +64,6 @@ public class Assignment {
 		this.asDeadLine = asDeadLine;
 	}
 
-	public int getAsMotherNo() {
-		return asMotherNo;
-	}
-
-	public void setAsMotherNo(int asMotherNo) {
-		this.asMotherNo = asMotherNo;
-	}
-
 	public int getAsStatus() {
 		return asStatus;
 	}
@@ -92,8 +83,8 @@ public class Assignment {
 	@Override
 	public String toString() {
 		return "Assignment [asNo=" + asNo + ", grNo=" + grNo + ", asName=" + asName + ", asContents=" + asContents
-				+ ", asInsertDate=" + asInsertDate + ", asDeadLine=" + asDeadLine + ", asMotherNo=" + asMotherNo
-				+ ", asStatus=" + asStatus + ", asFiles=" + asFiles + "]";
+				+ ", asInsertDate=" + asInsertDate + ", asDeadLine=" + asDeadLine + ", asStatus=" + asStatus
+				+ ", asFiles=" + asFiles + "]";
 	}
 
 }

@@ -10,17 +10,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
@@ -84,11 +83,6 @@ public class AssignmentController {
 		return mv;
 	}
 	
-	// 일정
-	public ModelAndView assignmentCalendar(HttpSession session, ModelAndView mv) {
-		return null;
-	}
-	
 	/******************* 과제1 + 과제제출 리스트 보기 *******************/
 	
 	// 디테일
@@ -111,16 +105,6 @@ public class AssignmentController {
 		///////////////////// 과제제출 확인 관련 메소드도 함께 호출
 		
 		return mv;
-	}
-	
-	// 과제 댓글 리스트
-	public void getReplyList(HttpServletResponse response, @RequestParam("asNo") int asNo) {
-
-	}
-	
-	// 과제제출 댓글 리스트
-	public void getSubmittedReplyList(HttpServletResponse response, @RequestParam("suNo") int asNo) {
-
 	}
 	
 	/******************* 과제 분류 등록, 수정, 삭제, 숨김 *******************/

@@ -43,8 +43,7 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	
 	@Override
 	public ArrayList<Assignment> selectAllByStudyNo(int stNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllByStNo", stNo);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////

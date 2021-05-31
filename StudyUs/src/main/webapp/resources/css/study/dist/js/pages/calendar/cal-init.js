@@ -42,7 +42,17 @@
             var today = new Date($.now());
 			
 			// 이미 있는 정보들 json 형식으로 받아오기
-			
+			var asList = $.ajax ({
+				url : "/study/calendar/assignment",
+				type : "get",
+				dataType : "json",
+				success : function(data) {
+					console.log(data)
+				},
+				error : function() {
+					alert("전송 실패..");
+				}
+			});
 			
             var defaultEvents = [{
 					id : 1,
