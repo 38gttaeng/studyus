@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="reviewMapper">
-		<resultMap type="Review" id="replyResultMap">
+		<resultMap type="Review" id="reviewResultMap">
 		<id property="rvNo" column="RV_NO" />
 		<result property="caNo" column="CA_NO" />
-		<result property="mbId" column="MB_ID" />
+		<result property="mbNo" column="MB_NO" />
 		<result property="rvContents" column="RV_CONTENTS" />
 		<result property="rvRating" column="RV_RATING" />
 		<result property="rvDate" column="RV_DATE" />
 		<result property="rvStatus" column="RV_STATUS" />
+		<collection property="member" resultMap="memberMapper.memberResultMap" />
 	</resultMap>
-
-	<select id="selectReviewList" resultMap="replyResultMap">
-		SELECT * FROM REVIEW
-		WHERE CA_NO = #{caNo} AND RV_STATUS = 'Y'
-		ORDER BY RV_NO DESC
+	<select id="selectReviewList" resultMap="reviewResultMap">
+		SELECT R.RV_NO, R.CA_NO, MB_NO, R.RV_CONTENTS, R.RV_RATING, R.RV_DATE, R.RV_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM REVIEW R
+		JOIN MEMBER M USING(MB_NO)
+		WHERE CA_NO = #{caNo} AND C.RV_STATUS = 1
+		ORDER BY R.RV_NO DESC
 	</select>
-	<insert id="insertReview" useGeneratedKeys="true"  keyProperty="rvNo" keyColumn="RV_NO">
+	<insert id="insertReview" parameterType="Review">
 		INSERT INTO REVIEW
-		VALUES(SEQ_RVNO.NEXTVAL,
-		#{caNo},#{mbId},#{rvContents},#{rvContents},#{rvRating},DEFAULT,DEFAULT)
+		VALUES(SEQ_REVIEW.NEXTVAL,
+		#{caNo},#{mbNo},#{rvContents},#{rvRating},DEFAULT,DEFAULT)
 	</insert>
 	<update id="updateReview">
 		UPDATE REVIEW
 		SET RV_CONTENTS = #{rvContents}
-		WHERE CA_NO = #{caNo} AND RV_NO = #{rvNo} AND RV_STATUS = 'Y'
+		WHERE CA_NO = #{caNo} AND RV_NO = #{rvNo} AND RV_STATUS = 1
 	</update>
-	<update id="deleteReply">
-		UPDATE REVIEW SET RV_STATUS = 'N'
+	<update id="deleteReview">
+		UPDATE REVIEW SET RV_STATUS = 0
 		WHERE CA_NO = #{caNo} AND RV_NO = #{rvNo}
 	</update>
 	

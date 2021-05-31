@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 스터디 목록</title>
+<title>스터디 관리 목록</title>
 </head>
 <body>
 

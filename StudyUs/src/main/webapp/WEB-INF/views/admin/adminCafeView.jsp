@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 스터디카페 목록</title>
+<title>스터디카페 관리 목록</title>
 </head>
 <body>
 

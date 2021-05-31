@@ -17,7 +17,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public ArrayList<Review> printAllReview(int caNo) {
-		return rStore.selectAllReview(caNo);
+		return rStore.selectReviewList(caNo);
 	}
 
 	@Override

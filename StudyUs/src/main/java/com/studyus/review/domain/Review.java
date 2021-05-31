@@ -2,6 +2,8 @@ package com.studyus.review.domain;
 
 import java.sql.Date;
 
+import com.studyus.member.domain.Member;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,11 +16,12 @@ public class Review {
 	
 	private int rvNo;
 	private int caNo;
-	private String mbId;
+	private int mbNo;
 	private String rvContents;
 	private int rvRating;
 	private Date rvDate;
 	private int rvStatus;
+	private Member member;
 	
 	public Review() {}
 

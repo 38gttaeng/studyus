@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper">
+<!-- 	<resultMap type="Admin" id="adminResultMap"> -->
+<!-- 		<collection property="member" resultMap="memberMapper.memberResultMap" /> -->
+	
+<!-- 		<id property="caNo" column="CA_NO" /> -->
+<!-- 		<result property="caName" column="CA_NAME" /> -->
+<!-- 		<result property="caAddr" column="CA_ADDR" /> -->
+<!-- 		<result property="caTel" column="CA_TEL" /> -->
+<!-- 		<result property="caTime" column="CA_TIME" /> -->
+<!-- 		<result property="caInfo" column="CA_INFO" /> -->
+<!-- 		<result property="caRoute" column="CA_ROUTE" /> -->
+<!-- 		<result property="caFiName" column="CA_FINAME" /> -->
+<!-- 		<result property="caStatus" column="CA_STATUS" /> -->
+<!-- 		<result property="caLat" column="CA_LAT" /> -->
+<!-- 		<result property="caLng" column="CA_LNG" /> -->
+<!-- 	</resultMap>  -->
+
+<!-- 	<select id="selectAllList" resultMap="cafeResultMap"> -->
+<!-- 		SELECT * FROM CAFE -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectOne" resultMap="cafeResultMap"> -->
+<!-- 		SELECT * FROM CAFE -->
+<!-- 		WHERE CA_NO = #{caNo} AND CA_STATUS = 1 -->
+<!-- 	</select> -->
+
+<!-- 	<insert id="insertCafe" useGeneratedKeys="true"  keyProperty="caNo" keyColumn="CA_NO"> -->
+<!-- 		INSERT INTO CAFE VALUES(SEQ_CAFE.NEXTVAL,#{caName}, #{caAddr}, #{caTel}, #{caTime},  -->
+<!-- 								#{caInfo},#{caRoute}, #{caFiName}, DEFAULT, #{caLat},#{caLng}) -->
+<!-- 	</insert> -->
+
+<!-- 	<update id="updateCafe" > -->
+<!-- 		UPDATE CAFE -->
+<!-- 		SET CA_NAME = #{caName}, CA_ADDR = #{caAddr}, CA_TEL=#{caTel}, CA_TIME=#{caTime},  -->
+<!-- 						CA_INFO=#{caInfo}, CA_ROUTE=#{caRoute},CA_FINAME=#{caFiName}, CA_LAT=#{caLat}, CA_LNG=#{caLng} -->
+<!-- 		WHERE CA_NO = #{caNo} -->
+<!-- 	</update> -->
+	 
+<!-- 	<update id="deleteCafe" parameterType="_int"> -->
+<!-- 		UPDATE CAFE SET CA_STATUS = 0 WHERE CA_NO = #{caNo} -->
+<!-- 	</update> -->
+</mapper> 
+ 
