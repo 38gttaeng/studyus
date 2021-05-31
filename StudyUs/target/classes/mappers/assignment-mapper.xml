@@ -24,22 +24,22 @@
 	<!-- 과제 리스트 -->
 	<select id="selectListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM ASSIGNMENT
-		WHERE AS_MOTHER_NO IS NULL 
+		WHERE AS_STATUS = 1
 			<if test="value > 0">
 			AND GR_NO = #{grNo}
 			</if>
-		AND AS_STATUS = 1
 	</select>
 	
 	<select id="selectAllList" parameterType="_int" resultMap="assignmentResultMap">
 		SELECT * FROM ASSIGNMENT
-		WHERE AS_MOTHER_NO IS NULL
+		WHERE AS_STATUS = 1
 			<if test="value > 0">
 			AND GR_NO = #{grNo}
 			</if>
-		AND AS_STATUS = 1
 		ORDER BY AS_NO DESC
 	</select>
+	
+	<!-- 그룹 리스트 / 디테일 -->
 	
 	<select id="selectAllGroup" parameterType="_int" resultMap="asGroupResultMap">
 		SELECT * FROM ASSIGNMENT_GROUP
@@ -48,7 +48,7 @@
 		ORDER BY GR_NO DESC
 	</select>
 	
-	<select id="selectOneGroup" parameterType="_int" resultMap="asGroupResultMap">
+	<select id="selectOneGroup" parameterType="Integer" resultMap="asGroupResultMap">
 		SELECT * FROM ASSIGNMENT_GROUP
 		WHERE GR_NO = #{grNo}
 		AND GR_STATUS = 1
@@ -92,8 +92,27 @@
 	
 	<!-- 과제 등록 -->
 	<insert id="insertAssignment" parameterType="Assignment">
+	
+		<selectKey resultType="int" keyProperty="asNo" order="BEFORE">
+			SELECT SEQ_ASSIGNMENT.NEXTVAL FROM DUAL
+		</selectKey>
+	
 		INSERT INTO ASSIGNMENT VALUES (
-			SEQ_ASSIGNMENT.NEXTVAL, #{grNo}, #{asName}, #{asContents}, TO_CHAR(SYSDATE), TO_CHAR(#{asDeadLine}), DEFAULT, DEFAULT 
+			#{asNo}, #{grNo}, #{asName}, #{asContents}, TO_CHAR(SYSDATE, 'YYYY/MM/DD HH:ss'), #{asDeadLine}, DEFAULT 
 		)
 	</insert>
+	
+	<!-- 과제 수정 -->
+	<update id="updateAssignment" parameterType="Assignment">
+		UPDATE ASSIGNMENT SET
+		AS_NAME = #{asName}, AS_CONTENTS = #{asContents}, AS_DEADLINE = #{asDeadLine}
+		WHERE AS_NO = #{asNo}
+	</update>
+	
+	<!-- 과제 삭제 -->
+	<update id="deleteAssignment" parameterType="Assignment">
+		UPDATE ASSIGNMENT SET
+		AS_STATUS = 0
+		WHERE AS_NO = #{asNo}
+	</update>
 </mapper>

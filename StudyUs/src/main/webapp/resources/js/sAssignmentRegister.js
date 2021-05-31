@@ -1,11 +1,26 @@
 var titleCheckFlag = false;
+var dateCheckFlag = false;
+var timeCheckFlag = false;
 const limit = 3000; // 3500자 제한
 
 var n = 2;
 var delFList = [];
 
 $(function() {
-
+	
+	if($("input[name=viewCheck]").val() == "r") {
+		var status = $("input[name=suStatus]");
+		var deadLine = $("input[name=asDeadLine]").val();
+		var today = moment(new Date()).format('YYYY/MM/DD HH:mm');
+		
+		if(today <= deadLine) {
+			status.val(1);
+		} else {
+			alert("과제 제출 기한을 넘겨서 과제를 제출해도 과제율에 반영되지 않습니다!");
+			status.val(2);
+		}
+	}
+	
 	$('#button-add-file').click(addFileForm);
 	$(document).on('click', '.button-delete-file', function(event) {
 		if($("input[name=viewCheck]").val() == "m") {
@@ -66,26 +81,13 @@ $(function() {
 	
 		// 글자수 제한
 	quill.on('text-change', function (delta, old, source) {
-	  if (quill.getLength() > limit) {
-	    quill.deleteText(limit, quill.getLength());
-	  }
-	});
-	
-	// 유효성 검사
-	var title = $("input[name=boTitle]");
-	var titleMsg = $("#title-msg");
-	
-	title.on("keyup", function(){
-		if(title.val() == "") {
-			$(this).removeClass("is-valid");
-			$(this).addClass("is-invalid");
-			titleMsg.css("display", "block");
-			titleCheckFlag = false;
-		} else {
-			$(this).removeClass("is-invalid");
-			$(this).addClass("is-valid");
-			titleMsg.css("display", "none");
-			titleCheckFlag = true;
+		if (quill.getLength() > limit) {
+			quill.deleteText(limit, quill.getLength());
+	  	}
+
+		if(quill.getLength() > 0) {
+			$("#editor").css("border", "1px solid #ccc");
+			$("#editor").css("border-top", "0px");
 		}
 	});
 	
@@ -93,20 +95,18 @@ $(function() {
 	
 		// 수정파일인지 여부 체크
 		if($("input[name=viewCheck]").val() == "m") {
-			titleCheckFlag = true;
 			$("#delFiles").val(delFList);
 		}
-	
-		if(titleCheckFlag && title.val() != "") {
-			// 내용 보내기
+		
+		// 전송
+		if(quill.getLength() > 3) {
 			var html = quill.root.innerHTML;
-			$("input[name=boContents]").val(html);
+			$("input[name=suContents]").val(html);
 			
 			$("#postForm").submit();
 		} else {
-			title.removeClass("is-valid");
-			title.addClass("is-invalid");
-			titleMsg.css("display", "block");
+			alert("내용을 입력하세요.");
+			$("#editor").css("border", "1px solid red");
 		}
 	});
 });

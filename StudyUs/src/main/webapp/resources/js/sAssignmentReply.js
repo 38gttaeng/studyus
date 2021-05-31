@@ -11,6 +11,18 @@ var toolbarOptions = {
 const limit = 1000; // 1000자 제한
 
 $(function() {
+	
+	// progress bar
+	var insertDate = new Date(moment($("#insertDate").val()).format('YYYY/MM/DD HH:mm'));
+	var deadLine = new Date(moment($("#deadLine").val()).format('YYYY/MM/DD HH:mm'));
+	var today = new Date();
+	
+	var total = (deadLine - insertDate)/(1000*3600*24);
+	var now = (deadLine - today)/(1000*3600*24);
+	var percent = (now/total)*100;
+	
+	$(".dateProgress").css("width", percent + "%");
+
 	getReplyList(page);
 	
 	// Quill
@@ -50,18 +62,17 @@ $(function() {
 	// 등록하기
 	$("#rSubmit").on("click", function() {
 		var rMotherNo = $("#rMotherNo").val();
+		var asNo = $("#suAsNo").val();
 		var rMbNo = $("#loginMbNo").val();
 		var rContent = quill.root.innerHTML;
-		console.log(quill.getLength());
 		
 		if(quill.getLength() > 3) {
 			$.ajax({
-				url : "/study/assignment/addReply",
+				url : "/study/sAssignment/addReply",
 				type : "post",
-				data : {"asMotherNo": rMotherNo , "asContents" : rContent, "mbNo" : rMbNo},
+				data : { "suMotherNo": rMotherNo , "suContents" : rContent, "mbNo" : rMbNo, "asNo" : asNo },
 				success : function(result) {
 					if(result == "success") {
-						/* 댓글 불러오기 */
 						getReplyList(page);
 						quill.deleteText(0,100000000);
 					} else if(result == "fail") {
@@ -75,19 +86,17 @@ $(function() {
 		} else {
 			alert("댓글 내용을 입력하세요.");
 		}
-		
 	});
 });
 
 // 리스트 통신
 function getReplyList(page) {
 	var rMotherNo = $("#rMotherNo").val();
-	var rMbNo = $("#rMbNo").val();
 	var loginMbNo = $("#loginMbNo").val();
 	
 	$.ajax({
-		url : "/study/assignment/replyList",
-		data : {"asMotherNo" : rMotherNo, "page" : page},
+		url : "/study/sAssignment/replyList",
+		data : {"suMotherNo" : rMotherNo, "page" : page},
 		type : "get",
 		dataType : "json",
 		success : function(map) {
@@ -110,7 +119,7 @@ function replyList(data, listCount, loginMbNo) {
 	var $rList = $("#rList");
 	$rList.html("");
 	
-	var asMbNo = $("#asMbNo").val();
+	var suMbNo = $("#suMbNo").val();
 	
 	var $div;
 	var $rWriter;
@@ -134,12 +143,12 @@ function replyList(data, listCount, loginMbNo) {
 			$rWriter = $("<div>")
 			.append("<img src='/resources/images/" + data[i].member.mbPhoto + ".png' class='rounded-circle'>&nbsp")
 			.append("<span class='nickName'>" + data[i].member.mbNickname + "</span>&nbsp");
-			if(boMbNo == data[i].mbNo) {
+			if(suMbNo == data[i].mbNo) {
 				$rWriter.append("&nbsp<div class='writerTag'>작성자</div>");
 			}
-			$rWriter.append("<span class='insertDate'>" + data[i].asInsertDate + "</span>");
+			$rWriter.append("<span class='insertDate'>" + data[i].suInsertDate + "</span>");
 			
-			$rContent = $("<div class='contents-box'>").append(data[i].asContents);
+			$rContent = $("<div class='contents-box'>").append(data[i].suContents);
 			
 			$btnArea = $("<div>")
 			.append("<button class='btn btn-sm btn-light'>답글</button>");
@@ -147,15 +156,15 @@ function replyList(data, listCount, loginMbNo) {
 			// 수정+삭제 버튼
 			if(loginMbNo == data[i].mbNo) {
 				$btnTool =$("<div class='btn-group'>");
-				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].asNo + ");'>수정</button>")
-				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].asNo + ");'>삭제</button>");
+				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].suNo + ");'>수정</button>")
+				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].suNo + ");'>삭제</button>");
 				$btnArea.append($btnTool);
 			}
 			
 			$div.append($rWriter);
 			$div.append($rContent);
 			$div.append($btnArea);
-			$div.attr("id", "asReply" + data[i].asNo);//////////////////
+			$div.attr("id", "suReply" + data[i].suNo);
 			
 			$rList.append($div);
 		}
@@ -207,8 +216,8 @@ function replyPage(pi) {
 }
 
 // 수정하기
-function modifyReply(obj, asNo) {
-	$reply = $("#asReply" + asNo).children("div:eq(1)");
+function modifyReply(obj, suNo) {
+	$reply = $("#suReply" + suNo).children("div:eq(1)");
 	var replyContent = $reply.html();
 
 	$divModify = $(obj).parent().parent().prev();
@@ -256,9 +265,9 @@ function modifyReply(obj, asNo) {
 	
 		if(quill2.getLength() > 3) {
 			$.ajax({
-				url : "/study/assignment/modifyReply",
+				url : "/study/sAssignment/modifyReply",
 				type : "post",
-				data : { "boNo" : boNo, "boContents" : mContents },
+				data : { "suNo" : suNo, "suContents" : mContents },
 				success : function(data) {
 					if(data == "success") {
 						getReplyList(page);
@@ -277,14 +286,14 @@ function modifyReply(obj, asNo) {
 }
 
 // 삭제하기
-function removeReply(boNo) {
+function removeReply(suNo) {
 	var result = confirm("댓글을 삭제하시겠습니까?");
 	
 	if(result) {
 		$.ajax({
-			url : "/study/board/deleteReply",
+			url : "/study/sAssignment/deleteReply",
 			type : "get",
-			data : { "boNo" : boNo },
+			data : { "suNo" : suNo },
 			success : function(data) { 
 				if(data == "success") {
 					getReplyList();

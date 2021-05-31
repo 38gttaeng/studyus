@@ -1,5 +1,9 @@
 package com.studyus.assignment.domain;
 
+import java.util.ArrayList;
+
+import com.studyus.file.domain.FileVO;
+
 public class Assignment {
 	private int asNo;
 	private int grNo;
@@ -9,6 +13,7 @@ public class Assignment {
 	private String asDeadLine;
 	private int asMotherNo;
 	private int asStatus;
+	private ArrayList<FileVO> asFiles;
 	
 	public Assignment() {}
 	
@@ -75,12 +80,20 @@ public class Assignment {
 	public void setAsStatus(int asStatus) {
 		this.asStatus = asStatus;
 	}
+	
+	public ArrayList<FileVO> getAsFiles() {
+		return asFiles;
+	}
+
+	public void setAsFiles(ArrayList<FileVO> asFiles) {
+		this.asFiles = asFiles;
+	}
 
 	@Override
 	public String toString() {
 		return "Assignment [asNo=" + asNo + ", grNo=" + grNo + ", asName=" + asName + ", asContents=" + asContents
 				+ ", asInsertDate=" + asInsertDate + ", asDeadLine=" + asDeadLine + ", asMotherNo=" + asMotherNo
-				+ ", asStatus=" + asStatus + "]";
+				+ ", asStatus=" + asStatus + ", asFiles=" + asFiles + "]";
 	}
 
 }

@@ -9,6 +9,7 @@
     
     <!-- 추가 css -->
     <link href="/resources/css/studyus/register.css" rel="stylesheet">
+    <link href="/resources/css/studyus/assignmentColor.css" rel="stylesheet">
 	<title>StudyUs : 스터디룸</title>
 </head>
 <body>
@@ -21,8 +22,8 @@
         <!-- menubar -->
 	    <jsp:include page="../common/studyMenubar.jsp"/>
 	    <script>
-	    	$("#sidebarnav>li:nth-child(6)").addClass("selected");
-	    	$("#sidebarnav>li:nth-child(6) a").addClass("active");
+	    	$("#sidebarnav>li:nth-child(7)").addClass("selected");
+	    	$("#sidebarnav>li:nth-child(7) a").addClass("active");
 	    </script>
         
         <!-- ============================================================== -->
@@ -33,14 +34,15 @@
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
-	            <div class="col-lg-4 align-self-center">
+	            <div class="col-lg-10 align-self-center">
 	                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">과제</h4>
 	                <div class="d-flex align-items-center">
 	                    <nav aria-label="breadcrumb">
 	                        <ol class="breadcrumb m-0 p-0">
 	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study">Study</a></li>
-	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/assignment?grNo=${ groupNo }">Assignment</a></li>
-	                            <li class="breadcrumb-item text-muted active" aria-current="page">Write</li>
+	                            <li class="breadcrumb-item text-muted" aria-current="page"><a href="/study/assignment?grNo=${ assignmentGroup.grNo }">Assignment</a></li>
+	                            <li class="breadcrumb-item font-weight-bold" aria-current="page"><a class="text${ assignmentGroup.grColor }" href="/study/assignment?grNo=${ assignmentGroup.grNo }">${ assignmentGroup.grName }</a></li>
+	                            <li class="breadcrumb-item text-muted" aria-current="page">Write</li>
 	                        </ol>
 	                    </nav>
 	                </div>
@@ -50,7 +52,7 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
+            <div class="container-fluid gradient${ assignmentGroup.grColor }">
             	<!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
@@ -58,6 +60,7 @@
                 	<div class="col-1"></div>
                     <div class="col-10">
                         <div class="card">
+                           	<div class="card-body back${ assignmentGroup.grColor } text-white text-right">${ assignmentGroup.grName }</div>
                             <div class="card-body">
 	                        	<form id="postForm" action="/study/assignment/register" method="post" enctype="multipart/form-data">
 	                        		<div id="table-box">
@@ -66,9 +69,13 @@
 												<td>기한</td>
 												<td>
 													<div class="dateBox">
-														<input class="form-control" type="date" name="asInsertDate" readonly>
-														<div class="dateLine">&nbsp;ㅡ&nbsp;</div>
-														<input class="form-control" type="date" name="asDeadLine">
+														<input class="form-control" type="date" name="asDate">
+														<input class="form-control" type="time" name="asTime">
+														<div class="clearfix"></div>
+														<span id="date-msg" class="invalid-feedback dMsg">기한 입력값을 모두 입력하세요.</span>
+														<span id="date-msg2" class="invalid-feedback dMsg">기한은 현재 시간 이후를 선택해주세요.</span>
+														
+														<input type="hidden" name="asDeadLine">
 													</div>
 												</td>
 											</tr>
@@ -95,7 +102,7 @@
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/assignment?grNo=${ groupNo }'">
+													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/assignment?grNo=${ assignmentGroup.grNo }'">
 													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="등록">
 												</td>
 											</tr>
@@ -115,7 +122,7 @@
 	</div>
     
     <!-- 해당 페이지 JS 파일 -->
-    <script src="/resources/js/register.js"></script>
-    
+    <script src="/resources/js/assignmentRegister.js"></script>
+    <script src="/resources/css/study/assets/libs/moment/min/moment.min.js"></script>
 </body>
 </html>

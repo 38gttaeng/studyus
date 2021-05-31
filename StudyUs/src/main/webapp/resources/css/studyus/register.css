@@ -31,12 +31,11 @@ table td:first-child {
 } */
 
 input[type=date] {
-	width : 40%;
+	width : 45%;
 	float : left;
 }
 	
-.dateLine {
-	text-align : center;
-	float : left;
-	line-height : 35px;
+input[type=time] {
+	width : 45%;
+	float : right;
 }

@@ -47,17 +47,14 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		return null;
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public Assignment selectOne(int asNo) {
 		return sqlSession.selectOne("assignmentMapper.selectOne", asNo);
 	}
 
-	@Override
-	public ArrayList<Assignment> selectAllReply(int asNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+	/////////////////////////////////////////////////////////////////////////////////
 	
 	@Override
 	public int insertGroup(AssignmentGroup asGroup) {
@@ -75,22 +72,24 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		return sqlSession.insert("assignmentMapper.deleteGroup", grNo);
 	}
 	
-
+	/////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public int insertAssignment(Assignment assignment) {
-		return sqlSession.insert("assignmentMapper.insertAssignment", assignment);
+		sqlSession.insert("assignmentMapper.insertAssignment", assignment);
+		return assignment.getAsNo();
 	}
 	
 	@Override
 	public int updateAssignment(Assignment assignment) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("assignmentMapper.updateAssignment", assignment);
 	}
 
 	@Override
 	public int deleteAssignment(int asNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int boResult = sqlSession.update("assignmentMapper.deleteAssignment", asNo);
+		/////// 제출 리스트도 전부 삭제
+		return boResult;
 	}
 
 	@Override
