@@ -175,7 +175,7 @@
                         <!-- ============================================================== -->
                         <div class="collapse navbar-collapse" id="ftco-nav">
 					        <ul class="navbar-nav ml-auto">
-					          <li class="nav-item"><a href="#" class="nav-link study">홈</a></li>
+					          <li class="nav-item"><a href="/" class="nav-link study">홈</a></li>
 					          <li class="nav-item"><a href="#" class="nav-link study">스터디</a></li>
 					          <li class="nav-item"><a href="#" class="nav-link study">스터디샵</a></li>
 					          <li class="nav-item"><a href="#" class="nav-link study">스터디카페</a></li>
@@ -194,7 +194,7 @@
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
+                                <a class="dropdown-item" href="/member/myPage"><i data-feather="user"
                                         class="svg-icon mr-2 ml-1"></i>
                                     마이페이지</a>
                                 <div class="dropdown-divider"></div>
@@ -296,7 +296,7 @@
 	                            aria-expanded="false"><i data-feather="box" class="feather-icon"></i><span
 	                                class="hide-menu">회원 목록 </span></a>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/boardManage"
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
 	                                class="hide-menu">게시물 관리 </span></a>
 	                    </li>

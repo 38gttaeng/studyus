@@ -8,7 +8,7 @@ body, html {
 }
 
 .user_card {
-	height: 700px;
+	height: 730px;
 	width: 600px;
 	background: #FFFFFF;
 	margin-left: auto;
@@ -76,7 +76,7 @@ span {
 	margin-bottom: 10px;
 }
 
-#email-msg {
+.email-msg {
 	color: #6927FF;
 }
 
@@ -92,4 +92,5 @@ span {
 	background-color: #6927FF;
 	color: #FFFFFF;
 	border-radius: 5px;
+	cursor: pointer;
 }

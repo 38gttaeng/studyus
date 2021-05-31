@@ -35,7 +35,7 @@
 							</span>
 						</div>
 						<input type="password" name="mbPassword" class="form-control input_pass" placeholder="비밀번호">
-					</div> 
+					</div>
 					<input type="submit" class="login-btn" value="로그인">
 					<div class="form-group">
 						<a href="/member/findView">아이디/비밀번호 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
