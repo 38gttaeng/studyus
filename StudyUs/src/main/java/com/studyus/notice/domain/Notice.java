@@ -25,6 +25,8 @@ public class Notice {
 	private int noStatus;
 	private int noCount;
 	private int replyCnt; // 게시글 댓글 수 
+	private int mainNotice;
+	private String mainSetDate;
 	private ArrayList<FileVO> noFiles;
 	
 	public Notice() {}
@@ -149,6 +151,22 @@ public class Notice {
 		this.replyCnt = replyCnt;
 	}
 
+	public int getMainNotice() {
+		return mainNotice;
+	}
+
+	public void setMainNotice(int mainNotice) {
+		this.mainNotice = mainNotice;
+	}
+
+	public String getMainSetDate() {
+		return mainSetDate;
+	}
+
+	public void setMainSetDate(String mainSetDate) {
+		this.mainSetDate = mainSetDate;
+	}
+
 	public ArrayList<FileVO> getNoFiles() {
 		return noFiles;
 	}
@@ -163,7 +181,8 @@ public class Notice {
 				+ noMotherNo + ", noWriter=" + noWriter + ", replyWriter=" + replyWriter + ", noInsertDate="
 				+ noInsertDate + ", noTitle=" + noTitle + ", noContents=" + noContents + ", noFileName=" + noFileName
 				+ ", noReFileName=" + noReFileName + ", noStatus=" + noStatus + ", noCount=" + noCount + ", replyCnt="
-				+ replyCnt + ", noFiles=" + noFiles + "]";
+				+ replyCnt + ", mainNotice=" + mainNotice + ", mainSetDate=" + mainSetDate + ", noFiles=" + noFiles
+				+ "]";
 	}
-
+	
 }

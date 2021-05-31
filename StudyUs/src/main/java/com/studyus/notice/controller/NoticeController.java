@@ -39,28 +39,32 @@ public class NoticeController {
 	
 	// 전체 목록 조회 
 	@RequestMapping(value="/notice/noticeList", method=RequestMethod.GET)
-	public ModelAndView noticeList(ModelAndView mv, 			
+	public ModelAndView noticeList(ModelAndView mv,			
 														@RequestParam(value="page", required=false) Integer page) {
 		Notice notice = new Notice();
-		Search search = new Search();
 		int listCount = nService.getListCount(notice);
 		int currentPage = (page != null) ? page : 1;
 		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
 		ArrayList<Notice> nList = nService.printAll(pi, notice);
-//		for(Notice notice1 : nList) {
-//			System.out.println(notice1.toString());
-//		}
-//		System.out.println(pi.toString());
+		
+		for(Notice notice1 : nList) {
+			System.out.println(notice1.toString());
+		}
+		System.out.println(pi.toString());
+		// 메인 공지글 출력 
+		ArrayList<Notice> mainNotice = nService.printMainNotice(notice);
+		System.out.println(mainNotice.toString());
 		//@@@@@@@@게시글 뒤에 N 표시하기 @@@@@@
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_MONTH, -2); // 2일간 보이게
+		cal.add(Calendar.DAY_OF_MONTH, -1); // 2일간 보이게
 		String nowDay = format.format(cal.getTime());
 		
 		if(!nList.isEmpty()) {
 			mv.addObject("nList", nList);
 			mv.addObject("pi", pi);
 			mv.addObject("nowDay", nowDay);
+			mv.addObject("mainNotice", mainNotice);
 			mv.setViewName("notice/noticeListView");
 		}else {
 			// mv.addObject("msg", "조회 실패");
@@ -108,6 +112,51 @@ public class NoticeController {
 			// model.addAttribute("msg", "공지사항 검색 실패");
 			return "notice/noData";
 		}
+	}
+	
+	// 메인 공지사항 설정 뷰  
+	@RequestMapping(value="/notice/mainSelectView")
+	public ModelAndView mainSelectView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+		Notice notice = new Notice();
+		int listCount = nService.getListCount(notice);
+		int currentPage = (page != null) ? page : 1;
+		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
+		ArrayList<Notice> nList = nService.printAll(pi, notice);
+		
+		ArrayList<Notice> mainNotice = nService.printMainNotice(notice);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, -2); // 2일간 보이게
+		String nowDay = format.format(cal.getTime());
+		
+		if(!nList.isEmpty()) {
+			mv.addObject("nList", nList);
+			mv.addObject("pi", pi);
+			mv.addObject("nowDay", nowDay);
+			mv.addObject("mainNotice", mainNotice);
+			mv.setViewName("notice/mainSelectView");
+		}else {
+			// mv.addObject("msg", "조회 실패");
+			mv.setViewName("notice/noData");
+		}
+		return mv;
+	}
+	
+	// 메인 공지사항 설정
+	@RequestMapping(value="/notice/mainNoticeUpdate", method=RequestMethod.POST)
+	public ModelAndView mainUpdate(ModelAndView mv, @ModelAttribute Notice notice, @RequestParam("noNo") int noNo) {
+		// 전체 mainNotice = 0으로 만들어주기 
+		nService.resetMainNotice(notice);
+		// mainNotice = 1로 업데이트 
+		int result = nService.updateMainNotice(noNo);
+		
+		if(result > 0) {
+			mv.setViewName("redirect:/notice/noticeList");
+		}else {
+			mv.addObject("msg", "수정 실패").setViewName("common/errorPage");
+		}
+		return mv;
 	}
 
 	// 작성 뷰 

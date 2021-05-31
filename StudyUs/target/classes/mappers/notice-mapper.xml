@@ -17,6 +17,8 @@
 		<result property="noStatus" column="NO_STATUS"></result>
 		<result property="noCount" column="NO_COUNT"></result>
 		<result property="replyCnt" column="NO_REPLY_COUNT"></result>
+		<result property="mainNotice" column="MAIN_NOTICE"></result>
+		<result property="mainSetDate" column="MAIN_SET_DATE"></result>
 	</resultMap>
 	
 	<select id="selectListCount" parameterType="Notice"  resultType="_int">
@@ -58,7 +60,7 @@
 		
 	<select id="selectNoticeList" resultMap="noticeResultMap">
 		SELECT ROW_NUMBER() OVER(ORDER BY NO_INSERTDATE) AS NO_RNUM, 
-		NO_NO, NO_TITLE, NO_INSERTDATE, NO_COUNT , MB_NICKNAME, NO_REPLY_COUNT
+		NO_NO, NO_TITLE, NO_CONTENTS, NO_INSERTDATE, NO_COUNT , MB_NICKNAME, NO_REPLY_COUNT, MAIN_NOTICE, MAIN_SET_DATE
 		FROM NOTICE
 		JOIN MEMBER USING(MB_NO)
 		WHERE NO_STATUS = 1 AND NO_MOTHER_NO IS NULL
@@ -73,6 +75,12 @@
 		FROM NOTICE 
 		JOIN MEMBER USING(MB_NO)
 		WHERE NO_NO = #{noNo } 
+	</select>
+	
+	<select id="selectMainNotice" resultMap="noticeResultMap">
+		SELECT ROWNUM, NO_NO, ST_NO, NO_CONTENTS, MAIN_NOTICE, MAIN_SET_DATE FROM NOTICE 
+		WHERE MAIN_NOTICE = 1 AND ROWNUM = 1 AND ST_NO = 1 AND NO_STATUS IS NOT NULL
+		ORDER BY MAIN_SET_DATE DESC
 	</select>
 	
 	<select id="selectSearchList" resultMap="noticeResultMap">
@@ -101,6 +109,19 @@
 		INSERT INTO NOTICE(NO_NO, ST_NO, MB_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS, NO_FILENAME, NO_REFILENAME, NO_STATUS, NO_COUNT) 
 		VALUES (SEQ_NOTICE.NEXTVAL, 1, #{mbNo}, DEFAULT, #{noTitle}, #{noContents}, #{noFileName}, #{noReFileName}, DEFAULT, DEFAULT)
 	</insert>
+	
+	<update id="resetMainNotice" parameterType="Notice">
+		UPDATE NOTICE SET 
+		MAIN_NOTICE = 0, 
+		MAIN_SET_DATE = NULL
+	</update>
+	
+	<update id="updateMainNotice" parameterType="_int">
+		UPDATE NOTICE SET 
+		MAIN_NOTICE = 1, 
+		MAIN_SET_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+		WHERE NO_NO = #{noNo}
+	</update>
 	
 	<update id="updateNotice" parameterType="Notice">
 		UPDATE NOTICE 

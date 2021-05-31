@@ -14,15 +14,18 @@ import com.studyus.purchase.service.PurchaseService;
 public class PurchaseController {
 	
 	@Autowired
+	private PurchaseService pService;
+	
+	@Autowired
 	public PurchaseService purService;
 	// 프리미엄샵 뷰
-	@RequestMapping(value="premiumShopView")
+	@RequestMapping(value="/shop/premiumShop")
 	public String premiumShopView(Model model) {
-		return "";
+		return "shop/premiumShopView";
 	}
 	// 프리미엄샵 
 	@RequestMapping(value="premiumShop")
-	public String premiumShop(Model model, @RequestParam("studyNo") int studyNo) {
+	public String premiumShop(Model model, @RequestParam("stNo") int stNo) {
 		return "";
 	}
 	// 결제 
@@ -31,13 +34,13 @@ public class PurchaseController {
 	
 	// 이용중인 프리미엄 
 	@RequestMapping(value="checkPremium")
-	public String checkPremium(Model model, @RequestParam("studyNo") int studyNo, HttpServletRequest request) {
+	public String checkPremium(Model model, @RequestParam("stNo") int stNo, HttpServletRequest request) {
 		return "";
 	}
 	
 	// 이용 내역 
 	@RequestMapping(value="printPremium")
-	public String printPremium(Model model, @RequestParam("studyNo") int studyNo, HttpServletRequest request) {
+	public String printPremium(Model model, @RequestParam("stNo") int stNo, HttpServletRequest request) {
 		return "";
 	}
 }

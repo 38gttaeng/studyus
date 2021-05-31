@@ -41,6 +41,21 @@ public class NoticeServiceImpl implements NoticeService{
 	public ArrayList<Notice> printAll(PageInfo pi, Notice notice) {
 		return nStore.selectList(pi, notice);
 	}
+	
+	@Override
+	public ArrayList<Notice> printMainNotice(Notice notice) {
+		return nStore.printMainNotice(notice);
+	}
+
+	@Override
+	public int resetMainNotice(Notice notice) {
+		return nStore.resetMainNotice(notice);
+	}
+	
+	@Override
+	public int updateMainNotice(int noNo) {
+		return nStore.updateMainNotice(noNo);
+	}
 
 	@Override
 	public int updateReplyCount(int noMotherNo) {
@@ -48,8 +63,8 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	
 	@Override
-	public int addReadCount(int noticeNo) {
-		return nStore.addReadCount(noticeNo);
+	public int addReadCount(int noNo) {
+		return nStore.addReadCount(noNo);
 	}
 
 	@Override
@@ -58,8 +73,8 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public Notice printOne(int noticeNo) {
-		return nStore.selectOne(noticeNo);
+	public Notice printOne(int noNo) {
+		return nStore.selectOne(noNo);
 	}
 
 	@Override
@@ -73,8 +88,8 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public int removeNotice(int noticeNo) {
-		return nStore.deleteNotice(noticeNo);
+	public int removeNotice(int noNo) {
+		return nStore.deleteNotice(noNo);
 	}
 
 	@Override
