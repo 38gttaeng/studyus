@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.studyus.admin.store.AdminStore;
 import com.studyus.cafe.domain.Cafe;
 import com.studyus.member.domain.Member;
 import com.studyus.study.domain.Study;
 
+@Repository
 public class AdminStoreLogic implements AdminStore{
 	
 	@Autowired SqlSession sqlSession;
