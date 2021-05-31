@@ -31,6 +31,7 @@ import com.studyus.file.controller.FileController;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.service.FileService;
 import com.studyus.study.domain.Study;
+import com.studyus.submittedAssignment.domain.SubmittedAssignment;
 import com.studyus.submittedAssignment.service.SAssignmentService;
 
 @Controller
@@ -67,18 +68,16 @@ public class AssignmentController {
 			session.removeAttribute("groupNo");
 		}
 		session.setAttribute("groupNo", grNo);
+		AssignmentGroup asGroup = asService.printOneGroup(grNo);
 		
 		int currentPage = (page != null) ? page : 1;
 		int listCount = asService.getListCount(grNo);
 		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
-		
 		ArrayList<Assignment> asList = asService.printAll(pi, grNo);
 		
-		AssignmentGroup asGroup = asService.printOneGroup(grNo);
-		
+		mv.addObject("asGroup", asGroup);
 		mv.addObject("asList", asList);
 		mv.addObject("pi", pi);
-		mv.addObject("asGroup", asGroup);
 		mv.setViewName("study/assignmentList");
 		//////////////////////////////////// 과제제출 확인 관련 메소드도 함께 호출
 		
@@ -96,17 +95,19 @@ public class AssignmentController {
 	@RequestMapping(value="study/assignment/detail", method=RequestMethod.GET)
 	public ModelAndView assignmentDetail(ModelAndView mv, @RequestParam("asNo") int asNo) {
 		Assignment assignment = asService.printOne(asNo);
-		if(assignment != null) {
-			AssignmentGroup asGroup = asService.printOneGroup(assignment.getGrNo());
+		AssignmentGroup asGroup = asService.printOneGroup(assignment.getGrNo());
+
+		if(assignment != null && asGroup != null) {
+			ArrayList<SubmittedAssignment> suList = suService.printAllSubmittedAssignment(asNo);
 			
-			mv.addObject("assignmentGroup", asGroup);
 			mv.addObject("assignment", assignment);
+			mv.addObject("assignmentGroup", asGroup);
+			mv.addObject("suList", suList);
 			mv.setViewName("study/assignmentDetail");
 		} else {
 			System.out.println("과제 디테일 조회 실패");
 		}
 		
-		// 과제 하나 + 과제제출 리스트
 		///////////////////// 과제제출 확인 관련 메소드도 함께 호출
 		
 		return mv;
@@ -261,7 +262,7 @@ public class AssignmentController {
 			asFiles = new FileController().saveFile(fList, 2, request);
 		}
 		
-		// Board DB 수정
+		// Assignment DB 수정
 		int boResult = asService.modifyAssignment(assignment);
 		if(boResult > 0) {
 			// 새파일 File DB 저장
@@ -312,10 +313,8 @@ public class AssignmentController {
 		
 		int asResult = 0;
 		if(fiResult > 0) {
-			// 댓글과 게시물 삭제
 			asResult = asService.removeAssignment(asNo);
 			if(asResult > 0) {
-				// 댓글은 있을수도 없을수도 있기 때문에 0 이상
 				return new RedirectWithMsg().redirect(request, "게시글이 삭제되었습니다!", "/study/assignment?grNo=" + (Integer)session.getAttribute("groupNo"));
 			} else {
 				return new RedirectWithMsg().redirect(request, "게시글 삭제 실패!", "/study/assignment?grNo=" + (Integer)session.getAttribute("groupNo"));

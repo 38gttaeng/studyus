@@ -1,5 +1,10 @@
 package com.studyus.submittedAssignment.domain;
 
+import java.util.ArrayList;
+
+import com.studyus.file.domain.FileVO;
+import com.studyus.member.domain.Member;
+
 public class SubmittedAssignment {
 	
 	private int suNo;
@@ -9,6 +14,9 @@ public class SubmittedAssignment {
 	private String suInsertDate;
 	private String suContents;
 	private int suStatus;
+	private Member member;
+	private ArrayList<FileVO> suFiles;
+	private SubmittedAssignment reply;
 	
 	public SubmittedAssignment() {}
 
@@ -67,11 +75,36 @@ public class SubmittedAssignment {
 	public void setSuStatus(int suStatus) {
 		this.suStatus = suStatus;
 	}
+	
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public ArrayList<FileVO> getSuFiles() {
+		return suFiles;
+	}
+
+	public void setSuFiles(ArrayList<FileVO> suFiles) {
+		this.suFiles = suFiles;
+	}
+
+	public SubmittedAssignment getReply() {
+		return reply;
+	}
+
+	public void setReply(SubmittedAssignment reply) {
+		this.reply = reply;
+	}
 
 	@Override
 	public String toString() {
 		return "SubmittedAssignment [suNo=" + suNo + ", mbNo=" + mbNo + ", asNo=" + asNo + ", suMotherNo=" + suMotherNo
-				+ ", suInsertDate=" + suInsertDate + ", suContents=" + suContents + ", suStatus=" + suStatus + "]";
+				+ ", suInsertDate=" + suInsertDate + ", suContents=" + suContents + ", suStatus=" + suStatus
+				+ ", member=" + member + ", suFiles=" + suFiles + ", reply=" + reply + "]";
 	}
 
 }

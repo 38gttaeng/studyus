@@ -3,6 +3,7 @@ package com.studyus.submittedAssignment.store;
 import java.util.ArrayList;
 
 import com.studyus.assignment.domain.Assignment;
+import com.studyus.common.PageInfo;
 import com.studyus.submittedAssignment.domain.SubmittedAssignment;
 
 public interface SAssignmentStore {
@@ -14,7 +15,7 @@ public interface SAssignmentStore {
 	 * @param asNo
 	 * @return
 	 */
-	public int submittedCheckList(int asNo);
+	public int submittedCheckCount(int asNo);
 	
 	/**
 	 * 한개 제출여부
@@ -26,17 +27,39 @@ public interface SAssignmentStore {
 	
 	/**
 	 * 전체보기
-	 * @param submmitedAssignment(stNo, asNo)
+	 * @param asNo
 	 * @return
 	 */
-	public ArrayList<SubmittedAssignment> selectAllSubmittedAssignment(SubmittedAssignment sAssignment);
+	public ArrayList<SubmittedAssignment> selectAllSubmittedAssignment(int asNo);
+	
+	/**
+	 * 전체보기(댓글 하나)
+	 * @param suMotherNo
+	 * @return
+	 */
+	public SubmittedAssignment selectOneReply(int suMotherNo);
+	
+	/**
+	 * 한개 보기
+	 * @param suNo
+	 * @return
+	 */
+	public SubmittedAssignment selectOneSubmittedAssignment(int suNo);
+	
+	/**
+	 * 댓글 총 개수
+	 * @param suMotherNo
+	 * @return
+	 */
+	public int countSubmittedReply(int suMotherNo);
 	
 	/**
 	 * 댓글 보기
-	 * @param sAssignment(suNo, mbNo)
+	 * @param pi
+	 * @param suMotherNo
 	 * @return
 	 */
-	public Assignment selectAllSubmittedReply(SubmittedAssignment sAssignment);
+	public ArrayList<SubmittedAssignment> selectAllSubmittedReply(PageInfo pi, int suMotherNo);
 	
 	// 과제제출과 댓글 추가, 수정, 삭제
 		// 과제를 제출할 때마다 회원에게 30점 적립
@@ -52,5 +75,6 @@ public interface SAssignmentStore {
 	 * 한달 총 과제 제출 개수
 	 * @param sAssignment(stNo, mbNo)
 	 */
-	public int countSubmittedAssignment(SubmittedAssignment sAssignment);
+	public int mySubmittedAssignment(SubmittedAssignment sAssignment);
+	
 }

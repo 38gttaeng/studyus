@@ -54,12 +54,6 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		return sqlSession.selectOne("assignmentMapper.selectOne", asNo);
 	}
 
-	@Override
-	public ArrayList<Assignment> selectAllReply(int asNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	/////////////////////////////////////////////////////////////////////////////////
 	
 	@Override
@@ -88,12 +82,14 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	
 	@Override
 	public int updateAssignment(Assignment assignment) {
-		return sqlSession.insert("assignmentMapper.updateAssignment", assignment);
+		return sqlSession.update("assignmentMapper.updateAssignment", assignment);
 	}
 
 	@Override
 	public int deleteAssignment(int asNo) {
-		return sqlSession.insert("assignmentMapper.deleteAssignment", asNo);
+		int boResult = sqlSession.update("assignmentMapper.deleteAssignment", asNo);
+		/////// 제출 리스트도 전부 삭제
+		return boResult;
 	}
 
 	@Override

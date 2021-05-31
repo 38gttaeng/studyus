@@ -55,13 +55,6 @@ public interface AssignmentService {
 	 */
 	public Assignment printOne(int asNo);
 	
-	/**
-	 * 한개 댓글 보기 (WHERE AS_MOTHER_NO)
-	 * @param asNo
-	 * @return
-	 */
-	public ArrayList<Assignment> printAllReply(int asNo);
-	
 	///////////////////////////////////////////////////////////
 	
 	// 과제 그룹 추가, 수정, 삭제

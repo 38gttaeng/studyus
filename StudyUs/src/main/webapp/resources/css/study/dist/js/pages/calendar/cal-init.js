@@ -41,7 +41,9 @@
             var form = '';
             var today = new Date($.now());
 			
-			// 이미 있는 정보들 json 형식으로 받아오기 (링크 참고)
+			// 이미 있는 정보들 json 형식으로 받아오기
+			
+			
             var defaultEvents = [{
 					id : 1,
 					category : 1,

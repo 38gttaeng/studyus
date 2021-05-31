@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sAssignmentMapper">
+	<resultMap type="SubmittedAssignment" id="sAssignmentResultMap">
+		<id property="suNo" column="SU_NO"></id>
+		<result property="mbNo" column="MB_NO"></result>
+		<result property="asNo" column="AS_NO"></result>
+		<result property="suMotherNo" column="SU_MOTHER_NO"></result>
+		<result property="suInsertDate" column="SU_INSERTDATE"></result>
+		<result property="suContents" column="SU_CONTENTS"></result>
+		<result property="suStatus" column="SU_STATUS"></result>
+		<collection property="member" resultMap="memberMapper.memberResultMap" />
+	</resultMap>
+	
+	<!-- 리스트 -->
+	
+	<select id="selectListCount" parameterType="_int">
+		SELECT COUNT(*) FROM SUBMITTED_ASSIGNMENT
+		WHERE SU_MOTHER_NO IS NULL
+		AND AS_NO = #{asNo}
+		AND SU_STATUS = 1
+	</select>
+	
+	<select id="selectAllList" parameterType="_int" resultMap="sAssignmentResultMap">
+		SELECT
+			S.SU_NO, S.MB_NO, S.AS_NO, S.SU_MOTHER_NO, S.SU_INSERTDATE, S.SU_CONTENTS, S.SU_STATUS,
+			M.MB_NICKNAME, M.MB_PHOTO
+		FROM SUBMITTED_ASSIGNMENT S
+		
+		JOIN MEMBER M
+		ON S.MB_NO = M.MB_NO
+		
+		WHERE S.SU_MOTHER_NO IS NULL
+		AND S.AS_NO = #{asNo}
+		AND S.SU_STATUS != 0
+		ORDER BY S.SU_NO DESC
+	</select>
+	
+	<select id="selectOneReply" parameterType="_int" resultMap="sAssignmentResultMap">
+		SELECT
+			SU_NO, MB_NO, AS_NO, SU_MOTHER_NO, SU_INSERTDATE, SU_CONTENTS, SU_STATUS,
+			M.MB_NICKNAME, M.MB_PHOTO
+		FROM (SELECT * FROM SUBMITTED_ASSIGNMENT WHERE SU_MOTHER_NO = #{suMotherNo} AND SU_STATUS = 1 ORDER BY SU_NO DESC)
+		
+		JOIN MEMBER M
+		USING(MB_NO)
+		
+		WHERE ROWNUM = 1
+	</select>
+	
+	<!-- 디테일 -->
+	<select id="selectOne" parameterType="_int" resultMap="sAssignmentResultMap">
+		SELECT
+			S.SU_NO, S.MB_NO, S.AS_NO, S.SU_MOTHER_NO, S.SU_INSERTDATE, S.SU_CONTENTS,
+			M.MB_NICKNAME, M.MB_PHOTO
+		FROM SUBMITTED_ASSIGNMENT S
+		
+		JOIN MEMBER M
+		ON S.MB_NO = M.MB_NO
+		
+		WHERE SU_NO = #{suNo}
+		AND SU_STATUS != 0
+	</select>
+	
+	<select id="selectReplyCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM SUBMITTED_ASSIGNMENT
+		WHERE SU_MOTHER_NO = #{suMotherNo}
+		AND SU_STATUS = 1
+	</select>
+	
+	<select id="selectAllReply" parameterType="_int" resultMap="sAssignmentResultMap">
+		SELECT
+			S.SU_NO, S.MB_NO, S.AS_NO, S.SU_MOTHER_NO, S.SU_INSERTDATE, S.SU_CONTENTS,
+			M.MB_NICKNAME, M.MB_PHOTO
+		FROM SUBMITTED_ASSIGNMENT S
+		
+		JOIN MEMBER M
+		ON S.MB_NO = S.MB_NO
+		
+		WHERE S.SU_MOTHER_NO = #{suMotherNo}
+		AND S.SU_STATUS = 1
+		ORDER BY S.SU_NO DESC
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="insertSAssignment" parameterType="SubmittedAssignment">
+	
+		<selectKey resultType="int" keyProperty="suNo" order="BEFORE">
+			SELECT SEQ_S_ASSIGNMENT.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO SUBMITTED_ASSIGNMENT VALUES (
+			<if test="suMotherNo == 0">
+			#{suNo}, #{mbNo}, #{asNo}, DEFAULT, TO_CHAR(SYSDATE, 'YYYY/MM/DD HH:ss'), #{suContents}, #{suStatus}
+			</if>
+			
+			<if test="suMotherNo != 0">
+			#{suNo}, #{mbNo}, #{asNo}, #{suMotherNo}, SYSDATE, #{suContents}, DEFAULT
+			</if>
+		)
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateSAssignment" parameterType="SubmittedAssignment">
+		UPDATE SUBMITTED_ASSIGNMENT SET
+		SU_CONTENTS = #{suContents}		
+		WHERE SU_NO = #{suNo}
+	</update>
+	
+	<!-- 삭제 -->
+	<update id="deleteReply" parameterType="_int">
+		UPDATE SUBMITTED_ASSIGNMENT SET
+		SU_STATUS = 0
+		WHERE SU_MOTHER_NO = #{suNo}
+	</update>
+	
+	<update id="deleteSAssignment" parameterType="_int">
+		UPDATE SUBMITTED_ASSIGNMENT SET
+		SU_STATUS = 0
+		WHERE SU_NO = #{suNo}
+	</update>
+</mapper>

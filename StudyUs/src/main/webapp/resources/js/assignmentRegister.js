@@ -11,8 +11,15 @@ $(function() {
 	// 수정 파일의 경우 기존 날짜 집어넣는 역할
 	if($("input[name=viewCheck]").val() == "m") {
 		var deadLineBefore = $("input[name=deadLineBefore]").val();
+		var today = moment(new Date()).format('YYYY/MM/DD HH:mm');
+		
 		var deadLineAfter = moment(deadLineBefore).format('YYYY-MM-DD');
 		var deadLineAfter2 = moment(deadLineBefore).format('HH:mm');
+		
+		if(deadLineBefore <= today) {
+			$("input[name=asDate]").attr("readonly", true);
+			$("input[name=asTime]").attr("readonly", true);
+		}
 	
 		$("input[name=asDate]").val(deadLineAfter);
 		$("input[name=asTime]").val(deadLineAfter2);

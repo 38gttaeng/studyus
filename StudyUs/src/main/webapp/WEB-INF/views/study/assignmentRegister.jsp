@@ -75,7 +75,6 @@
 														<span id="date-msg" class="invalid-feedback dMsg">기한 입력값을 모두 입력하세요.</span>
 														<span id="date-msg2" class="invalid-feedback dMsg">기한은 현재 시간 이후를 선택해주세요.</span>
 														
-														<input type="hidden" name="asInsertDate">
 														<input type="hidden" name="asDeadLine">
 													</div>
 												</td>

@@ -97,3 +97,9 @@
 .gradient4 {
 	background: linear-gradient(#f9fbfd 40%, rgb(188, 209, 241));
 }
+
+/* 날짜 */
+
+.date {
+	letter-spacing : 0.1em;
+}

@@ -66,12 +66,6 @@ public class AssignmentServiceImpl implements AssignmentService {
 	}
 
 	@Override
-	public ArrayList<Assignment> printAllReply(int asNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int registerGroup(AssignmentGroup asGroup) {
 		return asStore.insertGroup(asGroup);
 	}

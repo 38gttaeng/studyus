@@ -60,49 +60,30 @@
                 	<div class="col-1"></div>
                     <div class="col-10">
                         <div class="card">
-                           	<div class="card-body back${ assignmentGroup.grColor } text-white text-right">${ assignmentGroup.grName }</div>
+                           	<div class="card-body back${ assignmentGroup.grColor } text-white">
+                        		<span><b>${ assignment.asName }</b></span>
+                        		<span class="float-right">${ assignmentGroup.grName }</span>
+                        	</div>
                             <div class="card-body">
-	                        	<form id="postForm" action="/study/assignment/modify" method="post" enctype="multipart/form-data">
+	                        	<form id="postForm" action="/study/sAssignment/modify" method="post" enctype="multipart/form-data">
 	                        		
-	                        		<input type="hidden" name="asNo" value="${ assignment.asNo }">
 	                        		<input type="hidden" name="viewCheck" value="m">
-	                        		<input type="hidden" name="deadLineBefore" value="${ assignment.asDeadLine }">
+	                        		<input type="hidden" name="suNo" value="${ sAssignment.suNo }">
 	                        		
 	                        		<div id="table-box">
 										<table class="table-responsive">
 											<tr>
-												<td>기한</td>
-												<td>
-													<div class="dateBox">
-														<input class="form-control" type="date" name="asDate">
-														<input class="form-control" type="time" name="asTime">
-														<div class="clearfix"></div>
-														<span id="date-msg" class="invalid-feedback dMsg">기한 입력값을 모두 입력하세요.</span>
-														<span id="date-msg2" class="invalid-feedback dMsg">기한은 현재 시간 이후를 선택해주세요.</span>
-														
-														<input type="hidden" name="asDeadLine">
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>제목</td>
-												<td>
-													<input type="text" class="form-control" name="asName" value="${ assignment.asName }">
-													<span id="title-msg" class="invalid-feedback">제목을 1자 이상 입력하세요.</span>
-												</td>
-											</tr>
-											<tr>
 												<td valign=top>내용</td>
 												<td>
-													<input type="hidden" name="asContents">
-      												<div id="editor" style="min-height:400px;">${ assignment.asContents }</div>
+													<input type="hidden" name="suContents">
+      												<div id="editor" style="min-height:400px;">${ sAssignment.suContents }</div>
 												</td>
 											</tr>
 											<tr>
 												<td>첨부파일</td>
 												<td>
-													<c:if test="${ !empty assignment.asFiles }">
-														<c:forEach var="file" items="${ assignment.asFiles }" varStatus="i">
+													<c:if test="${ !empty sAssignment.suFiles }">
+														<c:forEach var="file" items="${ sAssignment.suFiles }" varStatus="i">
 															<div id="file" class="text-muted">
 																<b>첨부파일${ i.count } : </b>
 																${ file.fiRealName }&nbsp;&nbsp;
@@ -118,7 +99,7 @@
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/assignment?grNo=${ assignmentGroup.grNo }'">
+													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/sAssignment/detail?suNo=${ sAssignment.suNo }'">
 													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="수정">
 												</td>
 											</tr>
@@ -138,7 +119,7 @@
 	</div>
     
     <!-- 해당 페이지 JS 파일 -->
-    <script src="/resources/js/assignmentRegister.js"></script>
+    <script src="/resources/js/sAssignmentRegister.js"></script>
     <script src="/resources/css/study/assets/libs/moment/min/moment.min.js"></script>
 </body>
 </html>

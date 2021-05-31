@@ -98,7 +98,7 @@
 		</selectKey>
 	
 		INSERT INTO ASSIGNMENT VALUES (
-			#{asNo}, #{grNo}, #{asName}, #{asContents}, #{asInsertDate}, #{asDeadLine}, DEFAULT 
+			#{asNo}, #{grNo}, #{asName}, #{asContents}, TO_CHAR(SYSDATE, 'YYYY/MM/DD HH:ss'), #{asDeadLine}, DEFAULT 
 		)
 	</insert>
 	
