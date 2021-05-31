@@ -36,6 +36,16 @@
 				<div class="menu-mark"><span>나의 일정</span></div>
 				
 			</div>
+			
+			<div class="my-review">
+				<div class="menu-mark"><span>나의 후기</span></div>
+				<c:if test="${!myReview}">
+					<div class="review">
+					
+					</div>
+				</c:if>
+				
+			</div>
 		</div>
 	</div>
 	

@@ -152,8 +152,8 @@ public class MemberController {
 	public String myPageView(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute("loginUser");
-//		ArrayList<Enrollment> myStudy = service.myStudyList(member.getMbNo());
-		
+		ArrayList<Enrollment> myStudy = service.myStudyList(member.getMbNo());
+		session.setAttribute("myStudy", myStudy);
 		
 		return "member/myPage";
 	}

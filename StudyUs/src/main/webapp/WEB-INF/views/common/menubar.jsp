@@ -86,7 +86,7 @@
 			                    </c:forEach>
 			                	<div class="dropdown-divider"></div>
 		                	</c:if>
-		                    <a class="dropdown-item" href="javascript:void(0)">
+		                    <a class="dropdown-item" href="/member/myPage">
 		                        	마이페이지
 		                    </a>
 		                	<div class="dropdown-divider"></div>

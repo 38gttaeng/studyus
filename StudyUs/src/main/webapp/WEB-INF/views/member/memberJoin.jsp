@@ -12,13 +12,18 @@
 <script type="text/javascript" src="/resources/js/memberJoin.js"></script>
 <title>회원가입</title>
 <style type="text/css">
-	span.ok{
+	span.no {
 		display : none;
-		color:green
+		color:red;
 	}
-	span.error{
+	
+	span.ok {
 		display : none;
-		color:red
+		color:green;
+	}
+	span.error {
+		display : none;
+		color:red;
 	}
 </style>
 </head>
@@ -26,17 +31,19 @@
 	<div class="user_card">
 		<div class="home-link" ><a href="/">StudyUs</a></div>
 		<div class="enroll-box">
-			<form action="/member/register" method="post">
+			<form action="/member/register" name="enrollForm">
 				<div class="info-box">
 					<div class="input-zone">
 						<label for="mbId">아이디</label>
-						<input type="text" name="mbId" id="mbId" placeholder="아이디는 4~16자 이내 영문 및 숫자" maxlength="16"><br>
+						<input type="text" name="mbId" id="mbId" placeholder="아이디는 4~16자 이내 영문 및 숫자"><br>
+						<span class="id no">아이디는 4~16자 이내 영문 및 숫자</span>
 						<span class="id ok">이 아이디는 사용 가능합니다</span>
 						<span class="id error">이미 사용 중인 아이디 입니다</span><br>
 					</div>
 					<div class="input-zone">
 						<label for="mbPassword">비밀번호</label>
-						<input type="password" name="mbPassword" id="mbPassword" placeholder="비밀번호는 8~20자 이내 영문 및 숫자" maxlength="20">
+						<input type="password" name="mbPassword" id="mbPassword" placeholder="비밀번호는 8~20자 이내 영문, 숫자 및 특수 문자"><br>
+						<span class="pwd no">비밀번호는 8~20자 이내 영문, 숫자 및 특수 문자</span><br>
 					</div>
 					<div class="input-zone">
 						<label for="mbPwdCheck">비밀번호 확인</label>
@@ -57,14 +64,16 @@
 					<div class="input-zone">
 						<label for="mbEmail">이메일</label>
 						<input type="text" name="mbEmail" id="mbEmail" placeholder="이메일"><br>
-						<span id="email-msg">이메일 인증이 필요하니 정확히 입력해주세요</span><br>
+						<span class="email-msg">이메일 인증이 필요하니 정확히 입력해주세요</span>
+						<span class="email no">이메일을 정확히 입력해주세요</span><br>
 					</div>
 					<div class="input-zone">
 						<label for="mbPhone">휴대폰 번호</label>
 						<input type="text" name="mbPhone" id="mbPhone" placeholder="'-' 구분없이 입력"><br>
+						<span class="phone no">번호를 정확히 입력해주세요</span><br>
 					</div>
 					<div class="btn-zone">
-						<input type="submit" value="가입하기" class="enroll-btn">
+						<input type="button" value="가입하기" class="enroll-btn">
 					</div>
 				</div>
 			</form>
