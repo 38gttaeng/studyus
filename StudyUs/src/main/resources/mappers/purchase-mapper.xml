@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purchaseMapper">
+
+	<resultMap type="Purchase" id="purchaseResultMap">
+		<id property="puNo" column="PU_NO"></id>
+		<result property="stNo" column="ST_NO"></result>
+		<result property="mbNo" column="MB_NO"></result>
+		<result property="puInsertDate" column="PU_INSERTDATE"></result>
+		<result property="noStatus" column="PU_STATUS"></result>
+	</resultMap>
+	
+	<insert id="insertPremium" parameterType="Purchase">
+		INSERT INTO PURCHASE VALUES(
+    	SEQ_PURCHASE.NEXTVAL, 1, #{mbNo}, DEFAULT, DEFAULT)
+	</insert>
+	
+</mapper>

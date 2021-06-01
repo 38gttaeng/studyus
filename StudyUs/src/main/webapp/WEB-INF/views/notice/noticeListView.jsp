@@ -144,8 +144,8 @@
 										<span style="color: coral;"> 
 											<c:if test="${notice.noInsertDate >= nowDay }">
 												<%-- <img class="upload" src="<c:url value='/resources/images/new2.png' />" style="width: 15px;height: 15px;"> --%>
-		                    						<!-- <sup>N</sup> -->
-		                    						N
+		                    						<sup><b>N</b></sup>
+		                    						
 		                    					</c:if>
 										</span>
 									</td>

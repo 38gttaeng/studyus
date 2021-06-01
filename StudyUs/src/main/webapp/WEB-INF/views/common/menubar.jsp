@@ -57,7 +57,7 @@
 	                  <a class="dropdown-item" href="/study/register">스터디 등록</a>
 	                </div>
 	          	</li>
-	          	<li class="nav-item"><a href="/shop/premiumShop" class="nav-link">스터디샵</a></li>
+	          	<li class="nav-item"><a href="/shop/premiumShopView" class="nav-link">스터디샵</a></li>
 	          	<li class="nav-item"><a href="/cafe/list" class="nav-link">스터디카페</a></li>
 	          	<!-- 로그인 전 --> 
 	          	<c:if test="${ empty loginUser }">

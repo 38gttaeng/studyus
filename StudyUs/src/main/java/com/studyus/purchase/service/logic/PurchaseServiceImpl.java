@@ -14,21 +14,14 @@ public class PurchaseServiceImpl implements PurchaseService{
 
 	@Autowired
 	public PurchaseStore pStore;
-	
+
 	@Override
-	public Purchase buyPremium(int studyNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public int insertPremium(Purchase purchase) {
+		return pStore.insertPremium(purchase);
 	}
 
 	@Override
-	public Purchase checkPremium(int studyNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Purchase> printPremium(int studyNo) {
+	public Purchase checkPremium(int stNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
