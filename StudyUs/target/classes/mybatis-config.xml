@@ -12,6 +12,7 @@
 		<typeAlias type="com.studyus.member.domain.Member" alias="Member" />
 		<typeAlias type="com.studyus.board.domain.Board" alias="Board"/>
 		<typeAlias type="com.studyus.notice.domain.Notice" alias="Notice"/>
+		<typeAlias type="com.studyus.purchase.domain.Purchase" alias="Purchase"/>
 		<typeAlias type="com.studyus.assignment.domain.Assignment" alias="Assignment"/>
 		<typeAlias type="com.studyus.assignment.domain.AssignmentGroup" alias="AssignmentGroup"/>
 		<typeAlias type="com.studyus.submittedAssignment.domain.SubmittedAssignment" alias="SubmittedAssignment"/>
@@ -27,6 +28,7 @@
 		<mapper resource="mappers/hashtag-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
+		<mapper resource="mappers/purchase-mapper.xml"/>
 		<mapper resource="mappers/assignment-mapper.xml"/>
 		<mapper resource="mappers/submittedAssignment-mapper.xml"/>
 		<mapper resource="mappers/file-mapper.xml"/>

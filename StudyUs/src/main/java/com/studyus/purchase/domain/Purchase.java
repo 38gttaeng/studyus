@@ -3,41 +3,58 @@ package com.studyus.purchase.domain;
 import java.sql.Date;
 
 public class Purchase {
-	private int purchaseNo;
-	private int studyNo;
-	private Date purchaseDate;
-	private int purchasePrice;
+	private int puNo;
+	private int stNo;
+	private int mbNo;
+	private Date puInsertDate;
+	private int puStatus;
 	
 	public Purchase() {}
-	
-	public int getPurchaseNo() {
-		return purchaseNo;
+
+	public int getPuNo() {
+		return puNo;
 	}
-	public void setPurchaseNo(int purchaseNo) {
-		this.purchaseNo = purchaseNo;
+
+	public void setPuNo(int puNo) {
+		this.puNo = puNo;
 	}
-	public int getStudyNo() {
-		return studyNo;
+
+	public int getStNo() {
+		return stNo;
 	}
-	public void setStudyNo(int studyNo) {
-		this.studyNo = studyNo;
+
+	public void setStNo(int stNo) {
+		this.stNo = stNo;
 	}
-	public Date getPurchaseDate() {
-		return purchaseDate;
+
+	public int getMbNo() {
+		return mbNo;
 	}
-	public void setPurchaseDate(Date purchaseDate) {
-		this.purchaseDate = purchaseDate;
+
+	public void setMbNo(int mbNo) {
+		this.mbNo = mbNo;
 	}
-	public int getPurchasePrice() {
-		return purchasePrice;
+
+	public Date getpuInsertDate() {
+		return puInsertDate;
 	}
-	public void setPurchasePrice(int purchasePrice) {
-		this.purchasePrice = purchasePrice;
+
+	public void setpuInsertDate(Date puInsertDate) {
+		this.puInsertDate = puInsertDate;
 	}
+
+	public int getpuStatus() {
+		return puStatus;
+	}
+
+	public void setpuStatus(int puStatus) {
+		this.puStatus = puStatus;
+	}
+
 	@Override
 	public String toString() {
-		return "Purchase [purchaseNo=" + purchaseNo + ", studyNo=" + studyNo + ", purchaseDate=" + purchaseDate
-				+ ", purchasePrice=" + purchasePrice + "]";
+		return "Purchase [puNo=" + puNo + ", stNo=" + stNo + ", mbNo=" + mbNo + ", puInsertDate=" + puInsertDate
+				+ ", puStatus=" + puStatus + "]";
 	}
 	
 }
