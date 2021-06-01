@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.studyus.common.PageInfo;
 import com.studyus.review.domain.Review;
 import com.studyus.review.service.ReviewService;
 import com.studyus.review.store.ReviewStore;
@@ -16,7 +17,7 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewStore rStore;
 
 	@Override
-	public ArrayList<Review> printAllReview(int caNo) {
+	public ArrayList<Review> printAllReview(PageInfo pi, int caNo) {
 		return rStore.selectReviewList(caNo);
 	}
 
@@ -40,4 +41,8 @@ public class ReviewServiceImpl implements ReviewService {
 		return null;
 	}
 
+	@Override
+	public int getListCount(int caNo) {
+		return 0;
+	}
 }

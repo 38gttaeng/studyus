@@ -42,6 +42,9 @@ public class CafeController {
 			// 디비에서 가져온 데이터(카페리스트)를 카페리스트뷰 페이지에다가 전송 
 			mv.addObject("caList", caList);
 			mv.setViewName("cafe/cafeListView"); 
+//			for (Cafe c : caList) {
+//				System.out.println(c.toString());
+//			}
 		} else {
 			mv.addObject("msg", "카페 리스트 조회 실패");
 			mv.setViewName("common/errorPage");

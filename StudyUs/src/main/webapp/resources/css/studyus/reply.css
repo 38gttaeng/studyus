@@ -224,3 +224,26 @@
 	.tag-qna {
 		background-color: #ff8499;
 	}
+	
+/* 별점 */
+.star{
+  display:inline-block;
+  width: 30px;
+  height: 60px;
+  cursor: pointer;
+}
+.star_left{
+  background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat 0 0; 
+  background-size: 60px; 
+  margin-right: -3px;
+  color: #F5A164 !important;
+}
+.star_right{
+  background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat -30px 0; 
+  background-size: 60px; 
+  margin-left: -3px;
+  color: #F5A164 !important;
+}
+.star.on{
+  background-image: url(http://gahyun.wooga.kr/main/img/testImg/star_on.png);
+} 	
