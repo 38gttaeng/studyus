@@ -300,7 +300,7 @@
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
 	                                class="hide-menu">게시물 관리 </span></a>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/enrollment/list"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/${study.url }/enrollment/list"
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
 	                                class="hide-menu">가입신청</span></a>
 	                    </li>

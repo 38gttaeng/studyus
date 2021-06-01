@@ -74,6 +74,9 @@ public class StudyServiceImpl implements StudyService {
 		return null;
 	}
 	
+	/**
+	 * 로그인한 사용자가 가입한 모든 스터디를 출력 
+	 */
 	@Override
 	public ArrayList<Study> printAllEnrolledByMemberNo(int memberNo) {
 		return sStore.selectAllEnrolledByMemberNo(memberNo);

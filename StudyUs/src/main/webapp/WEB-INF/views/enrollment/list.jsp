@@ -30,85 +30,99 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">가입신청 목록</h4>
-                                <h6 class="card-subtitle">Add <code>.table-hover</code> to enable a hover state on table
-                                    rows within a <code>&lt;tbody&gt;</code>.</h6>
+                                <%-- <h6 class="card-subtitle">Add <code>.table-hover</code> to enable a hover state on table
+                                    rows within a <code>&lt;tbody&gt;</code>.</h6> --%>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
+                                            <th scope="col">아이디</th>
+                                            <th scope="col">닉네임</th>
+                                            <th scope="col">신청일시</th>
+                                            <th scope="col">가입인사</th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                    	<c:forEach var="enrollment" items="${enrollmentWithMemberList }" varStatus="i">
+                                    	<tr>
+                                            <td><c:out value="${enrollment.mbId }"></c:out></td>
+                                            <td><c:out value="${enrollment.mbNickname }"></c:out></td>
+                                            <td><c:out value="${enrollment.insertDate }"></c:out></td>
+                                            <td><c:out value="${enrollment.message }"></c:out></td>
+                                            <td>
+                                            	<!-- <input type="button" class="btn btn-sm btn-light" value="세부정보" onclick="modalOpen();" data-toggle="modal" data-target="#enrollmentModal"> -->
+                                            	<input type="button" class="btn btn-sm btn-primary" value="수락" onclick="updateEnrollment(${enrollment.enrollmentNo}, 1);">
+                                            	<input type="button" class="btn btn-sm btn-danger" value="거부" onclick="updateEnrollment(${enrollment.enrollmentNo}, 2);">
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td colspan="2">Larry the Bird</td>
-                                            <td>@twitter</td>
+                                    	</c:forEach>
+                                        <tr class="d-none">
+                                            <td>{mbId}</td>
+                                            <td>{mbNickname}</td>
+                                            <td>{insertDate}</td>
+                                            <td>{message}</td>
+                                            <td>
+                                            	<input type="button" class="btn btn-sm btn-light" value="세부정보">
+                                            	<input type="button" class="btn btn-sm btn-primary" value="수락">
+                                            	<input type="button" class="btn btn-sm btn-danger" value="거부">
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="col-lg-8 align-self-center">
-	                    <div class="customize-input float-right">
-                           	<input name="searchValue" class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="Search" aria-label="Search">
-                           	<i id="search-btn" class="form-control-icon" data-feather="search"></i>
-                    	</div>
-                    	<div class="customize-input float-right" style="margin-right:10px;">
-	                        <select name="searchCondition" class="custom-select bg-white custom-radius border-0 custom-shadow">
-	                            <option selected value="all">전체</option>
-	                            <option value="title">제목</option>
-	                            <option value="content">내용</option>
-	                            <option value="writer">작성자</option>
-	                        </select>
-	                    </div>
-                    </div>
 	            </div>
             </div>
 
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-            	<!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <!-- basic table -->
-                <div class="row">
-                    <div id="container" class="col-12">
-                    	<!-- 여기에 데이터 들어감! -->
-                	</div>
-                </div>  
-                
-                <div id="float-btn">
-	                <!-- top으로 가는 버튼 -->
-	                <button id="top-btn" onclick="location.href='#'"><i class="fas fa-angle-up"></i></button>
-	                <!-- 글쓰기 버튼 --> 
-					<button id="write-btn" onclick="location.href='/study/board/registerView'"><i class="fas fa-edit"></i><span>글쓰기</span></button>          
-                </div>
-			</div>
-            <!-- footer -->
+			<!-- <div class="modal fade" id="enrollmentModal" tabindex="-1" aria-labelledby="enrollmentModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="enrollmentModalLabel">가입신청 세부정보</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row mb-2">
+								<div class="col-3"><b>아이디</b></div>
+								<div class="col" id="modal-id">{아이디}</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-3"><b>닉네임</b></div>
+								<div class="col" id="modal-nickname">{닉네임}</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-3"><b>신청일시</b></div>
+								<div class="col" id="modal-datetime">{신청일시}</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-3"><b>평판</b></div>
+								<div class="col" id="modal-reputation">{평판}</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-3"><b>가입인사</b></div>
+								<div class="col" id="modal-greeting">{가입인사}</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-danger" onclick="updateEnrollment(1);">거부</button>
+							<button type="button" class="btn btn-primary" onclick="updateEnrollment(2);">수락</button>
+						</div>
+					</div>
+				</div>
+			</div> -->
+
+			<!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>
         </div>
     </div>
+    
+    <script src="/resources/js/enrollmentList.js"></script>
 
 </body>
 </html>

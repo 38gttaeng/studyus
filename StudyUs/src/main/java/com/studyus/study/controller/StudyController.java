@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.studyus.common.RedirectWithMsg;
 import com.studyus.enrollment.domain.Enrollment;
+import com.studyus.enrollment.domain.EnrollmentWithMember;
 import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.member.domain.Member;
 import com.studyus.study.domain.Study;
@@ -147,38 +148,36 @@ public class StudyController {
 		return "study/study";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/study/enrollment/apply", method=RequestMethod.GET, produces="application/text; charset=UTF-8")
-	public String apply(HttpServletRequest request, 
-						@RequestParam(required=false) String url, 
-						@RequestParam(value="greeting", required=false) String message) throws Exception {
-		
-		Member loginMember = (Member) request.getSession().getAttribute("loginUser");
-		if (loginMember == null) {
-			return String.valueOf(-1);
-		}
-		
-		Enrollment enrollment = new Enrollment();
-		enrollment.setMemberNo(loginMember.getMbNo()); // TODO 세션에 저장된 회원번호로 변경
-		enrollment.setMessage(message);
-		int result = eService.apply(enrollment, url);
-		
-		return String.valueOf(result);
+	// 스터디 가입신청리스트 url오류
+	@RequestMapping(value="/study/enrollment/list")
+	public String enrollmentList(HttpServletRequest request) throws Exception {
+		return new RedirectWithMsg().redirect(request, "잘못된 주소입니다.", "/");
 	}
-	
+	// 스터디 가입신청 리스트
 	@RequestMapping(value="/study/{url}/enrollment/list")
 	public String enrollmentList(HttpServletRequest request,
 								@PathVariable(value="url") String url) throws Exception {
-		
-//		Study study = sService.printOneByUrl(url);
+		Study study = sService.printOneByUrl(url);
 		Member loginMember = (Member)request.getSession().getAttribute("loginUser");
 		
-		// 스터디 리더가 아니면 return
-//		if (study.getLeaderNo() != loginMember.getMbNo()) {
-//			return new RedirectWithMsg().redirect(request, "권한이 없습니다.", "/study/" + url);
-//		}
+		// 로그인 확인
+		if (loginMember == null) {
+			return new RedirectWithMsg().redirect(request, "로그인이 필요합니다.", "/member/loginView");
+		}
 		
-//		eService.printAllByStudyNo(study.getStudyNo());
+		// 스터디 url 확인
+		if (study == null) {
+			return new RedirectWithMsg().redirect(request, "스터디를 찾을 수 없습니다.", "/");
+		}
+		
+		// 스터디 리더가 아니면 return
+		if (study.getLeaderNo() != loginMember.getMbNo()) {
+			return new RedirectWithMsg().redirect(request, "권한이 없습니다.", "/study/" + url);
+		}
+		
+		//TODO 비주석
+		ArrayList<EnrollmentWithMember> enrollmentWithMemberList = eService.printAllByStudyNo(study.getStudyNo());
+		request.setAttribute("enrollmentWithMemberList", enrollmentWithMemberList);
 		
 		return "/enrollment/list";
 	}

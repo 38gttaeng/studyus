@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studyus.enrollment.domain.Enrollment;
+import com.studyus.enrollment.domain.EnrollmentWithMember;
 import com.studyus.enrollment.store.EnrollmentStore;
 import com.studyus.study.store.StudyStore;
 
@@ -27,9 +28,8 @@ public class EnrollmentStoreLogic implements EnrollmentStore {
 	}
 
 	@Override
-	public int updateEnrollment(Enrollment enrollment) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateStatus(Enrollment enrollment) throws Exception {
+		return session.update("enrollmentMapper.updateStatus", enrollment);
 	}
 
 	@Override
@@ -39,8 +39,13 @@ public class EnrollmentStoreLogic implements EnrollmentStore {
 	}
 
 	@Override
-	public ArrayList<Enrollment> selectListByStudyNo(int studyNo) throws Exception {
+	public ArrayList<EnrollmentWithMember> selectListByStudyNo(int studyNo) throws Exception {
 		return (ArrayList) session.selectList("enrollmentMapper.selectAllByStudyNo", studyNo);
+	}
+
+	@Override
+	public int checkEnrollment(Enrollment enrollment) throws Exception {
+		return session.selectOne("enrollmentMapper.checkEnrollment");
 	}
 
 }
