@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="enrollmentMapper">
 
-	<resultMap type="Enrollment" id="enrollmentStudyMap">
+	<resultMap type="Enrollment" id="enrollmentResultMap">
 		<id property="enrollmentNo" column="EN_NO"></id>
 		<result property="memberNo" column="MB_NO"></result>
 		<result property="studyNo" column="ST_NO"></result>
