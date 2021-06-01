@@ -9,13 +9,13 @@ public class RedirectWithMsg {
 	 * @param request
 	 * @param msg
 	 * alert창에 띄울 메세지
-	 * @param url
+	 * @param redirectUrl
 	 * 메세지를 닫은 후 redirect할 url
-	 * @return
+	 * @return String
 	 */
-	public String redirect(HttpServletRequest request, String msg, String url) {
+	public String redirect(HttpServletRequest request, String msg, String redirectUrl) {
 		request.setAttribute("msg", msg);
-		request.setAttribute("url", url);
+		request.setAttribute("redirectUrl", redirectUrl);
 		
 		return "redirectWithMsg";
 	}

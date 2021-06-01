@@ -239,7 +239,7 @@ function applyStudy(studyUrl) {
     console.log("applyStudy clicked");
     $.ajax({
         type: 'GET',
-        url: '/study/enrollment/apply',
+        url: '/enrollment/register',
         contentType: 'application/json; charset=UTF-8',
         // 인자
         data: {
@@ -262,7 +262,12 @@ function applyStudy(studyUrl) {
             alert('가입 신청에 실패했습니다.');
         },
         complete: function(result) {
-            console.log("가입신청 통신 종료");
+            // 가입신청 모달 초기화
+            document.getElementById("modal-greeting").value = '';
+            for (var i = 0; i < meetingDayViewList.length; i ++) {
+                meetingDayViewList[i].classList.remove("btn-primary");
+                meetingDayViewList[i].classList.add("btn-light");
+            }
         }
     });
 }

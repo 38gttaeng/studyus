@@ -11,9 +11,6 @@ import lombok.ToString;
 @ToString
 public class Enrollment {
 	private int enrollmentNo;
-	/**
-	 * 스터디 리더 번호
-	 */
 	private int memberNo;
 	private int studyNo;
 	private Date insertDate;

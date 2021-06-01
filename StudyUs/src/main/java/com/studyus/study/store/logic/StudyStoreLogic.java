@@ -62,9 +62,6 @@ public class StudyStoreLogic implements StudyStore {
 	@Override
 	public ArrayList<Study> selectAllEnrolledByMemberNo(int memberNo) {
 		List<Study> list = sqlSession.selectList("studyMapper.selectAllEnrolledByMemberNo", memberNo);
-		for (Study s : list) {
-			System.out.println(s.toString());
-		}
 		return (ArrayList<Study>) list;
 	}
 	

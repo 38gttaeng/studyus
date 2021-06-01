@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <script>
     var msg = "<c:out value='${msg}'/>";
-    var url = "<c:out value='${url}'/>";
+    var redirectUrl = "<c:out value='${redirectUrl}'/>";
+    
     alert(msg);
-    location.href = url;
+    location.href = redirectUrl;
 </script>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.studyus.enrollment.domain.Enrollment;
+import com.studyus.enrollment.domain.EnrollmentWithMember;
 import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.enrollment.store.EnrollmentStore;
 
@@ -21,9 +22,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public int modifyEnrollment(Enrollment enrollment) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int modifyStatus(Enrollment enrollment) throws Exception {
+		return eStore.updateStatus(enrollment);
 	}
 
 	@Override
@@ -33,9 +33,13 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public ArrayList<Enrollment> printAllByStudyNo(int studyNo) throws Exception {
+	public ArrayList<EnrollmentWithMember> printAllByStudyNo(int studyNo) throws Exception {
 		return eStore.selectListByStudyNo(studyNo);
 	}
 
+	@Override
+	public int checkEnrollment(Enrollment enrollment) throws Exception {
+		return eStore.checkEnrollment(enrollment);
+	}
 
 }
