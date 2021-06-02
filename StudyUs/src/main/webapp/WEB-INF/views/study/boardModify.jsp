@@ -95,6 +95,7 @@
 												<td valign=top>내용</td>
 												<td>
 													<input type="hidden" name="boContents">
+													<input type="hidden" name="picList">
       												<div id="editor" style="min-height:400px;">${ board.boContents }</div>
 												</td>
 											</tr>
@@ -132,6 +133,7 @@
                 		</div>
             		</div>
             		<div class="col-1"></div>
+            	</div>
            	</div>
 
             <!-- footer -->
@@ -140,6 +142,6 @@
     </div>
     
     <!-- 해당 페이지 JS 파일 -->
-    <script src="/resources/js/register.js"></script>
+    <script src="/resources/js/boardRegister.js"></script>
 </body>
 </html>

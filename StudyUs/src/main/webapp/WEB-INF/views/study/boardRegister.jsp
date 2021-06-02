@@ -21,8 +21,8 @@
         <!-- menubar -->
 	    <jsp:include page="../common/studyMenubar.jsp"/>
 	    <script>
-	    	$("#sidebarnav>li:nth-child(7)").addClass("selected");
-	    	$("#sidebarnav>li:nth-child(7) a").addClass("active");
+	    	$("#sidebarnav>li:nth-child(6)").addClass("selected");
+	    	$("#sidebarnav>li:nth-child(6) a").addClass("active");
 	    </script>
         
         <!-- ============================================================== -->

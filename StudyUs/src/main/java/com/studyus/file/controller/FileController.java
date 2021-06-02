@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -158,22 +160,36 @@ public class FileController {
 	
 	/*** 텍스트 에디터 ***************************************************************************/
 	
-	// 등록시 파일 저장
-	@RequestMapping(value="/file/upload/image", method=RequestMethod.POST)
-	public void saveImage(HttpServletRequest request, HttpServletResponse response, @RequestParam("uploadImage") MultipartFile uploadImage) throws Exception {
+	// 텍스트 에디터 입력시 파일 저장(Board)
+	@RequestMapping(value="/file/upload/board-image", method=RequestMethod.POST)
+	public void saveBoardImage(HttpServletRequest request, HttpServletResponse response, 
+			@RequestParam("uploadImage") MultipartFile uploadImage) throws Exception {
 		
-		String fiStoredName = saveImageFile(uploadImage, request);
+		String savePath = request.getSession().getServletContext().getRealPath("resources") + "\\buploadImages";
+		String fiStoredName = saveImageFile(uploadImage, savePath);
 		
 		// 텍스트 에디터에 저장정보 보내주기
-		String image = "/resources/uploadFiles/" + fiStoredName;
+		String image = "/resources/buploadImages/" + fiStoredName;
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(image, response.getWriter());
+	}
+	
+	// 텍스트 에디터 입력시 파일 저장(Assignment)
+	@RequestMapping(value="/file/upload/assignment-image", method=RequestMethod.POST)
+	public void saveAssignmentImage(HttpServletRequest request, HttpServletResponse response, 
+			@RequestParam("uploadImage") MultipartFile uploadImage) throws Exception {
+		
+		String savePath = request.getSession().getServletContext().getRealPath("resources") + "\\auploadImages";
+		String fiStoredName = saveImageFile(uploadImage, savePath);
+		
+		// 텍스트 에디터에 저장정보 보내주기
+		String image = "/resources/auploadImages/" + fiStoredName;
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(image, response.getWriter());
 	}
 	
 	// 파일 하나 저장
-	public String saveImageFile(MultipartFile file, HttpServletRequest request) {
-		// 파일 저장경로 설정
-		String savePath = request.getSession().getServletContext().getRealPath("resources") + "\\uploadFiles";
+	public String saveImageFile(MultipartFile file, String savePath) {
 		
 		// 저장폴더 선택
 		File folder = new File(savePath);
@@ -205,16 +221,100 @@ public class FileController {
 	// 등록 취소시 업로드된 파일 전체 삭제
 	@ResponseBody
 	@RequestMapping(value="/file/reset/image", method=RequestMethod.GET)
-	public void resetFile(HttpServletRequest request, @RequestParam("picList") List<String> picList) {
+	public void resetFile(HttpServletRequest request, @RequestParam("picList") List<String> picList, @RequestParam("folder") String folder) {
 		
 		// 실제 파일 경로를 만들어서 실제 파일 삭제
-		String savePath = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = request.getSession().getServletContext().getRealPath("resources") + folder;
 		
 		for(String fileName : picList) {
 			File file = new File(savePath + "\\" + fileName);
 			if(file.exists()) {
 				file.delete();
 			}
+		}
+	}
+	
+	// 등록버튼 클릭시 실제 내용과 비교해서 파일 없으면 삭제
+	public void addImages(String folder, String contents, List<String> picList, HttpServletRequest request) {
+		
+		// 삭제할 파일 리스트 저장하는 임시 리스트
+		List<String> delList = new ArrayList<String>();
+		
+		// 등록 내용에서 사진 파일명만 추출
+			// img 태그만 추출하는 정규표현식
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		Matcher matcher = pattern.matcher(contents);
+		
+		List<String> conList = new ArrayList<String>();
+		while(matcher.find()){
+			conList.add(matcher.group(1).substring(25));
+        }
+		
+			// 등록했던 파일 목록과 위의 내용 비교
+		for (String pic : picList) {
+			if (!conList.contains(pic)) {
+				// contains : 두개의 String을 비교해서 비교대상 String을 포함하고 있으면 true, 다르면 false를 반환
+				// () 안에 값이 없을 때 삭제할 파일 리스트에 저장
+				delList.add(pic);
+			}
+		}
+		
+			// 등록 내용에 없으면 파일 삭제
+		for(String str : delList) {
+			deleteFile(folder, str ,request);
+		}
+	}
+	
+	// 수정버튼 클릭시 이전 내용과 비교해서 없으면 삭제
+	public void editImages(String folder, String newContents, String oldContents, HttpServletRequest request) {
+		
+		// 삭제할 파일 리스트 저장하는 임시 리스트
+		List<String> delList = new ArrayList<String>();
+		
+		// img 태그만 추출하는 정규표현식
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		
+		// 등록 내용에서 사진 파일명만 추출
+		Matcher matcher = pattern.matcher(newContents);
+		
+		List<String> newList = new ArrayList<String>();
+		while(matcher.find()){
+			newList.add(matcher.group(1).substring(25));
+        }
+		
+		// 이전 내용에서 사진 파일명만 추출
+		Matcher matcher2 = pattern.matcher(oldContents);
+		List<String> oldList = new ArrayList<String>();
+		while(matcher2.find()){
+			oldList.add(matcher2.group(1).substring(25));
+	    }
+		
+		// 두 내용 비교
+			// 이전에 가지고 있던 이미지 태그를 가지고 있지 않다면 그 파일 삭제
+		for (String orPic : oldList) {
+			if (!newList.contains(orPic)) {
+				delList.add(orPic);
+			}
+		}
+		
+		// 삭제할 파일 삭제
+		for(String str : delList) {
+			deleteFile(folder, str ,request);
+		}
+	}
+	
+	// 글 삭제시 내용에 포함된 이미지 삭제
+	public void deleteImages(String folder, String contents, HttpServletRequest request) {
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		Matcher matcher = pattern.matcher(contents);
+		
+		List<String> conList = new ArrayList<String>();
+		while(matcher.find()){
+			conList.add(matcher.group(1).substring(25));
+        }
+		
+		for(String str : conList) {
+			deleteFile(folder, str ,request);
 		}
 	}
 }

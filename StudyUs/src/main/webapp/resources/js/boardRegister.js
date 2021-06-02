@@ -42,17 +42,16 @@ $(function() {
 			imageResize: {},
 			//videoResize: {},
 			imageUpload: {
-				url: '/file/upload/image',
+				url: '/file/upload/board-image',
 				method: 'POST',
 				name: 'uploadImage',
 				withCredentials: false,
-				
-				headers: {}, // add custom headers, example { token: 'your-token'}
+				headers: {},
 				
 				// 업로드 성공시
 				callbackOK: (serverResponse, next) => {
 					next(serverResponse);
-					picArr.push(serverResponse.substring(23));
+					picArr.push(serverResponse.substring(25));
 				},
 				
 				// 업로드 실패시
@@ -92,7 +91,9 @@ $(function() {
 		}
 	});
 	
+	// 등록버튼 클릭시
 	$("#submit-btn").on("click", function() {
+	console.log(picArr);////////////////////////////////////////
 	
 		// 수정파일인지 여부 체크
 		if($("input[name=viewCheck]").val() == "m") {
@@ -115,14 +116,15 @@ $(function() {
 	});
 	
 	var category = $("#category").val();
+	// 등록 취소버튼 클릭시
 	$("#reset-btn").on("click", function() {
-	
+
 		// 업로드된 파일들 삭제
 		if(picArr.length != 0) {
 			$.ajax({
 				url : "/file/reset/image",
 				type : "get",
-				data : {"picList": picArr},
+				data : {"picList": picArr, "folder" : "\\buploadImages"},
 				traditional : true,
 				success : function() {
 					console.log("전송 성공");
@@ -134,7 +136,7 @@ $(function() {
 		}
 		
 		// 이전 페이지로 이동 (해당 리스트 페이지)
-		//location.href="/study/board?boCategory=" + category;
+		location.href="/study/board?boCategory=" + category;
 	});
 });
 

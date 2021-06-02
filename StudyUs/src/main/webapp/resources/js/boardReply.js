@@ -14,24 +14,22 @@ $(function() {
 	getReplyList(page);
 	
 	// Quill
+	var picArr = new Array();
 	var quill = new Quill('#editor', {
 		modules: {
 			imageResize: {},
 			imageUpload: {
-				url: '/file/upload/image',
+				url: '/file/upload/board-image',
 				method: 'POST',
 				name: 'uploadImage',
 				withCredentials: false,
 				callbackOK: (serverResponse, next) => {
 			    	next(serverResponse);
+					picArr.push(serverResponse.substring(25));
 			    },
 				callbackKO: serverError => {
 					alert(serverError);
-				},
-				checkBeforeSend: (file, next) => {
-			    	console.log(file);
-			    	next(file);
-			    }
+				}
 			},
           "toolbar": toolbarOptions,
           "emoji-toolbar": true,
@@ -58,7 +56,7 @@ $(function() {
 			$.ajax({
 				url : "/study/board/addReply",
 				type : "post",
-				data : {"boMotherNo": rMotherNo , "boContents" : rContent, "mbNo" : rMbNo},
+				data : {"boMotherNo": rMotherNo , "boContents" : rContent, "mbNo" : rMbNo, "picList" : picArr},
 				success : function(result) {
 					if(result == "success") {
 						/* 댓글 불러오기 */
