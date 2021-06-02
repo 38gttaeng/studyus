@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="enrollmentMapper">
- 
+<mapper namespace="enrollmentMapper"> 
+
 	<resultMap type="Enrollment" id="enrollmentResultMap">
 		<id property="enrollmentNo" column="EN_NO"></id>
 		<result property="memberNo" column="MB_NO"></result>
@@ -54,7 +54,7 @@
 		SELECT ROWNUM AS RNUM, E.*, M.* FROM ENROLLMENT E LEFT OUTER JOIN MEMBER M ON E.MB_NO = M.MB_NO WHERE E.ST_NO = #{studyNo} AND E.EN_STATUS = 0 ORDER BY E.EN_NO ASC
 	</select>
 	
-	<select id="checkEnrollment" parameterType="Enrollment" resultMap="enrollmentResultMap">
+	<select id="checkEnrollment" parameterType="Enrollment" resultType="int">
 		SELECT COUNT(*) FROM ENROLLMENT WHERE MB_NO = #{memberNo} AND ST_NO = #{studyNo} 
 	</select>
 	

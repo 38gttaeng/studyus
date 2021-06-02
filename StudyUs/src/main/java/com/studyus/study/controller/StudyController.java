@@ -1,6 +1,7 @@
 package com.studyus.study.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,15 +19,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.studyus.attendance.domain.Attendance;
+import com.studyus.attendance.service.AttendanceService;
 import com.studyus.common.RedirectWithMsg;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.enrollment.domain.EnrollmentWithMember;
 import com.studyus.enrollment.service.EnrollmentService;
+import com.studyus.meeting.domain.Meeting;
+import com.studyus.meeting.service.MeetingService;
 import com.studyus.member.domain.Member;
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudySearchCriteria;
 import com.studyus.study.domain.StudySearchResult;
 import com.studyus.study.service.StudyService;
+import com.studyus.study.util.StudyUtil;
 
 @Controller
 public class StudyController {
@@ -47,6 +53,12 @@ public class StudyController {
 	
 	@Autowired
 	EnrollmentService eService;
+	
+	@Autowired
+	AttendanceService aService;
+	
+	@Autowired
+	MeetingService mService;
 	
 	// 스터디 생성 폼 페이지 get
 	@RequestMapping(value="/study/register", method=RequestMethod.GET)
@@ -132,18 +144,55 @@ public class StudyController {
 		return new Gson().toJson(searchResult);
 	}
 	
-	// 스터디 상세 페이지 get
+	// 스터디 상세 페이지 URL 미입력시 안내 출력
 	@RequestMapping(value="/study", method=RequestMethod.GET)
-	public String mainView() {
-		return "study/study";
+	public String mainView(HttpServletRequest request) {
+		return new RedirectWithMsg().redirect(request, "잘못된 주소입니다.", "/");
 	}
-	
 	// 스터디 상세 페이지 get by Url
 	@RequestMapping(value="/study/{url}", method=RequestMethod.GET)
-	public String mainViewUrl(HttpServletRequest request, @PathVariable("url") String url) {
+	public String mainViewUrl(HttpServletRequest request, @PathVariable("url") String url) throws Exception {
+		
 		Study study = sService.printOneByUrl(url);
+		Member member = (Member) request.getSession().getAttribute("loginUser");
+		
+		// 로그인여부 확인
+		if (member == null) {
+			return new RedirectWithMsg().redirect(request, "로그인이 필요합니다.", "/member/loginView");
+		}
+		
+		// 스터디 가입여부 확인
+		Enrollment enrollment = new Enrollment();
+		enrollment.setMemberNo(member.getMbNo());
+		enrollment.setStudyNo(study.getStudyNo());
+		if (eService.checkEnrollment(enrollment) < 1) {
+			return new RedirectWithMsg().redirect(request, "스터디에 가입한 회원이 아닙니다.", "/");
+		}
+		
+		/*
+		 * 출석버튼 상태를 변경하기 위한 값
+		 * 0: 출석일이 아님
+		 * 1: 오늘이 출석일이지만 아직 출석체크 하지않음
+		 * 2: 오늘이 출석일이며 출석체크 완료함 
+		 */
+		int attendanceStatus = 0;
+		
+		// 오늘이 출석일인지 확인
+		Meeting currentMeeting = mService.printCurrentOneByStudyNo(study.getStudyNo());
+		
+		// 오늘이 출석일일 경우 이미 출석체크 하였는지 확인.
+		if (currentMeeting != null) {
+			Attendance attendance = new Attendance();
+			attendance.setMeetingNo(currentMeeting.getMeetingNo());
+			attendance.setMemberNo(member.getMbNo());
+			
+			// 오늘 이미 출석하였는지 확인
+			boolean attendedAlready = aService.checkAttendedAlready(attendance);
+			attendanceStatus = attendedAlready ? 2 : 1;
+		}
 		
 		request.getSession().setAttribute("study", study);
+		request.setAttribute("attendanceStatus", attendanceStatus);
 		
 		return "study/study";
 	}
@@ -175,7 +224,6 @@ public class StudyController {
 			return new RedirectWithMsg().redirect(request, "권한이 없습니다.", "/study/" + url);
 		}
 		
-		//TODO 비주석
 		ArrayList<EnrollmentWithMember> enrollmentWithMemberList = eService.printAllByStudyNo(study.getStudyNo());
 		request.setAttribute("enrollmentWithMemberList", enrollmentWithMemberList);
 		

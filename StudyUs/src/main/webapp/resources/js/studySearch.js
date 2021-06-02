@@ -236,7 +236,6 @@ function onStudyContainerClicked(i) {
 
 // 모달 가입신청 클릭
 function applyStudy(studyUrl) {
-    console.log("applyStudy clicked");
     $.ajax({
         type: 'GET',
         url: '/enrollment/register',

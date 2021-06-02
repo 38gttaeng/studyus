@@ -111,7 +111,17 @@
 	                                    </div>
 	                                </div>
 	                                <div class="col-md-3 d-flex flex-row-reverse">
-	                                	<button class="btn btn-primary btn-rounded btn-sm">출석확인</button>
+	                                <c:if test="${attendanceStatus eq 0  }">
+	                                	<button id="attendance-check-button" class="btn btn-light btn-rounded btn-sm" disabled>출석확인</button>
+	                                	<span id="attendance-help" class="pr-4">출석시간이 아닙니다.</span>
+                                	</c:if>
+	                                <c:if test="${attendanceStatus eq 1 }">
+	                                	<button id="attendance-check-button" class="btn btn-primary btn-rounded btn-sm" onclick="insertAttendance(${loginUser.mbNo}, ${sessionScope.study.studyNo });">출석확인</button>
+                                	</c:if>
+	                                <c:if test="${attendanceStatus eq 2  }">
+	                                	<button id="attendance-check-button" class="btn btn-primary btn-rounded btn-sm" disabled>출석확인</button>
+	                                	<span id="attendance-help" class="pr-4">출석체크 완료</span>
+                                	</c:if>
 	                                </div>
                                 </div>
                             </div>
@@ -174,5 +184,6 @@
    
    <!--This page JavaScript -->
    <script src="/resources/css/study/dist/js/pages/dashboards/dashboard1.min.js"></script>
+   <script src="/resources/js/study.js"></script>
 </body>
 </html>

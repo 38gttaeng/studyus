@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="attendanceMapper">
+
+	<resultMap type="Attendance" id="attendanceResultMap">
+		<id property="attendanceNo" column="AT_NO"></id>
+		<result property="memberNo" column="MB_NO"></result>
+		<result property="studyNo" column="ST_NO"></result>
+		<result property="meetingNo" column="ME_NO"></result>
+	</resultMap>
+	
+	<insert id="insertAttendance" parameterType="Attendance">
+		INSERT INTO ATTENDANCE VALUES (SEQ_ATTENDANCE.NEXTVAL,
+										#{memberNo},
+										#{studyNo},
+										#{meetingNo})
+	</insert>
+	
+	<select id="checkTodayAttendedAlready" parameterType="Attendance" resultType="int">
+		SELECT COUNT(*) FROM ATTENDANCE WHERE ME_NO = #{meetingNo} AND MB_NO = #{memberNo}
+	</select>
+	
+</mapper>

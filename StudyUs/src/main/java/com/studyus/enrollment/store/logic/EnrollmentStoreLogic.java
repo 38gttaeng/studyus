@@ -45,7 +45,7 @@ public class EnrollmentStoreLogic implements EnrollmentStore {
 
 	@Override
 	public int checkEnrollment(Enrollment enrollment) throws Exception {
-		return session.selectOne("enrollmentMapper.checkEnrollment");
+		return session.selectOne("enrollmentMapper.checkEnrollment", enrollment);
 	}
 
 }
