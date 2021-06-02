@@ -6,7 +6,7 @@ import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.review.domain.Review;
 
-public interface MemberService {
+public interface MemberService { 
 
 	public Member loginMember(Member member);
 	
@@ -27,4 +27,11 @@ public interface MemberService {
 	public ArrayList<Enrollment> myStudyList(int mbNo);
 	
 	public Review myReviewList(String mbId);
+	
+	/**
+	 * 해당 번호의 스터디에 가입한 모든 회원을 출력합니다.
+	 * @param studyNo
+	 * @return ArrayList<Member>
+	 */
+	public ArrayList<Member> printAllByStudyNo(int studyNo);
 }

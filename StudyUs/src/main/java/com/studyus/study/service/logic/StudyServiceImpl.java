@@ -84,8 +84,7 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public Study printOneByNo(int studyNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sStore.selectOneByNo(studyNo); 
 	}
 	
 	@Override

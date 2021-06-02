@@ -12,7 +12,7 @@ import com.studyus.enrollment.store.EnrollmentStore;
 import com.studyus.study.store.StudyStore;
 
 @Repository
-public class EnrollmentStoreLogic implements EnrollmentStore {
+public class EnrollmentStoreLogic implements EnrollmentStore { 
 	
 	@Autowired
 	SqlSession session;
@@ -45,7 +45,7 @@ public class EnrollmentStoreLogic implements EnrollmentStore {
 
 	@Override
 	public int checkEnrollment(Enrollment enrollment) throws Exception {
-		return session.selectOne("enrollmentMapper.checkEnrollment");
+		return session.selectOne("enrollmentMapper.checkEnrollment", enrollment);
 	}
 
 }

@@ -55,8 +55,7 @@ public class StudyStoreLogic implements StudyStore {
 
 	@Override
 	public Study selectOneByNo(int studyNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("studyMapper.selectOneByNo", studyNo); 
 	}
 	
 	@Override

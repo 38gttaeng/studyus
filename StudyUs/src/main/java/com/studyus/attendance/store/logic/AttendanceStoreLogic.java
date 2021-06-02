@@ -10,10 +10,10 @@ import com.studyus.attendance.domain.Attendance;
 import com.studyus.attendance.store.AttendanceStore;
 
 @Repository
-public class AttendanceStoreLogic implements AttendanceStore{
+public class AttendanceStoreLogic implements AttendanceStore{ 
 	
 	@Autowired
-	public SqlSession sqlSeesion;
+	public SqlSession sqlSession;
 
 	@Override
 	public ArrayList<Attendance> printAll() {
@@ -22,9 +22,8 @@ public class AttendanceStoreLogic implements AttendanceStore{
 	}
 
 	@Override
-	public int attCheck(Attendance attendance) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertAttendance(Attendance attendance) {
+		return sqlSession.insert("attendanceMapper.insertAttendance", attendance);
 	}
 
 	@Override
@@ -37,6 +36,11 @@ public class AttendanceStoreLogic implements AttendanceStore{
 	public int attRate(Attendance attendance) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean checkTodayAttendedAlready(Attendance attendance) {
+		return 0 != (Integer)sqlSession.selectOne("attendanceMapper.checkTodayAttendedAlready", attendance);
 	}
 
 }

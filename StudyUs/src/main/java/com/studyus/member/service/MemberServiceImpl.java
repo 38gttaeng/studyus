@@ -74,4 +74,9 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 
+	@Override 
+	public ArrayList<Member> printAllByStudyNo(int studyNo) {
+		return store.selectAllEnrolled(studyNo);
+	}
+
 }

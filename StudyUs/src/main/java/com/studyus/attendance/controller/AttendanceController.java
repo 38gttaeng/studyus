@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studyus.attendance.domain.Attendance;
 import com.studyus.attendance.service.AttendanceService;
@@ -23,9 +25,11 @@ public class AttendanceController {
 	}
 	
 	// 출석하기 
-	@RequestMapping(value="attCheck", method=RequestMethod.POST)
-	public String attCheck(@ModelAttribute Attendance attendance, Model model) {
-		return "";
+	@ResponseBody 
+	@RequestMapping(value="/attendance/check", method=RequestMethod.GET, produces="application/text; charset=UTF-8")
+	public String attCheck(@ModelAttribute Attendance attendance,
+							Model model) throws Exception {
+		return String.valueOf(aService.checkAttendance(attendance));
 	}
 	
 	// 평점 추가 

@@ -81,6 +81,10 @@
 	
 	<select id="checkUrl" resultType="int">
 		SELECT COUNT(*) FROM STUDY WHERE ST_URL = #{url}
+	</select> 
+	
+	<select id="selectOneByNo" parameterType="int" resultMap="studyResultMap">
+		SELECT * FROM STUDY WHERE ST_NO = #{studyNo}
 	</select>
 	
 	<select id="selectOneByUrl" parameterType="String" resultMap="studyResultMap">
@@ -115,50 +119,4 @@
 		WHERE RNUM BETWEEN ((#{page} - 1) * #{countPerPage} + 1) AND (#{page} * #{countPerPage})
 	</select>
 	
-	<!-- <select id="selectAllEnrolledByMemberNo" resultMap="studyResultMap">
-		SELECT STUDY.ST_NO, STUDY.ST_NAME, STUDY.ST_URL FROM STUDY JOIN ENROLLMENT ON STUDY.ST_NO = ENROLLMENT.ST_NO WHERE ENROLLMENT.EN_STATUS = 1 AND ENROLLMENT.MB_NO = #{memberNo};
-	</select> -->
-	
-	<!-- 
-	<select id="selectNoticeList" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE ORDER BY N_CREATE_DATE DESC
-	</select>
-	
-	<select id="selectOne" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE WHERE NOTICE_NO = #{noticeNo }
-	</select>
-	
-	<select id="selectSearchList" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE
-		<if test="searchCondition.toString() == 'writer'">
-			WHERE NOTICE_WRITER LIKE '%' || #{searchValue } || '%'
-		</if>
-		<if test="searchCondition.toString() == 'title'">
-			WHERE NOTICE_TITLE LIKE '%' || #{searchValue } || '%'
-		</if>
-		<if test="searchCondition.toString() == 'content'">
-			WHERE NOTICE_CONTENTS LIKE '%' || #{searchValue } || '%'
-		</if>
-		<if test="searchCondition.toString() == 'all'">
-			WHERE NOTICE_WRITER LIKE '%' || #{searchValue } || '%'
-			OR NOTICE_TITLE LIKE '%' || #{searchValue } || '%'
-			OR NOTICE_CONTENTS LIKE '%' || #{searchValue } || '%'
-		</if>
-		ORDER BY N_CREATE_DATE DESC
-	</select>
-
-	<insert id="insertNotice" parameterType="Notice">
-		INSERT INTO NOTICE VALUES(SEQ_NOTICEID.NEXTVAL, #{noticeTitle }, #{noticeContents }, #{noticeWriter }, DEFAULT, DEFAULT, #{noticeFilepath })
-	</insert>
-	
-	<update id="updateNotice" parameterType="Notice">
-		UPDATE NOTICE 
-		SET NOTICE_TITLE = #{noticeTitle }, NOTICE_CONTENTS = #{noticeContents }, NOTICE_FILEPATH = #{noticeFilepath }, N_UPDATE_DATE = SYSDATE
-		WHERE NOTICE_NO = #{noticeNo }
-	</update>
-	
-	<delete id="deleteNotice" parameterType="_int">
-		DELETE FROM NOTICE WHERE NOTICE_NO = #{noticeNo }
-	</delete>
-	 -->
 </mapper>

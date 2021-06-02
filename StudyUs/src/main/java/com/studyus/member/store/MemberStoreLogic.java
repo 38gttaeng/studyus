@@ -72,6 +72,11 @@ public class MemberStoreLogic implements MemberStore {
 	@Override
 	public Review myReviewList(String mbId) {
 		
-		return null;
+		return null; 
+	}
+
+	@Override
+	public ArrayList<Member> selectAllEnrolled(int studyNo) {
+		return (ArrayList) sqlSession.selectList("memberMapper.selectAllEnrolled", studyNo);
 	}
 }
