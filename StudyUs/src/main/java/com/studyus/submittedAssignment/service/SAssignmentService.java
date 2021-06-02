@@ -1,8 +1,10 @@
 package com.studyus.submittedAssignment.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.studyus.assignment.domain.Assignment;
+import com.studyus.board.domain.Board;
 import com.studyus.common.PageInfo;
 import com.studyus.submittedAssignment.domain.SubmittedAssignment;
 
@@ -69,5 +71,11 @@ public interface SAssignmentService {
 	 * @param sAssignment(stNo, mbNo)
 	 */
 	public int mySubmittedAssignment(SubmittedAssignment sAssignment);
-
+	
+	////////////////////////////////////////////////////////////
+	
+	public ArrayList<HashMap<String, Object>> printAllByStNo(int stNo);
+	public ArrayList<HashMap<String, Object>> printAllByMemberNo(HashMap<String, Integer> map);
+	public ArrayList<HashMap<String, Object>> printAllReplyByStNo(int stNo);
+	public ArrayList<HashMap<String, Object>> printAllReplyByMemberNo(HashMap<String, Integer> map);
 }

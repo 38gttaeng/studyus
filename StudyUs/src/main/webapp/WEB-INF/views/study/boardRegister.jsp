@@ -90,6 +90,7 @@
 												<td valign=top>내용</td>
 												<td>
 													<input type="hidden" name="boContents">
+													<input type="hidden" name="picList">
       												<div id="editor" style="min-height:400px;"></div>
 												</td>
 											</tr>
@@ -102,7 +103,8 @@
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/board?boCategory=${category}'">
+													<input type="hidden" id="category" value="${ category }">
+													<input id="reset-btn" type="button" class="btn waves-effect waves-light btn-light" value="취소">
 													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="등록">
 												</td>
 											</tr>
@@ -122,7 +124,7 @@
 	</div>
     
     <!-- 해당 페이지 JS 파일 -->
-    <script src="/resources/js/register.js"></script>
+    <script src="/resources/js/boardRegister.js"></script>
     
 </body>
 </html>

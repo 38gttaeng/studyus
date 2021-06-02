@@ -85,7 +85,7 @@ public interface BoardService {
 	* @param board(mbNo, stNo)
 	* @return
 	*/
-	public ArrayList<Board> printAllByMemberNo(Board board, int selected);
+	public ArrayList<Board> printAllByMemberNo(Board board);
 	
 	// 댓글 
 	
@@ -102,5 +102,5 @@ public interface BoardService {
 	* @return
 	*/
 	public ArrayList<Board> printAllReplyByMemberNo(Board board);
-	
+
 }

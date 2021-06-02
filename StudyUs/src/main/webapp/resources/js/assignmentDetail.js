@@ -6,9 +6,6 @@ $(function() {
 	var total = (deadLine - insertDate);
 	var now = (today - insertDate);
 	var percent = (now/total)*100;
-	console.log(total);
-	console.log(now);
-	console.log(percent);
 	 
 	if(percent > 100) {
 		percent = 100;

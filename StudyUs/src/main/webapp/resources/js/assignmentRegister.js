@@ -28,7 +28,8 @@ $(function() {
 	// 오늘 날짜 이전 선택 막기
 	var out = new Date().toISOString().slice(0, 10);
 	$("input[name=asDate]").attr("min", out);
-
+	
+	// 파일 추가, 삭제
 	$('#button-add-file').click(addFileForm);
 	$(document).on('click', '.button-delete-file', function(event) {
 		if($("input[name=viewCheck]").val() == "m") {
@@ -167,14 +168,6 @@ $(function() {
 		var deadline = moment(date.val() + " " + time.val()).format('YYYY/MM/DD HH:mm');
 		var today = moment(new Date()).format('YYYY/MM/DD HH:mm');
 	
-		// 수정파일인지 여부 체크
-		if($("input[name=viewCheck]").val() == "m") {
-			titleCheckFlag = true;
-			dateCheckFlag = true;
-			timeCheckFlag = true;
-			$("#delFiles").val(delFList);
-		}
-		
 		// 내용 비어있는지 체크
 		if(title.val() == "") {
 			title.addClass("is-invalid");
@@ -215,6 +208,14 @@ $(function() {
 			$("#date-msg2").css("display", "block");
 			dateCheckFlag = false;
 			timeCheckFlag = false;
+		}
+		
+		// 수정파일인지 여부 체크
+		if($("input[name=viewCheck]").val() == "m") {
+			titleCheckFlag = true;
+			dateCheckFlag = true;
+			timeCheckFlag = true;
+			$("#delFiles").val(delFList);
 		}
 	
 		// 전송

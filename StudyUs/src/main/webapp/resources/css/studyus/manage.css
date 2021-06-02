@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+.dataTables_wrapper {
+	margin-top : 10px;
+}
+
+table th {
+	text-align : center;
+}
+
+.dt-body-center {
+	text-align : center;
+	width : 5%;
+}
+
+.dt-category {
+	text-align : center;
+	width : 10%;
+}
+
+.dt-date {
+	text-align : center;
+	width : 12%;
+}
+
+.dt-title {
+	width : 30%
+}
+
+.dt-contents  span {
+	display : inline-block;
+	max-width: 30em;
+	overflow : hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	word-wrap:normal;
+}
+
+.dt-reply span {
+	display : inline-block;
+	max-width: 50em;
+	overflow : hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	word-wrap:normal;
+}
+
+.select {
+	height: calc(1.5em + 0.5rem + 2px);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 1px;
+    color: #4F5467;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #e9ecef;
+}
+
+.delete-btn {
+	margin-top : 20px;
+}
+

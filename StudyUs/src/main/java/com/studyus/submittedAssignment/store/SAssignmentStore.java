@@ -1,6 +1,7 @@
 package com.studyus.submittedAssignment.store;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.common.PageInfo;
@@ -77,4 +78,10 @@ public interface SAssignmentStore {
 	 */
 	public int mySubmittedAssignment(SubmittedAssignment sAssignment);
 	
+	////////////////////////////////////////////////////////////
+	
+	public ArrayList<HashMap<String, Object>> selectAllByStNo(int stNo);
+	public ArrayList<HashMap<String, Object>> selectAllByMemberNo(HashMap<String, Integer> map);
+	public ArrayList<HashMap<String, Object>> selectAllReplyByStNo(int stNo);
+	public ArrayList<HashMap<String, Object>> selectAllReplyByMemberNo(HashMap<String, Integer> map);
 }

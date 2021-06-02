@@ -1,6 +1,7 @@
 package com.studyus.submittedAssignment.store.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -78,6 +79,26 @@ public class SAssignmentStoreLogic implements SAssignmentStore {
 	public int mySubmittedAssignment(SubmittedAssignment sAssignment) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectAllByStNo(int stNo) {
+		return (ArrayList)sqlSession.selectList("sAssignmentMapper.selectAllByStNo", stNo);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectAllByMemberNo(HashMap<String, Integer> map) {
+		return (ArrayList)sqlSession.selectList("sAssignmentMapper.selectAllByMemberNo", map);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectAllReplyByStNo(int stNo) {
+		return (ArrayList)sqlSession.selectList("sAssignmentMapper.selectAllReplyByStNo", stNo);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectAllReplyByMemberNo(HashMap<String, Integer> map) {
+		return (ArrayList)sqlSession.selectList("sAssignmentMapper.selectAllReplyByMemberNo", map);
 	}
 
 }

@@ -183,14 +183,13 @@ function replyPage(pi) {
 	$ul.append($liBefore);
 	
 	for(var p = pi.startPage; p < pi.endPage + 1; p++) {
-		// onclick='getReplyList(p)'
 		if(p == pi.currentPage) {
 			$liCurrent = $("<li class='page-item active'>");
 		} else {
 			$liCurrent = $("<li class='page-item' onclick='getReplyList(" + p + ")'>");
 		}
 		
-		$liCurrent.append("<span onclick='getReplyList(p)' class='page-link'>" + p + "</span>");
+		$liCurrent.append("<span class='page-link'>" + p + "</span>");
 		
 		$ul.append($liCurrent);
 	}

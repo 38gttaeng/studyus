@@ -24,6 +24,7 @@ import com.google.gson.GsonBuilder;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
+import com.studyus.board.domain.Board;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
 import com.studyus.common.RedirectWithMsg;
@@ -31,6 +32,7 @@ import com.studyus.file.controller.FileController;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.service.FileService;
 import com.studyus.member.domain.Member;
+import com.studyus.study.domain.Study;
 import com.studyus.submittedAssignment.domain.SubmittedAssignment;
 import com.studyus.submittedAssignment.service.SAssignmentService;
 
@@ -296,6 +298,67 @@ public class SAssignmentController {
 			return "success";
 		} else {
 			return "fail";
+		}
+	}
+	
+	/******************* 과제제출 관리 *******************/
+
+	// 과제제출 리스트
+	@RequestMapping(value="/study/contentsList/assignment", method=RequestMethod.GET)
+	public void contentsView(HttpSession session, HttpServletResponse response, @RequestParam("user") String user) throws Exception {
+		
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		
+		ArrayList<HashMap<String, Object>> data = null;
+		if(user.equals("l")) {
+			data = suService.printAllByStNo(stNo);
+		} else if(user.equals("m")) {
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+			map.put("stNo", stNo);
+			map.put("mbNo", mbNo);
+			data = suService.printAllByMemberNo(map);
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(data, response.getWriter());
+	}
+	
+	// 과제제출 댓글 리스트
+	@RequestMapping(value="/study/commentsList/assignment", method=RequestMethod.GET)
+	public void myReplyListView(HttpSession session, HttpServletResponse response, @RequestParam("user") String user) throws Exception {
+		
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		
+		ArrayList<HashMap<String, Object>> data = null;
+		if(user.equals("l")) {
+			data = suService.printAllReplyByStNo(stNo);
+		} else if(user.equals("m")) {
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+			map.put("stNo", stNo);
+			map.put("mbNo", mbNo);
+			data = suService.printAllReplyByMemberNo(map);
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(data, response.getWriter());
+	}
+	
+	// 과제제출 댓글 일괄 삭제
+	@ResponseBody
+	@RequestMapping(value="/study/contentsList/delete-assignment", method=RequestMethod.GET)
+	public String boardListDelete(@RequestParam("deList") List<Integer> deList) {
+		
+		int result = 0;
+		for(int delNo : deList) {
+			result +=suService.removeSubmittedAssignment(delNo);
+		}
+		
+		if(result == deList.size()) {
+			return "success";
+		} else {
+			return "error";
 		}
 	}
 	

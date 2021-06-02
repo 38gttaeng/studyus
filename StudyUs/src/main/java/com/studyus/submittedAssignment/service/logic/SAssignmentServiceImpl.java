@@ -1,6 +1,7 @@
 package com.studyus.submittedAssignment.service.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,6 +99,26 @@ public class SAssignmentServiceImpl implements SAssignmentService {
 	public int mySubmittedAssignment(SubmittedAssignment sAssignment) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> printAllByStNo(int stNo) {
+		return suStore.selectAllByStNo(stNo);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> printAllByMemberNo(HashMap<String, Integer> map) {
+		return suStore.selectAllByMemberNo(map);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> printAllReplyByStNo(int stNo) {
+		return suStore.selectAllReplyByStNo(stNo);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> printAllReplyByMemberNo(HashMap<String, Integer> map) {
+		return suStore.selectAllReplyByMemberNo(map);
 	}
 
 }

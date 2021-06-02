@@ -226,19 +226,20 @@
 	                            <nav id='asPage'>
 	                            	<ul class='pagination pagination-sm justify-content-center'>
 	                            	
-		                            	<c:url var="before" value="study/assignment?grNo=${ asGroup.grNo }">
+		                            	<c:url var="before" value="/study/assignment">
 											<c:param name="page" value="${ pi.currentPage - 1 }"/>
+											<c:param name="grNo" value="${ groupNo }"/>
 										</c:url>
 										<c:if test="${ pi.currentPage > 1 }">
 		                            		<li class="page-item" onclick="location.href='${ before }'">
-		                            			<span class='page-link' aria-label='Next'></span>
-		                            			<span>&laquo;</span>
+		                            			<span class='page-link' aria-label='Prev'>&laquo;</span>
 		                            		</li>
 	                            		</c:if>
 	                            		
 	                            		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-	                            		<c:url var="pagination" value="study/assignment?grNo=${ asGroup.grNo }">
+	                            		<c:url var="pagination" value="/study/assignment">
 											<c:param name="page" value="${ p }"/>
+											<c:param name="grNo" value="${ groupNo }"/>
 										</c:url>
 										<c:if test="${ p eq pi.currentPage }">
 											<li class='page-item active'>
@@ -252,13 +253,13 @@
 										</c:if>
 	                            		</c:forEach>
 	                            		
-	                            		<c:url var="after" value="study/assignment?grNo=${ asGroup.grNo }">
+	                            		<c:url var="after" value="/study/assignment">
 											<c:param name="page" value="${ pi.currentPage + 1 }"/>
+											<c:param name="grNo" value="${ groupNo }"/>
 										</c:url>
 										<c:if test="${ pi.currentPage < pi.maxPage }">
 		                            		<li class="page-item" onclick="location.href='${ after }'">
-		                            			<span class='page-link' aria-label='Next'></span>
-		                            			<span>&raquo;</span>
+		                            			<span class='page-link' aria-label='Next'>&raquo;</span>
 		                            		</li>
 	                            		</c:if>
 	                            		
