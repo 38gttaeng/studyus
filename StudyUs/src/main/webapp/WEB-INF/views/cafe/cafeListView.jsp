@@ -95,13 +95,13 @@
 		p = proj4.transform( grs80, wgs84, p); 
 		console.log(p.x + " " + p.y); 
 		return p;
-	} 
+	}
 	
 
 	// 지도 api
 	var mapContainer = document.getElementById('map'),  // 지도를 표시할 div
 		mapOption = {
-			center : new kakao.maps.LatLng(37.5507874785596, 126.98537891244527), // 지도의 중심좌표
+			center : new kakao.maps.LatLng(37.54303872565461, 126.98412440978181), // 지도의 중심좌표
 			level : 7
 		};
 		 // 지도 생성
@@ -110,6 +110,7 @@
 		var positions = [];
 		<c:forEach items='${caList}' var='cafe'>
 			var cafe = new Object();
+			cafe.caNo = "${cafe.caNo}";
 			cafe.caName = "${cafe.caName }";
 			cafe.lat = "${cafe.caLat }";
 			cafe.lng = "${cafe.caLng }";
@@ -117,11 +118,12 @@
 		</c:forEach>
 		
 		// 지도 마커
-		 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+// 		 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+		 var imageSrc = "/resources/images/marker.png";
 			
 			for (var i = 0; i < positions.length; i++) {
 
-				var imageSize = new kakao.maps.Size(30, 41);
+				var imageSize = new kakao.maps.Size(30, 60);
 				// 마커 이미지를 생성
 				var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 				// 마커를 표시할 위치
@@ -135,12 +137,28 @@
 					position : latlng,
 					image : markerImage
 				});
-				// 오버레이 생성
-				var overlay = new kakao.maps.CustomOverlay({
-					content : positions[i].content, 
-					map : map,
-					position : marker.getPosition()
-				});
+				
+				(function(marker, cafe) {
+					  // 마크 클릭 시
+					  //kakao.maps.event.addListener(marker, 'click', function() {
+					    var overlay = new kakao.maps.CustomOverlay({
+					      // 오버레이에 띄울 내용
+					      content:  '<div class="customoverlay">' +
+						    '  <a href="/cafe/detail?caNo='+cafe.caNo+'" target="_blank">' +
+						    '    <span class="title">' + cafe.caName + '</span>' +
+						    '  </a>' +
+						    '</div>',
+					      map: map,
+					      position: marker.getPosition()
+					    });
+					    console.log(overlay);
+					    overlay.setMap(map);
+					    // 아무데나 클릭하게되면 overlay를 끄기
+//  					    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+// 					      overlay.setMap(null)
+// 					    });
+					 // })
+					})(marker, positions[i])
 			}
 			
 		// 마커를 표시할 위치와 title 객체 배열

@@ -18,7 +18,7 @@ public class Review {
 	private int caNo;
 	private int mbNo;
 	private String rvContents;
-	private int rvRating;
+	private String rvRating;
 	private Date rvDate;
 	private int rvStatus;
 	private Member member;

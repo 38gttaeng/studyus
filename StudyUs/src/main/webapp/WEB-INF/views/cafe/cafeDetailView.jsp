@@ -9,16 +9,6 @@
 </head>
  <!-- 추가 css -->
     <link href="/resources/css/studyus/reply.css" rel="stylesheet">
-<style>
-.reviewbtn {
-	font-size: 15px;
-	color: #999;
-	line-height: 50%;
-	border: none;
-} 
-/* *{margin:0; padding:0;} */
-
-</style>
 <body>
 	<jsp:include page="../common/menubar.jsp"></jsp:include>
 	<script> 
@@ -139,26 +129,29 @@
 			<div class="row block-9">
 				<div class="col-md-10 pr-md-2">
 					<form action="#">
-					
 						<div class="form-group">
 							<textarea name="" id="rvContents" cols="25" rows="7"
 								class="form-control" placeholder="스터디어스가 따뜻해지는 리뷰 부탁드립니다."></textarea>
 						</div>
-						<div class="star-box" id="rvRating">
-						  <span class="star star_left"></span>
-						  <span class="star star_right"></span>
-						
-						  <span class="star star_left"></span>
-						  <span class="star star_right"></span>
-						
-						  <span class="star star_left"></span>
-						  <span class="star star_right"></span>
-						
-						 <span class="star star_left"></span>
-						 <span class="star star_right"></span>
-						
-						 <span class="star star_left"></span>
-						 <span class="star star_right"></span>
+<!-- 	            <div class="rating"> -->
+<!-- 	                해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
+<!-- 	                <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점"> -->
+<!-- 	                <label for="rating1"></label> -->
+<!-- 	                <input type="checkbox" name="rating" id="rating2" value="2" class="rate_radio" title="2점"> -->
+<!-- 	                <label for="rating2"></label> -->
+<!-- 	                <input type="checkbox" name="rating" id="rating3" value="3" class="rate_radio" title="3점" > -->
+<!-- 	                <label for="rating3"></label> -->
+<!-- 	                <input type="checkbox" name="rating" id="rating4" value="4" class="rate_radio" title="4점"> -->
+<!-- 	                <label for="rating4"></label> -->
+<!-- 	                <input type="checkbox" name="rating" id="rating5" value="5" class="rate_radio" title="5점"> -->
+<!-- 	                <label for="rating5"></label> -->
+<!-- 	            </div> -->
+						<div class="star-container" id="rvRating">
+						  <span class="star" id="rating1" title="1점">★</span>
+						  <span class="star" id="rating2" title="2점">★</span>
+						  <span class="star" id="rating3" title="3점">★</span>
+						  <span class="star" id="rating4" title="4점">★</span>
+						  <span class="star" id="rating5" title="5점">★</span>
 						</div>
 					</form>
 				</div>
@@ -218,13 +211,6 @@
 	// 리뷰 등록
 	$(function() {
 		getReviewList(); 
-	    $(".star").on('click',function(){
-	    	   var idx = $(this).index();
-	    	   $(".star").removeClass("on");
-	    	     for(var i=0; i<=idx; i++){
-	    	        $(".star").eq(i).addClass("on");
-	    	   }
-	    	 });
 		$("#rvSubmit").on("click", function() {
 //				if(loginMbId == null){
 //					alert("로그인을 해주세요");
@@ -232,8 +218,10 @@
 //				alert("test");
 			var caNo = '${cafe.caNo}';
 			var rvContents = $("#rvContents").val();
+			var rvRating = $("#rvRating").val();
 //								console.log(caNo);
 //								console.log(rvContents);
+			
 			$.ajax({
 				url : "/cafe/review/register",
 				type : "post",
@@ -255,6 +243,34 @@
 				}
 			});
 	});
+
+	// 별점 기능
+	$(function () {
+	    var starEls = document.querySelectorAll('#rvRating span.star');
+	    var rate = 0;
+
+	    loop(starEls, function (el, index) {
+	        el.addEventListener('click', function () {
+	            rating(index + 1);
+	        });
+	    });
+
+	    function loop(list, func) {
+	        Array.prototype.forEach.call(list, func);
+	    }
+
+	    function rating(score) {
+	        loop(starEls, function (el, index) {
+	            if (index < score) {
+	                el.classList.add('on');
+	            } else {
+	                el.classList.remove('on');
+	            }
+	        });
+
+	        rate = score;
+	    }
+	})();
 });
 	
 	// 리뷰 리스트
@@ -275,6 +291,7 @@
 				var $div;
 				var $mbNo;
 				var $rvContents;
+				var $rvRating;
 				var $rvDate;
 				var $btnArea;
 				var $btnTool = "";
@@ -293,7 +310,7 @@
 				$rvContents = $("<div class='contents-box'>").append(data[i].rvContents);
 				
 				$btnArea = $("<div>")
-				.append("<button class='btn btn-sm btn-light'>답글</button>");
+				.append("<div class='btn'>별점</div>");
 				
 				// 수정+삭제 버튼
 				if(mbNo == data[i].mbNo) {

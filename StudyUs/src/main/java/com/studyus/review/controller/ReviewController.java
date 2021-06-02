@@ -86,7 +86,7 @@ public class ReviewController {
 	@ResponseBody
 	@RequestMapping(value = "/cafe/review/delete", method = RequestMethod.GET)
 	public String reviewDelete(@ModelAttribute Review review) {
-		int result = rService.removeReview(review);
+		int result = rService.removeReview(review);	
 		if (result > 0) {
 			return "success";
 		} else {

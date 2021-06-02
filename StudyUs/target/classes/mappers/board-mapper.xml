@@ -185,7 +185,7 @@
 	
 	<update id="deleteBoard" parameterType="_int">
 		UPDATE BOARD SET BO_STATUS = 0 WHERE BO_NO = #{boNo}
-	</update>
+	</update> 
 	
 	<!-- 관리 -->
 	<select id="selectAllListByStNo" resultMap="boardResultMap">
