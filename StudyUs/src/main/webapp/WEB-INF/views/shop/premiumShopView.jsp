@@ -123,7 +123,7 @@
 						        <div class="card-header">
 										  <a class="card-link" data-toggle="collapse"  href="#menuone" aria-expanded="true" aria-controls="menuone">평생 사용 가능한가요? <span class="collapsed"><i class="ion-ios-arrow-up"></i></span><span class="expanded"><i class="ion-ios-arrow-down"></i></span></a>
 						        </div>
-						        <div id="menuone" class="collapse show">
+						        <div id="menuone" class="collapse">
 						          <div class="card-body">
 												<p>스터디 프리미엄은 구매 시 영구적으로 사용 가능한 상품이며, 별도의 사용 기간이 없습니다.</p>
 						          </div>
