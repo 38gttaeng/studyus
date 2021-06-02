@@ -117,41 +117,22 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override 
 	public ArrayList<Board> printAllByStNo(int stNo) {
-		ArrayList<Board> bList = boStore.selectAllByStNo(stNo);
-		for(Board bOne : bList) {
-			String category = "";
-			switch(bOne.getBoCategory()) {
-			case 1:  category = "자유";
-				break;
-			case 2: category = "공유";
-				break;
-			case 3: category = "질문";
-				break;
-			}
-			bOne.setBoContents(category);
-		}
-		
-		return bList;
+		return boStore.selectAllByStNo(stNo);
 	}
 
 	@Override
-	public ArrayList<Board> printAllByMemberNo(Board board, int selected) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Board> printAllByMemberNo(Board board) {
+		return boStore.selectAllByMemberNo(board);
 	}
 
 	@Override
 	public ArrayList<Board> printAllReplyByStNo(int stNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return boStore.selectAllReplyByStNo(stNo);
 	}
 
 	@Override
 	public ArrayList<Board> printAllReplyByMemberNo(Board board) {
-		// TODO Auto-generated method stub
-		return null;
+		return boStore.selectAllReplyByMemberNo(board);
 	}
-	
-	
 
 }

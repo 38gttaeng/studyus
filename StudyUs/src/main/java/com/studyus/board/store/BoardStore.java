@@ -83,7 +83,7 @@ public interface BoardStore {
 	* @param board(mbNo, stNo)
 	* @return
 	*/
-	public ArrayList<Board> selectAllByMemberNo(Board board, int selected);
+	public ArrayList<Board> selectAllByMemberNo(Board board);
 	
 	// 댓글 
 	

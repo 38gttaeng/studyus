@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
@@ -151,9 +152,16 @@ public class AssignmentController {
 	}
 	
 	/******************* 파일함 *******************/
+	
+	// 파일함으로 이동
 	@RequestMapping(value="/study/assignment/file", method=RequestMethod.GET)
-	public ModelAndView assignmentFileList(HttpServletRequest request, ModelAndView mv) {
-		
+	public String assignmentFileList() {
+		return "study/assignmentFile";
+	}
+
+	// 사진파일 가져오기
+	@RequestMapping(value="/study/assignment/pic-list", method=RequestMethod.GET)
+	public void getAssignmentPics(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		
@@ -167,14 +175,13 @@ public class AssignmentController {
 		
 		Matcher matcher = pattern.matcher(text);
 		
-		ArrayList<String> fiList = new ArrayList<String>();
+		ArrayList<String> picList = new ArrayList<String>();
 		while(matcher.find()){
-			fiList.add(matcher.group(1));
+			picList.add(matcher.group(1));
         }
 		
-		mv.addObject("fiList", fiList);
-		mv.setViewName("study/assignmentFile");
-		return mv;
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(picList, response.getWriter());
 	}
 	
 	/******************* 과제 등록, 수정, 삭제 *******************/

@@ -82,7 +82,7 @@
                     	<input type="hidden" id="insertDate" value="${ assignment.asInsertDate }">
                     	<input type="hidden" id="deadLine" value="${ assignment.asDeadLine }">
                     	<div class="card" onclick="location.href='/study/assignment/detail?asNo=${ assignment.asNo }'">
-                    		<div style="background-color : #e9ecef">
+                    		<div style="background-color : #e9ecef; cursor : pointer">
 	                        	<div class="dateProgress card-body back${ assignmentGroup.grColor } text-white">
 		                        	<span><b>${ assignment.asName }</b></span>
 	                        		<span class="float-right">${ assignmentGroup.grName }</span>

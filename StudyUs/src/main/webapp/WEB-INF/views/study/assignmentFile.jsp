@@ -59,23 +59,24 @@
                     	<div class="card">
                     		<div class="card-body grid">
                     			<div class="grid-sizer"></div>
-                    			<c:forEach items="${ fiList }" var="file">
-                    				<div class="grid-item"><img src="${ file }"></div>
-                    			</c:forEach>
+                    			<div class="grid-item">
+	                    			<c:forEach items="${ picList }" var="pic">
+	                    				<div class="grid-item"><img src="${ pic }"></div>
+	                    			</c:forEach>
+                    			</div>
                     		</div>
                     	</div>
-                    	
-                    </div>
-                </div>
-                
-            </div>
+                	</div>
+            	</div>
             <!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>
-        </div>
+       		</div>
+    	</div>
     </div>
     
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.9.0/viewer.min.js"></script>
+    <script src="/resources/js/assignmentFile.js"></script>
 </body>
 </html>

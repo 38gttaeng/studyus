@@ -17,10 +17,15 @@ $(function() {
 	var deadLine = new Date(moment($("#deadLine").val()).format('YYYY/MM/DD HH:mm'));
 	var today = new Date();
 	
-	var total = (deadLine - insertDate)/(1000*3600*24);
-	var now = (deadLine - today)/(1000*3600*24);
+	var total = (deadLine - insertDate);
+	var now = (today - insertDate);
 	var percent = (now/total)*100;
 	
+	if(percent > 100) {
+		percent = 100;
+	} else if(percent < 30) {
+		percent = 30;
+	}
 	$(".dateProgress").css("width", percent + "%");
 
 	getReplyList(page);
@@ -192,14 +197,13 @@ function replyPage(pi) {
 	$ul.append($liBefore);
 	
 	for(var p = pi.startPage; p < pi.endPage + 1; p++) {
-		// onclick='getReplyList(p)'
 		if(p == pi.currentPage) {
 			$liCurrent = $("<li class='page-item active'>");
 		} else {
 			$liCurrent = $("<li class='page-item' onclick='getReplyList(" + p + ")'>");
 		}
 		
-		$liCurrent.append("<span onclick='getReplyList(p)' class='page-link'>" + p + "</span>");
+		$liCurrent.append("<span class='page-link'>" + p + "</span>");
 		
 		$ul.append($liCurrent);
 	}

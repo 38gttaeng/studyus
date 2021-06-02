@@ -343,9 +343,6 @@ public class BoardController {
 	}
 	
 	/******************* 게시물 관리 *******************/
-	/////////////////// 게시물 관리 페이지 ///////////////////
-	// 팀장이면 jsp에서 검색 option에 작성자 추가
-	// 세션에서 정보를 받아서 팀장이냐 팀원이냐에 따라 service의 다른 메소드 호출하도록
 
 	// 게시물 목록 페이지
 	@RequestMapping(value="/study/contentsList", method=RequestMethod.GET)
@@ -353,24 +350,57 @@ public class BoardController {
 		return "study/contentsList";
 	}
 	
-	// 게시물 리스트(팀장)
+	// 게시물 리스트
 	@RequestMapping(value="/study/contentsList/board", method=RequestMethod.GET)
-	public void contentsView(HttpSession session, HttpServletResponse response) throws Exception {
+	public void contentsView(HttpSession session, HttpServletResponse response, @RequestParam("user") String user) throws Exception {
+		
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
-		ArrayList<Board> data = boService.printAllByStNo(stNo);
+		
+		ArrayList<Board> data = null;
+		if(user.equals("l")) {
+			data = boService.printAllByStNo(stNo);
+		} else if(user.equals("m")) {
+			Board board = new Board();
+			int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+			board.setStNo(stNo);
+			board.setMbNo(mbNo);
+			data = boService.printAllByMemberNo(board);
+		}
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(data, response.getWriter());
 	}
 	
-	// 게시물 검색
-	public void myBoardSearch(HttpSession session, HttpServletResponse response, HashMap<String, Object> map) {
-	
+	// 댓글 목록 페이지
+	@RequestMapping(value="/study/commentsList", method=RequestMethod.GET)
+	public String commentsListView() {
+		return "study/commentsList";
 	}
 	
-	// 게시물 일괄 삭제
+	// 댓글 리스트
+	@RequestMapping(value="/study/commentsList/board", method=RequestMethod.GET)
+	public void myReplyListView(HttpSession session, HttpServletResponse response, @RequestParam("user") String user) throws Exception {
+		
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		
+		ArrayList<Board> data = null;
+		if(user.equals("l")) {
+			data = boService.printAllReplyByStNo(stNo);
+		} else if(user.equals("m")) {
+			Board board = new Board();
+			int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+			board.setStNo(stNo);
+			board.setMbNo(mbNo);
+			data = boService.printAllReplyByMemberNo(board);
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(data, response.getWriter());
+	}
+	
+	// 게시물 댓글 일괄 삭제
 	@ResponseBody
-	@RequestMapping(value="/study/contentsList/delete", method=RequestMethod.GET)
+	@RequestMapping(value="/study/contentsList/delete-board", method=RequestMethod.GET)
 	public String boardListDelete(@RequestParam("deList") List<Integer> deList) {
 		
 		int result = 0;
@@ -383,27 +413,6 @@ public class BoardController {
 		} else {
 			return "error";
 		}
-	}
-	
-	// 댓글 목록 페이지
-	@RequestMapping(value="/study/commentsList", method=RequestMethod.GET)
-	public String commentsListView() {
-		return "study/commentsList";
-	}
-	
-	// 댓글 리스트(팀장)
-	public void myReplyListView(HttpSession session, HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) {
-	
-	}
-	
-	// 댓글 검색(팀원)
-	public void myReplySearch(HttpSession session, HttpServletResponse response, HashMap<String, Object> map) {
-	
-	}
-	
-	// 댓글 일괄 삭제
-	public String replyListDelete(HttpSession session, HttpServletResponse response, @RequestParam("replyList") int [] boardList) {
-		return null;
 	}
 	
 }

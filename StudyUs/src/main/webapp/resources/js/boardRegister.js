@@ -36,6 +36,7 @@ $(function() {
 		]
 	};
 	
+	var picArr = new Array();
 	var quill = new Quill('#editor', {
 		modules: {
 			imageResize: {},
@@ -45,17 +46,19 @@ $(function() {
 				method: 'POST',
 				name: 'uploadImage',
 				withCredentials: false,
-				//customUploader: () => {},
+				
+				headers: {}, // add custom headers, example { token: 'your-token'}
+				
+				// 업로드 성공시
 				callbackOK: (serverResponse, next) => {
-			    	next(serverResponse);
-			    },
+					next(serverResponse);
+					picArr.push(serverResponse.substring(23));
+				},
+				
+				// 업로드 실패시
 				callbackKO: serverError => {
 					alert(serverError);
-				},
-				checkBeforeSend: (file, next) => {
-			    	console.log(file);
-			    	next(file); // go back to component and send to the server
-			    }
+				}
 			},
           "toolbar": toolbarOptions,
           "emoji-toolbar": true,
@@ -101,6 +104,7 @@ $(function() {
 			// 내용 보내기
 			var html = quill.root.innerHTML;
 			$("input[name=boContents]").val(html);
+			$("input[name=picList]").val(picArr);
 			
 			$("#postForm").submit();
 		} else {
@@ -108,6 +112,29 @@ $(function() {
 			title.addClass("is-invalid");
 			titleMsg.css("display", "block");
 		}
+	});
+	
+	var category = $("#category").val();
+	$("#reset-btn").on("click", function() {
+	
+		// 업로드된 파일들 삭제
+		if(picArr.length != 0) {
+			$.ajax({
+				url : "/file/reset/image",
+				type : "get",
+				data : {"picList": picArr},
+				traditional : true,
+				success : function() {
+					console.log("전송 성공");
+				},
+				error : function() {
+					alert("전송 실패!" + picArr);
+				}
+			});
+		}
+		
+		// 이전 페이지로 이동 (해당 리스트 페이지)
+		//location.href="/study/board?boCategory=" + category;
 	});
 });
 

@@ -97,8 +97,32 @@
 }
 
 /* 테이블 */
+
+table thead tr {
+	text-align : center;
+}
+
+table tbody td:first-child, table tbody td:nth-child(3), table tbody td:last-child {
+	text-align : center;
+}
+
+table tbody td:first-child {
+	width : 12%;
+}
+
+table tbody td:nth-child(3), table tbody td:last-child {
+	width : 22%;
+}
+
 .tableName {
 	cursor : pointer !important;
+}
+
+
+/* 페이지 네비 */
+
+#asPage li {
+	cursor : pointer
 }
 
 /* 글쓰기 버튼 */

@@ -12,12 +12,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -154,16 +156,15 @@ public class FileController {
 		}
 	}
 	
+	/*** 텍스트 에디터 ***************************************************************************/
 	
-	/********************************************************************************/
-	///////////////////////// 수정해야함
 	// 등록시 파일 저장
-	// - 텍스트 에디터에 삽입된 이미지 저장 용도
 	@RequestMapping(value="/file/upload/image", method=RequestMethod.POST)
 	public void saveImage(HttpServletRequest request, HttpServletResponse response, @RequestParam("uploadImage") MultipartFile uploadImage) throws Exception {
 		
 		String fiStoredName = saveImageFile(uploadImage, request);
 		
+		// 텍스트 에디터에 저장정보 보내주기
 		String image = "/resources/uploadFiles/" + fiStoredName;
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(image, response.getWriter());
@@ -199,5 +200,21 @@ public class FileController {
 		}
 		
 		return renameFilename;
+	}
+	
+	// 등록 취소시 업로드된 파일 전체 삭제
+	@ResponseBody
+	@RequestMapping(value="/file/reset/image", method=RequestMethod.GET)
+	public void resetFile(HttpServletRequest request, @RequestParam("picList") List<String> picList) {
+		
+		// 실제 파일 경로를 만들어서 실제 파일 삭제
+		String savePath = request.getSession().getServletContext().getRealPath("resources");
+		
+		for(String fileName : picList) {
+			File file = new File(savePath + "\\" + fileName);
+			if(file.exists()) {
+				file.delete();
+			}
+		}
 	}
 }

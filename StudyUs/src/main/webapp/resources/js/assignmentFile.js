@@ -9,7 +9,7 @@ imagesLoaded( '.grid' ).on( 'progress', function() {
 	msnry.layout();
 });
 
-var viewer = new Viewer(document.querySelector('.grid'), {
+/*var viewer = new Viewer(document.querySelector('.grid'), {
 	navbar : false,
 	toolbar : false,
-});
+});*/

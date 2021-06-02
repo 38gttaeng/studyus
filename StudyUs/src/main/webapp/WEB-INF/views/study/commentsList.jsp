@@ -9,6 +9,12 @@
     
     <!-- 추가 css -->
     <link href="/resources/css/study/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+	<link href="/resources/css/studyus/manage.css" rel="stylesheet">
+	<style>
+		.dt-body-center {
+			align : center;
+		}
+	</style>
 	<title>StudyUs : 스터디룸</title>
 </head>
 <body>
@@ -41,25 +47,14 @@
                             </nav>
                         </div>
                     </div>
-                    <div class="col-lg-8 align-self-center">
-	                    <div class="customize-input float-right">
-                           	<input name="searchValue" class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="Search" aria-label="Search">
-                           	<i id="search-btn" class="form-control-icon" data-feather="search"></i>
-                    	</div>
-                    	<div class="customize-input float-right" style="margin-right:10px;">
-	                        <select name="searchCondition" class="custom-select bg-white custom-radius border-0 custom-shadow">
-	                            <option selected value="all">전체</option>
-	                            <option value="title">제목</option>
-	                            <option value="content">내용</option>
-	                            <option value="writer">작성자</option>
-	                        </select>
-	                    </div>
-                    </div>
 	            </div>
             </div>
-
+			
+			<!-- js에 보내주는 용도 -->
+			<input type="hidden" id="leaderNo" value="${ study.leaderNo }">
+			<input type="hidden" id="userNo" value="${ loginUser.mbNo }">
             <div class="container-fluid">
-            	<!-- 게시판 댓글 목록 -->
+            	<!-- 게시판 게시물 목록 -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -70,31 +65,16 @@
                                         style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>선택</th>
-                                                <th>카테고리</th>
+                                            	<th><input type="checkbox" id="board-select-all"></th>
                                                 <th>글번호</th>
-                                                <th>제목</th>
+                                                <th>내용</th>
                                                 <th>작성자</th>
+                                                <th>작성일</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-                                                <td>2011/07/25</td>
-                                            </tr>
-                                        </tbody>
                                     </table>
                                 </div>
+		                    <input id="board-btn" type="button" class="btn btn-primary float-right delete-btn" value="삭제">
                             </div>
                         </div>
                     </div>
@@ -105,42 +85,28 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body ">
-                                <h4 class="card-title">과제 댓글 목록</h4>
+                                <h4 class="card-title">과제제출 댓글 목록</h4>
                                 <div class="table-responsive">
                                     <table id="assignment-list" class="table table-striped table-bordered display no-wrap"
                                         style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>선택</th>
-                                                <th>카테고리</th>
-                                                <th>글번호</th>
-                                                <th>제목</th>
+                                            	<th><input type="checkbox" name="select_all" value="1" id="assignment-select-all"></th>
+                                                <th>프로젝트</th>
+                                                <th>과제명</th>
+                                                <th>내용</th>
                                                 <th>작성자</th>
+                                                <th>작성일</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-                                                <td>2011/07/25</td>
-                                            </tr>
-                                        </tbody>
                                     </table>
                                 </div>
+		                    <input id="assignment-btn" type="button" class="btn btn-primary float-right delete-btn" value="삭제">
                             </div>
                         </div>
                     </div>
                 </div>
-		    </div>
+            </div>
             <!-- footer -->
 			<jsp:include page="../common/studyFooter.jsp"/>
         </div>

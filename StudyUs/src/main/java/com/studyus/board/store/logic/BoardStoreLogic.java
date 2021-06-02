@@ -87,21 +87,18 @@ public class BoardStoreLogic implements BoardStore{
 	}
 
 	@Override
-	public ArrayList<Board> selectAllByMemberNo(Board board, int selected) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Board> selectAllByMemberNo(Board board) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllByMemberNo", board);
 	}
 
 	@Override
 	public ArrayList<Board> selectAllReplyByStNo(int stNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllReplyByStNo", stNo);
 	}
 
 	@Override
 	public ArrayList<Board> selectAllReplyByMemberNo(Board board) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllReplyByMemberNo", board);
 	} 
 	
 }
