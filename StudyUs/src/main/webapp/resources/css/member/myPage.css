@@ -20,7 +20,7 @@ a:hover, a:focus {
 
 .myPage-box {
 	width: 900px;
-	height: 1430px;
+	height: 1600px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -63,7 +63,7 @@ a:hover, a:focus {
 
 .box-zone {
 	width: 800px;
-	height: 1230px;
+	height: 1400px;
 	background-color: #ffffff;
 	margin-left: auto;
 	margin-right: auto;
@@ -95,12 +95,21 @@ a:hover, a:focus {
 	margin-top: 40px;
 }
 
-.my-calander {
+.my-calender {
 	width: 650px;
+	height: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+.calender-box {
+	width: 600px;
 	height: 500px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
+	padding: 1px;
 }
 
 .my-review {
