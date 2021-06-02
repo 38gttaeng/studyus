@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="adminMapper">
-<!-- 	<resultMap type="Admin" id="adminResultMap"> -->
+<!-- <mapper namespace="adminMapper"> --> 
+<!-- 	<resultMap type="Admin" id="adminResultMap"> --> 
 <!-- 		<collection property="member" resultMap="memberMapper.memberResultMap" /> -->
-	
-<!-- 		<id property="caNo" column="CA_NO" /> -->
-<!-- 		<result property="caName" column="CA_NAME" /> -->
-<!-- 		<result property="caAddr" column="CA_ADDR" /> -->
-<!-- 		<result property="caTel" column="CA_TEL" /> -->
-<!-- 		<result property="caTime" column="CA_TIME" /> -->
-<!-- 		<result property="caInfo" column="CA_INFO" /> -->
-<!-- 		<result property="caRoute" column="CA_ROUTE" /> -->
-<!-- 		<result property="caFiName" column="CA_FINAME" /> -->
-<!-- 		<result property="caStatus" column="CA_STATUS" /> -->
-<!-- 		<result property="caLat" column="CA_LAT" /> -->
-<!-- 		<result property="caLng" column="CA_LNG" /> -->
+<!-- 		<collection property="study" resultMap="studyMapper.studyResultMap" /> -->
+<!-- 		<collection property="cafe" resultMap="cafeMapper.cafeResultMap" /> -->
 <!-- 	</resultMap>  -->
 
-<!-- 	<select id="selectAllList" resultMap="cafeResultMap"> -->
-<!-- 		SELECT * FROM CAFE -->
+<!-- 	<select id="selectAllMember" resultMap="memberMapper.memberResultMap"> -->
+<!-- 		SELECT * FROM Member -->
 <!-- 	</select> -->
 
 <!-- 	<select id="selectOne" resultMap="cafeResultMap"> -->
@@ -41,5 +31,5 @@
 <!-- 	<update id="deleteCafe" parameterType="_int"> -->
 <!-- 		UPDATE CAFE SET CA_STATUS = 0 WHERE CA_NO = #{caNo} -->
 <!-- 	</update> -->
-</mapper> 
+<!-- </mapper>  -->
  

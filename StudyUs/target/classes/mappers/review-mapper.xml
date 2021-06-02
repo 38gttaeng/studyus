@@ -15,7 +15,7 @@
 		SELECT R.RV_NO, R.CA_NO, MB_NO, R.RV_CONTENTS, R.RV_RATING, R.RV_DATE, R.RV_STATUS, M.MB_NICKNAME, M.MB_PHOTO
 		FROM REVIEW R
 		JOIN MEMBER M USING(MB_NO)
-		WHERE CA_NO = #{caNo} AND C.RV_STATUS = 1
+		WHERE CA_NO = #{caNo} AND R.RV_STATUS = 1 
 		ORDER BY R.RV_NO DESC
 	</select>
 	<insert id="insertReview" parameterType="Review">

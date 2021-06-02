@@ -86,16 +86,16 @@
 	function getLatLngProj4(firstVal, secondVal) {
 		proj4.defs["EPSG:5179"] = "+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +units=m +no_defs";//제공되는 좌표 
 
-		var grs80 = proj4.Proj(proj4.defs["EPSG:5179"]) 
-		var wgs84 = proj4.Proj(proj4.defs["EPSG:4326"]); //경위도 
+		var grs80 = proj4.Proj(proj4.defs["EPSG:5179"]); // api 좌표 유형
+		var wgs84 = proj4.Proj(proj4.defs["EPSG:4326"]); // 경위도 
 		
-		var p = proj4.Point(Number(firstVal),Number(secondVal));//한국지역정보개발원 좌표 
-		//firstVal = "952396.5783573401", secondVal = "1952732.0129473102
-		//  945959.0381341814 , 1953851.7348996028
+		// 좌표 값 넣어주기 
+		var p = proj4.Point(Number(firstVal),Number(secondVal)); 
+		// 좌표 유형 바꿔주기
 		p = proj4.transform( grs80, wgs84, p); 
 		console.log(p.x + " " + p.y); 
 		return p;
-	}
+	} 
 	
 
 	// 지도 api
@@ -126,7 +126,7 @@
 				var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 				// 마커를 표시할 위치
 				var calPosition = getLatLngProj4(positions[i].lat, positions[i].lng);
-				console.log(calPosition);
+// 				console.log(calPosition);
 	 			var latlng = new kakao.maps.LatLng(calPosition.y, calPosition.x);
 	 			
 				// 마커를 생성
