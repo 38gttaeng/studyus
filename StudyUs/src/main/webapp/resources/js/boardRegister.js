@@ -93,7 +93,6 @@ $(function() {
 	
 	// 등록버튼 클릭시
 	$("#submit-btn").on("click", function() {
-	console.log(picArr);////////////////////////////////////////
 	
 		// 수정파일인지 여부 체크
 		if($("input[name=viewCheck]").val() == "m") {

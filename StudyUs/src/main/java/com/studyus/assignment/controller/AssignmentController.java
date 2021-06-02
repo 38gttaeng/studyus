@@ -26,6 +26,7 @@ import com.google.gson.JsonIOException;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
+import com.studyus.board.domain.Board;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
 import com.studyus.common.RedirectWithMsg;
@@ -207,17 +208,24 @@ public class AssignmentController {
 	
 	@RequestMapping(value="/study/assignment/register", method=RequestMethod.POST)
 	public String assignmentRegister(HttpServletRequest request,
-			@ModelAttribute Assignment assignment, @RequestParam(value="fList", required=false) List<MultipartFile> fList) {
+			@ModelAttribute Assignment assignment,
+			@RequestParam(value="fList", required=false) List<MultipartFile> fList,
+			@RequestParam(value="picList", required=false) List<String> picList) {
 		
 		HttpSession session = request.getSession();
 		int grNo = (Integer)session.getAttribute("groupNo");
 		assignment.setGrNo(grNo);
 		int mbNo = ((Study)session.getAttribute("study")).getLeaderNo();
 		
+		// 텍스트 에디터 사진 처리
+		if(!picList.isEmpty()) {
+			fiController.addImages("\\auploadImages", assignment.getAsContents(), picList, request);
+		}
+		
 		// 실제 파일 저장
 		ArrayList<FileVO> asFiles = null;
 		if(fList != null && !fList.isEmpty()) {
-        	asFiles = new FileController().saveFile(fList, 2, request);
+        	asFiles = fiController.saveFile(fList, 2, request);
         }
 		
 		// Assignment DB 저장
@@ -266,9 +274,17 @@ public class AssignmentController {
 	@RequestMapping(value="/study/assignment/modify", method=RequestMethod.POST)
 	public ModelAndView assignmentUpdate(HttpServletRequest request, ModelAndView mv, @ModelAttribute Assignment assignment,
 			@RequestParam(value="fList", required=false) List<MultipartFile> fList,
-			@RequestParam(value="delFiles", required=false) List<String> delFiles) {
+			@RequestParam(value="delFiles", required=false) List<String> delFiles,
+			@RequestParam(value="picList", required=false) List<String> picList) {
 		
 		HttpSession session = request.getSession();
+		
+		// 텍스트 에디터 사진 처리
+		if(!picList.isEmpty()) {
+			fiController.addImages("\\auploadImages", assignment.getAsContents(), picList, request);
+		}
+		Assignment oldAssignment = asService.printOne(assignment.getAsNo());
+		fiController.editImages("\\auploadImages", assignment.getAsContents(), oldAssignment.getAsContents(), request);
 		
 		// 기존 파일 삭제
 		if(delFiles != null && !delFiles.isEmpty()) {
@@ -318,6 +334,9 @@ public class AssignmentController {
 	public String assignmentDelete(HttpServletRequest request, @RequestParam("asNo") int asNo) {
 		
 		HttpSession session = request.getSession();
+		
+		// 텍스트 에디터 이미지 삭제
+		fiController.deleteImages("\\auploadImages", asService.printOne(asNo).getAsContents(), request);
 		
 		// 파일 삭제
 		int fiResult = 0;

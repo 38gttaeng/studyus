@@ -16,6 +16,7 @@ $(function() {
 		var deadLineAfter = moment(deadLineBefore).format('YYYY-MM-DD');
 		var deadLineAfter2 = moment(deadLineBefore).format('HH:mm');
 		
+		// 이미 지난 과제라면 deadline 바꿀 수 없도록
 		if(deadLineBefore <= today) {
 			$("input[name=asDate]").attr("readonly", true);
 			$("input[name=asTime]").attr("readonly", true);
@@ -60,26 +61,24 @@ $(function() {
 		]
 	};
 	
+	var picArr = new Array();
 	var quill = new Quill('#editor', {
 		modules: {
 			imageResize: {},
 			//videoResize: {},
 			imageUpload: {
-				url: '/file/upload/image',
+				url: '/file/upload/assignment-image',
 				method: 'POST',
 				name: 'uploadImage',
 				withCredentials: false,
 				//customUploader: () => {},
 				callbackOK: (serverResponse, next) => {
 			    	next(serverResponse);
+					picArr.push(serverResponse.substring(25));
 			    },
 				callbackKO: serverError => {
 					alert(serverError);
-				},
-				checkBeforeSend: (file, next) => {
-			    	console.log(file);
-			    	next(file); // go back to component and send to the server
-			    }
+				}
 			},
           "toolbar": toolbarOptions,
           "emoji-toolbar": true,
@@ -159,6 +158,7 @@ $(function() {
 		}
 	});
 	
+	// 등록버튼 클릭시
 	$("#submit-btn").on("click", function() {
 	
 		var title = $("input[name=asName]");
@@ -223,12 +223,37 @@ $(function() {
 			// 내용 보내기
 			var html = quill.root.innerHTML;
 			$("input[name=asContents]").val(html);
+			$("input[name=picList]").val(picArr);
 			
 			// 기간 보내기
 			$("input[name=asDeadLine]").val(deadline);
 			
 			$("#postForm").submit();
 		}
+	});
+	
+	// 등록 취소버튼 클릭시
+	$("#reset-btn").on("click", function() {
+		var groupNo = $("#groupNo").val();
+
+		// 업로드된 파일들 삭제
+		if(picArr.length != 0) {
+			$.ajax({
+				url : "/file/reset/image",
+				type : "get",
+				data : {"picList": picArr, "folder" : "\\auploadImages"},
+				traditional : true,
+				success : function() {
+					console.log("전송 성공");
+				},
+				error : function() {
+					alert("전송 실패!" + picArr);
+				}
+			});
+		}
+		
+		// 이전 페이지로 이동 (해당 리스트 페이지)
+		location.href="/study/assignment?grNo=" + groupNo;
 	});
 });
 

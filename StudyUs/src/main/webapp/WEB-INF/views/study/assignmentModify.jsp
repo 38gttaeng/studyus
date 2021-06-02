@@ -95,6 +95,7 @@
 												<td valign=top>내용</td>
 												<td>
 													<input type="hidden" name="asContents">
+													<input type="hidden" name="picList">
       												<div id="editor" style="min-height:400px;">${ assignment.asContents }</div>
 												</td>
 											</tr>
@@ -118,7 +119,7 @@
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/assignment?grNo=${ assignmentGroup.grNo }'">
+													<input id="reset-btn" type="button" class="btn waves-effect waves-light btn-light" value="취소">
 													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="수정">
 												</td>
 											</tr>
