@@ -31,24 +31,22 @@ $(function() {
 	getReplyList(page);
 	
 	// Quill
+	var picArr = new Array();
 	var quill = new Quill('#editor', {
 		modules: {
 			imageResize: {},
 			imageUpload: {
-				url: '/file/upload/image',
+				url: '/file/upload/assignment-image',
 				method: 'POST',
 				name: 'uploadImage',
 				withCredentials: false,
 				callbackOK: (serverResponse, next) => {
 			    	next(serverResponse);
+					picArr.push(serverResponse.substring(25));
 			    },
 				callbackKO: serverError => {
 					alert(serverError);
-				},
-				checkBeforeSend: (file, next) => {
-			    	console.log(file);
-			    	next(file);
-			    }
+				}
 			},
           "toolbar": toolbarOptions,
           "emoji-toolbar": true,
@@ -71,11 +69,15 @@ $(function() {
 		var rMbNo = $("#loginMbNo").val();
 		var rContent = quill.root.innerHTML;
 		
+		if(picArr.length == 0) {
+			picArr.push("");
+		}
 		if(quill.getLength() > 3) {
 			$.ajax({
 				url : "/study/sAssignment/addReply",
 				type : "post",
-				data : { "suMotherNo": rMotherNo , "suContents" : rContent, "mbNo" : rMbNo, "asNo" : asNo },
+				traditional : true,
+				data : { "suMotherNo": rMotherNo , "suContents" : rContent, "mbNo" : rMbNo, "asNo" : asNo, "picList" : picArr },
 				success : function(result) {
 					if(result == "success") {
 						getReplyList(page);
@@ -239,24 +241,22 @@ function modifyReply(obj, suNo) {
 	
 	$divModify.append($text);
 	
+	var picArr2 = new Array();
 	var quill2 = new Quill('#editor2', {
 		modules: {
 			imageResize: {},
 			imageUpload: {
-				url: '/file/upload/image',
+				url: '/file/upload/assignment-image',
 				method: 'POST',
 				name: 'uploadImage',
 				withCredentials: false,
 				callbackOK: (serverResponse, next) => {
 			    	next(serverResponse);
+					picArr2.push(serverResponse.substring(25));
 			    },
 				callbackKO: serverError => {
 					alert(serverError);
-				},
-				checkBeforeSend: (file, next) => {
-			    	console.log(file);
-			    	next(file);
-			    }
+				}
 			},
 	      "toolbar": toolbarOptions,
 	      "emoji-toolbar": true,
@@ -266,12 +266,16 @@ function modifyReply(obj, suNo) {
 	
 	$("#modify-btn").on("click", function() {
 		var mContents = quill2.root.innerHTML;
-	
+		
+		if(picArr2.length == 0) {
+			picArr2.push("");
+		}
 		if(quill2.getLength() > 3) {
 			$.ajax({
 				url : "/study/sAssignment/modifyReply",
 				type : "post",
-				data : { "suNo" : suNo, "suContents" : mContents },
+				traditional : true,
+				data : { "suNo" : suNo, "suContents" : mContents, "picList" : picArr2 },
 				success : function(data) {
 					if(data == "success") {
 						getReplyList(page);
