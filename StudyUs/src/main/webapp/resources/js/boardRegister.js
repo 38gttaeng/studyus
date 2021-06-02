@@ -115,9 +115,10 @@ $(function() {
 		}
 	});
 	
-	var category = $("#category").val();
 	// 등록 취소버튼 클릭시
 	$("#reset-btn").on("click", function() {
+		var category = $("#category").val();
+		var detailNo = $("input[name=boNo]").val();
 
 		// 업로드된 파일들 삭제
 		if(picArr.length != 0) {
@@ -136,7 +137,13 @@ $(function() {
 		}
 		
 		// 이전 페이지로 이동 (해당 리스트 페이지)
-		location.href="/study/board?boCategory=" + category;
+		if($("input[name=viewCheck]").val() != "m") {
+			// 등록 파일인 경우
+			location.href="/study/board?boCategory=" + category;
+		} else if($("input[name=viewCheck]").val() == "m") {
+			// 수정 파일인 경우
+			location.href="/study/board/detail?boNo=" + detailNo;
+		}
 	});
 });
 

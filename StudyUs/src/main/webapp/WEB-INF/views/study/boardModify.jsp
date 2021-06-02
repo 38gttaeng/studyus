@@ -119,10 +119,7 @@
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<c:url var="bDetail" value="/study/board/detail">
-														<c:param name="boNo" value="${ board.boNo }"></c:param>
-													</c:url>
-													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='${ bDetail }'">
+													<input id="reset-btn" type="button" class="btn waves-effect waves-light btn-light" value="취소">
 													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="수정">
 												</td>
 											</tr>

@@ -50,12 +50,15 @@ $(function() {
 		var rMotherNo = $("#rMotherNo").val();
 		var rMbNo = $("#loginMbNo").val();
 		var rContent = quill.root.innerHTML;
-		console.log(quill.getLength());
 		
-		if(quill.getLength() > 3) {
+		if(picArr.length == 0) {
+			picArr.push("");
+		}
+		if(quill.getLength() > 0) {
 			$.ajax({
 				url : "/study/board/addReply",
 				type : "post",
+				traditional : true,
 				data : {"boMotherNo": rMotherNo , "boContents" : rContent, "mbNo" : rMbNo, "picList" : picArr},
 				success : function(result) {
 					if(result == "success") {
@@ -223,16 +226,18 @@ function modifyReply(obj, boNo) {
 	
 	$divModify.append($text);
 	
+	var picArr2 = new Array();
 	var quill2 = new Quill('#editor2', {
 		modules: {
 			imageResize: {},
 			imageUpload: {
-				url: '/file/upload/image',
+				url: '/file/upload/board-image',
 				method: 'POST',
 				name: 'uploadImage',
 				withCredentials: false,
 				callbackOK: (serverResponse, next) => {
 			    	next(serverResponse);
+					picArr2.push(serverResponse.substring(25));
 			    },
 				callbackKO: serverError => {
 					alert(serverError);
@@ -250,12 +255,16 @@ function modifyReply(obj, boNo) {
 	
 	$("#modify-btn").on("click", function() {
 		var mContents = quill2.root.innerHTML;
-	
-		if(quill2.getLength() > 3) {
+		
+		if(picArr2.length == 0) {
+			picArr2.push("");
+		}
+		if(quill2.getLength() > 0) {
 			$.ajax({
 				url : "/study/board/modifyReply",
 				type : "post",
-				data : { "boNo" : boNo, "boContents" : mContents },
+				traditional : true,
+				data : { "boNo" : boNo, "boContents" : mContents, "picList" : picArr2 },
 				success : function(data) {
 					if(data == "success") {
 						getReplyList(page);

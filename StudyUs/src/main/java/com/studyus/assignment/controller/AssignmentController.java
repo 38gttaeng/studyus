@@ -48,6 +48,9 @@ public class AssignmentController {
 	@Autowired
 	private FileService fiService;
 	
+	@Autowired
+	private FileController fiController;
+	
 	/******************* 그룹에 따른 리스트 보기 *******************/
 	
 	// 리스트
