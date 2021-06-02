@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	<div class="grey-zone"></div>
 	<div class="myPage-box">
 		<div class="info-zone">
-			<img src="/resources/images/${loginUser.mbPhoto}.png" class="rounded-circle" width="100" style="margin-top: -35px; margin-left: 15px;">
+			<img src="/resources/images/${loginUser.mbPhoto}.png" class="rounded-circle" width="100" style="margin-top: -65px; margin-left: 15px;">
 			<div class="mem-info">
 				<a style="font-weight: bold; font-size: 20px;">${loginUser.mbNickname}</a>님<br>
 				스터디 포인트 ${loginUser.mbReputation}

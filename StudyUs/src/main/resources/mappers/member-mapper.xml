@@ -18,9 +18,17 @@
 		SELECT * FROM MEMBER WHERE MB_ID = #{mbId} AND MB_PASSWORD = #{mbPassword} 
 	</select>
 	
+	<select id="selectOneById" parameterType="Member" resultMap="memberResultMap">
+		SELECT * FROM MEMBER WHERE MB_ID = #{mbId}
+	</select>
+	
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{mbId}, #{mbPassword}, #{mbName}, #{mbEmail}, #{mbNickname}, #{mbPhone}, 0, DEFAULT, DEFAULT)
-	</insert> 
+	</insert>
+	
+	<insert id="insertNaverMem" parameterType="Member">
+		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{mbId}, #{mbPassword}, #{mbName}, #{mbEmail}, #{mbNickname}, #{mbPhone}, 0, DEFAULT, 2)
+	</insert>
 	
 	<update id="updateMember" parameterType="Member">
 		UPDATE MEMBER SET MB_PASSWORD = #{mbPassword}, MB_NAME = #{mbName}, MB_EMAIL = #{mbEmail}, MB_NICKNAME = #{mbNickname}, MB_PHONE = #{mbPhone}, MB_PHOTO = #{mbPhoto} WHERE MB_ID = #{mbId}

@@ -27,6 +27,14 @@ public class Member {
 		this.mbName = mbName;
 		this.mbEmail = mbEmail;
 	} 
+	
+	public Member(String mbId, String mbName, String mbEmail, String mbNickname) {
+		super();
+		this.mbId = mbId;
+		this.mbName = mbName;
+		this.mbEmail = mbEmail;
+		this.mbNickname = mbNickname;
+	}
 
 	public int getMbNo() {
 		return mbNo;
