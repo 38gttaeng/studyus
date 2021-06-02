@@ -45,8 +45,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 	
 	@Override
 	public ArrayList<Assignment> printAllByStudyNo(int stNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return asStore.selectAllByStudyNo(stNo);
 	}
 	
 	@Override

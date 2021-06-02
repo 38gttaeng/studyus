@@ -2,7 +2,10 @@ package com.studyus.assignment.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,12 +13,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -84,11 +85,6 @@ public class AssignmentController {
 		return mv;
 	}
 	
-	// 일정
-	public ModelAndView assignmentCalendar(HttpSession session, ModelAndView mv) {
-		return null;
-	}
-	
 	/******************* 과제1 + 과제제출 리스트 보기 *******************/
 	
 	// 디테일
@@ -111,16 +107,6 @@ public class AssignmentController {
 		///////////////////// 과제제출 확인 관련 메소드도 함께 호출
 		
 		return mv;
-	}
-	
-	// 과제 댓글 리스트
-	public void getReplyList(HttpServletResponse response, @RequestParam("asNo") int asNo) {
-
-	}
-	
-	// 과제제출 댓글 리스트
-	public void getSubmittedReplyList(HttpServletResponse response, @RequestParam("suNo") int asNo) {
-
 	}
 	
 	/******************* 과제 분류 등록, 수정, 삭제, 숨김 *******************/
@@ -162,6 +148,33 @@ public class AssignmentController {
 			System.out.println("프로젝트 삭제/숨김 실패");
 		}
 		return "redirect:/study/assignment?grNo=0";
+	}
+	
+	/******************* 파일함 *******************/
+	@RequestMapping(value="/study/assignment/file", method=RequestMethod.GET)
+	public ModelAndView assignmentFileList(HttpServletRequest request, ModelAndView mv) {
+		
+		HttpSession session = request.getSession();
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		String text = "";
+		
+		ArrayList<Assignment> asList = asService.printAllByStudyNo(stNo);
+		for(Assignment asOne : asList) {
+			text += asOne.getAsContents();
+		}
+		
+		Matcher matcher = pattern.matcher(text);
+		
+		ArrayList<String> fiList = new ArrayList<String>();
+		while(matcher.find()){
+			fiList.add(matcher.group(1));
+        }
+		
+		mv.addObject("fiList", fiList);
+		mv.setViewName("study/assignmentFile");
+		return mv;
 	}
 	
 	/******************* 과제 등록, 수정, 삭제 *******************/

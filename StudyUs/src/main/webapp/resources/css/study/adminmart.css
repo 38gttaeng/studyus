@@ -12108,7 +12108,9 @@ strong {
 .ct-series-a .ct-bar,
 .ct-series-a .ct-line {
   stroke: #6927ff;
-}
+} 
+
+/* 캘린더 페이지 */
 
 .fc-view {
   margin-top: 30px;
@@ -12200,7 +12202,7 @@ strong {
 }
 
 .fc-unthemed td.fc-today {
-  background: #f8f9fa;
+  background: #edeff1;
 }
 .fc-unthemed .fc-divider,
 .fc-unthemed .fc-list-heading td,
@@ -12211,7 +12213,7 @@ strong {
 .fc-event {
   border-radius: 2px;
   border: none;
-  cursor: move;
+  cursor: pointer;
   font-size: 0.8125rem;
   margin: 5px 7px;
   padding: 5px 5px;
@@ -12251,7 +12253,6 @@ strong {
   font-size: 11px;
 }
 
-/* 캘린더 페이지 */
 #calendar-events {
 	border-spacing : 10px;
 	border-collapse: separate;

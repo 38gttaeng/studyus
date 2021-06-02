@@ -3,10 +3,18 @@ $(function() {
 	var deadLine = new Date(moment($("#deadLine").text()).format('YYYY/MM/DD HH:mm'));
 	var today = new Date();
 	
-	var total = (deadLine - insertDate)/(1000*3600*24);
-	var now = (deadLine - today)/(1000*3600*24);
+	var total = (deadLine - insertDate);
+	var now = (today - insertDate);
 	var percent = (now/total)*100;
-	
+	console.log(total);
+	console.log(now);
+	console.log(percent);
+	 
+	if(percent > 100) {
+		percent = 100;
+	} else if(percent < 30) {
+		percent = 30;
+	}
 	$(".dateProgress").css("width", percent + "%");
 	
 	$('.chart').easyPieChart({

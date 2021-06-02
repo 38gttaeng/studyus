@@ -298,7 +298,7 @@
 	                    </li>
 	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/boardManage"
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-	                                class="hide-menu">게시물 관리 </span></a>
+	                                class="hide-menu">게시물 관리 </span></a> 
 	                    </li>
 	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/${study.url }/enrollment/list"
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span

@@ -185,6 +185,20 @@
 	
 	<update id="deleteBoard" parameterType="_int">
 		UPDATE BOARD SET BO_STATUS = 0 WHERE BO_NO = #{boNo}
-	</update>
+	</update> 
 	
+	<!-- 관리 -->
+	<select id="selectAllListByStNo" resultMap="boardResultMap">
+		SELECT
+		    B.BO_NO, B.ST_NO, B.MB_NO, B.BO_TITLE,
+		    B.BO_CATEGORY, M.MB_NICKNAME
+		FROM BOARD B
+		
+		JOIN MEMBER M
+		ON B.MB_NO = M.MB_NO
+		
+		WHERE ST_NO = #{stNo}
+		AND BO_MOTHER_NO IS NULL
+		AND BO_STATUS = 1
+	</select>
 </mapper>

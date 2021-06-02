@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @ToString
-public class Board {
+public class Board { 
 	
 	private int boNo;
 	private int stNo;
@@ -115,14 +115,6 @@ public class Board {
 
 	public void setBoFiles(ArrayList<FileVO> boFiles) {
 		this.boFiles = boFiles;
-	}
-
-	@Override
-	public String toString() {
-		return "Board [boNo=" + boNo + ", stNo=" + stNo + ", mbNo=" + mbNo + ", boMotherNo=" + boMotherNo
-				+ ", boInsertDate=" + boInsertDate + ", boTitle=" + boTitle + ", boContents=" + boContents
-				+ ", boCategory=" + boCategory + ", boStatus=" + boStatus + ", member=" + member + ", boFiles="
-				+ boFiles + "]";
 	}
 	
 }

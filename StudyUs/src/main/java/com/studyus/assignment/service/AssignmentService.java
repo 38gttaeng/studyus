@@ -37,7 +37,7 @@ public interface AssignmentService {
 	 * @param grNo
 	 * @return
 	 */
-	public AssignmentGroup printOneGroup(int grNo);
+	public AssignmentGroup printOneGroup(int grNo); 
 	
 	/**
 	 * 스터디에 해당하는 과제 전체보기(일정용)

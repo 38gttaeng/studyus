@@ -99,50 +99,6 @@ public class BoardServiceImpl implements BoardService {
 	/////////////////////////////////////////////////////////////////////////////////
 	
 	@Override
-	public int getListCountByMemberNo(Board board, int selected) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ArrayList<Board> printAllByMemberNo(PageInfo pi, Board board, int selected) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getReplyCount(int stNo, int selected) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ArrayList<Board> printAllReply(PageInfo pi, int stNo, int selected) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Board> printSearchAllReply(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getReplyCountByMemberNo(Board board, int selected) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ArrayList<Board> printAllReplyByMemberNo(PageInfo pi, Board board, int selected) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////
-	
-	@Override
 	public int registerBoard(Board board) {
 		return boStore.insertBoard(board);
 	}
@@ -156,5 +112,46 @@ public class BoardServiceImpl implements BoardService {
 	public int removeBoard(int boNo) {
 		return boStore.deleteBoard(boNo);
 	}
+
+	///////////////////////////////////////////////////////////////////////////////// 관리
+	
+	@Override 
+	public ArrayList<Board> printAllByStNo(int stNo) {
+		ArrayList<Board> bList = boStore.selectAllByStNo(stNo);
+		for(Board bOne : bList) {
+			String category = "";
+			switch(bOne.getBoCategory()) {
+			case 1:  category = "자유";
+				break;
+			case 2: category = "공유";
+				break;
+			case 3: category = "질문";
+				break;
+			}
+			bOne.setBoContents(category);
+		}
+		
+		return bList;
+	}
+
+	@Override
+	public ArrayList<Board> printAllByMemberNo(Board board, int selected) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Board> printAllReplyByStNo(int stNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Board> printAllReplyByMemberNo(Board board) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 
 }

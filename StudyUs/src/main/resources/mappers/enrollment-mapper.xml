@@ -19,7 +19,7 @@
 			<id property="hashtagNo" column="HA_NO" javaType="int"></id>
 			<result property="name" column="HA_NAME" javaType="String"></result>
 		</collection>
-	</resultMap>
+	</resultMap> 
 	
 	<resultMap type="com.studyus.enrollment.domain.EnrollmentWithMember" id="enrollmentWithMemberResultMap">
 		<id property="enrollmentNo" column="EN_NO"></id>

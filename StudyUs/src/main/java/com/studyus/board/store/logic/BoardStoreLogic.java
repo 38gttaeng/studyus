@@ -59,52 +59,6 @@ public class BoardStoreLogic implements BoardStore{
 		return (ArrayList)sqlSession.selectList("boardMapper.selectAllReply", boMotherNo, rowBounds);
 	}
 
-	/////////////////////////////////////////////////////////////////////////////////
-	
-	@Override
-	public int getListCountByMemberNo(Board board, int selected) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ArrayList<Board> selectAllByMemberNo(PageInfo pi, Board board, int selected) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getReplyCount(int stNo, int selected) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ArrayList<Board> selectAllReply(PageInfo pi, int stNo, int selected) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Board> selectSearchAllReply(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getReplyCountByMemberNo(Board board, int selected) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ArrayList<Board> selectAllReplyByMemberNo(PageInfo pi, Board board, int selected) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////
-	
 	@Override
 	public int insertBoard(Board board) {
 		sqlSession.insert("boardMapper.insertBoard", board);
@@ -125,4 +79,29 @@ public class BoardStoreLogic implements BoardStore{
 		return reResult + boResult;
 	}
 
+	///////////////////////////////////////////////////////////////////////////////// 관리
+
+	@Override
+	public ArrayList<Board> selectAllByStNo(int stNo) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllListByStNo", stNo);
+	}
+
+	@Override
+	public ArrayList<Board> selectAllByMemberNo(Board board, int selected) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Board> selectAllReplyByStNo(int stNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Board> selectAllReplyByMemberNo(Board board) {
+		// TODO Auto-generated method stub
+		return null;
+	} 
+	
 }

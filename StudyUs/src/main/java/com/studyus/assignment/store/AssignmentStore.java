@@ -40,6 +40,8 @@ public interface AssignmentStore {
 	 */
 	public AssignmentGroup selectOneGroup(int grNo);
 	
+	///////////////////////////////////////////////////////////
+	
 	/**
 	 * 스터디에 해당하는 과제 전체보기(일정용)
 	 * @param stNo
@@ -70,7 +72,7 @@ public interface AssignmentStore {
 	public int deleteAssignment(int asNo);
 	
 	///////////////////////////////////////////////////////////
-	// 현재날짜 기준으로 그 날이 속한 달!
+	// 현재날짜 기준으로 그 날이 속한 달! 
 		
 	/**
 	 * 한달 총 과제 개수

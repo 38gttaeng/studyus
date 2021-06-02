@@ -52,6 +52,18 @@
 		SELECT * FROM ASSIGNMENT_GROUP
 		WHERE GR_NO = #{grNo}
 		AND GR_STATUS = 1
+	</select> 
+
+
+	<!-- 캘린더 리스트 -->
+	<select id="selectAllByStNo" resultMap="assignmentResultMap">
+		SELECT 
+			A.AS_NO, GR_NO, A.AS_NAME, A.AS_CONTENTS, A.AS_INSERTDATE, A.AS_DEADLINE, G.GR_COLOR AS AS_STATUS
+		FROM ASSIGNMENT A
+		JOIN ASSIGNMENT_GROUP G
+		USING(GR_NO)
+		WHERE ST_NO = #{stNo}
+		AND AS_STATUS = 1
 	</select>
 	
 	
@@ -98,7 +110,7 @@
 		</selectKey>
 	
 		INSERT INTO ASSIGNMENT VALUES (
-			#{asNo}, #{grNo}, #{asName}, #{asContents}, TO_CHAR(SYSDATE, 'YYYY/MM/DD HH:ss'), #{asDeadLine}, DEFAULT 
+			#{asNo}, #{grNo}, #{asName}, #{asContents}, TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:ss'), #{asDeadLine}, DEFAULT 
 		)
 	</insert>
 	

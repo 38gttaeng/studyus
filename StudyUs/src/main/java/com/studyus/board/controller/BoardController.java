@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.studyus.board.domain.Board;
 import com.studyus.board.service.BoardService;
 import com.studyus.common.PageInfo;
@@ -337,8 +338,73 @@ public class BoardController {
 		if(result > 0) {
 			return "success";
 		} else {
-			return "fail";
+			return "fail"; 
 		}
 	}
+	
+	/******************* 게시물 관리 *******************/
+	/////////////////// 게시물 관리 페이지 ///////////////////
+	// 팀장이면 jsp에서 검색 option에 작성자 추가
+	// 세션에서 정보를 받아서 팀장이냐 팀원이냐에 따라 service의 다른 메소드 호출하도록
+
+	// 게시물 목록 페이지
+	@RequestMapping(value="/study/contentsList", method=RequestMethod.GET)
+	public String contentsListView() {
+		return "study/contentsList";
+	}
+	
+	// 게시물 리스트(팀장)
+	@RequestMapping(value="/study/contentsList/board", method=RequestMethod.GET)
+	public void contentsView(HttpSession session, HttpServletResponse response) throws Exception {
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		ArrayList<Board> data = boService.printAllByStNo(stNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(data, response.getWriter());
+	}
+	
+	// 게시물 검색
+	public void myBoardSearch(HttpSession session, HttpServletResponse response, HashMap<String, Object> map) {
+	
+	}
+	
+	// 게시물 일괄 삭제
+	@ResponseBody
+	@RequestMapping(value="/study/contentsList/delete", method=RequestMethod.GET)
+	public String boardListDelete(@RequestParam("deList") List<Integer> deList) {
+		
+		int result = 0;
+		for(int delNo : deList) {
+			result += boService.removeBoard(delNo);
+		}
+		
+		if(result == deList.size()) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
+	
+	// 댓글 목록 페이지
+	@RequestMapping(value="/study/commentsList", method=RequestMethod.GET)
+	public String commentsListView() {
+		return "study/commentsList";
+	}
+	
+	// 댓글 리스트(팀장)
+	public void myReplyListView(HttpSession session, HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) {
+	
+	}
+	
+	// 댓글 검색(팀원)
+	public void myReplySearch(HttpSession session, HttpServletResponse response, HashMap<String, Object> map) {
+	
+	}
+	
+	// 댓글 일괄 삭제
+	public String replyListDelete(HttpSession session, HttpServletResponse response, @RequestParam("replyList") int [] boardList) {
+		return null;
+	}
+	
 }
 
