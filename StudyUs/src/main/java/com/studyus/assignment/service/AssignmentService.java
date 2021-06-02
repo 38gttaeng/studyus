@@ -39,6 +39,8 @@ public interface AssignmentService {
 	 */
 	public AssignmentGroup printOneGroup(int grNo);
 	
+	///////////////////////////////////////////////////////////
+	
 	/**
 	 * 스터디에 해당하는 과제 전체보기(일정용)
 	 * @param stNo
@@ -76,4 +78,5 @@ public interface AssignmentService {
 	 * @param stNo
 	 */
 	public int countAssignment(int stNo);
+
 }

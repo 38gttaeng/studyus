@@ -66,69 +66,41 @@ public interface BoardService {
 	
 	/////////////////////////////////////////////////////////////////////////////////
 	
-	// 내가 쓴 게시물 보기 (게시물 + 과제제출)
-	
-	/**
-	 * 전체 게시물 수(원글번호가 null인 것만 가져오기)
-	 * @param board(stNo, mbNo), selected
-	 * @return
-	 */
-	public int getListCountByMemberNo(Board board, int selected);
-	
-	/**
-	 * 전체보기(10개씩)
-	 * @param pi
-	 * @param board(mbNo, stNo)
-	 * @return
-	 */
-	public ArrayList<Board> printAllByMemberNo(PageInfo pi, Board board, int selected);
-
-	// 댓글 보기 (게시물 + 과제제출)
-	
-	/**
-	 * 전체 댓글 수(원글번호가 null이 아닌 것만 가져오기)
-	 * @param stNo
-	 * @return
-	 */
-	public int getReplyCount(int stNo, int selected);
-	
-	/**
-	 * 전체보기(10개씩)
-	 * @param pi
-	 * @param stNo
-	 * @return
-	 */
-	public ArrayList<Board> printAllReply(PageInfo pi, int stNo, int selected);
-	
-	/**
-	 * 검색하기 - 전체 / 마이페이지 / 팀장페이지
-	 * (마이페이지 검색은 멤버가 null이 아닐 때)
-	 * @param stNo
-	 * @return
-	 */
-	public ArrayList<Board> printSearchAllReply(HashMap<String, Object> map);
-	
-	// 내가 쓴 댓글 보기 (게시물 + 과제제출)
-	
-	/**
-	 * 전체 댓글 수(원글번호가 null이 아닌 것만 가져오기 / 카테고리별로)
-	 * @param board(stNo, mbNo)
-	 * @return
-	 */
-	public int getReplyCountByMemberNo(Board board, int selected);
-	
-	/**
-	 * 전체보기(10개씩)
-	 * @param pi
-	 * @param board(mbNo, stNo)
-	 * @return
-	 */
-	public ArrayList<Board> printAllReplyByMemberNo(PageInfo pi, Board board, int selected);
-	
-	/////////////////////////////////////////////////////////////////////////////////
-	
 	// 게시물과 댓글 추가, 수정, 삭제
 	public int registerBoard(Board board);
 	public int modifyBoard(Board board);
 	public int removeBoard(int boNo);
+	
+	///////////////////////////////////////////////////////////////////////////////// 관리
+		
+	/**
+	 * 전체 게시물 보기(paging x)
+	 * @param stNo
+	 * @return
+	 */
+	public ArrayList<Board> printAllByStNo(int stNo);
+	
+	/**
+	* 내가 쓴 게시물 전체 보기
+	* @param board(mbNo, stNo)
+	* @return
+	*/
+	public ArrayList<Board> printAllByMemberNo(Board board, int selected);
+	
+	// 댓글 
+	
+	/**
+	* 전체 댓글 보기(paging x)
+	* @param stNo
+	* @return
+	*/
+	public ArrayList<Board> printAllReplyByStNo(int stNo);
+	
+	/**
+	* 내가 쓴 댓글 전체 보기
+	* @param board(mbNo, stNo)
+	* @return
+	*/
+	public ArrayList<Board> printAllReplyByMemberNo(Board board);
+	
 }

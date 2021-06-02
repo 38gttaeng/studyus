@@ -53,15 +53,8 @@
 		WHERE GR_NO = #{grNo}
 		AND GR_STATUS = 1
 	</select>
-	
-	
-	<!-- 디테일 -->
-	<select id="selectOne" resultMap="assignmentResultMap">
-		SELECT * FROM ASSIGNMENT
-		WHERE AS_NO = #{asNo}
-		AND AS_STATUS = 1
-	</select>
-	
+
+
 	<!-- 캘린더 리스트 -->
 	<select id="selectAllByStNo" resultMap="assignmentResultMap">
 		SELECT 
@@ -72,6 +65,15 @@
 		WHERE ST_NO = #{stNo}
 		AND AS_STATUS = 1
 	</select>
+	
+	
+	<!-- 디테일 -->
+	<select id="selectOne" resultMap="assignmentResultMap">
+		SELECT * FROM ASSIGNMENT
+		WHERE AS_NO = #{asNo}
+		AND AS_STATUS = 1
+	</select>
+	
 	
 	<!-- 과제 그룹 등록 -->
 	<insert id="insertGroup" parameterType="AssignmentGroup">

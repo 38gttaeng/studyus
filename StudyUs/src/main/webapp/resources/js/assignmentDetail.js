@@ -12,8 +12,8 @@ $(function() {
 	
 	if(percent > 100) {
 		percent = 100;
-	} else if(percent < 20) {
-		percent = 20;
+	} else if(percent < 30) {
+		percent = 30;
 	}
 	$(".dateProgress").css("width", percent + "%");
 	

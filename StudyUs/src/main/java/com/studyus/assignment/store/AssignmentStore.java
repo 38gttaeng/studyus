@@ -40,6 +40,8 @@ public interface AssignmentStore {
 	 */
 	public AssignmentGroup selectOneGroup(int grNo);
 	
+	///////////////////////////////////////////////////////////
+	
 	/**
 	 * 스터디에 해당하는 과제 전체보기(일정용)
 	 * @param stNo

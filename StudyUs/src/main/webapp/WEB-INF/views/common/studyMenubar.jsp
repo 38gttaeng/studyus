@@ -296,14 +296,24 @@
 	                            aria-expanded="false"><i data-feather="box" class="feather-icon"></i><span
 	                                class="hide-menu">회원 목록 </span></a>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/boardManage"
+	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
 	                                class="hide-menu">게시물 관리 </span></a>
+	                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
+	                            <li class="sidebar-item"><a href="/study/contentsList" class="sidebar-link"><span
+	                                        class="hide-menu"> 게시물 관리</span></a>
+	                            </li>
+	                            <li class="sidebar-item"><a href="/study/commentsList" class="sidebar-link"><span
+	                                        class="hide-menu"> 댓글 관리</span></a>
+	                            </li>
+	                        </ul>
 	                    </li>
+	                    <c:if test="${ loginUser.mbNo == study.leaderNo }">
 	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/enrollment/list"
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
 	                                class="hide-menu">가입신청</span></a>
 	                    </li>
+	                    </c:if>
 	                </ul>
 	            </nav>
         	</div>

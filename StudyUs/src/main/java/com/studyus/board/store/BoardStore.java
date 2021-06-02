@@ -64,79 +64,41 @@ public interface BoardStore {
 	 */
 	public ArrayList<Board> selectAllReply(PageInfo pi, int boMotherNo);
 	
-	/////////////////////////////////////////////////////////////////////////////////
-	
-	// 내가 쓴 게시물 보기 (게시물 + 과제제출)
-	
-	/**
-	 * 전체 게시물 수(원글번호가 null인 것만 가져오기)
-	 * JOIN BOARD AND SUBMITTED_ASSIGNMENT
-	 * @param board(stNo, mbNo)
-	 * @return
-	 */
-	public int getListCountByMemberNo(Board board, int selected);
-	
-	/**
-	 * 전체보기(10개씩)
-	 * JOIN BOARD AND SUBMITTED_ASSIGNMENT
-	 * @param pi
-	 * @param board(mbNo, stNo)
-	 * @return
-	 */
-	public ArrayList<Board> selectAllByMemberNo(PageInfo pi, Board board, int selected);
-	
-	// 댓글 보기 (게시물 + 과제제출)
-	
-	/**
-	 * 전체 댓글 수(원글번호가 null이 아닌 것만 가져오기)
-	 * JOIN BOARD AND SUBMITTED_ASSIGNMENT
-	 * @param stNo
-	 * @return
-	 */
-	public int getReplyCount(int stNo, int selected);
-	
-	/**
-	 * 전체보기(10개씩)
-	 * JOIN BOARD AND SUBMITTED_ASSIGNMENT
-	 * @param pi
-	 * @param stNo
-	 * @return
-	 */
-	public ArrayList<Board> selectAllReply(PageInfo pi, int stNo, int selected);
-	
-	/**
-	 * 검색하기 - 전체 / 마이페이지 / 팀장페이지
-	 * (마이페이지 검색은 멤버가 null이 아닐 때)
-	 * JOIN BOARD AND SUBMITTED_ASSIGNMENT
-	 * @param search
-	 * @param stNo
-	 * @return
-	 */
-	public ArrayList<Board> selectSearchAllReply(HashMap<String, Object> map);
-	
-	// 내가 쓴 댓글 보기 (게시물 + 과제제출)
-	
-	/**
-	 * 전체 댓글 수(원글번호가 null이 아닌 것만 가져오기)
-	 * JOIN BOARD AND SUBMITTED_ASSIGNMENT
-	 * @param board(stNo, mbNo)
-	 * @return
-	 */
-	public int getReplyCountByMemberNo(Board board, int selected);
-	
-	/**
-	 * 전체보기(10개씩)
-	 * JOIN BOARD AND SUBMITTED_ASSIGNMENT
-	 * @param pi
-	 * @param board(mbNo, stNo)
-	 * @return
-	 */
-	public ArrayList<Board> selectAllReplyByMemberNo(PageInfo pi, Board board, int selected);
-	
-	/////////////////////////////////////////////////////////////////////////////////	
-	
 	// 게시물 추가, 수정, 삭제
 	public int insertBoard(Board board);
 	public int updateBoard(Board board);
 	public int deleteBoard(int boNo);
+	
+	///////////////////////////////////////////////////////////////////////////////// 관리
+		
+	/**
+	 * 전체 게시물 보기(paging x)
+	 * @param stNo
+	 * @return
+	 */
+	public ArrayList<Board> selectAllByStNo(int stNo);
+	
+	/**
+	* 내가 쓴 게시물 전체 보기
+	* @param board(mbNo, stNo)
+	* @return
+	*/
+	public ArrayList<Board> selectAllByMemberNo(Board board, int selected);
+	
+	// 댓글 
+	
+	/**
+	* 전체 댓글 보기(paging x)
+	* @param stNo
+	* @return
+	*/
+	public ArrayList<Board> selectAllReplyByStNo(int stNo);
+	
+	/**
+	* 내가 쓴 댓글 전체 보기
+	* @param board(mbNo, stNo)
+	* @return
+	*/
+	public ArrayList<Board> selectAllReplyByMemberNo(Board board);
+	
 }

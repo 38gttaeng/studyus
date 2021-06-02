@@ -11,16 +11,26 @@
 $('#zero_config').DataTable();
 
 /****************************************
- *       Default Order Table           *
+ *        게시판 게시물 목록           *
  ****************************************/
-$('#default_order').DataTable({
+$('#contents-list').DataTable({
     "order": [
         [3, "desc"]
     ]
 });
 
 /****************************************
- *       Multi-column Order Table      *
+ *           과제 게시물 목록           *
+ ****************************************/
+
+$('#assignment-list').DataTable({
+    "order": [
+        [3, "desc"]
+    ]
+});
+
+/****************************************
+ *             과제 댓글 목록           *
  ****************************************/
 $('#multi_col_order').DataTable({
     columnDefs: [{

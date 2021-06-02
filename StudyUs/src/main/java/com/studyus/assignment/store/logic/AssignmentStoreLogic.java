@@ -41,11 +41,13 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		return sqlSession.selectOne("assignmentMapper.selectOneGroup", grNo);
 	}
 	
+	/////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public ArrayList<Assignment> selectAllByStudyNo(int stNo) {
 		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllByStNo", stNo);
 	}
-
+	
 	/////////////////////////////////////////////////////////////////////////////////
 	
 	@Override

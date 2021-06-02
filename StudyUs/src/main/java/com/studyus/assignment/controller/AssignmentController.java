@@ -2,7 +2,10 @@ package com.studyus.assignment.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
@@ -146,6 +148,33 @@ public class AssignmentController {
 			System.out.println("프로젝트 삭제/숨김 실패");
 		}
 		return "redirect:/study/assignment?grNo=0";
+	}
+	
+	/******************* 파일함 *******************/
+	@RequestMapping(value="/study/assignment/file", method=RequestMethod.GET)
+	public ModelAndView assignmentFileList(HttpServletRequest request, ModelAndView mv) {
+		
+		HttpSession session = request.getSession();
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		String text = "";
+		
+		ArrayList<Assignment> asList = asService.printAllByStudyNo(stNo);
+		for(Assignment asOne : asList) {
+			text += asOne.getAsContents();
+		}
+		
+		Matcher matcher = pattern.matcher(text);
+		
+		ArrayList<String> fiList = new ArrayList<String>();
+		while(matcher.find()){
+			fiList.add(matcher.group(1));
+        }
+		
+		mv.addObject("fiList", fiList);
+		mv.setViewName("study/assignmentFile");
+		return mv;
 	}
 	
 	/******************* 과제 등록, 수정, 삭제 *******************/
