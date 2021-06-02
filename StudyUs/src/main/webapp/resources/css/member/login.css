@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-body, html {
+body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
@@ -12,12 +12,11 @@ body, html {
 	height: 340px;
 	width: 630px;
 	background: #FFFFFF;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 200px;
-	position: relative;
-	display: flex;
-	justify-content: center;
+	position: absolute;
+	left:50%;
+    top:50%;
+    margin-left:-315px;
+    margin-top:-170px;;
 	padding: 10px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
@@ -38,7 +37,7 @@ body, html {
 
 .login-zone {
 	height: 320px;
-	width: 360px;
+	width: 320px;
 	background-color: #FFFFFF;
 	display: inline-block;
 	float: right;
