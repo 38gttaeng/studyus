@@ -41,7 +41,7 @@
 		<result property="mbStatus" column="MB_STATUS"/>
 	</resultMap>
 
-	<insert id="insertEnrollment" parameterType="Enrollment"> 
+	<insert id="insertEnrollment" parameterType="Enrollment">
 		INSERT INTO ENROLLMENT VALUES (SEQ_ENROLLMENT.NEXTVAL,
 										#{memberNo},
 										#{studyNo},

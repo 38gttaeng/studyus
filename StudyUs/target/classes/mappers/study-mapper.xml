@@ -80,7 +80,7 @@
 	</select>
 	
 	<select id="checkUrl" resultType="int">
-		SELECT COUNT(*) FROM STUDY WHERE ST_URL = #{url} 
+		SELECT COUNT(*) FROM STUDY WHERE ST_URL = #{url}
 	</select> 
 	
 	<select id="selectOneByNo" parameterType="int" resultMap="studyResultMap">

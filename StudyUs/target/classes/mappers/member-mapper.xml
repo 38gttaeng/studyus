@@ -47,7 +47,7 @@
 	</select>
 	
 	<select id="checkNickDup" resultType="_int">
-		SELECT COUNT(*) FROM MEMBER WHERE MB_NICKNAME = #{mbNickname} 
+		SELECT COUNT(*) FROM MEMBER WHERE MB_NICKNAME = #{mbNickname}
 	</select> 
 	
 	<select id="selectAllEnrolled" parameterType="int" resultMap="memberResultMap">
