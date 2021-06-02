@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/member/login.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/resources/js/naverLogin.js"></script>
 <title>로그인</title>
 </head>
 <body>
@@ -30,7 +30,7 @@
 								<img alt="#" src="../../resources/images/user.png" width="15px" height="15px">
 							</span>
 						</div>
-						<input type="text" name="mbId" id="mbId" class="form-control input_user" placeholder="Username">
+						<input type="text" name="mbId" class="form-control input_user" placeholder="Username">
 					</div>
 					<div class="input-group" id="input2">
 						<div class="input-group-append">
@@ -38,9 +38,9 @@
 								<img alt="#" src="../../resources/images/key.png" width="15px" height="15px">
 							</span>
 						</div>
-						<input type="password" name="mbPassword" id="mbPassword" class="form-control input_pass" placeholder="비밀번호">
+						<input type="password" name="mbPassword" class="form-control input_pass" placeholder="비밀번호">
 					</div>
-					<input class="login-btn" value="로그인">
+					<input type="submit" class="login-btn" value="로그인">
 					<div class="form-group">
 						<a href="/member/findView">아이디/비밀번호 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/member/enrollView">회원가입</a>
@@ -57,27 +57,5 @@
 			<img width="223" src="/resources/images/btnG_완성형.png"/></a></div>
 		</div>
 	</div>
-	
-	<script>
-	$('.login-btn').on("click", function() {
-		var mbId = $("#mbId").val();
-		var mbPassword = $("#mbPassword").val();
-		$.ajax({
-			type : "POST",
-			url : "/member/login",
-			data : { mbId : mbId,
-					 mbPassword : mbPassword},
-			success : function(member) {
-				if (member == null) {
-					alert('아이디 또는 비밀번호가 다릅니다.')
-				} else {
-					window.location.href = '/';
-				}
-			}, error : function() {
-				console.log("전송 실패");
-			}
-		})
-	});
-	</script>
 </body>
 </html>
