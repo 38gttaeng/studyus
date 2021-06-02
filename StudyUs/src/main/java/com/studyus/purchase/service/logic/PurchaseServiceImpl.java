@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.studyus.purchase.domain.Purchase;
 import com.studyus.purchase.service.PurchaseService;
 import com.studyus.purchase.store.PurchaseStore;
+import com.studyus.study.domain.Study;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService{
@@ -24,6 +25,11 @@ public class PurchaseServiceImpl implements PurchaseService{
 	public Purchase checkPremium(int stNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ArrayList<Study> printStudyList(Study study) {
+		return pStore.printStudyList(study);
 	}
 
 }

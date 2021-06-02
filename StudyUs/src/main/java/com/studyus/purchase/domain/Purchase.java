@@ -4,12 +4,25 @@ import java.sql.Date;
 
 public class Purchase {
 	private int puNo;
-	private int stNo;
 	private int mbNo;
+	private int stNo;
+	private String stName;
+	private int maxPersonnel; 
 	private Date puInsertDate;
 	private int puStatus;
 	
 	public Purchase() {}
+	
+	public Purchase(int puNo, int mbNo, int stNo, String stName, int maxPersonnel, Date puInsertDate, int puStatus) {
+		super();
+		this.puNo = puNo;
+		this.mbNo = mbNo;
+		this.stNo = stNo;
+		this.stName = stName;
+		this.maxPersonnel = maxPersonnel;
+		this.puInsertDate = puInsertDate;
+		this.puStatus = puStatus;
+	}
 
 	public int getPuNo() {
 		return puNo;
@@ -17,14 +30,6 @@ public class Purchase {
 
 	public void setPuNo(int puNo) {
 		this.puNo = puNo;
-	}
-
-	public int getStNo() {
-		return stNo;
-	}
-
-	public void setStNo(int stNo) {
-		this.stNo = stNo;
 	}
 
 	public int getMbNo() {
@@ -35,26 +40,50 @@ public class Purchase {
 		this.mbNo = mbNo;
 	}
 
-	public Date getpuInsertDate() {
+	public int getStNo() {
+		return stNo;
+	}
+
+	public void setStNo(int stNo) {
+		this.stNo = stNo;
+	}
+
+	public String getStName() {
+		return stName;
+	}
+
+	public void setStName(String stName) {
+		this.stName = stName;
+	}
+
+	public int getMaxPersonnel() {
+		return maxPersonnel;
+	}
+
+	public void setMaxPersonnel(int maxPersonnel) {
+		this.maxPersonnel = maxPersonnel;
+	}
+
+	public Date getPuInsertDate() {
 		return puInsertDate;
 	}
 
-	public void setpuInsertDate(Date puInsertDate) {
+	public void setPuInsertDate(Date puInsertDate) {
 		this.puInsertDate = puInsertDate;
 	}
 
-	public int getpuStatus() {
+	public int getPuStatus() {
 		return puStatus;
 	}
 
-	public void setpuStatus(int puStatus) {
+	public void setPuStatus(int puStatus) {
 		this.puStatus = puStatus;
 	}
 
 	@Override
 	public String toString() {
-		return "Purchase [puNo=" + puNo + ", stNo=" + stNo + ", mbNo=" + mbNo + ", puInsertDate=" + puInsertDate
-				+ ", puStatus=" + puStatus + "]";
+		return "Purchase [puNo=" + puNo + ", mbNo=" + mbNo + ", stNo=" + stNo + ", stName=" + stName + ", maxPersonnel="
+				+ maxPersonnel + ", puInsertDate=" + puInsertDate + ", puStatus=" + puStatus + "]";
 	}
 	
 }

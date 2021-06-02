@@ -1,22 +1,25 @@
 package com.studyus.purchase.store.logic;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studyus.purchase.domain.Purchase;
 import com.studyus.purchase.store.PurchaseStore;
+import com.studyus.study.domain.Study;
 
 @Repository
 public class PurchaseStoreLogic implements PurchaseStore{
 
 	@Autowired
-	public SqlSession sqlSesseion;
+	public SqlSession sqlSession;
 
 	@Override
 	public int insertPremium(Purchase purchase) {
 		System.out.println(purchase.toString());
-		return sqlSesseion.insert("purchaseMapper.insertPremium", purchase);
+		return sqlSession.insert("purchaseMapper.insertPremium", purchase);
 	}
 
 	@Override
@@ -24,5 +27,10 @@ public class PurchaseStoreLogic implements PurchaseStore{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	@Override
+	public ArrayList<Study> printStudyList(Study study) {
+		return (ArrayList)sqlSession.selectList("studyMapper.printStudyList", study);
+	}
+
 }

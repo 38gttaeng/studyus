@@ -1,5 +1,7 @@
 package com.studyus.purchase.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.studyus.member.domain.Member;
 import com.studyus.purchase.domain.Purchase;
 import com.studyus.purchase.service.PurchaseService;
+import com.studyus.study.domain.Study;
 
 @Controller
 public class PurchaseController {
@@ -24,9 +28,23 @@ public class PurchaseController {
 	
 	// 프리미엄샵 뷰
 	@RequestMapping(value="/shop/premiumShopView")
-	public String premiumShopView() {
-		// Purchase purchase = nService.
-		return "shop/premiumShopView";
+	public ModelAndView premiumShopView(ModelAndView mv, HttpSession session) {
+		Member member = ((Member)session.getAttribute("loginUser"));
+		ArrayList<Study> sList = null;
+		if (member != null) {
+			Study study = new Study();
+			study.setLeaderNo(member.getMbNo());
+			sList = pService.printStudyList(study);
+			
+			for(Study st : sList) {
+				System.out.println(st.toString());
+			}
+		}
+		
+		mv.addObject("sList",sList);
+		mv.setViewName("shop/premiumShopView");
+		
+		return mv;
 	}
 	// 결제
 	@ResponseBody
@@ -36,6 +54,7 @@ public class PurchaseController {
 		Purchase purchase = new Purchase();
 		purchase.setMbNo(mbNo);
 		int result = pService.insertPremium(purchase);
+		System.out.println(purchase.toString());
 		if(result > 0) {
 			return "success";
 		}else {
