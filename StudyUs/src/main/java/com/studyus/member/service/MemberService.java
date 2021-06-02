@@ -10,7 +10,11 @@ public interface MemberService {
 
 	public Member loginMember(Member member);
 	
+	public Member selectOneById(String mbId);
+	
 	public int registerMember(Member member);
+	
+	public int registerNaverMem(Member member);
 	
 	public int modifyMember(Member member);
 	

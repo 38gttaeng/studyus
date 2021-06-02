@@ -10,7 +10,11 @@ public interface MemberStore {
 
 	public Member selectOneMem(Member member);
 	
+	public Member selectOneById(String mbId);
+	
 	public int insertMember(Member member);
+	
+	public int insertNaverMem(Member member);
 	
 	public int updateMember(Member member);
 	

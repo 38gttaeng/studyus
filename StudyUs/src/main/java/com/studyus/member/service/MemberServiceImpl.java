@@ -21,10 +21,22 @@ public class MemberServiceImpl implements MemberService {
 		Member mOne = store.selectOneMem(member);
 		return mOne;
 	}
+	
+	@Override
+	public Member selectOneById(String mbId) {
+		Member mOne = store.selectOneById(mbId);
+		return mOne;
+	}
 
 	@Override
 	public int registerMember(Member member) {
 		int result = store.insertMember(member);
+		return result;
+	}
+	
+	@Override
+	public int registerNaverMem(Member member) {
+		int result = store.insertNaverMem(member);
 		return result;
 	}
 

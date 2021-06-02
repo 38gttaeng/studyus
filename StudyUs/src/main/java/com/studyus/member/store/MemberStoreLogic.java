@@ -21,10 +21,22 @@ public class MemberStoreLogic implements MemberStore {
 		Member loginUser = sqlSession.selectOne("memberMapper.selectOneMember", member);
 		return loginUser;
 	}
+	
+	@Override
+	public Member selectOneById(String mbId) {
+		Member loginUser = sqlSession.selectOne("memberMapper.selectOneById", mbId);
+		return loginUser;
+	}
 
 	@Override
 	public int insertMember(Member member) {
 		int result = sqlSession.insert("memberMapper.insertMember", member);
+		return result;
+	}
+	
+	@Override
+	public int insertNaverMem(Member member) {
+		int result = sqlSession.insert("memberMapper.insertNaverMem", member);
 		return result;
 	}
 
@@ -74,4 +86,5 @@ public class MemberStoreLogic implements MemberStore {
 		
 		return null;
 	}
+
 }

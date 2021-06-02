@@ -10,13 +10,13 @@ body {
 
 .user_card {
 	height: 340px;
-	width: 630px;
+	width: 930px;
 	background: #FFFFFF;
 	position: absolute;
 	left:50%;
-    top:50%;
-    margin-left:-315px;
-    margin-top:-170px;;
+	top:50%;
+	margin-left:-465px;
+	margin-top:-170px;;
 	padding: 10px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
@@ -40,7 +40,7 @@ body {
 	width: 320px;
 	background-color: #FFFFFF;
 	display: inline-block;
-	float: right;
+	float: left;
 }
 
 .home-link {
@@ -140,4 +140,39 @@ body {
 .form-group a:hover {
 	color: black;
 }
+
+.social-login {
+	height: 320px;
+	width: 300px;
+	background-color: #FFFFFF;
+	display: inline-block;
+	float: left;
+}
+
+.text-zone {
+	height: 55px;
+	width: 300px;
+	text-align: center;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+
+.main-text {
+	font-size: 20px;
+	font-weight: bold;
+	color: #111111;
+}
+
+.sub-text {
+	font-size: 15px;
+	color: #bbbbbb;
+}
+
+.naver_id_login {
+	text-align:center;
+}
+.naver_id_login img {
+	cursor: pointer;
+}
+
 
