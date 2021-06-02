@@ -1,15 +1,19 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>StudyUs</title>
+    <style>
+
+    </style>
   </head>
   <body>
     <!-- menubar -->
     <jsp:include page="../common/menubar.jsp"/>
-
+   	<input type="hidden" name="stNo" value="${purchase.stNo }">
+   	<input type="hidden" name="mbNo" value="${loginUser.mbNo }">
   <div class="hero-wrap hero-wrap-2" style="background-image: url('/resources/images/illustration.png');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
@@ -25,6 +29,8 @@
 		<h5><b>프리미엄 이용권</b></h5>
 		<p>프리미엄 이용권으로 최대 10인까지 함께 공부하세요.</p>
 	</div>
+	    <!-- Button trigger modal -->
+
     <section class="ftco-section">
     	<div class="container">
     		<div class="row">
@@ -82,12 +88,14 @@
 		              <li>&nbsp;</li>
 		              <li>&nbsp;</li>
 		            </ul>
-		            <c:if test="${empty loginUser }"> <!-- 스터디장만 결제 가능하게 -->
+		            <c:if test="${empty sList }"> <!-- 스터디장만 결제 가능하게 -->
 		            		<button id="empty-login" type="button" class="btn btn-primary d-block px-3 py-3 mb-4"  style="width: 70%; margin-left:15%;">구매하기</button>
 		            </c:if>
-		            <c:if test="${!empty loginUser }">
-		            		<button id="check_module" type="button" class="btn btn-primary d-block px-3 py-3 mb-4"  style="width: 70%; margin-left:15%;">구매하기</button>
-		            		<input type="hidden" id="userId" name="mbId" value="${loginUser.mbId }">
+		            <c:if test="${!empty sList }">
+		            		<!-- <button id="check_module" type="button" class="btn btn-primary d-block px-3 py-3 mb-4"  style="width: 70%; margin-left:15%;">구매하기</button>  -->
+	            			<button type="button" class="btn btn-primary d-block px-3 py-3 mb-4" style="width: 70%; margin-left:15%;" data-toggle="modal" data-target="#exampleModal">
+						 	구매하기
+						</button>
 		            </c:if>
 		            <span class="excerpt d-block" style="margin-bottom: 0;">스터디 프리미엄은 교환 및 환불이 불가합니다.</span>
 	            </div>
@@ -185,6 +193,35 @@
     		</div>
     	</div>
     </section>
+    
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">상품 구매</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      <p>적용할 스터디를 선택해주세요.</p>
+	        <select class="custom-select custom-select-lg mb-3" name="stNo">
+	        <c:if test="${sList ne null }">
+	        	<c:forEach  items="${sList }" var="study">
+				 	<option value="${study.studyNo }"> ${study.studyName }</option>
+			 	</c:forEach>
+			 	</c:if>
+			</select>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button  id="check_module"  type="button" class="btn btn-primary">결제하기</button>
+	       <!--  <button id="check_module" type="button" class="btn btn-primary d-block px-3 py-3 mb-4"  style="width: 70%; margin-left:15%;">구매하기</button> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	
 	<!-- footer -->
 	<jsp:include page="../common/footer.jsp"/>
@@ -201,6 +238,10 @@
 	});
 	
 	$("#check_module").click(function () {
+		var userEmail = '${loginUser.mbEmail}';
+		var userName = '${loginUser.mbName}';
+		var userPhone = '${loginUser.mbPhone}';
+		var mbNo = '${loginUser.mbNo}';
 		IMP.request_pay({
 		    pg : 'inicis',
 		    pay_method : 'card',
@@ -217,6 +258,9 @@
 		    		url: "/shop/premiumShop", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
 		    		type: 'get',
 		    		dataType: 'json',
+		    		data:{
+		    			mbNo:mbNo
+		    		}
 		    	}).done(function(data) {
 		    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 		    		if ( everythings_fine ) {
@@ -231,6 +275,7 @@
 		    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
 		    		}
 		    	});
+		    document.location.href="/shop/paymentCompleted";
 		    	
 		    } else {
 		        var msg = '결제에 실패하였습니다. \n';
@@ -238,7 +283,6 @@
 		        alert(msg);
 
 		    }
-		    document.location.href="/shop/paymentCompleted";
 		    
 		});
 	});

@@ -43,6 +43,7 @@ public class NoticeController {
 														@RequestParam(value="page", required=false) Integer page) {
 		Notice notice = new Notice();
 		int listCount = nService.getListCount(notice);
+		System.out.println(notice);
 		int currentPage = (page != null) ? page : 1;
 		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
 		ArrayList<Notice> nList = nService.printAll(pi, notice);

@@ -74,6 +74,10 @@
 								#{end}
 							)
 	</insert>
+	<!-- 결제페이지에서 가입한 스터디 출력 -->
+	<select id="printStudyList" resultMap="studyResultMap">
+		SELECT MB_NO, ST_NO, ST_NAME FROM STUDY WHERE MB_NO = #{leaderNo}
+	</select>
 	
 	<select id="checkUrl" resultType="int">
 		SELECT COUNT(*) FROM STUDY WHERE ST_URL = #{url}
