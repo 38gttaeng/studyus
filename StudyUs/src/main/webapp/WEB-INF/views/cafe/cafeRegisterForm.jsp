@@ -86,6 +86,8 @@
 												<h3 class="heading-2 mb-3">
 													<input class="form-control" type="text" size="50" name="caTime"
 														placeholder="ex) 10:00 ~ 20:30">
+<!-- 														<input class="form-control" style="width:175px; float:left" type="time" size="50" name="caTime"> -->
+<!-- 													<input class="form-control" style="width:175px" type="time" size="50" name="caTime"> -->
 												</h3></li>
 										</ul>
 									</div>

@@ -23,14 +23,14 @@
 		VALUES(SEQ_REVIEW.NEXTVAL,
 		#{caNo},#{mbNo},#{rvContents},#{rvRating},DEFAULT,DEFAULT)
 	</insert>
-	<update id="updateReview">
+	<update id="updateReview" parameterType="Review">
 		UPDATE REVIEW
 		SET RV_CONTENTS = #{rvContents}
-		WHERE CA_NO = #{caNo} AND RV_NO = #{rvNo} AND RV_STATUS = 1
+		WHERE CA_NO =#{caNo} AND RV_NO = #{rvNo} AND RV_STATUS = 1
 	</update>
 	<update id="deleteReview">
 		UPDATE REVIEW SET RV_STATUS = 0
-		WHERE CA_NO = #{caNo} AND RV_NO = #{rvNo}
+		WHERE RV_NO = #{rvNo}
 	</update>
 	
 </mapper> 

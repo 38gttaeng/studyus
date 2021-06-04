@@ -224,23 +224,29 @@
 	.tag-qna {
 		background-color: #ff8499;
 	} 
-
-/* 리뷰 별점 */
+	
+	/*******************************************************************/
+	
+	/* 리뷰 별점 */
 #star {
-  display: flex;
-}
-
-.star {
-  font-size: 2rem;
-  margin: 10px 0;
-  cursor: pointer;
-}
-
-.star:not(.on) {
-  color: #ccc;
-}
-
-.star.on {
-  color: orange;
-  height: 50px;
-}
+	  display: flex;
+	}
+	
+	.star {
+	  font-size: 2rem;
+	  margin: 10px 0;
+	  cursor: pointer;
+	}
+	
+	.star:not(.on) {
+	  color: #ccc;
+	}
+	
+	.star.on {
+	  color: orange;
+	  height: 50px;
+	}
+	.star-rating{
+	  color: orange;
+	  height: 50px;
+	}

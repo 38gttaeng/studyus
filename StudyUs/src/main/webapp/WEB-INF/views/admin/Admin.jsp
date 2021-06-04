@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>StudyUs : 관리자 페이지</title>
+    <title>StudyUs : 스터디룸</title>
     <!-- 타이틀을 개별 스터디룸 이름으로 해줘도 좋을듯 ! 'StudyUs : 삼팔광땡' 이러케 -->
 </head>
 <body>
@@ -17,7 +17,7 @@
         data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
         
         <!-- menubar -->
-	    <jsp:include page="../common/studyMenubar.jsp"/>
+	    <jsp:include page="../common/adminMenubar.jsp"/>
 	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->
 	    <script>
 	    	$("#sidebarnav>li:first-child").addClass("selected");

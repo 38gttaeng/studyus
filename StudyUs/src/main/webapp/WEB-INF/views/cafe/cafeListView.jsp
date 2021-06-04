@@ -139,98 +139,21 @@
 				});
 				
 				(function(marker, cafe) {
-					  // 마크 클릭 시
-					  //kakao.maps.event.addListener(marker, 'click', function() {
+						// 마커 오버레이 생성
 					    var overlay = new kakao.maps.CustomOverlay({
 					      // 오버레이에 띄울 내용
 					      content:  '<div class="customoverlay">' +
-						    '  <a href="/cafe/detail?caNo='+cafe.caNo+'" target="_blank">' +
+						    '  <a href="/cafe/detail?caNo='+cafe.caNo+'">' +
 						    '    <span class="title">' + cafe.caName + '</span>' +
 						    '  </a>' +
 						    '</div>',
 					      map: map,
 					      position: marker.getPosition()
 					    });
-					    console.log(overlay);
+						// 오버레이 지도 위치
 					    overlay.setMap(map);
-					    // 아무데나 클릭하게되면 overlay를 끄기
-//  					    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-// 					      overlay.setMap(null)
-// 					    });
-					 // })
 					})(marker, positions[i])
 			}
-			
-		// 마커를 표시할 위치와 title 객체 배열
-/* 		var positions = [
-				{
-					content : '<div class="customoverlay">' + '  <a href="#">'
-							+ '    <span class="title">종로점</span>' + '  </a>'
-							+ '</div>',
-					latlng : new kakao.maps.LatLng(positions[i].lat, positions[i].lng)
-				{
-					content : '<div class="customoverlay">' + '  <a href="#">'
-							+ '    <span class="title">종로점</span>' + '  </a>'
-							+ '</div>',
-					latlng : new kakao.maps.LatLng(37.56794439504571,
-							126.98299286239576)
-				},
-				{
-					content : '<div class="customoverlay">'
-							+ '  <a href="#" target="_blank">'
-							+ '    <span class="title">강남점</span>' + '  </a>'
-							+ '</div>',
-					latlng : new kakao.maps.LatLng(37.499012225823975,
-							127.03284079298378)
-				},
-				{
-					content : '<div class="customoverlay">'
-							+ '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">'
-							+ '    <span class="title">성수점</span>' + '  </a>'
-							+ '</div>',
-					latlng : new kakao.maps.LatLng(37.544338431198774,
-							127.06302820262869)
-				},
-				{
-					content : '<div class="customoverlay">'
-							+ '  <a href="#" target="_blank">'
-							+ '    <span class="title">당산점</span>' + '  </a>'
-							+ '</div>',
-					latlng : new kakao.maps.LatLng(37.53386983751356,
-							126.89681848374141)
-				},
-				{
-					content : '<div class="customoverlay">'
-							+ '  <a href="#" target="_blank">'
-							+ '    <span class="title">신촌점</span>' + '  </a>'
-							+ '</div>',
-					latlng : new kakao.maps.LatLng(37.555031574626256,
-							126.93385054302597)
-				} ];
-
- 		var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-		
-		for (var i = 0; i < positions.length; i++) {
-
-			var imageSize = new kakao.maps.Size(30, 41);
-			// 마커 이미지를 생성
-			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-			
-// 			var latlng = new kakao.maps.LatLng(positions[i].lat, positions[i].lng);
-			// 마커를 생성
-			var marker = new kakao.maps.Marker({
-				map : map, 
-				position : latlng,
-				image : markerImage
-			});
-			// 오버레이 생성
-			var overlay = new kakao.maps.CustomOverlay({
-				content : positions[i].content, 
-				map : map,
-				position : marker.getPosition()
-			});
-
-		} */
 	</script>
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>
