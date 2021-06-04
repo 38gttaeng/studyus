@@ -3,6 +3,7 @@ package com.studyus.member.domain;
 public class Member {
 
 	private int mbNo;
+	private int rnum;
 	private String mbId;
 	private String mbPassword;
 	private String mbName;
@@ -42,6 +43,14 @@ public class Member {
 
 	public void setMbNo(int mbNo) {
 		this.mbNo = mbNo;
+	}
+	
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	public String getMbId() {
@@ -118,9 +127,9 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [mbNo=" + mbNo + ", mbId=" + mbId + ", mbPassword=" + mbPassword + ", mbName=" + mbName
-				+ ", mbEmail=" + mbEmail + ", mbNickname=" + mbNickname + ", mbPhone=" + mbPhone + ", mbReputation="
-				+ mbReputation + ", mbPhoto=" + mbPhoto + ", mbStatus=" + mbStatus + "]";
+		return "Member [mbNo=" + mbNo + ", rnum=" + rnum + ", mbId=" + mbId + ", mbPassword=" + mbPassword + ", mbName="
+				+ mbName + ", mbEmail=" + mbEmail + ", mbNickname=" + mbNickname + ", mbPhone=" + mbPhone
+				+ ", mbReputation=" + mbReputation + ", mbPhoto=" + mbPhoto + ", mbStatus=" + mbStatus + "]";
 	}
-
+	
 }

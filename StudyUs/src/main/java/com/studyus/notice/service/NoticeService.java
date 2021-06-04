@@ -41,5 +41,8 @@ public interface NoticeService {
 	public int modifyReply(Notice notice);
 	public int removeReply(Notice notice);
 	
+	// 스터디 대시보드 출력용
+	public ArrayList<Notice> printRecentNotice(Notice notice);
+	
 	
 }

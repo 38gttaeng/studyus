@@ -117,5 +117,10 @@ public class NoticeServiceImpl implements NoticeService{
 		return nStore.deleteReply(notice);
 	}
 
+	@Override
+	public ArrayList<Notice> printRecentNotice(Notice notice) {
+		return nStore.printRecentNotice(notice);
+	}
+
 
 }

@@ -88,7 +88,7 @@
 								</h4>
 								<div class="row">
 									<h6 class="card-subtitle col-6">
-										<img src="/resources/images/1.png" class="rounded-circle">&nbsp;&nbsp;
+										<img src="/resources/images/${notice.member.mbPhoto }.png" class="rounded-circle">&nbsp;&nbsp;
 										${notice.noWriter }
 									</h6>
 									<h6 class="card-subtitle col-6" style="text-align: right">조회수

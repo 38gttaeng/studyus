@@ -10,11 +10,11 @@
     <!-- menubar -->
     <jsp:include page="../common/menubar.jsp"/>
 
-  <div class="hero-wrap hero-wrap-2" style="background-image: url('/resources/images/premiumshop.png');" data-stellar-background-ratio="0.5">
+  <div class="hero-wrap hero-wrap-2" style="background-image: url('/resources/images/illustration.png');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-start">
-          <div class="col-md-4 ftco-animate text-center text-md-left mb-5" style="background-color: rgba( 230, 231, 235, 0.5 );">
+          <div class="col-md-4 ftco-animate text-center text-md-left mb-5" style="background-color: rgba( 230, 231, 235, 0 );">
           	<p class="breadcrumbs mb-0"><span class="mr-3"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>StudyShop</span></p>
             <h1 class="mb-3 bread">Study Shop</h1>
           </div>

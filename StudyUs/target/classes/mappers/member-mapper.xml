@@ -3,6 +3,7 @@
 <mapper namespace="memberMapper">
 	<resultMap type="Member" id="memberResultMap">
 		<result property="mbNo" column="MB_NO"/>
+		<result property="rnum" column="RNUM"/>
 		<result property="mbId" column="MB_ID"/>
 		<result property="mbPassword" column="MB_PASSWORD"/>
 		<result property="mbName" column="MB_NAME"/>
@@ -50,11 +51,11 @@
 		SELECT COUNT(*) FROM MEMBER WHERE MB_NICKNAME = #{mbNickname}
 	</select> 
 	
-	<select id="selectAllEnrolled" parameterType="int" resultMap="memberResultMap">
-		SELECT * FROM STUDY S
-			    LEFT OUTER JOIN ENROLLMENT E USING (ST_NO)
-			    LEFT OUTER JOIN MEMBER M ON E.MB_NO = M.MB_NO
-		WHERE EN_STATUS = 1
-			AND ST_NO = #{studyNo}
+	<select id="selectAllEnrolled" resultMap="memberResultMap">
+		SELECT ROW_NUMBER() OVER(ORDER BY M.MB_NO) AS RNUM,
+		S.ST_NAME, M.MB_NO, M.MB_NICKNAME, M.MB_EMAIL FROM STUDY S
+		LEFT OUTER JOIN ENROLLMENT E USING (ST_NO)
+		LEFT OUTER JOIN MEMBER M ON E.MB_NO = M.MB_NO
+		WHERE EN_STATUS = 1 AND ST_NO = #{studyNo}
 	</select>
 </mapper>

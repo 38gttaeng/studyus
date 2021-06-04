@@ -7,19 +7,17 @@ public class Purchase {
 	private int mbNo;
 	private int stNo;
 	private String stName;
-	private int maxPersonnel; 
 	private Date puInsertDate;
 	private int puStatus;
 	
 	public Purchase() {}
 	
-	public Purchase(int puNo, int mbNo, int stNo, String stName, int maxPersonnel, Date puInsertDate, int puStatus) {
+	public Purchase(int puNo, int mbNo, int stNo, String stName, Date puInsertDate, int puStatus) {
 		super();
 		this.puNo = puNo;
 		this.mbNo = mbNo;
 		this.stNo = stNo;
 		this.stName = stName;
-		this.maxPersonnel = maxPersonnel;
 		this.puInsertDate = puInsertDate;
 		this.puStatus = puStatus;
 	}
@@ -56,14 +54,6 @@ public class Purchase {
 		this.stName = stName;
 	}
 
-	public int getMaxPersonnel() {
-		return maxPersonnel;
-	}
-
-	public void setMaxPersonnel(int maxPersonnel) {
-		this.maxPersonnel = maxPersonnel;
-	}
-
 	public Date getPuInsertDate() {
 		return puInsertDate;
 	}
@@ -82,8 +72,8 @@ public class Purchase {
 
 	@Override
 	public String toString() {
-		return "Purchase [puNo=" + puNo + ", mbNo=" + mbNo + ", stNo=" + stNo + ", stName=" + stName + ", maxPersonnel="
-				+ maxPersonnel + ", puInsertDate=" + puInsertDate + ", puStatus=" + puStatus + "]";
+		return "Purchase [puNo=" + puNo + ", mbNo=" + mbNo + ", stNo=" + stNo + ", stName=" + stName + ", puInsertDate="
+				+ puInsertDate + ", puStatus=" + puStatus + "]";
 	}
 	
 }

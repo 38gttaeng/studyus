@@ -31,6 +31,8 @@ public interface NoticeStore {
 	public int insertReply(Notice notice);
 	public int updateReply(Notice notice);
 	public int deleteReply(Notice notice);
+	
+	public ArrayList<Notice> printRecentNotice(Notice notice);
 
 	
 }

@@ -48,13 +48,18 @@ public class PurchaseController {
 	}
 	// 결제
 	@ResponseBody
-	@RequestMapping(value="/shop/premiumShop", method=RequestMethod.GET)
-	public String premiumShop(HttpSession session) {
+	@RequestMapping(value="/shop/premiumShop", method=RequestMethod.POST)
+	public String premiumShop(HttpSession session, @RequestParam("stNo") int stNo) {
 		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+		Study study = new Study();
 		Purchase purchase = new Purchase();
 		purchase.setMbNo(mbNo);
+		purchase.setStNo(stNo);
+		study.setStudyNo(stNo);
 		int result = pService.insertPremium(purchase);
-		System.out.println(purchase.toString());
+		pService.updateStudy(study);
+		System.out.println("purchase : " + purchase.toString());
+		System.out.println("study : " + study.toString());
 		if(result > 0) {
 			return "success";
 		}else {

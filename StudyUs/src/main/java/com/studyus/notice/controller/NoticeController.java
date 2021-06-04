@@ -27,9 +27,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination10;
+import com.studyus.common.RPagination10;
+import com.studyus.member.domain.Member;
 import com.studyus.notice.domain.Notice;
 import com.studyus.notice.domain.Search;
 import com.studyus.notice.service.NoticeService;
+import com.studyus.study.domain.Study;
 
 @Controller
 public class NoticeController {
@@ -39,9 +42,11 @@ public class NoticeController {
 	
 	// 전체 목록 조회 
 	@RequestMapping(value="/notice/noticeList", method=RequestMethod.GET)
-	public ModelAndView noticeList(ModelAndView mv,			
+	public ModelAndView noticeList(ModelAndView mv, HttpSession session,			
 														@RequestParam(value="page", required=false) Integer page) {
+		Study study = (Study)session.getAttribute("study");
 		Notice notice = new Notice();
+		notice.setStNo(study.getStudyNo());
 		int listCount = nService.getListCount(notice);
 		System.out.println(notice);
 		int currentPage = (page != null) ? page : 1;
@@ -69,6 +74,7 @@ public class NoticeController {
 			mv.setViewName("notice/noticeListView");
 		}else {
 			// mv.addObject("msg", "조회 실패");
+			mv.addObject("mainNotice", mainNotice);
 			mv.setViewName("notice/noData");
 		}
 		return mv;
@@ -76,11 +82,12 @@ public class NoticeController {
 	
 	// 상세 조회 
 	@RequestMapping(value="/notice/noticeDetail", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView noticeDetail(ModelAndView mv, @RequestParam("noNo") int noNo) {
+	public ModelAndView noticeDetail(ModelAndView mv, HttpSession session, @RequestParam("noNo") int noNo) {
 		// 조회수 증가 
 		nService.addReadCount(noNo);
 		// 공지사항 상세 조회 
-		Notice notice = nService.printOne(noNo);
+		Notice notice = new Notice();
+		notice = nService.printOne(noNo);
 		if(notice != null) {
 			// 메소드 체이닝 방식 
 			mv.addObject("notice", notice).setViewName("notice/noticeDetail");
@@ -93,8 +100,14 @@ public class NoticeController {
 	
 	// 검색 
 	@RequestMapping(value="/notice/noticeSearch", method=RequestMethod.GET)
-	public String noticeSearch(@ModelAttribute Search search, Model model,
+	public String noticeSearch(@ModelAttribute Search search, Model model, HttpSession session,
 											@RequestParam(value="page", required=false) Integer page) {
+		// int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		// search.setStNo(stNo);
+		Study study = (Study)session.getAttribute("study");
+		Notice notice = new Notice();
+		notice.setStNo(study.getStudyNo());
+		search.setStNo(study.getStudyNo());
 		// 2개의 값을 하나에 담아서 보내는 방법
 		// 1. Domain(VO) 클래스 이용
 		// 2. HashMap 사용하기
@@ -102,23 +115,33 @@ public class NoticeController {
 		int currentPage = (page != null) ? page : 1;
 		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
 		ArrayList<Notice> searchList = nService.printSearchAll(pi, search);
-		System.out.println(search.getSearchValue());
-		System.out.println(search.getSearchCondition());
+		ArrayList<Notice> mainNotice = nService.printMainNotice(notice);
+		
+		//@@@@@@@@게시글 뒤에 N 표시하기 @@@@@@
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, -1); // 2일간 보이게
+		String nowDay = format.format(cal.getTime());
 		if(!searchList.isEmpty()) {
 			model.addAttribute("nList", searchList);
 			model.addAttribute("pi", pi);
 			model.addAttribute("search", search);
+			model.addAttribute("nowDay", nowDay);
+			model.addAttribute("mainNotice", mainNotice);
 			return "notice/noticeListView";
 		}else {
 			// model.addAttribute("msg", "공지사항 검색 실패");
+			model.addAttribute("mainNotice", mainNotice);
 			return "notice/noData";
 		}
 	}
 	
 	// 메인 공지사항 설정 뷰  
 	@RequestMapping(value="/notice/mainSelectView")
-	public ModelAndView mainSelectView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView mainSelectView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page, HttpSession session) {
+		Study study = (Study)session.getAttribute("study");
 		Notice notice = new Notice();
+		notice.setStNo(study.getStudyNo());
 		int listCount = nService.getListCount(notice);
 		int currentPage = (page != null) ? page : 1;
 		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
@@ -146,8 +169,10 @@ public class NoticeController {
 	
 	// 메인 공지사항 설정
 	@RequestMapping(value="/notice/mainNoticeUpdate", method=RequestMethod.POST)
-	public ModelAndView mainUpdate(ModelAndView mv, @ModelAttribute Notice notice, @RequestParam("noNo") int noNo) {
-		// 전체 mainNotice = 0으로 만들어주기 
+	public ModelAndView mainUpdate(ModelAndView mv, @ModelAttribute Notice notice, @RequestParam("noNo") int noNo, HttpSession session) {
+		Study study = (Study)session.getAttribute("study");
+		notice.setStNo(study.getStudyNo());
+		// 해당 스터디의 mainNotice = 0으로 만들어주기 
 		nService.resetMainNotice(notice);
 		// mainNotice = 1로 업데이트 
 		int result = nService.updateMainNotice(noNo);
@@ -168,9 +193,13 @@ public class NoticeController {
 		
 		// 등록 
 		@RequestMapping(value="/notice/noticeWrite", method=RequestMethod.POST)
-		public String registerNotice(@ModelAttribute Notice notice,
+		public String registerNotice(@ModelAttribute Notice notice, HttpSession session,
 													@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile,
 													HttpServletRequest request, Model model) {
+			
+			Study study = (Study)session.getAttribute("study");
+			notice.setStNo(study.getStudyNo());
+			
 			if(!uploadFile.getOriginalFilename().equals("")) {
 				String filePath = saveFile(uploadFile, request);
 				if(filePath != null) {
@@ -290,13 +319,17 @@ public class NoticeController {
 	
 	// 댓글 목록 
 	@RequestMapping(value="/notice/ReplyList")
-	public void getReplyList(HttpServletResponse response, @RequestParam("noMotherNo") int noMotherNo, @RequestParam(value="page", required=false) Integer page) throws Exception {
+	public void getReplyList(HttpServletResponse response, HttpSession session, @RequestParam("noMotherNo") int noMotherNo, @RequestParam(value="page", required=false) Integer page) throws Exception {
 		Notice notice = new Notice();
+		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		notice.setNoMotherNo(noMotherNo);
+		notice.setMbNo(mbNo);
+		notice.setStNo(stNo);
 		int listCount = nService.getListCount(notice);
-		
-		int currentPage = (page != null) ? page : 1;
-		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
+		int rCount = (listCount/10 - 1) * 10;
+		int currentPage = (page != null) ? page : rCount;
+		PageInfo pi = RPagination10.getPageInfo(currentPage, listCount);
 		ArrayList<Notice> rList = nService.printAllReply(pi, noMotherNo);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("page", pi);
@@ -327,7 +360,8 @@ public class NoticeController {
 		// 세션 추가하기 
 		//Member loginUser = (Member)session.getAttribute("loginUser");
 		//notice.setReplyWriter(loginUser.getUserId());
-		notice.setStNo(1);
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		notice.setStNo(stNo);
 		
 		int result = nService.registerReply(notice);
 		int update = nService.updateReplyCount(noMotherNo); // 댓글 수 업데이트
@@ -337,6 +371,8 @@ public class NoticeController {
 			return "fail"; 
 		}
 	}
+	// 댓글 수정 
+	@ResponseBody
 	@RequestMapping(value="/notice/modifyReply", method=RequestMethod.POST)
 	public String updateReply(@ModelAttribute Notice notice) {
 		int result = nService.modifyReply(notice);

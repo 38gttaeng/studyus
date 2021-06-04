@@ -97,21 +97,23 @@
 							<div class="card-body">
 								<h4 class="card-title">메인 공지사항</h4>
 								<div class="border border-3"></div>
-								<div class="card-body">
-									<p>출석 꼭 찍어주세요. 퇴출당하기전에 . . .</p>
-								</div>
+								<c:forEach items="${mainNotice }" var="notice" >
+									<div class="card-body">
+											${notice.noContents }
+									</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-10"></div>
 					<!-- if문 추가하기 -->
-					<div class=""> 
-						<button onclick="location.href='#'" class="btn waves-effect waves-light btn-primary">
+					<div class="col-12"> 
+						<button onclick="location.href='/notice/mainSelectView'" class="btn waves-effect waves-light btn-primary float-right">
 							<span>메인 수정</span>
 						</button>
-						<button id="write-btn" onclick="location.href='/notice/noticeWriteView'" class="btn waves-effect waves-light btn-primary">
-							<!-- <i class="fas fa-edit"></i> -->
-							<span>글쓰기</span>
+						<span class="float-right">&nbsp;</span>
+						<button id="write-btn" onclick="location.href='/notice/noticeWriteView'" class="btn waves-effect waves-light btn-primary float-right">
+							<span>공지 작성</span>
 						</button>
 					</div>
 					<br><br>

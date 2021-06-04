@@ -42,18 +42,18 @@
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-lg-4 align-self-center">
-						<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">공지사항</h4>
+						<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원 목록</h4>
 						<div class="d-flex align-items-center">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb m-0 p-0">
 									<li class="breadcrumb-item text-muted" aria-current="page"> <a href="/study">Study</a></li>
-									<li class="breadcrumb-item text-muted active" aria-current="page">Notice</li>
+									<li class="breadcrumb-item text-muted active" aria-current="page">Member</li>
 									<li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">List</li>
 								</ol>
 							</nav>
 						</div>
 					</div>
-					<div class="col-lg-8 align-self-center">
+					<%-- <div class="col-lg-8 align-self-center">
 						<form action="/notice/noticeSearch" method="get" id="searchForm">
 							<div class="customize-input float-right">
 								<input class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="Search" aria-label="Search" name="searchValue" value="${search.searchValue }"> 
@@ -67,7 +67,7 @@
 								</select>
 							</div>
 						</form>
-					</div>
+					</div> --%>
 				</div>
 			</div>
 
@@ -79,89 +79,48 @@
 				<!-- Start Page Content -->
 				<!-- ============================================================== -->
 				<!-- basic table -->
-				<div class="row">
-					<div class="col-12">
-						<div class="card">
-							<div class="card-body">
-								<h4 class="card-title">메인 공지사항</h4>
-								<div class="border border-3"></div>
-								<c:forEach items="${mainNotice }" var="notice" >
-									<div class="card-body">
-											${notice.noContents }
-									</div>
-								</c:forEach>
-							</div>
-						</div>
-					</div>
-					<!-- if문 추가하기 -->
-					<div class="col-12">
-						<c:if test="${loginUser.mbNo eq study.leaderNo }">
-							<button onclick="location.href='/notice/mainSelectView'" class="btn waves-effect waves-light btn-primary float-right">
-								<span>메인 수정</span>
-							</button>
-							<span class="float-right">&nbsp;</span>
-							<button id="write-btn" onclick="location.href='/notice/noticeWriteView'" class="btn waves-effect waves-light btn-primary float-right">
-								<span>공지 작성</span>
-							</button>
-						</c:if>
-					</div>
-					<br> <br>
 					<table class="table col-lg-12" id="nTable">
 						<thead class="thead-light">
 							<tr>
 								<th scope="col" style="width: 1%"></th>
 								<th scope="col" style="width: 6%">#</th>
-								<th scope="col" style="width: 40%">제목</th>
-								<th scope="col" style="width: 10%">작성자</th>
-								<th scope="col" style="width: 13%">작성일</th>
-								<th scope="col" style="width: 10%">조회수</th>
+								<th scope="col" style="width: 10%">닉네임</th>
+								<th scope="col" style="width: 23%">이메일</th>
+								<th scope="col" style="width: 10%">평점</th>
+								<th scope="col" style="width: 10%">출석률</th>
+								<th scope="col" style="width: 10%">관리</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${nList }" var="notice">
+							@@@@@@@@평점, 출석률, 추방버튼 활성 필요
+							<c:forEach items="${mList }" var="member">
 								<tr>
 									<th>
-										<input type="hidden" name="noNo" value="${notice.noNo }"> 
-										<input type="hidden" name="noMotherNo" value="${notice.noMotherNo }">
-										<input type="hidden" name="mainNotice" value="${notice.mainNotice }">
-										<input type="hidden" name="mainSetDate" value="${notice.mainSetDate }">
-										<input type="hidden" name="stNo" value="${notice.stNo }">
+										<input type="hidden" name="mbNo" value="${ member.mbNo }"> 
 									</th>
-									<th scope="row">${notice.rowNum }</th>
-									<td class="">
-										<c:url var="nDetail" value="/notice/noticeDetail">
-											<c:param name="noNo" value="${notice.noNo}"></c:param>
-										</c:url>
-										 <a href="${nDetail }" class="noTitle">${notice.noTitle }</a>
-										<!-- 누르면 댓글 팝업창으로 --> 
-										<a href="#" role="button" id="reply-list"> 
-											<span class="">
-												<c:if test="${notice.replyCnt ne 0 }">
-													[${notice.replyCnt}]
-												</c:if> 
-												<c:if test="${notice.replyCnt eq 0}">
-													[${notice.replyCnt}]
-												</c:if>
-											</span>
-										</a> 
-										<span style="color: coral;"> 
-											<c:if test="${notice.noInsertDate >= nowDay }">
-												<%-- <img class="upload" src="<c:url value='/resources/images/new2.png' />" style="width: 15px;height: 15px;"> --%>
-		                    						<sup><b>N</b></sup>
-		                    						
-		                    					</c:if>
-										</span>
+									<th scope="row">${member.rnum } </th>
+									<td class="">${ member.mbNickname }</td>
+									<td>${ member.mbEmail }</td>
+									<td>4.6</td>
+									<td>99%</td>
+									<td> 
+										<c:if test="${ member.mbNo ne study.leaderNo }">
+											<form action="" method="post">
+												<input type="submit" class="btn waves-effect waves-light btn-danger" value="추방">
+												<input type="hidden" name="mbNo" value="${ member.mbNo }">
+											</form>
+										</c:if>
+										<c:if test="${member.mbNo eq study.leaderNo }">
+											나는 팀장이다! 
+										</c:if>
 									</td>
-									<td>${notice.noWriter }</td>
-									<td>${notice.noInsertDate }</td>
-									<td>${notice.noCount}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 						<tr></tr>
 					</table>
 					<!-- 페이징 -->
-					<div class="col-md-5"></div>
+					<%-- <div class="col-md-5"></div>
 					<div class="row">
 						<nav aria-label="Page navigation example">
 							<c:if test="${ search.searchValue eq null}">
@@ -223,7 +182,6 @@
 									</li>
 								</ul>
 							</c:if>
-							
 							<c:if test="${search.searchValue ne null }">
 								<ul class="pagination">
 									<c:url var="before" value="/notice/noticeSearch">
@@ -285,15 +243,15 @@
 							</c:if>
 						</nav>
 					</div>
-				</div>
+				</div>--%>
 			</div>
-		</div>
+		</div> 
 		<!-- footer -->
 		<jsp:include page="../common/studyFooter.jsp" />
 	</div>
 	<script>
-		$("#sidebarnav>li:nth-child(5)").addClass("selected");
-		$("#sidebarnav>li:nth-child(5) a").addClass("active");
+		$("#sidebarnav>li:nth-child(12)").addClass("selected");
+		$("#sidebarnav>li:nth-child(12) a").addClass("active");
 		
 		$('#currentPage').click(function() { // 현재페이지를 클릭했을때 클릭 안되게 
 			return false;

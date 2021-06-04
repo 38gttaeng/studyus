@@ -49,4 +49,6 @@ public class AdminController {
 	
 //	@RequestMapping(value="/study/list"
 	
+	// 결제 정보 조회 
+	
 }

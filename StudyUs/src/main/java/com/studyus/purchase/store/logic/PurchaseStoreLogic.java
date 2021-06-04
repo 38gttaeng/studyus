@@ -17,9 +17,19 @@ public class PurchaseStoreLogic implements PurchaseStore{
 	public SqlSession sqlSession;
 
 	@Override
+	public ArrayList<Study> printStudyList(Study study) {
+		return (ArrayList)sqlSession.selectList("studyMapper.printStudyList", study);
+	}
+	
+	@Override
 	public int insertPremium(Purchase purchase) {
 		System.out.println(purchase.toString());
 		return sqlSession.insert("purchaseMapper.insertPremium", purchase);
+	}
+	
+	@Override
+	public int updateStudy(Study study) {
+		return sqlSession.update("studyMapper.updatePreStudy", study);
 	}
 
 	@Override
@@ -28,9 +38,5 @@ public class PurchaseStoreLogic implements PurchaseStore{
 		return null;
 	}
 
-	@Override
-	public ArrayList<Study> printStudyList(Study study) {
-		return (ArrayList)sqlSession.selectList("studyMapper.printStudyList", study);
-	}
 
 }

@@ -3,6 +3,7 @@ package com.studyus.notice.domain;
 public class Search {
 	private String searchCondition;
 	private String searchValue;
+	private int stNo;
 	
 	public Search() {}
 
@@ -22,10 +23,17 @@ public class Search {
 		this.searchValue = searchValue;
 	}
 
+	public int getStNo() {
+		return stNo;
+	}
+
+	public void setStNo(int stNo) {
+		this.stNo = stNo;
+	}
+
 	@Override
 	public String toString() {
-		return "Search [searchCondition=" + searchCondition + ", searchValue=" + searchValue + "]";
+		return "Search [searchCondition=" + searchCondition + ", searchValue=" + searchValue + ", stNo=" + stNo + "]";
 	}
-	
 	
 }

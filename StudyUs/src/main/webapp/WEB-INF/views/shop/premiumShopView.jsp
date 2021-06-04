@@ -12,7 +12,6 @@
   <body>
     <!-- menubar -->
     <jsp:include page="../common/menubar.jsp"/>
-   	<input type="hidden" name="stNo" value="${purchase.stNo }">
    	<input type="hidden" name="mbNo" value="${loginUser.mbNo }">
   <div class="hero-wrap hero-wrap-2" style="background-image: url('/resources/images/illustration.png');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
@@ -27,7 +26,7 @@
     </div>
 	<div class="text-center" style="margin-top:70px">
 		<h5><b>프리미엄 이용권</b></h5>
-		<p>프리미엄 이용권으로 최대 10인까지 함께 공부하세요.</p>
+		<p>프리미엄 이용권으로 최대 20인까지 함께 공부하세요.</p>
 	</div>
 	    <!-- Button trigger modal -->
 
@@ -83,7 +82,7 @@
 		            <h3 class="heading-2 mb-3">Enjoy All The Features</h3>
 		            
 		            <ul class="pricing-text mb-4">
-		              <li>최대인원 <strong>10명</strong></li>
+		              <li>최대인원 <strong>20명</strong></li>
 		              <li>메인 페이지에 스터디 광고 가능</li>
 		              <li>&nbsp;</li>
 		              <li>&nbsp;</li>
@@ -156,22 +155,22 @@
     						<div class="col-md-6">
     							<div class="card">
 						        <div class="card-header">
-										  <a class="card-link" data-toggle="collapse"  href="#menu4" aria-expanded="false" aria-controls="menu4">Can I cancel a domain? <span class="collapsed"><i class="ion-ios-arrow-up"></i></span><span class="expanded"><i class="ion-ios-arrow-down"></i></span></a>
+										  <a class="card-link" data-toggle="collapse"  href="#menu4" aria-expanded="false" aria-controls="menu4">모든 스터디에 적용되나요? <span class="collapsed"><i class="ion-ios-arrow-up"></i></span><span class="expanded"><i class="ion-ios-arrow-down"></i></span></a>
 						        </div>
 						        <div id="menu4" class="collapse">
 						          <div class="card-body">
-												<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+												<p>하나의 스터디에만 적용되며, 여러 개의 스터디를 운영 중일 시 별도의 구매가 필요합니다.</p>
 						          </div>
 						        </div>
 						      </div>
 
 						      <div class="card">
 						        <div class="card-header">
-										  <a class="card-link" data-toggle="collapse"  href="#menu5" aria-expanded="false" aria-controls="menu5">How do I transfer a domain name? <span class="collapsed"><i class="ion-ios-arrow-up"></i></span><span class="expanded"><i class="ion-ios-arrow-down"></i></span></a>
+										  <a class="card-link" data-toggle="collapse"  href="#menu5" aria-expanded="false" aria-controls="menu5">누구나 구매 가능한가요? <span class="collapsed"><i class="ion-ios-arrow-up"></i></span><span class="expanded"><i class="ion-ios-arrow-down"></i></span></a>
 						        </div>
 						        <div id="menu5" class="collapse">
 						          <div class="card-body">
-												<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+												<p>스터디 장만 구매 가능하며, 스터디원으로 참여하고 있을 경우 구매하실 수 없습니다.</p>
 						          </div>
 						        </div>
 						      </div>
@@ -206,10 +205,12 @@
 	      </div>
 	      <div class="modal-body">
 	      <p>적용할 스터디를 선택해주세요.</p>
-	        <select class="custom-select custom-select-lg mb-3" name="stNo">
+	        		<input type="hidden" name="stNo" value="${purchase.stNo }">
+   					<input type="hidden" name="puInsertDate" value="${purchase.puInsertDate }">
+	        <select class="custom-select custom-select-lg mb-3" name="stNo" id="stNo">
 	        <c:if test="${sList ne null }">
 	        	<c:forEach  items="${sList }" var="study">
-				 	<option value="${study.studyNo }"> ${study.studyName }</option>
+				 	<option value="${study.studyNo }">[ ${study.studyNo } ] ${study.studyName }</option>
 			 	</c:forEach>
 			 	</c:if>
 			</select>
@@ -256,10 +257,10 @@
 		    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 		    	jQuery.ajax({
 		    		url: "/shop/premiumShop", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
-		    		type: 'get',
+		    		type: 'post',
 		    		dataType: 'json',
 		    		data:{
-		    			mbNo:mbNo
+		    			"stNo" : $("#stNo").val()
 		    		}
 		    	}).done(function(data) {
 		    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우

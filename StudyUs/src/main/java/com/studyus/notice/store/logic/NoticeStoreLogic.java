@@ -133,4 +133,9 @@ public class NoticeStoreLogic implements NoticeStore{
 		return sqlSession.update("noticeMapper.deleteReply", notice);
 	}
 
+	@Override
+	public ArrayList<Notice> printRecentNotice(Notice notice) {
+		return (ArrayList)sqlSession.selectList("noticeMapper.printRecentNotice", notice);
+	}
+
 }

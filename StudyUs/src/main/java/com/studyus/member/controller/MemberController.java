@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.studyus.enrollment.domain.Enrollment;
@@ -295,5 +297,26 @@ public class MemberController {
 	public String myReviewList() {
 		
 		return null;
+	}
+	
+//	@RequestMapping(value="/study/38gttaeng/member")
+//	public String memberView() {
+//		return "study/studyMember";
+//	}
+	// 스터디 가입한 회원 목록
+	@RequestMapping(value="/study/{url}/member", method=RequestMethod.GET)
+	public ModelAndView printStudyMember(ModelAndView mv, HttpSession session,  @PathVariable String url) {
+		Study study = (Study)session.getAttribute("study");
+		
+		if (study == null) {
+			study = sService.printOneByUrl(url);
+		}
+		
+		ArrayList<Member> mList = service.printAllByStudyNo(study.getStudyNo());
+		
+		System.out.println(mList);
+		mv.addObject("mList", mList);
+		mv.setViewName("study/studyMember");
+		return mv;
 	}
 }

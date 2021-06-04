@@ -70,11 +70,20 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-start">
-                                    <h5 class="card-title">공지사항</h5>
+                                    <h5 class="card-title">최신 공지사항</h5>
                                 </div>
                                 <hr>
                                 <div class="">
-                                	<p class="text-muted font-14 mb-3">공지사항 그으으으으ㅡ으으으으ㅡ으으을</p>
+	                                	<c:forEach items="${recentNotice }" var="notice" >
+    	                            		<c:if test="${notice.noContents ne null }">
+											<div class="card-body">
+													${notice.noContents }
+											</div>
+										</c:if>
+										<c:if test="${notice.noContents eq null }">
+											&nbsp;
+										</c:if>
+									</c:forEach>
                                 </div>
                             </div>
                         </div>

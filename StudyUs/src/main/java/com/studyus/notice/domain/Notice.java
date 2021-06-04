@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import com.studyus.file.domain.FileVO;
+import com.studyus.member.domain.Member;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class Notice {
 	private int replyCnt; // 게시글 댓글 수 
 	private int mainNotice;
 	private String mainSetDate;
-	private ArrayList<FileVO> noFiles;
+	private Member member;
 	
 	public Notice() {}
 
@@ -167,12 +168,12 @@ public class Notice {
 		this.mainSetDate = mainSetDate;
 	}
 
-	public ArrayList<FileVO> getNoFiles() {
-		return noFiles;
+	public Member getMember() {
+		return member;
 	}
 
-	public void setNoFiles(ArrayList<FileVO> noFiles) {
-		this.noFiles = noFiles;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 	@Override
@@ -181,8 +182,7 @@ public class Notice {
 				+ noMotherNo + ", noWriter=" + noWriter + ", replyWriter=" + replyWriter + ", noInsertDate="
 				+ noInsertDate + ", noTitle=" + noTitle + ", noContents=" + noContents + ", noFileName=" + noFileName
 				+ ", noReFileName=" + noReFileName + ", noStatus=" + noStatus + ", noCount=" + noCount + ", replyCnt="
-				+ replyCnt + ", mainNotice=" + mainNotice + ", mainSetDate=" + mainSetDate + ", noFiles=" + noFiles
-				+ "]";
+				+ replyCnt + ", mainNotice=" + mainNotice + ", mainSetDate=" + mainSetDate + ", member=" + member + "]";
 	}
-	
+
 }
