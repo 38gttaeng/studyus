@@ -194,6 +194,14 @@
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                            	<c:if test="${ !empty enrolledStudyList }">
+			                		<c:forEach var="study" items="${ enrolledStudyList }" varStatus="i">
+					                	<a class="dropdown-item" href="/study/${study.url }">
+					                        	<c:out value="${study.studyName }"></c:out>
+					                    </a>
+				                    </c:forEach>
+			                	</c:if>
+			                	<div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/member/myPage"><i data-feather="user"
                                         class="svg-icon mr-2 ml-1"></i>
                                     마이페이지</a>
@@ -218,7 +226,7 @@
             	<!-- Sidebar navigation-->
 	            <nav class="sidebar-nav">
 	                <ul id="sidebarnav">
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/${study.url }"
 	                            aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
 	                                class="hide-menu">${ study.studyName } </span></a></li>
 	                    <li class="list-divider"></li>
@@ -270,7 +278,7 @@
 	                            </li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/chat"
 	                            aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
 	                                class="hide-menu">채팅 </span></a></li>
 			
@@ -309,7 +317,7 @@
 	                        </ul>
 	                    </li>
 	                    <c:if test="${ loginUser.mbNo == study.leaderNo }">
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/enrollment/list"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/${study.url }/enrollment/list"
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
 	                                class="hide-menu">가입신청</span></a>
 	                    </li>

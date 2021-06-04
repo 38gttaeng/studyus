@@ -41,13 +41,22 @@
 		<result property="mbStatus" column="MB_STATUS"/>
 	</resultMap>
 
-	<insert id="insertEnrollment" parameterType="Enrollment">
+	<insert id="insertEnrollmentApply" parameterType="Enrollment">
 		INSERT INTO ENROLLMENT VALUES (SEQ_ENROLLMENT.NEXTVAL,
 										#{memberNo},
 										#{studyNo},
 										SYSDATE,
 										#{message},
 										DEFAULT)
+	</insert>
+	
+	<insert id="insertEnrollment" parameterType="Enrollment">
+		INSERT INTO ENROLLMENT VALUES (SEQ_ENROLLMENT.NEXTVAL,
+										#{memberNo},
+										#{studyNo},
+										SYSDATE,
+										#{message},
+										#{status})
 	</insert>
 	
 	<select id="selectAllByStudyNo" parameterType="int" resultMap="enrollmentWithMemberResultMap">

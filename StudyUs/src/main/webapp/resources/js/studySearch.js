@@ -160,7 +160,11 @@ function loadAdditionally() {
                 var sStudyName = result[i].studyName;
                 var sIntroduce = result[i].introduce;
                 var sHashtags = result[i].hashtagList;
+                var filename = result[i].filename;
                 var hashtagString = '';
+
+                console.log(result[i].filename);
+                console.log(filename);
 
                 if (sHashtags[i] != undefined) {
                     for (var j = 0; j < sHashtags.length; j ++) {
@@ -170,7 +174,7 @@ function loadAdditionally() {
 
                 var studyText = '<div class="study-container col-lg-4 mb-4">' +
                                     '<div class="card h-100" data-toggle="modal" data-target="#exampleModal" onclick="onStudyContainerClicked(' + (i + studyList.length) + ');">' +
-                                        '<img src="/resources/images/sample1.jpg" class="card-img-top" alt="...">' +
+                                        '<img src=' + location.protocol + "//" + location.hostname + (location.port ? ':' + location.port: '') + '/resources/studyUploadFiles/' + filename + ' class="card-img-top" alt="...">' +
                                         '<div class="card-body">' +
                                             '<h5 class="card-title study-name">' + sStudyName + '</h5>' +
                                             '<p class="card-text study-introduce">' + sIntroduce + '</p>' +

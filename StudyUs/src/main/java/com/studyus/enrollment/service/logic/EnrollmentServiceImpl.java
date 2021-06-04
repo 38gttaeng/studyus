@@ -20,6 +20,11 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	public int apply(Enrollment enrollment, String url) throws Exception {
 		return eStore.insertEnrollment(enrollment, url);
 	}
+	
+	@Override
+	public int insertOne(Enrollment enrollment) throws Exception {
+		return eStore.insertEnrollment(enrollment);
+	}
 
 	@Override
 	public int modifyStatus(Enrollment enrollment) throws Exception {

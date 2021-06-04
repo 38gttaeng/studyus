@@ -80,7 +80,7 @@
 		                <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
 		                	<c:if test="${ !empty enrolledStudyList }">
 		                		<c:forEach var="study" items="${ enrolledStudyList }" varStatus="i">
-				                	<a class="dropdown-item" href="/study/38gttaeng">
+				                	<a class="dropdown-item" href="/study/${study.url }">
 				                        	<c:out value="${study.studyName }"></c:out>
 				                    </a>
 			                    </c:forEach>

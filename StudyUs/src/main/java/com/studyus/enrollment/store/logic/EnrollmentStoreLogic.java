@@ -24,6 +24,11 @@ public class EnrollmentStoreLogic implements EnrollmentStore {
 	public int insertEnrollment(Enrollment enrollment, String url) throws Exception {
 		int studyNo = sStore.selectStudyNoByUrl(url);
 		enrollment.setStudyNo(studyNo);
+		return session.insert("enrollmentMapper.insertEnrollmentApply", enrollment);
+	}
+	
+	@Override
+	public int insertEnrollment(Enrollment enrollment) {
 		return session.insert("enrollmentMapper.insertEnrollment", enrollment);
 	}
 

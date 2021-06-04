@@ -51,7 +51,7 @@
     </div>
 
 	<div class="container">
-		<form class="py-5 pt-5 mx-auto" id="registerForm" style="max-width: 600px;" action="/study/registerPost" method="post">
+		<form class="py-5 pt-5 mx-auto" id="registerForm" style="max-width: 600px;" action="/study/registerPost" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="inputEmail4">스터디명 <span style="color: red;">*</span></label> 
 				<input type="text" class="form-control" id="inputName" name="studyName" required>
@@ -101,7 +101,7 @@
 			    <span class="input-group-text" id="inputGroupFileAddon01">대표사진</span>
 			  </div>
 			  <div class="custom-file">
-			    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+			    <input type="file" class="custom-file-input" id="study-file" name="file" aria-describedby="inputGroupFileAddon01">
 			    <label class="custom-file-label" for="inputGroupFile01">파일 선택</label>
 			  </div>
 			</div>

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.studyus.chat.domain.Chat;
+import com.studyus.chat.domain.ChatMessage;
 import com.studyus.chat.service.ChatService;
 import com.studyus.chat.store.ChatStore;
 
@@ -16,19 +16,19 @@ public class ChatServiceImpl implements ChatService {
 	ChatStore cStore;
 
 	@Override
-	public int insertChat(Chat chat) throws Exception {
+	public int insertChat(ChatMessage chat) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public ArrayList<Chat> printAllRecent(int studyNo) throws Exception {
+	public ArrayList<ChatMessage> printAllRecent(int studyNo) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Chat printOne(int chatNo) throws Exception {
+	public ChatMessage printOne(int chatNo) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

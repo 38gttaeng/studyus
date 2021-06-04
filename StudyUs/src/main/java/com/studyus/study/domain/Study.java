@@ -1,12 +1,13 @@
 package com.studyus.study.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-public class Study {
+public class Study implements Serializable {
 	
 	private int studyNo; // 스터디 pk
 	private int leaderNo; // 모임장 pk

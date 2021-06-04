@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -22,9 +23,11 @@ import com.google.gson.JsonObject;
 import com.studyus.attendance.domain.Attendance;
 import com.studyus.attendance.service.AttendanceService;
 import com.studyus.common.RedirectWithMsg;
+import com.studyus.common.util.FileUtils;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.enrollment.domain.EnrollmentWithMember;
 import com.studyus.enrollment.service.EnrollmentService;
+import com.studyus.file.controller.FileController;
 import com.studyus.meeting.domain.Meeting;
 import com.studyus.meeting.service.MeetingService;
 import com.studyus.member.domain.Member;
@@ -75,20 +78,31 @@ public class StudyController {
 								@RequestParam(value="start-h") String startHour,
 								@RequestParam(value="start-m") String startMinute,
 								@RequestParam(value="end-h") String endHour,
-								@RequestParam(value="end-m") String endMinute) throws Exception {
+								@RequestParam(value="end-m") String endMinute,
+								@RequestParam(value="file") MultipartFile file) throws Exception {
 		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		//TODO 파일 저장기능 구현 후 setFilename()
 		study.setLeaderNo(loginUser.getMbNo());
 		study.setStart(startHour + ":" + startMinute);
 		study.setEnd(endHour + ":" + endMinute);
+		String fileName = FileUtils.saveFile(file, "studyUploadFiles", request);
+		study.setFilename(fileName);
 		
-		int result = sService.registerStudy(study, hashtagList);
+		int registeredStudyNo = sService.registerStudy(study, hashtagList);
 		
-		if (0 < result) {
-			// TODO 스터디 메인으로 url 변경
-			return new RedirectWithMsg().redirect(request, "스터디가 생성되었습니다.", "/");
+		if (0 < registeredStudyNo) { // 스터디 생성 성공
+			// 생성한 스터디에 대해 자신의 enrollment 추가
+			Enrollment enrollment = new Enrollment();
+			enrollment.setMemberNo(loginUser.getMbNo());
+			enrollment.setStudyNo(registeredStudyNo);
+			enrollment.setStatus(1);
+			eService.insertOne(enrollment);
+			
+			// 가입한 스터디 리스트를 새로 가져와서 세션에 저장
+			ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
+			request.getSession().setAttribute("enrolledStudyList", enrolledStudyList);
+			return new RedirectWithMsg().redirect(request, "스터디가 생성되었습니다.", "/study/" + study.getUrl());
 		} else {
 			String referer = request.getHeader("Referer");
 			return new RedirectWithMsg().redirect(request, "스터디 생성 오류", "redirect:" + referer);
@@ -134,7 +148,8 @@ public class StudyController {
 	// 스터디 검색 비동기 추가로딩
 	@ResponseBody
 	@RequestMapping(value="/study/search/additional", method=RequestMethod.GET, produces="application/text; charset=UTF-8")
-	public String searchAdditionally(@RequestParam(required=false) String keyword,
+	public String searchAdditionally(HttpServletRequest request,
+							@RequestParam(required=false) String keyword,
 							@RequestParam(required=false) String[] hashtags,
 							@RequestParam(required=false) int page) throws Exception {
 		
@@ -152,7 +167,6 @@ public class StudyController {
 	// 스터디 상세 페이지 get by Url
 	@RequestMapping(value="/study/{url}", method=RequestMethod.GET)
 	public String mainViewUrl(HttpServletRequest request, @PathVariable("url") String url) throws Exception {
-		
 		Study study = sService.printOneByUrl(url);
 		Member member = (Member) request.getSession().getAttribute("loginUser");
 		

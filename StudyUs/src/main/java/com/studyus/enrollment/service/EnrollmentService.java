@@ -16,6 +16,8 @@ public interface EnrollmentService {
 	
 	// 스터디 가입신청
 	public int apply (Enrollment enrollment, String url) throws Exception;
+
+	public int insertOne(Enrollment enrollment) throws Exception;
 	
 	// 수정
 	public int modifyStatus (Enrollment enrollment) throws Exception;

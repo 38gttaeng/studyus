@@ -12,6 +12,13 @@ public interface StudyService {
 	// TODO throws Exception 추가
 	
 	// 스터디 생성 post
+	/**
+	 * 스터디, 해시태그, 스터디-해시태그 관계를 모두 데이터베이스에 저장합니다.
+	 * 저장된 스터디의 pk값(studyNo)를 반환합니다.
+	 * @param study
+	 * @param hashtagList
+	 * @return studyNo
+	 */
 	public int registerStudy(Study study, String[] hashtagList);
 	
 	// url 중복확인
