@@ -120,6 +120,39 @@
 		WHERE SU_NO = #{suNo}
 	</update>
 	
+	<!-- 과제율 계산 : 총 과제 제출 개수 / 스터디 내부 과제 제출 개수 -->
+	<select id="selectCountByMbNo" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM SUBMITTED_ASSIGNMENT
+		WHERE MB_NO = #{mbNo}
+		AND SU_STATUS = 1
+	</select>
+	
+	<select id="selectCountByStNo" parameterType="SubmittedAssignment" resultType="_int">
+		SELECT
+		   COUNT(*)
+		FROM SUBMITTED_ASSIGNMENT S
+		JOIN ASSIGNMENT AI ON S.AS_NO = AI.AS_NO
+		JOIN ASSIGN A
+		ON AI.GR_NO = A.GR_NO
+		JOIN ASSIGNMENT_GROUP G
+		ON AI.GR_NO = G.GR_NO
+		WHERE A.MB_NO = #{mbNo}
+		AND S.SU_STATUS = 1
+		AND G.ST_NO = #{stNo}
+	</select>
+	
+	<!-- 파일함 -->
+	<select id="selectAllContents" parameterType="_int" resultMap="sAssignmentResultMap">
+		SELECT S.SU_NO, S.SU_MOTHER_NO, S.SU_CONTENTS
+		FROM SUBMITTED_ASSIGNMENT S
+		JOIN ASSIGNMENT A
+		USING(AS_NO)
+		JOIN ASSIGNMENT_GROUP G
+		USING(GR_NO)
+		WHERE ST_NO = #{stNo}
+		AND SU_STATUS != 0
+	</select>
+	
 	<!-- 관리 -->
 	<select id="selectAllByStNo" parameterType="_int" resultType="Map">
 		SELECT G.GR_NAME, AS_NO, A.AS_NAME, S.SU_NO, MB_NO, M.MB_NICKNAME, S.SU_INSERTDATE, S.SU_CONTENTS

@@ -81,7 +81,7 @@
 	background-color : rgb(188, 209, 241);
 }
 
-#group-member {
+#group-member, #re-group-member {
 	width : 200px;
 	float : right;
 }
@@ -90,10 +90,30 @@
 	background-color : rgb(196, 178, 234);
 }
 
+/* 멤버 등록 버튼 */
+
+#input-box, #re-input-box {
+	margin-top : 10px;
+}
+
+.del-btn {
+	margin : 5px;
+	cursor : pointer;
+}
+
 /* 스터디 정보 */
 
 .oneStudy {
 	border-radius : 20px !important;
+}
+
+#info-bottom {
+	margin-top : 20px;
+}
+
+.mem-btn {
+	margin : 0 5px;
+	background-color : #fff !important;
 }
 
 /* 테이블 */

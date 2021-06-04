@@ -38,12 +38,19 @@
 						<c:url var="cModify" value="modifyView">
 							<c:param name="caNo" value="${cafe.caNo }"></c:param>
 						</c:url>
+						<c:url var="roomModify" value="room-modifyView">
+							<c:param name="caNo" value="${cafe.caNo }"></c:param>
+						</c:url>
 						<c:url var="cReserv" value="reservation">
 							<c:param name="caNo" value="${cafe.caNo }"></c:param>
 						</c:url>
 						<c:if test="${loginUser.mbNo == 1}">
-							<a href="${cModify }" class="btn btn-primary px-4 py-3"
-								style="background-color: white; color: purple">수정하기</a>
+							<div class="btn-group">
+								<a href="${cModify }" class="btn btn-primary px-4 py-3"
+									style="background-color: white; color: purple">정보수정</a>
+								<a href="${roomModify }" class="btn btn-primary px-4 py-3"
+								style="background-color: white; color: purple">룸설정</a>
+							</div>
 						</c:if>
 						<c:if test="${loginUser.mbNo != 1}">
 							<a href="${cReserv }" class="btn btn-primary px-4 py-3"

@@ -102,6 +102,22 @@
 		AND GR_STATUS = 1
 	</update>
 	
+	
+	<!-- 과제 할당 추가 -->
+	<insert id="insertAssign" parameterType="Assign">
+		INSERT INTO ASSIGN VALUES (
+			#{grNo}, #{mbNo}
+		)
+	</insert>
+	
+	<!-- 과제 할당 삭제 -->
+	<delete id="deleteAssign" parameterType="Assign">
+		DELETE FROM ASSIGN
+		WHERE GR_NO = #{grNo}
+		AND MB_NO = #{mbNo}
+	</delete>
+	
+	
 	<!-- 과제 등록 -->
 	<insert id="insertAssignment" parameterType="Assignment">
 	
@@ -127,4 +143,50 @@
 		AS_STATUS = 0
 		WHERE AS_NO = #{asNo}
 	</update>
+	
+	
+	<!-- 마이페이지 내 과제 보기 -->
+	<select id="selectAllByMbNo" parameterType="_int" resultMap="assignmentResultMap">
+	SELECT
+	    AI.AS_NO, AI.GR_NO, AI.AS_CONTENTS, AI.AS_INSERTDATE, AI.AS_DEADLINE, G.GR_COLOR AS AS_STATUS
+	FROM ASSIGNMENT AI
+	JOIN ASSIGN A
+	ON AI.GR_NO = A.GR_NO
+	JOIN ASSIGNMENT_GROUP G
+	ON AI.GR_NO = G.GR_NO
+	WHERE A.MB_NO = #{mbNo};
+	</select>
+	
+	<!-- 과제율 계산 : 전체 과제 개수 / 스터디 내부 과제 개수 -->
+	<select id="selectCountByMbNo" parameterType="_int" resultType="_int">
+	<![CDATA[
+		SELECT
+		   COUNT(*)
+		FROM ASSIGNMENT AI
+		JOIN ASSIGN A
+		ON AI.GR_NO = A.GR_NO
+		JOIN ASSIGNMENT_GROUP G
+		ON AI.GR_NO = G.GR_NO
+		WHERE A.MB_NO = #{mbNo}
+	    AND SUBSTR(AS_DEADLINE, 1, 10)	<= TO_CHAR(LAST_DAY(ADD_MONTHS(SYSDATE, -1)), 'YYYY/MM/DD')
+        AND SUBSTR(AS_DEADLINE, 1, 10) >= TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYY/MM/') || '01' 
+     ]]>
+	</select>
+	
+	<select id="selectCountByStNo" parameterType="Assignment" resultType="_int">
+	<![CDATA[
+		SELECT
+		   COUNT(*)
+		FROM ASSIGNMENT AI
+		JOIN ASSIGN A
+		ON AI.GR_NO = A.GR_NO
+		JOIN ASSIGNMENT_GROUP G
+		ON AI.GR_NO = G.GR_NO
+		WHERE A.MB_NO = #{mbNo}
+		AND G.ST_NO = #{stNo}
+		AND SUBSTR(AS_DEADLINE, 1, 10)	<= TO_CHAR(LAST_DAY(ADD_MONTHS(SYSDATE, -1)), 'YYYY/MM/DD')
+        AND SUBSTR(AS_DEADLINE, 1, 10) >= TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYY/MM/') || '01' 
+	]]>
+	</select>
+	
 </mapper>

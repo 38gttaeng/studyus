@@ -102,6 +102,11 @@ public class SAssignmentServiceImpl implements SAssignmentService {
 	}
 
 	@Override
+	public ArrayList<SubmittedAssignment> printAllContents(int stNo) {
+		return suStore.selectAllContents(stNo);
+	}
+	
+	@Override
 	public ArrayList<HashMap<String, Object>> printAllByStNo(int stNo) {
 		return suStore.selectAllByStNo(stNo);
 	}

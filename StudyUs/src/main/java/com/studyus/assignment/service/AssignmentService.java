@@ -1,7 +1,9 @@
 package com.studyus.assignment.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.studyus.assignment.domain.Assign;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.common.PageInfo;
@@ -26,6 +28,13 @@ public interface AssignmentService {
 	public ArrayList<Assignment> printAll(PageInfo pi, int grNo);
 	
 	/**
+	 * 전체보기 (삭제용)
+	 * @param grNo
+	 * @return
+	 */
+	public ArrayList<Assignment> printAllAssignment(int grNo);
+	
+	/**
 	 * 과제 그룹정보 모두 보기
 	 * @param stNo
 	 * @return
@@ -46,6 +55,13 @@ public interface AssignmentService {
 	 */
 	public ArrayList<Assignment> printAllByStudyNo(int stNo);
 	
+	/**
+	 * 그룹에 해당하는 과제 할당정보 모두 가져오기
+	 * @param grNo
+	 * @return
+	 */
+	public ArrayList<Integer> printAllAssign(int grNo);
+	
 	///////////////////////////////////////////////////////////
 	
 	/**
@@ -62,18 +78,36 @@ public interface AssignmentService {
 	public int modifyGroup(AssignmentGroup asGroup);
 	public int removeGroup(int grNo);
 	
-	// 과제와 댓글 추가, 수정, 삭제
+	// 과제 할당 추가, 삭제
+	public int addAssign(Assign assign);
+	public int deleteAssign(Assign assign);
 	
+	// 과제와 댓글 추가, 수정, 삭제
 	public int registerAssignment(Assignment assignment);
 	public int modifyAssignment(Assignment assignment);
 	public int removeAssignment(int asNo);
 	
 	////////////////////////////////////////////////////////////
-	// 현재날짜 기준으로 그 날이 속한 달!
-		
+	
 	/**
-	 * 한달 총 과제 개수
-	 * @param stNo
+	 * 마이페이지 과제 리스트
+	 * @param mbNo
+	 * @return
 	 */
-	public int countAssignment(int stNo);
+	public ArrayList<Assignment> printAllByMbNo(int mbNo);
+	
+	/**
+	 * 과제율(전체 - 스터디 가입 신청 / 마이페이지)
+	 * @param mbNo
+	 * @return
+	 */
+	public int printAssignmentRate(int mbNo);
+	
+	/**
+	 * 과제율(스터디 내부)
+	 * @param assignment(stNo, mbNo)
+	 * @return
+	 */
+	public int printAssignmentRate(Assignment assignment);
+
 }

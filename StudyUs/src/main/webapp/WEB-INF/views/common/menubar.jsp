@@ -69,33 +69,33 @@
 				</c:if>
 	          	<!-- 로그인 후 -->
 	          	<c:if test="${ !empty loginUser }">
-	 	          <li class="nav-item dropdown">
-		                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		                    <img src="/resources/images/${ loginUser.mbPhoto }.png" class="rounded-circle" width="25">
-		                    <span class="ml-2 d-none d-lg-inline-block">
-		                    	<span class="text-dark">${ loginUser.mbNickname }</span>
-		                    	<i data-feather="chevron-down" class="svg-icon"></i>
-		                    </span>
-		                </a>
-		                <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-		                	<c:if test="${ !empty enrolledStudyList }">
-		                		<c:forEach var="study" items="${ enrolledStudyList }" varStatus="i">
-				                	<a class="dropdown-item" href="/study/38gttaeng">
-				                        	<c:out value="${study.studyName }"></c:out>
-				                    </a>
-			                    </c:forEach>
-			                	<div class="dropdown-divider"></div>
-		                	</c:if>
-		                    <a class="dropdown-item" href="/member/myPage">
-		                        	마이페이지
-		                    </a>
+	          	<li class="nav-item dropdown">
+		          	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+		          		<img src="/resources/images/${ loginUser.mbPhoto }.png" class="rounded-circle" width="25">
+	                    <span class="ml-2 d-none d-lg-inline-block">
+	                    	<span class="text-dark">${ loginUser.mbNickname }</span>
+	                    	<i data-feather="chevron-down" class="svg-icon"></i>
+	                    </span>
+		          	</a>
+	              	<div class="dropdown-menu">
+	                	<c:if test="${ !empty enrolledStudyList }">
+	                		<c:forEach var="study" items="${ enrolledStudyList }" varStatus="i">
+			                	<a class="dropdown-item" href="/study/38gttaeng">
+			                        	<c:out value="${study.studyName }"></c:out>
+			                    </a>
+		                    </c:forEach>
 		                	<div class="dropdown-divider"></div>
-		                    <a class="dropdown-item" href="/member/logout">
-		                        	로그아웃
-		                    </a>
-		                </div>
-		            </li> 
-	              </c:if>
+	                	</c:if>
+	                    <a class="dropdown-item" href="/member/myPage">
+	                        	마이페이지
+	                    </a>
+	                	<div class="dropdown-divider"></div>
+	                    <a class="dropdown-item" href="/member/logout">
+	                        	로그아웃
+	                    </a>
+	                </div>
+	          	</li>
+	            </c:if>
 	            </ul>
 	      </div>
 	    </div>

@@ -38,4 +38,11 @@ public interface MemberService {
 	 * @return ArrayList<Member>
 	 */
 	public ArrayList<Member> printAllByStudyNo(int studyNo);
+	
+	/**
+	 * 해당 과제 그룹에 속한 모든 회원 출력
+	 * @param grNo
+	 * @return
+	 */
+	public ArrayList<Member> printAllAssign(int grNo);
 }

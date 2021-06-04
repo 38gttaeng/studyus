@@ -103,3 +103,21 @@
 .date {
 	letter-spacing : 0.1em;
 }
+
+/* 제출 정보 */
+
+#chart-box {
+	text-align : center;
+	position : relative;
+}
+
+.chart-p {
+	position : absolute;
+	top : 85px;
+	left : 170px;
+}
+
+table {
+	text-align : center;
+}
+

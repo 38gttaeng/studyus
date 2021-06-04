@@ -24,7 +24,6 @@ import com.google.gson.GsonBuilder;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
-import com.studyus.board.domain.Board;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
 import com.studyus.common.RedirectWithMsg;
@@ -51,17 +50,6 @@ public class SAssignmentController {
 	@Autowired
 	private FileController fiController;
 	
-	/******************* 과제 제출여부 보기 *******************/
-	
-	// 과제당 총 과제제출 개수 보여주기
-	public String getSubmittedCheckList(@RequestParam("asNo") int asNo) {
-		return 0 + "";
-	}
-	
-	// 개인당 과제제출 여부 보여주기
-	public String submittedCheckByLogin(HttpSession session, @RequestParam("asNo") int asNo) {
-		return null;
-	}
 	
 	/******************* 과제제출 디테일 *******************/
 	

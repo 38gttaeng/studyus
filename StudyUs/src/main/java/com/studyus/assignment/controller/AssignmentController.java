@@ -2,6 +2,9 @@ package com.studyus.assignment.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.studyus.assignment.domain.Assign;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
@@ -30,7 +34,10 @@ import com.studyus.common.RedirectWithMsg;
 import com.studyus.file.controller.FileController;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.service.FileService;
+import com.studyus.member.domain.Member;
+import com.studyus.member.service.MemberService;
 import com.studyus.study.domain.Study;
+import com.studyus.submittedAssignment.controller.SAssignmentController;
 import com.studyus.submittedAssignment.domain.SubmittedAssignment;
 import com.studyus.submittedAssignment.service.SAssignmentService;
 
@@ -44,21 +51,37 @@ public class AssignmentController {
 	private SAssignmentService suService;
 	
 	@Autowired
+	private SAssignmentController suController;
+	
+	@Autowired
 	private FileService fiService;
 	
 	@Autowired
 	private FileController fiController;
 	
+	@Autowired
+	private MemberService mbService;
+	
 	/******************* 그룹에 따른 리스트 보기 *******************/
 	
 	// 리스트
-	@RequestMapping(value="/study/assignment/groupList", method=RequestMethod.GET)
+	@RequestMapping(value="/study/assignment/group-list", method=RequestMethod.GET)
 	public void groupListView(HttpSession session, HttpServletResponse response) throws IOException {
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		ArrayList<AssignmentGroup> grList = asService.printAllGroup(stNo);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(grList, response.getWriter());
+	}
+	
+	// 스터디에 해당하는 스터디원 정보 모두 가져오기
+	@RequestMapping(value="/study/assignment/mem-list", method=RequestMethod.GET)
+	public void memberListView(HttpSession session, HttpServletResponse response) throws IOException {
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		ArrayList<Member> mbList = mbService.printAllByStudyNo(stNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(mbList, response.getWriter());
 	}
 	
 	@RequestMapping(value="study/assignment", method=RequestMethod.GET)
@@ -71,18 +94,24 @@ public class AssignmentController {
 			session.removeAttribute("groupNo");
 		}
 		session.setAttribute("groupNo", grNo);
+		
+		// 선택된 그룹정보 가져오기
 		AssignmentGroup asGroup = asService.printOneGroup(grNo);
 		
+		// 선택된 그룹에 해당하는 과제 리스트 가져오기
 		int currentPage = (page != null) ? page : 1;
 		int listCount = asService.getListCount(grNo);
 		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
 		ArrayList<Assignment> asList = asService.printAll(pi, grNo);
 		
+		// 선택된 그룹에 해당하는 스터디원 정보 가져오기
+		ArrayList<Member> mbList = mbService.printAllAssign(grNo);
+		
 		mv.addObject("asGroup", asGroup);
 		mv.addObject("asList", asList);
 		mv.addObject("pi", pi);
+		mv.addObject("mbList", mbList);
 		mv.setViewName("study/assignmentList");
-		//////////////////////////////////// 과제제출 확인 관련 메소드도 함께 호출
 		
 		return mv;
 	}
@@ -94,44 +123,51 @@ public class AssignmentController {
 	public ModelAndView assignmentDetail(ModelAndView mv, @RequestParam("asNo") int asNo) {
 		Assignment assignment = asService.printOne(asNo);
 		AssignmentGroup asGroup = asService.printOneGroup(assignment.getGrNo());
+		ArrayList<Member> mbList = mbService.printAllAssign(assignment.getGrNo());
 
-		if(assignment != null && asGroup != null) {
+		if(assignment != null && asGroup != null && !mbList.isEmpty()) {
 			ArrayList<SubmittedAssignment> suList = suService.printAllSubmittedAssignment(asNo);
 			
 			mv.addObject("assignment", assignment);
 			mv.addObject("assignmentGroup", asGroup);
+			mv.addObject("mbList", mbList);
 			mv.addObject("suList", suList);
 			mv.setViewName("study/assignmentDetail");
 		} else {
 			System.out.println("과제 디테일 조회 실패");
 		}
 		
-		///////////////////// 과제제출 확인 관련 메소드도 함께 호출
-		
 		return mv;
 	}
 	
 	/******************* 과제 분류 등록, 수정, 삭제, 숨김 *******************/
 	
+	// 등록
 	@RequestMapping(value="/study/assignment/addGroup", method=RequestMethod.POST)
-	public String asGroupRegister(HttpServletRequest request, @ModelAttribute AssignmentGroup asGroup) {
-		///////////////////////////// 분류 등록시 할당 멤버도 정해질 수 있도록 해야
+	public String asGroupRegister(HttpServletRequest request, @ModelAttribute AssignmentGroup asGroup, @RequestParam("grMember") List<Integer> mbList) {
 		
 		HttpSession session = request.getSession();
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		asGroup.setStNo(stNo);
 		
 		int grNo = asService.registerGroup(asGroup);
-		if(grNo > 0) {
+		
+		int assignResult = 0;
+		for(int mem : mbList) {
+			Assign assign = new Assign(grNo, mem);
+			assignResult += asService.addAssign(assign);
+		}
+		
+		if(grNo > 0 && assignResult == mbList.size()) {
 			return new RedirectWithMsg().redirect(request, "프로젝트가 등록되었습니다!", "/study/assignment?grNo=" + grNo);
 		} else {
 			return new RedirectWithMsg().redirect(request, "프로젝트 등록 실패!", "/study/assignment?grNo=0");
 		}
 	}
 	
+	// 수정
 	@RequestMapping(value="/study/assignment/modifyGroup", method=RequestMethod.POST)
 	public String asGroupDelete(@ModelAttribute AssignmentGroup asGroup) {
-		///////////////////////////// 분류 등록시 할당 멤버도 수정할 수 있도록 해야
 		
 		int result = asService.modifyGroup(asGroup);
 		if(result == 0) {
@@ -141,48 +177,32 @@ public class AssignmentController {
 		return "redirect:/study/assignment?grNo=" + asGroup.getGrNo();
 	}
 	
+	// 삭제
 	@RequestMapping(value="/study/assignment/deleteGroup", method=RequestMethod.GET)
-	public String asGroupHide(@RequestParam int grNo) {
-		///////////////////////////// 분류 등록시 할당 멤버 정보도 삭제
+	public String asGroupHide(HttpServletRequest request, @RequestParam int grNo) {
 		
+		// 그룹 할당정보 삭제
+		ArrayList<Member> mbList = mbService.printAllAssign(grNo);
+		int assignResult = 0;
+		for(Member mem : mbList) {
+			Assign assign = new Assign(grNo, mem.getMbNo());
+			assignResult += asService.deleteAssign(assign);
+		}
+		
+		// 그룹 정보 삭제
 		int result = asService.removeGroup(grNo);
-		if(result == 0) {
+		
+		// 그룹에 해당하는 과제와 과제제출 삭제
+		ArrayList<Assignment> asList = asService.printAllAssignment(grNo);
+		int asResult = 0;
+		for(Assignment asOne : asList) {
+			assignmentDelete(request, asOne.getAsNo());
+		}
+		
+		if(result == 0 || assignResult != mbList.size() || asResult != asList.size()) {
 			System.out.println("프로젝트 삭제/숨김 실패");
 		}
 		return "redirect:/study/assignment?grNo=0";
-	}
-	
-	/******************* 파일함 *******************/
-	
-	// 파일함으로 이동
-	@RequestMapping(value="/study/assignment/file", method=RequestMethod.GET)
-	public String assignmentFileList() {
-		return "study/assignmentFile";
-	}
-
-	// 사진파일 가져오기
-	@RequestMapping(value="/study/assignment/pic-list", method=RequestMethod.GET)
-	public void getAssignmentPics(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session = request.getSession();
-		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
-		
-		Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
-		String text = "";
-		
-		ArrayList<Assignment> asList = asService.printAllByStudyNo(stNo);
-		for(Assignment asOne : asList) {
-			text += asOne.getAsContents();
-		}
-		
-		Matcher matcher = pattern.matcher(text);
-		
-		ArrayList<String> picList = new ArrayList<String>();
-		while(matcher.find()){
-			picList.add(matcher.group(1));
-        }
-		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(picList, response.getWriter());
 	}
 	
 	/******************* 과제 등록, 수정, 삭제 *******************/
@@ -350,6 +370,15 @@ public class AssignmentController {
 			fiResult = 1;
 		}
 		
+		// 과제에 해당하는 과제제출 삭제
+		ArrayList<SubmittedAssignment> suList = suService.printAllSubmittedAssignment(asNo);
+		for(SubmittedAssignment suOne : suList) {
+			SubmittedAssignment sAssignment = new SubmittedAssignment();
+			sAssignment.setSuNo(suOne.getSuNo());
+			sAssignment.setAsNo(asNo);
+			suController.submittedAssignmentDelete(request, sAssignment);
+		}
+		
 		int asResult = 0;
 		if(fiResult > 0) {
 			asResult = asService.removeAssignment(asNo);
@@ -363,11 +392,85 @@ public class AssignmentController {
 		}
 	}
 	
-	/******************* 과제율 산정 *******************/
+	/******************* 파일함 *******************/
 	
-	// 개인 과제율 산정
-		// 한달 과제 제출 개수 / 한달 총 과제 개수
-	public String myAssignmentCheckCount(HttpSession session, @RequestParam("mbNo") int mbNo) {
-		return null;
+	// 파일함으로 이동
+	@RequestMapping(value="/study/assignment/image", method=RequestMethod.GET)
+	public ModelAndView assignmentFileList(HttpServletRequest request, ModelAndView mv) {
+		HttpSession session = request.getSession();
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		
+		List<HashMap<String, Object>> picList = new ArrayList<HashMap<String, Object>>();
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		
+		// 과제
+		ArrayList<Assignment> asList = asService.printAllByStudyNo(stNo);
+		for(Assignment asOne : asList) {
+			// 글 내용에서 이미지명만 추출하기
+			Matcher matcher = pattern.matcher(asOne.getAsContents());
+			ArrayList<String> pics = new ArrayList<String>();
+			while(matcher.find()){
+				pics.add(matcher.group(1));
+	        }
+			
+			// 이미지 있으면 정보 저장
+			if(!pics.isEmpty()) {
+					// 하나씩 담을 HashMap 만들기
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				
+				for(String pic : pics) {
+					// 이미지 넣기
+					map.put("pic", pic);
+					// 링크 넣기
+					map.put("url", "/study/assignment/detail?asNo=" + asOne.getAsNo());
+					picList.add(map);
+				}
+			}
+		}
+		
+		// 과제 제출
+		ArrayList<SubmittedAssignment> suList = suService.printAllContents(stNo);
+		for(SubmittedAssignment suOne : suList) {
+			// 글 내용에서 이미지명만 추출하기
+			Matcher matcher = pattern.matcher(suOne.getSuContents());
+			ArrayList<String> pics = new ArrayList<String>();
+			while(matcher.find()){
+				pics.add(matcher.group(1));
+	        }
+			
+			// 이미지 있으면 정보 저장
+			if(!pics.isEmpty()) {
+					// 하나씩 담을 HashMap 만들기
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				
+				for(String pic : pics) {
+					// 이미지 넣기
+					map.put("pic", pic);
+					// 링크 넣기
+					if(suOne.getSuMotherNo() == 0) {
+						// 게시물인 경우
+						map.put("url", "/study/sAssignment/detail?suNo=" + suOne.getSuNo());
+					} else {
+						// 댓글인 경우
+						map.put("url", "/study/sAssignment/detail?suNo=" + suOne.getSuMotherNo());
+					}
+					picList.add(map);
+				}
+			}
+		}
+		
+		// 파일명을 기준으로 정렬(오름차순)
+		Collections.sort(picList, new Comparator<HashMap<String, Object>>() {
+	        @Override
+	        public int compare(HashMap<String, Object> first,
+	                HashMap<String, Object> second) {
+
+	            return ((String)first.get("pic").toString().substring(25,40)).compareTo((String)second.get("pic").toString().substring(25,40));
+	        }
+	    });
+		
+		mv.addObject("picList", picList).setViewName("study/assignmentImage");
+		return mv;
 	}
+
 }

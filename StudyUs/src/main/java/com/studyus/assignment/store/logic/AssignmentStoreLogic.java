@@ -1,17 +1,18 @@
 package com.studyus.assignment.store.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.studyus.assignment.domain.Assign;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.store.AssignmentStore;
 import com.studyus.common.PageInfo;
-import com.studyus.submittedAssignment.domain.SubmittedAssignment;
 
 @Repository
 public class AssignmentStoreLogic implements AssignmentStore {
@@ -32,6 +33,11 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	}
 	
 	@Override
+	public ArrayList<Assignment> selectAllAssignment(int grNo) {
+		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllList", grNo);
+	}
+	
+	@Override
 	public ArrayList<AssignmentGroup> selectAllGroup(int stNo) {
 		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllGroup", stNo);
 	}
@@ -39,6 +45,11 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	@Override
 	public AssignmentGroup selectOneGroup(int grNo) {
 		return sqlSession.selectOne("assignmentMapper.selectOneGroup", grNo);
+	}
+	
+	@Override
+	public Assignment selectOne(int asNo) {
+		return sqlSession.selectOne("assignmentMapper.selectOne", asNo);
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////
@@ -51,10 +62,10 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	/////////////////////////////////////////////////////////////////////////////////
 	
 	@Override
-	public Assignment selectOne(int asNo) {
-		return sqlSession.selectOne("assignmentMapper.selectOne", asNo);
+	public ArrayList<Integer> selectAllAssign(int grNo) {
+		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllAssign", grNo);
 	}
-
+	
 	/////////////////////////////////////////////////////////////////////////////////
 	
 	@Override
@@ -65,12 +76,24 @@ public class AssignmentStoreLogic implements AssignmentStore {
 
 	@Override
 	public int updateGroup(AssignmentGroup asGroup) {
-		return sqlSession.insert("assignmentMapper.updateGroup", asGroup);
+		return sqlSession.update("assignmentMapper.updateGroup", asGroup);
 	}
 
 	@Override
 	public int deleteGroup(int grNo) {
-		return sqlSession.insert("assignmentMapper.deleteGroup", grNo);
+		return sqlSession.update("assignmentMapper.deleteGroup", grNo);
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////
+	
+	@Override
+	public int addAssign(Assign assign) {
+		return sqlSession.insert("assignmentMapper.insertAssign", assign);
+	}
+
+	@Override
+	public int deleteAssign(Assign assign) {
+		return sqlSession.delete("assignmentMapper.deleteAssign", assign);
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////
@@ -85,7 +108,7 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	public int updateAssignment(Assignment assignment) {
 		return sqlSession.update("assignmentMapper.updateAssignment", assignment);
 	}
-
+	
 	@Override
 	public int deleteAssignment(int asNo) {
 		int boResult = sqlSession.update("assignmentMapper.deleteAssignment", asNo);
@@ -93,10 +116,31 @@ public class AssignmentStoreLogic implements AssignmentStore {
 		return boResult;
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
-	public int countAssignment(int stNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<Assignment> selectAllByMbNo(int mbNo) {
+		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllByMbNo", mbNo);
+	}
+
+	@Override
+	public int selectAssignmentByMbNo(int mbNo) {
+		return sqlSession.selectOne("assignmentMapper.selectCountByMbNo", mbNo);
+	}
+
+	@Override
+	public int selectAssignmentStNo(Assignment assignment) {
+		return sqlSession.selectOne("assignmentMapper.selectCountByStNo", assignment);
+	}
+	
+	@Override
+	public int mySubmittedAssignment(int mbNo) {
+		return sqlSession.selectOne("sAssignmentMapper.selectCountByMbNo", mbNo);
+	}
+
+	@Override
+	public int mySubmittedAssignmentByStNo(Assignment assignment) {
+		return sqlSession.selectOne("sAssignmentMapper.selectCountByStNo", assignment);
 	}
 
 }
