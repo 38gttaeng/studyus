@@ -52,7 +52,7 @@
 		SELECT * FROM ASSIGNMENT_GROUP
 		WHERE GR_NO = #{grNo}
 		AND GR_STATUS = 1
-	</select> 
+	</select>
 
 
 	<!-- 캘린더 리스트 -->

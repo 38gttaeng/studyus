@@ -1,9 +1,11 @@
 package com.studyus.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -22,6 +24,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.member.service.MemberService;
+import com.studyus.review.domain.Review;
 import com.studyus.study.domain.Study;
 import com.studyus.study.service.StudyService;
 
@@ -60,8 +63,8 @@ public class MemberController {
 	}
 	// 로그인
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
-	public String memberLogin(HttpServletRequest request, 
-			@ModelAttribute Member member, Model model) {
+	public String memberLogin(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute Member member, Model model) throws IOException {
 		Member mOne = new Member(member.getMbId(), member.getMbPassword());
 		Member loginUser = service.loginMember(mOne);
 		
@@ -75,15 +78,19 @@ public class MemberController {
 			
 			return "redirect:/";
 		}else {
-			model.addAttribute("msg", "로그인 실패!");
-			return "common/errorPage";
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.'); location.href='/member/loginView'</script>");
+			out.flush();
+			out.close();
+			return null;
 		}
 	}
 	
 	//네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/member/callback", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
-			throws IOException, ParseException {
+	public String callback(Model model, @RequestParam String code, @RequestParam String state,
+						HttpSession session, HttpServletResponse response) throws IOException, ParseException {
 		System.out.println("여기는 callback");
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverLoginBO.getAccessToken(session, code, state);
@@ -120,21 +127,30 @@ public class MemberController {
 				model.addAttribute("result", apiResult);
 				return "member/loginSuccess";
 			}else {
-				model.addAttribute("msg", "회원 가입 실패!!");
-				return "common/errorPage";
+				PrintWriter out = response.getWriter();
+				response.setContentType("text/html; charset=UTF-8");
+				out.println("<script>alert('네이버 회원 등록에 실패하였습니다.'); location.href='/member/loginView'</script>");
+				out.flush();
+				out.close();
+				return null;
 			}
 		}else {
 			// 4-2. 파싱 정보 세션으로 저장
 			Member loginUser = service.selectOneById(id);
 			System.out.println(loginUser);
 			session.setAttribute("loginUser", loginUser); // 세션 생성
+			
+			// 가입한 스터디 리스트를 세션에 저장
+			ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
+			session.setAttribute("enrolledStudyList", enrolledStudyList);
+			
 			model.addAttribute("result", apiResult);
 			return "member/loginSuccess";
 		}
 	}
 	
 	// 구글 Callback호출 메소드
-	@RequestMapping(value = "oauth2callback.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/member/redirection", method = { RequestMethod.GET, RequestMethod.POST })
 	public String googleCallback(Model model, @RequestParam String code) throws IOException {
 		System.out.println("Google login success");
 		
@@ -158,16 +174,57 @@ public class MemberController {
 	
 	// 회원가입
 	@RequestMapping(value = "/member/register", method = RequestMethod.POST)
-	public String memberRegister(@ModelAttribute Member member, 
-								Model model) {
+	public String memberRegister(@ModelAttribute Member member, HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
 		int result = service.registerMember(member);
+		
 		if(result > 0) {
-			return "redirect:/";
+			return "member/joinSuccess";
 		}else {
-			model.addAttribute("msg", "회원 가입 실패!!");
-			return "common/errorPage";
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('회원가입에 실패하였습니다.'); location.href='/member/enrollView'</script>");
+			out.flush();
+			out.close();
+			return null;
 		}
 	}
+	
+	// email 인증
+    @RequestMapping(value="/member/joinConfirm", method=RequestMethod.GET)
+    public String emailConfirm(@ModelAttribute Member member, HttpServletResponse response) throws Exception {
+    	PrintWriter out = response.getWriter();
+    	Member checkKey = service.checkAuthKey(member.getMbId());
+    	
+    	System.out.println(member);
+    	System.out.println(checkKey.getAuthKey());
+    	System.out.println(member.getAuthKey());
+    	
+    	if(member.getAuthKey().equals(checkKey.getAuthKey())) {
+    		member.setMbStatus(1);
+            int result = service.updateMbStatus(member);
+            if(result > 0) {
+            	response.setContentType("text/html; charset=UTF-8");
+        		out.println("<script>alert('이메일 인증이 완료되었습니다.'); location.href='/'</script>");
+        		member.setAuthKey("authKeyisnull");
+        		service.updateAuthKey(member);
+        		out.flush();
+        		out.close();
+        		return null;
+            }else {
+            	response.setContentType("text/html; charset=UTF-8");
+        		out.println("<script>alert('이메일 인증에 실패했습니다.\n다시 시도해주세요.'); location.href='/'</script>");
+        		out.flush();
+        		out.close();
+            	return null;
+            }
+    	}else {
+    		response.setContentType("text/html; charset=UTF-8");
+    		out.println("<script>alert('유효하지 않은 인증 링크입니다.'); location.href='/'</script>");
+    		out.flush();
+    		out.close();
+    		return null;
+    	}
+    }
 	
 	// 아이디 중복검사
 	@ResponseBody
@@ -183,6 +240,13 @@ public class MemberController {
 		return String.valueOf(service.checkNickDup(mbNickname));
 	}
 	
+	// 이메일 중복검사
+	@ResponseBody
+	@RequestMapping(value = "/member/dupEmail", method = RequestMethod.GET)
+	public String emailDuplicateCheck(@RequestParam("mbEmail") String mbEmail) {
+		return String.valueOf(service.checkEmailDup(mbEmail));
+	}
+	
 	// 아이디/비번찾기 뷰
 	@RequestMapping(value = "/member/findView", method = RequestMethod.GET)
 	public String findView() {
@@ -191,56 +255,135 @@ public class MemberController {
 	
 	// 아이디찾기
 	@RequestMapping(value = "/member/findId", method = RequestMethod.POST)
-	public String findId(HttpServletRequest request,
-			@ModelAttribute Member member, Model model) {
+	public void findId(HttpServletRequest request, HttpServletResponse response,
+						@ModelAttribute Member member) throws IOException {
 		Member mOne = new Member(member.getMbId(), member.getMbName(), member.getMbEmail());
 		Member findId = service.findMemId(mOne);
+		System.out.println(findId);
 		if(findId != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("findId", findId);
-			return "redirect:/member/findIdResultView";
 		}else {
-			model.addAttribute("msg", "아이디 찾기에 실패했습니다.");
-			return "common/errorPage";
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('아이디 찾기에 실패했습니다.'); location.href='/member/findView'</script>");
+			out.flush();
+			out.close();
 		}
 	}
+	
+	// 비밀번호찾기
+	@RequestMapping(value = "/member/findPwd", method = RequestMethod.POST)
+	public void findPwd(HttpServletRequest request, HttpServletResponse response,
+						@ModelAttribute Member member) throws IOException {
+		Member mOne = new Member(member.getMbId(), member.getMbName(), member.getMbEmail());
+		Member findPwd = service.findMemPw(mOne);
+		if(findPwd != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("findPwd", findPwd);
+		}else {
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('비밀번호 찾기에 실패했습니다.'); location.href='/member/findView'</script>");
+			out.flush();
+			out.close();
+		}
+	}
+	
+	// 아이디 찾기 인증번호 입력
+	@RequestMapping(value="/member/findIdConfirm", method={ RequestMethod.GET, RequestMethod.POST })
+	public String findIdConfirm(@RequestParam("authKey") String authKey,
+								HttpServletRequest request,
+								HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		Member findId = (Member)session.getAttribute("findId");
+		Member checkKey = service.checkKeyByEmail(findId.getMbEmail());
+		
+		System.out.println(authKey);
+		System.out.println(checkKey.getAuthKey());
+	    
+	    if(authKey.equals(checkKey.getAuthKey())) {
+	    	findId.setAuthKey("authKeyisnull");
+        	service.updateAuthKey(findId);
+        	return "redirect:/member/findIdResultView";
+    	}else {
+    		PrintWriter out = response.getWriter();
+    		response.setContentType("text/html; charset=UTF-8");
+    		out.println("<script>alert('인증번호가 일치하지 않습니다.'); location.href='/member/findView'</script>");
+    		out.flush();
+    		out.close();
+    		return null;
+    	}
+	 }
+	
+	// 비밀번호 찾기 인증번호 입력
+	@RequestMapping(value="/member/findPwdConfirm", method=RequestMethod.POST)
+	public String findPwdConfirm(@RequestParam("authKey") String authKey,
+								HttpServletRequest request,
+								HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		Member findPwd = (Member)session.getAttribute("findPwd");
+		Member checkKey = service.checkAuthKey(findPwd.getMbId());
+	   
+		System.out.println(checkKey.getAuthKey());
+	    System.out.println(findPwd.getAuthKey());
+	    
+	    if(findPwd.getAuthKey().equals(checkKey.getAuthKey())) {
+	    	findPwd.setAuthKey("authKeyisnull");
+        	service.updateAuthKey(findPwd);
+        	session.setAttribute("findPwd", findPwd);
+        	return "redirect:/member/findPwdResultView";
+    	}else {
+    		PrintWriter out = response.getWriter();
+    		response.setContentType("text/html; charset=UTF-8");
+    		out.println("<script>alert('인증번호가 일치하지 않습니다.'); location.href='/member/findView'</script>");
+    		out.flush();
+    		out.close();
+    		return null;
+    	}
+	 }
 	
 	// 아이디찾기 결과 뷰
 	@RequestMapping(value = "/member/findIdResultView", method = RequestMethod.GET)
 	public String findIdResultView() {
 		return "member/findIdResult";
 	}
-	
-	// 비밀번호찾기
-	@RequestMapping(value = "/member/findPwd", method = RequestMethod.POST)
-	public String findPwd(HttpServletRequest request,
-			@ModelAttribute Member member, Model model) {
-		Member mOne = new Member(member.getMbId(), member.getMbName(), member.getMbEmail());
-		Member findPwd = service.findMemPw(mOne);
-		if(findPwd != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("findPwd", findPwd);
-			return "redirect:/member/findPwdResultView";
-		}else {
-			model.addAttribute("msg", "비밀번호 찾기에 실패했습니다.");
-			return "common/errorPage";
-		}
-	}
-	
+		 
 	// 비밀번호찾기 결과 뷰
 	@RequestMapping(value = "/member/findPwdResultView", method = RequestMethod.GET)
 	public String findPwdResultView() {
 		return "member/findPwdResult";
 	}
 	
+	// 비밀번호 변경
+	@RequestMapping(value = "/member/changePwd", method = RequestMethod.POST)
+	public String changePassword(@RequestParam("mbPassword") String mbPassword,
+								HttpServletRequest request,
+								HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		Member member = (Member) session.getAttribute("findPwd");
+		member.setMbPassword(mbPassword);
+		System.out.println(member);
+		int result = service.modifyMember(member);
+		if(result > 0) {
+			response.setContentType("text/html; charset=UTF-8");
+    		out.println("<script>alert('비밀번호가 변경되었습니다.'); location.href='/member/loginView'</script>");
+    		out.flush();
+    		out.close();
+    		return null;
+		}else {
+			response.setContentType("text/html; charset=UTF-8");
+    		out.println("<script>alert('비밀번호 변경이 실패했습니다.'); location.href='/member/findPwdResultView'</script>");
+    		out.flush();
+    		out.close();
+			return null;
+		}
+	}
+	
 	// 마이페이지 뷰
 	@RequestMapping(value = "/member/myPage", method = RequestMethod.GET)
-	public String myPageView(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		Member member = (Member)session.getAttribute("loginUser");
-		ArrayList<Enrollment> myStudy = service.myStudyList(member.getMbNo());
-		session.setAttribute("myStudy", myStudy);
-		
+	public String myPageView() {
 		return "member/myPage";
 	}
 	
@@ -257,15 +400,20 @@ public class MemberController {
 	@RequestMapping(value="/member/modify", method=RequestMethod.POST)
 	public String modifyMember(@ModelAttribute Member member,
 								Model model,
-								HttpServletRequest request) {
+								HttpServletRequest request,
+								HttpServletResponse response) throws IOException {
 		int result = service.modifyMember(member);
 		if(result > 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", member);
 			return "redirect:/member/myInfo";
 		}else {
-			model.addAttribute("msg", "정보 수정에 실패했습니다.");
-			return "common/errorPage";
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+    		out.println("<script>alert('회원 정보 수정에 실패했습니다.'); location.href='/member/myInfo'</script>");
+    		out.flush();
+    		out.close();
+        	return null;
 		}
 	}
 	
@@ -276,11 +424,26 @@ public class MemberController {
 	}
 	
 	// 회원탈퇴
-	@RequestMapping(value = "/member/delete", method = RequestMethod.GET)
-	public String memberDelete(@RequestParam("mbId") String mbId,
-								Model model) {
-		
-		return null;
+	@RequestMapping(value = "/member/delete", method = {RequestMethod.GET, RequestMethod.POST})
+	public String memberDelete(@RequestParam("mbId") String mbId, Model model,
+								HttpServletRequest request, HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		int result = service.removeMember(mbId);
+		if(result > 0) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('회원탈퇴가 완료되었습니다.'); location.href='/'</script>");
+			out.flush();
+			out.close();
+			return null;
+		} else {
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('회원탈퇴에 실패하셨습니다.\n문의는 FAQ를 이용해주세요.'); location.href='/'</script>");
+			out.flush();
+			out.close();
+			return null;
+		}
 	}
 	
 	// 결제관리 뷰
@@ -289,11 +452,25 @@ public class MemberController {
 		return "member/memberPurchase";
 	}
 	
+	// 내 스터디 정보
+	@ResponseBody
+	@RequestMapping(value = "/member/myStudy", method = RequestMethod.GET)
+	public String myStudyList(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("loginUser");
+		ArrayList<Enrollment> myStudy = service.myStudyList(member.getMbNo());
+		session.setAttribute("myStudy", myStudy);
+		return null;
+	}
 	
 	// 후기모음
+	@ResponseBody
 	@RequestMapping(value = "/member/myReview", method = RequestMethod.GET)
-	public String myReviewList() {
-		
+	public String myReviewList(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("loginUser");
+		ArrayList<Review> myReview = service.myReviewList(member.getMbNo());
+		session.setAttribute("myReview", myReview);
 		return null;
 	}
 }

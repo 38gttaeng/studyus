@@ -1,6 +1,7 @@
 package com.studyus.member.store;
  
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,34 @@ public class MemberStoreLogic implements MemberStore {
 	}
 	
 	@Override
+	public void updateAuthKey(Member member) {
+		sqlSession.update("memberMapper.updateAuthKey", member);
+	}
+	
+	@Override
+	public void updateKeyByEmail(Member member) {
+		sqlSession.update("memberMapper.updateKeyByEmail", member);
+	}
+	
+	@Override
+	public Member checkAuthKey(String mbId) {
+		Member checkKey = sqlSession.selectOne("memberMapper.checkAuthKey", mbId);
+		return checkKey;
+	}
+	
+	@Override
+	public Member checkKeyByEmail(String mbEmail) {
+		Member checkKey = sqlSession.selectOne("memberMapper.checkKeyByEmail", mbEmail);
+		return checkKey;
+	}
+	
+	@Override
+	public int updateMbStatus(Member member) {
+		int result = sqlSession.update("memberMapper.updateStatus", member);
+		return result;
+	}
+	
+	@Override
 	public int insertNaverMem(Member member) {
 		int result = sqlSession.insert("memberMapper.insertNaverMem", member);
 		return result;
@@ -61,6 +90,11 @@ public class MemberStoreLogic implements MemberStore {
 	public int checkNickDup(String mbNickname) {
 		return sqlSession.selectOne("memberMapper.checkNickDup", mbNickname);
 	}
+	
+	@Override
+	public int checkEmailDup(String mbEmail) {
+		return sqlSession.selectOne("memberMapper.checkEmailDup", mbEmail);
+	}
 
 	@Override
 	public Member findMemId(Member member) {
@@ -82,9 +116,13 @@ public class MemberStoreLogic implements MemberStore {
 
 	
 	@Override
-	public Review myReviewList(String mbId) {
-		
-		return null;
+	public ArrayList<Review> myReviewList(int mbNo) {
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectMyReviewList", mbNo);
+	}
+
+	@Override
+	public ArrayList<Member> selectAllEnrolled(int studyNo) {
+		return (ArrayList) sqlSession.selectList("memberMapper.selectAllEnrolled", studyNo);
 	}
 
 }

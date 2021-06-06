@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!-- <mapper namespace="adminMapper"> --> 
-<!-- 	<resultMap type="Admin" id="adminResultMap"> --> 
+<!-- 	<resultMap type="Admin" id="adminResultMap"> -->
 <!-- 		<collection property="member" resultMap="memberMapper.memberResultMap" /> -->
 <!-- 		<collection property="study" resultMap="studyMapper.studyResultMap" /> -->
 <!-- 		<collection property="cafe" resultMap="cafeMapper.cafeResultMap" /> -->

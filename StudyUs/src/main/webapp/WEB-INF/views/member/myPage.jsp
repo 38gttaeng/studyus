@@ -10,15 +10,8 @@
 <title>마이페이지</title>
 <link href="/resources/css/fullcalendar/assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
 <link href="/resources/css/fullcalendar/dist/css/style.min.css" rel="stylesheet">
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-	var calendarEl = document.getElementById('calendar');
-	var calendar = new FullCalendar.Calendar(calendarEl, {
-		initialView: 'dayGridMonth'
-	});
-	calendar.render();
-});
-</script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 </head>
 <body>
 	<!-- menubar -->
@@ -30,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			<div class="mem-info">
 				<a style="font-weight: bold; font-size: 20px;">${loginUser.mbNickname}</a>님<br>
 				스터디 포인트 ${loginUser.mbReputation}
+				<span id="mbNo" style="display: none">${loginUser.mbNo}</span>
 			</div>
 			<div class="btn-zone">
 				<input type="button" value="내 정보 수정" class="myPage-btn" onclick="location.href='/member/myInfo'">
@@ -40,18 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		<div class="box-zone">
 			<div class="my-study">
 				<div class="menu-mark"><span>나의 스터디</span></div>
-				<c:if test="">
-					<c:forEach items="">
-						<div class="">
-							
-						</div>
-					</c:forEach>
-				</c:if>
-				<c:if test="">
-					<div class="">
-					
-					</div>
-				</c:if>
+				
 			</div>
 			
 			<div class="my-calender">
@@ -63,16 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			<div class="my-review">
 				<div class="menu-mark"><span>나의 후기</span></div>
-				<c:if test="${!myReview.isEmpty()}">
-					<c:forEach items="">
-					
-					</c:forEach>
-					
+					<div class="rList"></div>
+				<c:if test="${myReview.isEmpty}">
 					<div class="review">
-					
+						작성한 리뷰가 없습니다.
 					</div>
 				</c:if>
-				
 			</div>
 		</div>
 	</div>
@@ -80,22 +59,24 @@ document.addEventListener('DOMContentLoaded', function() {
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	
 	<!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="/resources/css/fullcalendar/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="/resources/css/fullcalendar/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
-    <script src="/resources/css/fullcalendar/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="/resources/css/fullcalendar/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- apps -->
-    <script src="/resources/css/fullcalendar/dist/js/app-style-switcher.js"></script>
-    <script src="/resources/css/fullcalendar/dist/js/feather.min.js"></script>
-    <script src="/resources/css/fullcalendar/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="/resources/css/fullcalendar/dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="/resources/css/fullcalendar/dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <script src="/resources/css/fullcalendar/assets/libs/moment/min/moment.min.js"></script>
-    <script src="/resources/css/fullcalendar/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
-    <script src="/resources/css/fullcalendar/dist/js/pages/calendar/cal-init.js"></script>
+	<!-- All Jquery -->
+	<!-- ============================================================== -->
+	<script src="/resources/css/fullcalendar/assets/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/resources/css/fullcalendar/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
+	<script src="/resources/css/fullcalendar/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+	<script src="/resources/css/fullcalendar/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- apps -->
+	<script src="/resources/css/fullcalendar/dist/js/app-style-switcher.js"></script>
+	<script src="/resources/css/fullcalendar/dist/js/feather.min.js"></script>
+	<script src="/resources/css/fullcalendar/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+	<script src="/resources/css/fullcalendar/dist/js/sidebarmenu.js"></script>
+	<!--Custom JavaScript -->
+	<script src="/resources/css/fullcalendar/dist/js/custom.min.js"></script>
+	<!--This page JavaScript -->
+	<script src="/resources/css/fullcalendar/assets/libs/moment/min/moment.min.js"></script>
+	<script src="/resources/css/fullcalendar/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+	<script src="/resources/css/fullcalendar/dist/js/pages/calendar/cal-init.js"></script>
+	
+	
 </body>
 </html>
