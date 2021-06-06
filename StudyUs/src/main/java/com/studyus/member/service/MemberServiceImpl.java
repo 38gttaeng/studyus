@@ -1,7 +1,7 @@
 package com.studyus.member.service;
 
 import java.util.ArrayList;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +89,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override 
 	public ArrayList<Member> printAllByStudyNo(int studyNo) {
 		return store.selectAllEnrolled(studyNo);
+	}
+
+	@Override
+	public ArrayList<Member> printAll() {
+		return store.selectList();
 	}
 
 }

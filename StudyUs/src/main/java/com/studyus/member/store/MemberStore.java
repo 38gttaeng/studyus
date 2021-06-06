@@ -38,4 +38,6 @@ public interface MemberStore {
 	 * @return ArrayList<Member>
 	 */
 	public ArrayList<Member> selectAllEnrolled(int studyNo);
+
+	public ArrayList<Member> selectList();
 }

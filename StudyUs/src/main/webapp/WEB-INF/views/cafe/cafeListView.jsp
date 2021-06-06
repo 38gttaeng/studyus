@@ -102,7 +102,7 @@
 	var mapContainer = document.getElementById('map'),  // 지도를 표시할 div
 		mapOption = {
 			center : new kakao.maps.LatLng(37.54303872565461, 126.98412440978181), // 지도의 중심좌표
-			level : 7
+			level : 7 // 지도 확대 레벨
 		};
 		 // 지도 생성
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
@@ -118,17 +118,15 @@
 		</c:forEach>
 		
 		// 지도 마커
-// 		 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 		 var imageSrc = "/resources/images/marker.png";
 			
 			for (var i = 0; i < positions.length; i++) {
-
+				// 마커 이미지 사이즈
 				var imageSize = new kakao.maps.Size(30, 60);
 				// 마커 이미지를 생성
 				var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 				// 마커를 표시할 위치
 				var calPosition = getLatLngProj4(positions[i].lat, positions[i].lng);
-// 				console.log(calPosition);
 	 			var latlng = new kakao.maps.LatLng(calPosition.y, calPosition.x);
 	 			
 				// 마커를 생성

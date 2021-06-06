@@ -38,4 +38,6 @@ public interface MemberService {
 	 * @return ArrayList<Member>
 	 */
 	public ArrayList<Member> printAllByStudyNo(int studyNo);
+
+	public ArrayList<Member> printAll();
 }

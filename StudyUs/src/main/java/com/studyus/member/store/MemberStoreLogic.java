@@ -92,4 +92,9 @@ public class MemberStoreLogic implements MemberStore {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectAllEnrolled", studyNo);
 	}
 
+	@Override
+	public ArrayList<Member> selectList() {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectAllList");
+	}
+
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.studyus.enrollment.domain.Enrollment;
@@ -295,5 +296,20 @@ public class MemberController {
 	public String myReviewList() {
 		
 		return null;
+	}
+	
+	/*********** 관리자 ************/
+	// 회원 목록
+	@RequestMapping(value="/admin/member/list", method=RequestMethod.GET)
+	public ModelAndView memberList(ModelAndView mv){
+		ArrayList<Member> mList = service.printAll();
+		if(!mList.isEmpty()){
+			mv.addObject("mList", mList);
+			mv.setViewName("admin/memberAdmin");
+		} else {
+			mv.addObject("msg", "회원 목록 조회 실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 }

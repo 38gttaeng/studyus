@@ -27,122 +27,106 @@
 	<script src="/resources/css/study/assets/libs/jquery/dist/jquery.min.js"></script>
 	<link href="/resources/css/study/adminmart.css" rel="stylesheet">
 	
-	<title>study menubar</title>
+	<title>Admin menubar</title>
 </head>
 <body>
-
-<!-- 	    ==============================================================
-	    Preloader - style you can find in spinners.css
-	    ==============================================================
-	    <div class="preloader">
-	        <div class="lds-ripple">
-	            <div class="lds-pos"></div>
-	            <div class="lds-pos"></div>
-	        </div>
-	    </div> -->
-    
-        <!-- ============================================================== -->
-        <!-- Topbar header
-        <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin6">
-            <nav class="navbar top-navbar navbar-expand-md">
-                <div class="navbar-header" data-logobg="skin6">
-                    <!-- This is for the sidebar toggle which is visible on mobile only -->
-                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="#"><i
-                            class="ti-menu ti-close"></i></a>
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
-                    <div class="navbar-brand">
-                        <!-- Logo icon -->
-                        <a href="/">
-                            <b class="logo-icon">
-                                <img src="/resources/css/study/assets/images/logo-icon2.png" alt="homepage" class="dark-logo" />
-                                <img src="/resources/css/study/assets/images/logo-icon2.png" alt="homepage" class="light-logo" />
-                            </b>
-                            <!--End Logo icon -->
-                            <!-- Logo text -->
-                            <span class="logo-text text-dark">
-                                <!-- dark Logo text -->
-                                <img src="/resources/css/study/assets/images/logo-text2.png" alt="homepage" class="dark-logo" />
-                                <!-- Light Logo text -->
-                                <img src="/resources/css/study/assets/images/logo-text2.png" class="light-logo" alt="homepage" />
-                            </span>
-                        </a>
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- Toggle which is visible on mobile only -->
-                    <!-- ============================================================== -->
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
-                        data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                            class="ti-more"></i></a>
-                </div>
-                
-                <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                    <!-- ============================================================== -->
-                    <!-- Left toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
-                        <!-- 스터디 신청 알림 / 일반인은 과제알람? -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
-                                id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <span><i data-feather="bell" class="svg-icon"></i></span>
-                                <span class="badge badge-primary notify-no rounded-circle">5</span>
-                            </a>
-                        </li>
-                        <!-- 스터디 정보 페이지로 이동 -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button">
-                                <i data-feather="settings" class="svg-icon"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav float-right">
-                        <!-- ============================================================== -->
-                        <!-- navi -->
-                        <!-- ============================================================== -->
-                        <div class="collapse navbar-collapse" id="ftco-nav">
-					        <ul class="navbar-nav ml-auto">
-					          <li class="nav-item"><a href="/" class="nav-link study">홈</a></li>
-					          <li class="nav-item"><a href="#" class="nav-link study">스터디</a></li>
-					          <li class="nav-item"><a href="#" class="nav-link study">스터디샵</a></li>
-					          <li class="nav-item"><a href="#" class="nav-link study">스터디카페</a></li>
-					        </ul>
-					   	</div>
-                        <!-- ============================================================== -->
-                        <!-- User profile -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <img src="/resources/images/${ loginUser.mbPhoto }.png" class="rounded-circle"
-                                    width="30">
-                                <span class="ml-2 d-none d-lg-inline-block"><span
-                                        class="text-dark">${ loginUser.mbNickname }</span> <i data-feather="chevron-down"
-                                        class="svg-icon"></i></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                <a class="dropdown-item" href="/member/myPage"><i data-feather="user"
-                                        class="svg-icon mr-2 ml-1"></i>
-                                    마이페이지</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/member/logout"><i data-feather="power"
-                                        class="svg-icon mr-2 ml-1"></i>
-                                    로그아웃</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                
-            </nav>
-        </header>
-        
+   <header class="topbar" data-navbarbg="skin6">
+       <nav class="navbar top-navbar navbar-expand-md">
+           <div class="navbar-header" data-logobg="skin6">
+               <!-- This is for the sidebar toggle which is visible on mobile only -->
+               <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="#"><i
+                       class="ti-menu ti-close"></i></a>
+               <!-- ============================================================== -->
+               <!-- Logo -->
+               <!-- ============================================================== -->
+               <div class="navbar-brand">
+                   <!-- Logo icon -->
+                   <a href="/">
+                       <b class="logo-icon">
+                           <img src="/resources/css/study/assets/images/logo-icon2.png" alt="homepage" class="dark-logo" />
+                           <img src="/resources/css/study/assets/images/logo-icon2.png" alt="homepage" class="light-logo" />
+                       </b>
+                       <!--End Logo icon -->
+                       <!-- Logo text -->
+                       <span class="logo-text text-dark">
+                           <!-- dark Logo text -->
+                           <img src="/resources/css/study/assets/images/logo-text2.png" alt="homepage" class="dark-logo" />
+                           <!-- Light Logo text -->
+                           <img src="/resources/css/study/assets/images/logo-text2.png" class="light-logo" alt="homepage" />
+                       </span>
+                   </a>
+               </div>
+               <!-- ============================================================== -->
+               <!-- Toggle which is visible on mobile only -->
+               <!-- ============================================================== -->
+               <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                   data-toggle="collapse" data-target="#navbarSupportedContent"
+                   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                       class="ti-more"></i></a>
+           </div>
+           
+           <div class="navbar-collapse collapse" id="navbarSupportedContent">
+               <!-- ============================================================== -->
+               <!-- Left toggle and nav items -->
+               <!-- ============================================================== -->
+               <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+                   <!-- 스터디 신청 알림 / 일반인은 과제알람? -->
+                   <li class="nav-item dropdown">
+                       <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
+                           id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                           <span><i data-feather="bell" class="svg-icon"></i></span>
+                           <span class="badge badge-primary notify-no rounded-circle">5</span>
+                       </a>
+                   </li>
+                   <!-- 스터디 정보 페이지로 이동 -->
+                   <li class="nav-item">
+                       <a class="nav-link" href="#" id="navbarDropdown" role="button">
+                           <i data-feather="settings" class="svg-icon"></i>
+                       </a>
+                   </li>
+               </ul>
+               <!-- ============================================================== -->
+               <!-- Right side toggle and nav items -->
+               <!-- ============================================================== -->
+               <ul class="navbar-nav float-right">
+                   <!-- ============================================================== -->
+                   <!-- navi -->
+                   <!-- ============================================================== -->
+   	 <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a href="/" class="nav-link study">홈</a></li>
+          <li class="nav-item"><a href="#" class="nav-link study">스터디</a></li>
+          <li class="nav-item"><a href="#" class="nav-link study">스터디샵</a></li>
+          <li class="nav-item"><a href="#" class="nav-link study">스터디카페</a></li>
+        </ul>
+   	</div>
+                   <!-- ============================================================== -->
+                   <!-- User profile -->
+                   <!-- ============================================================== -->
+                   <li class="nav-item dropdown">
+                       <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                           <img src="/resources/images/${ loginUser.mbPhoto }.png" class="rounded-circle"
+                               width="30">
+                           <span class="ml-2 d-none d-lg-inline-block"><span
+                                   class="text-dark">${ loginUser.mbNickname }</span> <i data-feather="chevron-down"
+                                   class="svg-icon"></i></span>
+                       </a>
+                       <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                           <a class="dropdown-item" href="/member/myPage"><i data-feather="user"
+                                   class="svg-icon mr-2 ml-1"></i>
+                               마이페이지</a>
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item" href="/member/logout"><i data-feather="power"
+                                   class="svg-icon mr-2 ml-1"></i>
+                               로그아웃</a>
+                       </div>
+                   </li>
+               </ul>
+           </div>
+       </nav>
+   </header>
         
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
@@ -154,100 +138,27 @@
 	                <ul id="sidebarnav">
 	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study"
 	                            aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
-	                                class="hide-menu">${ study.studyName } </span></a></li>
+	                                class="hide-menu">HOME</span></a></li>
 	                    <li class="list-divider"></li>
 	                    
-	                	<!-- STUDY -->
-	                    <li class="nav-small-cap"><span class="hide-menu">study</span></li>
-	
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/calendar"
-	                            aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
-	                                class="hide-menu">일정 </span></a></li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/notice/noticeList"
-	                            aria-expanded="false"><i data-feather="sidebar" class="feather-icon"></i><span
-	                                class="hide-menu">공지사항 
-	                            </span></a>
-	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-	                            aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-	                                class="hide-menu">게시판 </span></a>
-	                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
-	                            <li class="sidebar-item"><a href="/study/board?boCategory=0" class="sidebar-link"><span
-	                                        class="hide-menu"> 전체
-	                                    </span></a>
-	                            </li>
-	                            <li class="sidebar-item"><a href="/study/board?boCategory=1" class="sidebar-link"><span
-	                                        class="hide-menu"> 자유
-	                                    </span></a>
-	                            </li>
-	                            <li class="sidebar-item"><a href="/study/board?boCategory=2" class="sidebar-link"><span
-	                                        class="hide-menu"> 공유
-	                                    </span></a>
-	                            </li>
-	                            <li class="sidebar-item"><a href="/study/board?boCategory=3" class="sidebar-link"><span
-	                                        class="hide-menu"> 질문
-	                                    </span></a> 
-	                            </li>
-	                        </ul>
-	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-	                            aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
-	                                class="hide-menu">과제 </span></a>
-	                    	<ul aria-expanded="false" class="collapse  first-level base-level-line">
-	                            <li class="sidebar-item"><a href="/study/assignment?grNo=0" class="sidebar-link"><span
-	                                        class="hide-menu"> 과제
-	                                    </span></a>
-	                            </li>
-	                            <li class="sidebar-item"><a href="/study/assignment/file" class="sidebar-link"><span
-	                                        class="hide-menu"> 파일함
-	                                    </span></a>
-	                            </li>
-	                        </ul>
-	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
-	                            aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
-	                                class="hide-menu">채팅 </span></a></li>
-			
 						<!-- MANAGEMENT -->
-	                    <li class="list-divider"></li>
 	                    <li class="nav-small-cap"><span class="hide-menu">management</span></li>
 	                    
-	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-	                            aria-expanded="false"><i data-feather="bar-chart" class="feather-icon"></i><span
-	                                class="hide-menu">출석 확인 </span></a>
-	                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
-	                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
-	                                        class="hide-menu"> 개인 출석
-	                                    </span></a>
-	                            </li>
-	                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
-	                                        class="hide-menu"> 전체 출석
-	                                    </span></a>
-	                            </li>
-	                        </ul>
-	                    </li>
 	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
 	                            aria-expanded="false"><i data-feather="box" class="feather-icon"></i><span
-	                                class="hide-menu">회원 목록 </span></a>
+	                                class="hide-menu">회원 관리 </span></a>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="javascript:void(0)"
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-	                                class="hide-menu">게시물 관리 </span></a>
-	                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
-	                            <li class="sidebar-item"><a href="/study/contentsList" class="sidebar-link"><span
-	                                        class="hide-menu"> 게시물 관리</span></a>
-	                            </li>
-	                            <li class="sidebar-item"><a href="/study/commentsList" class="sidebar-link"><span
-	                                        class="hide-menu"> 댓글 관리</span></a>
-	                            </li>
-	                        </ul>
+	                                class="hide-menu">스터디 관리 </span></a>
 	                    </li>
-	                    <c:if test="${ loginUser.mbNo == study.leaderNo }">
 	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/enrollment/list"
-	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-	                                class="hide-menu">가입신청</span></a>
+	                            aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
+	                                class="hide-menu">스터디카페 관리</span></a>
 	                    </li>
-	                    </c:if>
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="javascript:void(0)"
+	                            aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
+	                                class="hide-menu">결제 관리 </span></a>
 	                </ul>
 	            </nav>
         	</div>
