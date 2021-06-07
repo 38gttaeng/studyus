@@ -109,7 +109,7 @@ body {
 
 .login-btn {
 	width: 100%;
-	height: 35px;
+	height: 35px !important;
 	background: #6927FF !important;
 	color: white !important;
 	box-sizing: border-box;

@@ -15,7 +15,7 @@
 	</resultMap>
 	
 	<select id="selectOneMember" parameterType="Member" resultMap="memberResultMap">
-		SELECT * FROM MEMBER WHERE MB_ID = #{mbId} AND MB_PASSWORD = #{mbPassword} 
+		SELECT * FROM MEMBER WHERE MB_ID = #{mbId} AND MB_PASSWORD = #{mbPassword} AND MB_STATUS = 1
 	</select>
 	
 	<select id="selectOneById" parameterType="Member" resultMap="memberResultMap">
@@ -23,8 +23,28 @@
 	</select>
 	
 	<insert id="insertMember" parameterType="Member">
-		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{mbId}, #{mbPassword}, #{mbName}, #{mbEmail}, #{mbNickname}, #{mbPhone}, 0, DEFAULT, DEFAULT)
+		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{mbId}, #{mbPassword}, #{mbName}, #{mbEmail}, #{mbNickname}, #{mbPhone}, 0, DEFAULT, 0, null)
 	</insert>
+	
+	<update id="updateAuthKey" parameterType="Member">
+		UPDATE MEMBER SET AUTHKEY = #{authKey} WHERE MB_ID = #{mbId}
+	</update>
+	
+	<update id="updateKeyByEmail" parameterType="Member">
+		UPDATE MEMBER SET AUTHKEY = #{authKey} WHERE MB_EMAIL = #{mbEmail}
+	</update>
+	
+	<select id="checkAuthKey" parameterType="Member" resultMap="memberResultMap">
+		SELECT AUTHKEY FROM MEMBER WHERE MB_ID = #{mbId}
+	</select>
+	
+	<select id="checkKeyByEmail" parameterType="Member" resultMap="memberResultMap">
+		SELECT AUTHKEY FROM MEMBER WHERE MB_EMAIL = #{mbEmail}
+	</select>
+	
+	<update id="updateStatus" parameterType="Member">
+		UPDATE MEMBER SET MB_STATUS = #{mbStatus} WHERE MB_ID = #{mbId}
+	</update>
 	
 	<insert id="insertNaverMem" parameterType="Member">
 		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{mbId}, #{mbPassword}, #{mbName}, #{mbEmail}, #{mbNickname}, #{mbPhone}, 0, DEFAULT, 2)
@@ -50,6 +70,10 @@
 		SELECT COUNT(*) FROM MEMBER WHERE MB_NICKNAME = #{mbNickname}
 	</select> 
 	
+	<select id="checkEmailDup" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER WHERE MB_Email = #{mbEmail}
+	</select>
+	
 	<select id="selectAllEnrolled" parameterType="int" resultMap="memberResultMap">
 		SELECT * FROM STUDY S
 			    LEFT OUTER JOIN ENROLLMENT E USING (ST_NO)
@@ -57,4 +81,5 @@
 		WHERE EN_STATUS = 1
 			AND ST_NO = #{studyNo}
 	</select>
+	
 </mapper>

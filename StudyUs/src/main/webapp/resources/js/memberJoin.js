@@ -154,8 +154,8 @@ $(document).ready(function() {
 	});
 	
 	$(".enroll-btn").on("click", function() {
-	goEnroll();
-});
+		goEnroll();
+	});
 
 function goEnroll() {
 	var form = document.enrollForm;

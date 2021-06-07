@@ -67,7 +67,7 @@
                                                     <!-- Message -->
                                                     <a href="javascript:void(0)"
                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                        <div class="user-img"><img src="assets/images/users/1.jpg"
+                                                        <div class="user-img"><img src="/resources/css/study/assets/images/users/1.jpg"
                                                                 alt="user" class="img-fluid rounded-circle"
                                                                 width="40px"> <span
                                                                 class="profile-status online float-right"></span>
@@ -86,7 +86,7 @@
                                                     <!-- Message -->
                                                     <a href="javascript:void(0)"
                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                        <div class="user-img"><img src="assets/images/users/2.jpg"
+                                                        <div class="user-img"><img src="/resources/css/study/assets/images/users/2.jpg"
                                                                 alt="user" class="img-fluid rounded-circle"
                                                                 width="40px"> <span
                                                                 class="profile-status busy float-right"></span>
@@ -104,7 +104,7 @@
                                                     <!-- Message -->
                                                     <a href="javascript:void(0)"
                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                        <div class="user-img"> <img src="assets/images/users/3.jpg"
+                                                        <div class="user-img"> <img src="/resources/css/study/assets/images/users/3.jpg"
                                                                 alt="user" class="img-fluid rounded-circle"
                                                                 width="40px"> <span
                                                                 class="profile-status away float-right"></span>
@@ -122,7 +122,7 @@
                                                     <!-- Message -->
                                                     <a href="javascript:void(0)"
                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                        <div class="user-img"><img src="assets/images/users/4.jpg"
+                                                        <div class="user-img"><img src="/resources/css/study/assets/images/users/4.jpg"
                                                                 alt="user" class="img-fluid rounded-circle"
                                                                 width="40px"> <span
                                                                 class="profile-status offline float-right"></span>
@@ -139,7 +139,7 @@
                                                     <!-- Message -->
                                                     <a href="javascript:void(0)"
                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                        <div class="user-img"><img src="assets/images/users/5.jpg"
+                                                        <div class="user-img"><img src="/resources/css/study/assets/images/users/5.jpg"
                                                                 alt="user" class="img-fluid rounded-circle"
                                                                 width="40px"> <span
                                                                 class="profile-status offline float-right"></span></span>
@@ -156,7 +156,7 @@
                                                     <!-- Message -->
                                                     <a href="javascript:void(0)"
                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                        <div class="user-img"><img src="assets/images/users/6.jpg"
+                                                        <div class="user-img"><img src="/resources/css/study/assets/images/users/6.jpg"
                                                                 alt="user" class="img-fluid rounded-circle"
                                                                 width="40px"> <span
                                                                 class="profile-status offline float-right"></span>
@@ -173,7 +173,7 @@
                                                     <!-- Message -->
                                                     <a href="javascript:void(0)"
                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                        <div class="user-img"><img src="assets/images/users/7.jpg"
+                                                        <div class="user-img"><img src="/resources/css/study/assets/images/users/7.jpg"
                                                                 alt="user" class="img-fluid rounded-circle"
                                                                 width="40px"> <span
                                                                 class="profile-status offline float-right"></span>
@@ -190,7 +190,7 @@
                                                     <!-- Message -->
                                                     <a href="javascript:void(0)"
                                                         class="message-item d-flex align-items-center px-3 py-2">
-                                                        <div class="user-img"><img src="assets/images/users/8.jpg"
+                                                        <div class="user-img"><img src="/resources/css/study/assets/images/users/8.jpg"
                                                                 alt="user" class="img-fluid rounded-circle"
                                                                 width="40px"> <span
                                                                 class="profile-status offline float-right"></span>
@@ -217,7 +217,7 @@
                                             <!--chat Row -->
                                             <li class="chat-item list-style-none mt-3">
                                                 <div class="chat-img d-inline-block"><img
-                                                        src="assets/images/users/1.jpg" alt="user"
+                                                        src="/resources/css/study/assets/images/users/1.jpg" alt="user"
                                                         class="rounded-circle" width="45">
                                                 </div>
                                                 <div class="chat-content d-inline-block pl-3">
@@ -233,7 +233,7 @@
                                             <!--chat Row -->
                                             <li class="chat-item list-style-none mt-3">
                                                 <div class="chat-img d-inline-block"><img
-                                                        src="assets/images/users/2.jpg" alt="user"
+                                                        src="/resources/css/study/assets/images/users/2.jpg" alt="user"
                                                         class="rounded-circle" width="45">
                                                 </div>
                                                 <div class="chat-content d-inline-block pl-3">
@@ -268,7 +268,7 @@
                                             <!--chat Row -->
                                             <li class="chat-item list-style-none mt-3">
                                                 <div class="chat-img d-inline-block"><img
-                                                        src="assets/images/users/3.jpg" alt="user"
+                                                        src="/resources/css/study/assets/images/users/3.jpg" alt="user"
                                                         class="rounded-circle" width="45">
                                                 </div>
                                                 <div class="chat-content d-inline-block pl-3">

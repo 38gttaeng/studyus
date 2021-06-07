@@ -33,5 +33,13 @@
 		WHERE CA_NO = #{caNo} AND RV_NO = #{rvNo}
 	</update>
 	
+	<select id="selectMyReviewList" resultMap="reviewResultMap">
+		SELECT R.RV_NO, R.CA_NO, MB_NO, R.RV_CONTENTS, R.RV_RATING, R.RV_DATE, R.RV_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+		FROM REVIEW R
+		JOIN MEMBER M USING(MB_NO)
+		WHERE MB_NO = #{mbNo} AND R.RV_STATUS = 1
+		ORDER BY R.RV_NO DESC
+	</select>
+	
 </mapper> 
  

@@ -12,6 +12,7 @@ public class Member {
 	private int mbReputation;
 	private int mbPhoto;
 	private int mbStatus;
+	private String authKey;
 	
 	public Member() {}
 
@@ -115,12 +116,20 @@ public class Member {
 	public void setMbStatus(int mbStatus) {
 		this.mbStatus = mbStatus;
 	}
+	
+	public String getAuthKey() {
+		return authKey;
+	}
+
+	public void setAuthKey(String authKey) {
+		this.authKey = authKey;
+	}
 
 	@Override
 	public String toString() {
 		return "Member [mbNo=" + mbNo + ", mbId=" + mbId + ", mbPassword=" + mbPassword + ", mbName=" + mbName
 				+ ", mbEmail=" + mbEmail + ", mbNickname=" + mbNickname + ", mbPhone=" + mbPhone + ", mbReputation="
-				+ mbReputation + ", mbPhoto=" + mbPhoto + ", mbStatus=" + mbStatus + "]";
+				+ mbReputation + ", mbPhoto=" + mbPhoto + ", mbStatus=" + mbStatus + ", authKey=" + authKey + "]";
 	}
 
 }
