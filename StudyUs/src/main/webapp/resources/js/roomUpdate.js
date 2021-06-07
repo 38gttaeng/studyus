@@ -4,6 +4,7 @@ $(function() {
 	
 	// 위치정보 보내기
 	$("#save").on("click", function() {
+		var caNo = $("input[name=caNo]").val();
 		var arr = new Array();
 		
 		$(".draggable").each(function(){
@@ -25,6 +26,8 @@ $(function() {
 		    },
 		    success: function (result) {
 				console.log(result);
+				alert("룸 정보가 모두 수정되었습니다!");
+				location.href="/cafe/detail?caNo=" + caNo;
 			},
 			error : function(){
 		    	console.log("전송 실패..");
@@ -199,10 +202,9 @@ function getRoomList() {
 	    type: 'GET',
 	    success: function(crList){
 			if(crList.length != 0) {
-			console.log(crList);////////////////////////////////
 				for(var i in crList) {
 					$("#room-wrapper")
-					.append("<div id='" + crList[i].crNo + "' class='draggable' style='top:" + crList[i].crTop + "px; left:" + crList[i].crLeft + "px;'>" + crList[i].crName + "</div>");
+					.append("<div id='" + crList[i].crNo + "' class='draggable' style='top:" + crList[i].crTopPx + "px; left:" + crList[i].crLeftPx + "px;'>" + crList[i].crName + "</div>");
 					
 					switch(crList[i].crMax){
 					case 4:

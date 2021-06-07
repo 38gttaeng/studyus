@@ -23,7 +23,7 @@ function getRoomList() {
 			if(crList.length != 0) {
 				for(var i in crList) {
 					$("#room-wrapper")
-					.append("<div id='" + crList[i].crNo + "' class='no-draggable no-gray' style='top:" + crList[i].crTop + "px; left:" + crList[i].crLeft + "px;'>" + crList[i].crName + "</div>");
+					.append("<div id='" + crList[i].crNo + "' class='no-draggable no-gray' style='top:" + crList[i].crTopPx + "px; left:" + crList[i].crLeftPx + "px;'>" + crList[i].crName + "</div>");
 					
 					switch(crList[i].crMax){
 					case 4:
@@ -58,7 +58,8 @@ function getRoomList() {
 				}
 			} else if(crList.length == 1){
 				// 기존에 등록한 룸이 없는 경우
-				console.log("룸이 없습니다.");//////////////////////////
+				alert("등록된 룸이 없습니다. 다른 카페를 이용해주세요.");
+				location.href="/cafe/detail?caNo=" + caNo;
 			}
 	    },
 	    error : function(){

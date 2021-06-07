@@ -182,13 +182,11 @@ public class CaferoomController {
 			result = "json transition fail";
 		}
 		
-		System.out.println(crList);//////////////////////////////////////////////////////////
 		int crResult = 0;
 		for(Caferoom crOne : crList) {
 			int crResultOne = crService.updateLocation(crOne);
 			crResult += crResultOne;
 		}
-		System.out.println(crResult);//////////////////////////////////////////////////////////
 		
 		if(crResult == crList.size()) {
 			result = "success";
