@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.studyus.cafe.domain.Cafe;
 import com.studyus.cafe.service.CafeService;
+import com.studyus.caferoom.domain.Caferoom;
+import com.studyus.caferoom.service.CaferoomService;
 import com.studyus.reservation.domain.Reservation;
 import com.studyus.reservation.service.ReservationService;
 
@@ -23,6 +25,9 @@ public class ReservationController {
 	
 	@Autowired
 	private CafeService cfService;
+	
+	@Autowired
+	private CaferoomService crService;
 	
 	/*********************************** 예약 정보 ***********************************/
 	// 예약하려는 사람이 해당 날짜에 예약정보 있는 지 확인 우선 -> ajax로!
@@ -39,8 +44,14 @@ public class ReservationController {
 	
 	// 예약하기 페이지 ( 2 : 날짜와 시간, 상세정보 선택 )
 	@RequestMapping(value="/cafe/reservation-room", method=RequestMethod.GET)
-	public String registerReservation(@RequestParam("crNo") int crNo) {
-		return "cafe/cafeReservation2";
+	public ModelAndView registerReservation(ModelAndView mv, @RequestParam("crNo") int crNo) {
+		Caferoom caferoom = crService.printOne(crNo);
+		Cafe cafe = cfService.printOne(caferoom.getCaNo());
+		
+		mv.addObject("caferoom", caferoom);
+		mv.addObject("cafe", cafe);
+		mv.setViewName("cafe/cafeReservation2");
+		return mv;
 	}
 	
 	// 예약 확인 페이지

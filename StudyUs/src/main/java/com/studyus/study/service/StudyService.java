@@ -48,4 +48,7 @@ public interface StudyService {
 	// 스터디 삭제 post
 	public int deleteStudy(int studyNo);
 	
+	// 팀장 번호로 스터디 리스트 출력
+	public ArrayList<Study> getStudyListByMbNo(int leaderNo);
+	
 }

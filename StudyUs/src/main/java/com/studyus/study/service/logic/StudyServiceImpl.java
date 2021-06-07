@@ -103,4 +103,9 @@ public class StudyServiceImpl implements StudyService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public ArrayList<Study> getStudyListByMbNo(int leaderNo) {
+		return sStore.getStudyListByMbNo(leaderNo);
+	}
 }

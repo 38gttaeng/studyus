@@ -45,6 +45,7 @@
 						<c:url var="cReserv" value="reservation">
 							<c:param name="caNo" value="${cafe.caNo }"></c:param>
 						</c:url>
+						<!-- 관리자만 카페수정, 룸수정 가능하도록 -->
 						<c:if test="${loginUser.mbNo == 1}">
 							<div class="btn-group">
 								<a href="${cModify }" class="btn btn-primary px-4 py-3"
@@ -53,7 +54,8 @@
 								style="background-color: white; color: purple">룸설정</a>
 							</div>
 						</c:if>
-						<c:if test="${loginUser.mbNo != 1}">
+						<!-- 팀장인 경우 -->
+						<c:if test="${ (loginUser.mbNo != 1) && (!empty sList) }">
 							<a href="${cReserv }" class="btn btn-primary px-4 py-3"
 								style="background-color: white; color: purple">예약하기</a>
 						</c:if>

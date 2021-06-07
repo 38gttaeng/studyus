@@ -92,5 +92,10 @@ public class StudyStoreLogic implements StudyStore {
 		return ((Study)sqlSession.selectOne("studyMapper.selectOneByUrl", url)).getStudyNo();
 	}
 
+	@Override
+	public ArrayList<Study> getStudyListByMbNo(int leaderNo) {
+		return (ArrayList)sqlSession.selectList("studyMapper.printAllStudy", leaderNo);
+	}
+
 
 }
