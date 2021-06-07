@@ -305,16 +305,19 @@ public class MemberController {
 //	}
 	// 스터디 가입한 회원 목록
 	@RequestMapping(value="/study/{url}/member", method=RequestMethod.GET)
-	public ModelAndView printStudyMember(ModelAndView mv, HttpSession session,  @PathVariable String url) {
+	public ModelAndView printStudyMember(ModelAndView mv, HttpSession session,  
+																	@PathVariable String url) {
 		Study study = (Study)session.getAttribute("study");
-		
 		if (study == null) {
 			study = sService.printOneByUrl(url);
 		}
 		
 		ArrayList<Member> mList = service.printAllByStudyNo(study.getStudyNo());
 		
-		System.out.println(mList);
+		for(Member m : mList) {
+		System.out.println(m.toString());
+		}
+		System.out.println(study.toString());
 		mv.addObject("mList", mList);
 		mv.setViewName("study/studyMember");
 		return mv;

@@ -4,6 +4,7 @@
 
 	<resultMap type="Purchase" id="purchaseResultMap">
 		<id property="puNo" column="PU_NO"></id>
+		<result property="rnum" column="RNUM"></result>
 		<result property="mbNo" column="MB_NO"></result>
 		<result property="stNo" column="ST_NO"></result>
 		<result property="stName" column="ST_NAME"></result>
@@ -16,6 +17,21 @@
 		SELECT PU_NO, MB_NO, S.ST_NO, S.ST_NAME, S.ST_MAX_PERSONNEL FROM PURCHASE P
 		JOIN STUDY S USING(MB_NO) WHERE MB_NO = #{mbNo}
 	</select> -->
+	
+	<select id="selectListCount" parameterType="Purchase" resultType="_int">
+		SELECT COUNT(*) FROM PURCHASE 
+		WHERE PU_STATUS = 1
+	</select>
+	
+	<select id="selectPurchaseList" resultMap="purchaseResultMap">
+		SELECT ROW_NUMBER() OVER(ORDER BY PU_INSERTDATE) AS RNUM, 
+		P.MB_NO, P.PU_NO, ST_NO, S.ST_NAME, M.MB_NICKNAME, M.MB_EMAIL, P.PU_INSERTDATE 
+		FROM PURCHASE P
+		LEFT OUTER JOIN STUDY S USING(ST_NO) 
+		LEFT OUTER JOIN MEMBER M ON P.MB_NO = M.MB_NO
+		WHERE PU_STATUS = 1
+		ORDER BY RNUM ASC
+	</select>
 	
 	<insert id="insertPremium" parameterType="Purchase">
 		<selectKey keyProperty="puNo" resultType="int" order="AFTER">

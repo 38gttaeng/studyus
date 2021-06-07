@@ -42,4 +42,9 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 		return eStore.checkEnrollment(enrollment);
 	}
 
+	@Override
+	public int banishMember(int memberNo) {
+		return eStore.banishMember(memberNo);
+	}
+
 }

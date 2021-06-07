@@ -35,7 +35,7 @@ public class PurchaseController {
 			Study study = new Study();
 			study.setLeaderNo(member.getMbNo());
 			sList = pService.printStudyList(study);
-			
+			System.out.println(member.toString());
 			for(Study st : sList) {
 				System.out.println(st.toString());
 			}

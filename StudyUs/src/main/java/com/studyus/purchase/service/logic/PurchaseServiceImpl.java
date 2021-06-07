@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.studyus.common.PageInfo;
 import com.studyus.purchase.domain.Purchase;
 import com.studyus.purchase.service.PurchaseService;
 import com.studyus.purchase.store.PurchaseStore;
@@ -35,6 +36,16 @@ public class PurchaseServiceImpl implements PurchaseService{
 	public Purchase checkPremium(int stNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int getListCount(Purchase purchase) {
+		return pStore.selectListCount(purchase);
+	}
+
+	@Override
+	public ArrayList<Purchase> printAll(PageInfo pi, Purchase purchase) {
+		return pStore.selectAll(pi, purchase);
 	}
 
 

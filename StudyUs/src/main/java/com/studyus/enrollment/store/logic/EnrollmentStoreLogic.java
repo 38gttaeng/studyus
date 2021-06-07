@@ -48,4 +48,9 @@ public class EnrollmentStoreLogic implements EnrollmentStore {
 		return session.selectOne("enrollmentMapper.checkEnrollment", enrollment);
 	}
 
+	@Override
+	public int banishMember(int memberNo) {
+		return session.update("enrollmentMapper.banishMember", memberNo);
+	}
+
 }

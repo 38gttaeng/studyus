@@ -2,6 +2,7 @@ package com.studyus.purchase.service;
 
 import java.util.ArrayList;
 
+import com.studyus.common.PageInfo;
 import com.studyus.purchase.domain.Purchase;
 import com.studyus.study.domain.Study;
 
@@ -17,6 +18,11 @@ public interface PurchaseService {
 	
 	// 이용중인 프리미엄 확인
 	public Purchase checkPremium(int stNo);
+	
+	// 관리자용 @@@@
+	public int getListCount(Purchase purchase);
+	//  결제 리스트 출력 
+	public ArrayList<Purchase> printAll(PageInfo pi, Purchase purchase);
 	
 
 }

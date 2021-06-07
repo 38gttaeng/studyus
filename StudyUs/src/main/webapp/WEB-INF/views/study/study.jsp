@@ -80,6 +80,7 @@
 													${notice.noContents }
 											</div>
 										</c:if>
+										
 										<c:if test="${notice.noContents eq null }">
 											&nbsp;
 										</c:if>

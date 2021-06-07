@@ -28,4 +28,7 @@ public interface EnrollmentStore {
 	
 	// 가입여부 확인
 	public int checkEnrollment(Enrollment enrollment) throws Exception;
+	
+	//추방
+	public int banishMember(int memberNo);
 }

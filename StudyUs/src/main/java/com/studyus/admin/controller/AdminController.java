@@ -11,8 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.studyus.admin.service.AdminService;
 import com.studyus.common.PageInfo;
+import com.studyus.common.Pagination10;
 import com.studyus.member.domain.Member;
 import com.studyus.member.service.MemberService;
+import com.studyus.purchase.domain.Purchase;
+import com.studyus.purchase.service.PurchaseService;
 import com.studyus.study.service.StudyService;
 
 @Controller
@@ -23,10 +26,14 @@ public class AdminController {
 	@Autowired
 	MemberService mService;
 	
+	// 스터디 리스트 필요하면 - studyService
 	@Autowired
 	StudyService sService;
 	
-	// 스터디 리스트 필요하면 - studyService
+	// 결제 리스트 
+	@Autowired
+	PurchaseService pService;
+	
 
 //	@Autowired
 //	private AdminService aService;
@@ -50,5 +57,13 @@ public class AdminController {
 //	@RequestMapping(value="/study/list"
 	
 	// 결제 정보 조회 
-	
+	@RequestMapping(value="/admin/purchaselist")
+	public ModelAndView purchaseList(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+		Purchase purchase = new Purchase();
+		int listCount = pService.getListCount(purchase);
+		int currentPage = (page != null) ? page : 1;
+		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
+		ArrayList<Purchase> pList = pService.printAll(pi, purchase);
+		return mv;
+	}
 }

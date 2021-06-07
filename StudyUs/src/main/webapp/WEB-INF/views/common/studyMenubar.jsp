@@ -286,7 +286,7 @@
 	                                        class="hide-menu"> 개인 출석
 	                                    </span></a>
 	                            </li>
-	                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
+	                            <li class="sidebar-item"><a href="/attendance/list" class="sidebar-link"><span
 	                                        class="hide-menu"> 전체 출석
 	                                    </span></a>
 	                            </li>

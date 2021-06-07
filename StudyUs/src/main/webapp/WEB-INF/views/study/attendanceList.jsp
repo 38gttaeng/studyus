@@ -42,32 +42,19 @@
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-lg-4 align-self-center">
-						<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원 목록</h4>
+						<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">출석확인</h4>
 						<div class="d-flex align-items-center">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb m-0 p-0">
 									<li class="breadcrumb-item text-muted" aria-current="page"> <a href="/study">Study</a></li>
-									<li class="breadcrumb-item text-muted active" aria-current="page">Member</li>
-									<li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">List</li>
+									<li class="breadcrumb-item text-muted active" aria-current="page">Attendance</li>
+									<li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">All</li>
 								</ol>
 							</nav>
 						</div>
 					</div>
-					<%-- <div class="col-lg-8 align-self-center">
-						<form action="/notice/noticeSearch" method="get" id="searchForm">
-							<div class="customize-input float-right">
-								<input class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="Search" aria-label="Search" name="searchValue" value="${search.searchValue }"> 
-								<i class="form-control-icon" data-feather="search" id="searchIcon"></i>
-							</div>
-							<div class="customize-input float-right" style="margin-right: 10px;">
-								<select class="custom-select bg-white custom-radius border-0 custom-shadow" name="searchCondition">
-									<option value="all" <c:if test="${search.searchCondition == 'all' }">selected</c:if>>제목+내용</option>
-									<option value="title" <c:if test="${search.searchCondition == 'title' }">selected</c:if>>제목</option>
-									<option value="content" <c:if test="${search.searchCondition == 'content' }">selected</c:if>>내용</option>
-								</select>
-							</div>
-						</form>
-					</div> --%>
+					<div class="col-lg-8 align-self-center">
+					</div>
 				</div>
 			</div>
 
@@ -79,55 +66,59 @@
 				<!-- Start Page Content -->
 				<!-- ============================================================== -->
 				<!-- basic table -->
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="row"  style="margin-top:1%;">
+	                                <div class="col-md-1">
+	                                    <h5 class="card-title">출석률</h5>
+	                                </div>
+	                                <div class="col-md-10">
+	                                	<div class="progress mb-2">
+	                                    	<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+	                                    </div>
+	                                </div>
+	                                	<span id="attendance-help" class="pr-4" style="margin-left:2%;">50%</span>
+                                </div>
+							</div>
+						</div>
+					</div>
+					
+					<br> <br>
+					<div class="col-md-2">
+						<select  class="custom-select custom-select-lg mb-3">
+							<option>2021-6</option>
+						</select>
+					</div>
 					<table class="table col-lg-12" id="nTable">
 						<thead class="thead-light">
 							<tr>
-								<th scope="col" style="width: 1%"></th>
-								<th scope="col" style="width: 6%">#</th>
+								<th scope="col" style="width: 5%"></th>
+								<th scope="col" style="width: 15%">날짜</th>
 								<th scope="col" style="width: 10%">닉네임</th>
-								<th scope="col" style="width: 23%">이메일</th>
-								<th scope="col" style="width: 10%">과제율</th>
-								<th scope="col" style="width: 10%">출석률</th>
-								<th scope="col" style="width: 10%">관리</th>
+								<th scope="col" style="width: 10%">출석여부</th>
 							</tr>
 						</thead>
 						<tbody>
-							@@@@@@@@과제율, 출석률, 추방버튼 활성 필요
-							<c:forEach items="${mList }" var="member">
-								<tr>
-									<th>
-										<input type="hidden" name="mbNo" value="${ member.mbNo }"> 
-									</th>
-									<th scope="row">${member.rnum } </th>
-									<td class="">${ member.mbNickname }</td>
-									<td>${ member.mbEmail }</td>
-									<td>32%</td>
-									<td>99%</td>
-									<td> 
-										<c:if test="${ member.mbNo ne study.leaderNo }">
-											<form action="/member/banish" method="get">
-												<input type="submit" class="btn waves-effect waves-light btn-danger btn-sm" value="추방">
-												<input type="hidden" name="mbNo" value="${ member.mbNo }"> 
-												<input type="hidden" name="studyNo" value="${ study.studyNo }"> 
-											</form>
-										</c:if>
-										<c:if test="${member.mbNo eq study.leaderNo }">
-											
-										</c:if>
-									</td>
-								</tr>
-							</c:forEach>
+							<tr>
+								<td></td>
+								<td>2021-06-07</td>
+								<td>동현쿤</td>
+								<td>O</td>
+							</tr>
 						</tbody>
 						<tr></tr>
 					</table>
+				</div>
 			</div>
-		</div> 
+		</div>
 		<!-- footer -->
 		<jsp:include page="../common/studyFooter.jsp" />
 	</div>
 	<script>
-		$("#sidebarnav>li:nth-child(12)").addClass("selected");
-		$("#sidebarnav>li:nth-child(12) a").addClass("active");
+		$("#sidebarnav>li:nth-child(5)").addClass("selected");
+		$("#sidebarnav>li:nth-child(5) a").addClass("active");
 		
 		$('#currentPage').click(function() { // 현재페이지를 클릭했을때 클릭 안되게 
 			return false;

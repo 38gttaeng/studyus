@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,5 +55,16 @@ public class EnrollmentController {
 	public String printEnrollmentByStudyNo(@RequestParam int studyNo) throws Exception {
 		return "";
 	}
+	
+	// 추방 
+		@RequestMapping(value="/member/banish")
+		public String banishMember(@RequestParam("memberNo") int memberNo, @RequestParam(value="studyNo", required=false) int studyNo) {
+			int result = eService.banishMember(memberNo);
+			if(result > 0) {
+				return "study/studyMember";
+			}else {
+				return "";
+			}
+		}
 	
 }
