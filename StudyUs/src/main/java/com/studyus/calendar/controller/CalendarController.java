@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.service.AssignmentService;
 import com.studyus.calendar.domain.Calendar;
+import com.studyus.member.domain.Member;
 import com.studyus.study.domain.Study;
 
 @Controller
@@ -34,6 +35,28 @@ public class CalendarController {
 		
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		ArrayList<Assignment> asList = asService.printAllByStudyNo(stNo);
+		
+		if(!asList.isEmpty()) {
+			ArrayList<Calendar> caList = new ArrayList<Calendar>();
+			for(Assignment asOne : asList) {
+				String url = "/study/assignment/detail?asNo=" + asOne.getAsNo();
+				Calendar calendar = new Calendar("과제", asOne.getAsName(), asOne.getAsInsertDate(), asOne.getAsDeadLine(), url, "backHover" + asOne.getAsStatus());
+				caList.add(calendar);
+			}
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(caList, response.getWriter());
+		} else {
+			System.out.println("스터디에 해당하는 과제 전부 가져오기 실패~~~");
+		}
+	}
+	
+	// 마이페이지에서 띄우기
+	@RequestMapping(value="/member/calendar/assignment", method=RequestMethod.GET)
+	public void memAsCalendar(HttpSession session, HttpServletResponse response) throws Exception {
+		
+		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+		ArrayList<Assignment> asList = asService.printAllByMbNo(mbNo);
 		
 		if(!asList.isEmpty()) {
 			ArrayList<Calendar> caList = new ArrayList<Calendar>();

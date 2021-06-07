@@ -146,14 +146,14 @@
 	
 	<!-- 마이페이지 내 과제 보기 -->
 	<select id="selectAllByMbNo" parameterType="_int" resultMap="assignmentResultMap">
-	SELECT
-	    AI.AS_NO, AI.GR_NO, AI.AS_CONTENTS, AI.AS_INSERTDATE, AI.AS_DEADLINE, G.GR_COLOR AS AS_STATUS
-	FROM ASSIGNMENT AI
-	JOIN ASSIGN A
-	ON AI.GR_NO = A.GR_NO
-	JOIN ASSIGNMENT_GROUP G
-	ON AI.GR_NO = G.GR_NO
-	WHERE A.MB_NO = #{mbNo};
+		SELECT
+		    AI.AS_NO, AI.GR_NO, AI.AS_CONTENTS, AI.AS_INSERTDATE, AI.AS_DEADLINE, G.GR_COLOR AS AS_STATUS
+		FROM ASSIGNMENT AI
+		JOIN ASSIGN A
+		ON AI.GR_NO = A.GR_NO
+		JOIN ASSIGNMENT_GROUP G
+		ON AI.GR_NO = G.GR_NO
+		WHERE A.MB_NO = #{mbNo}
 	</select>
 	
 	<!-- 과제율 계산 : 전체 과제 개수 / 스터디 내부 과제 개수 -->

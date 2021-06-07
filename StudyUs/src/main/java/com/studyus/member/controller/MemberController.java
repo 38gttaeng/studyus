@@ -465,21 +465,11 @@ public class MemberController {
 		return null;
 	}
 	
-	// 후기모음
-	@ResponseBody
-	@RequestMapping(value = "/member/myReview", method = RequestMethod.GET)
-	public String myReviewList(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		Member member = (Member)session.getAttribute("loginUser");
-		ArrayList<Review> myReview = service.myReviewList(member.getMbNo());
-		session.setAttribute("myReview", myReview);
-		return null;
-	}
-	
 //	@RequestMapping(value="/study/38gttaeng/member")
 //	public String memberView() {
 //		return "study/studyMember";
 //	}
+	
 	// 스터디 가입한 회원 목록
 	@RequestMapping(value="/study/{url}/member", method=RequestMethod.GET)
 	public ModelAndView printStudyMember(ModelAndView mv, HttpSession session,  @PathVariable String url) {
