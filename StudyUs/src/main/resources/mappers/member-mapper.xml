@@ -85,4 +85,8 @@
 		JOIN MEMBER M ON A.MB_NO = M.MB_NO
 		WHERE GR_NO = #{grNo}
 	</select>
+	
+	<select id="selectAllList" resultMap="memberResultMap">
+		SELECT * FROM MEMBER
+	</select>
 </mapper>

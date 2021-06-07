@@ -223,5 +223,10 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Member> printAllAssign(int grNo) {
 		return store.selectAllAssign(grNo);
 	}
+	
+	@Override
+	public ArrayList<Member> printAll() {
+		return store.selectList();
+	}
 
 }

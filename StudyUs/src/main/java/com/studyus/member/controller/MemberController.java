@@ -496,4 +496,19 @@ public class MemberController {
 		mv.setViewName("study/studyMember");
 		return mv;
 	}
+	
+	/*********** 관리자 ************/
+	// 회원 목록
+	@RequestMapping(value="/admin/member/list", method=RequestMethod.GET)
+	public ModelAndView memberList(ModelAndView mv){
+		ArrayList<Member> mList = service.printAll();
+		if(!mList.isEmpty()){
+			mv.addObject("mList", mList);
+			mv.setViewName("admin/memberAdmin");
+		} else {
+			mv.addObject("msg", "회원 목록 조회 실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
 }

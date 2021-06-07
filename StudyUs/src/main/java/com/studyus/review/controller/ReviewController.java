@@ -20,6 +20,7 @@ import com.google.gson.GsonBuilder;
 import com.studyus.cafe.domain.Cafe;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
+import com.studyus.member.domain.Member;
 import com.studyus.review.domain.Review;
 import com.studyus.review.service.ReviewService;
 
@@ -32,7 +33,6 @@ public class ReviewController {
 	// 리뷰리스트
 	@RequestMapping(value = "/cafe/review/list", method = RequestMethod.GET)
 	public void getReviewList(HttpServletResponse response, @RequestParam("caNo") int caNo, @RequestParam(value="page", required=false) Integer page) throws IOException {
-		////////////////////
 		Cafe cafe = new Cafe(); 
 		cafe.setCaNo(caNo);
 		int listCount = rService.getListCount(caNo);
@@ -59,9 +59,9 @@ public class ReviewController {
 	@RequestMapping(value = "/cafe/review/register", method = RequestMethod.POST)
 	public String registerReview(@ModelAttribute Review review, HttpSession session) {
 		
-//		Member loginMember = (Member) session.getAttribute("loginUser");
-//		review.setMbNo(loginMember.getMbNo());
-		review.setMbNo(1);
+		Member loginMember = (Member) session.getAttribute("loginUser");
+		review.setMbNo(loginMember.getMbNo());
+//		review.setMbNo(1);
 		int result = rService.registerReview(review);
 		if (result > 0) {
 			return "success"; 
@@ -74,6 +74,8 @@ public class ReviewController {
 	@ResponseBody
 	@RequestMapping(value = "/cafe/review/update", method = RequestMethod.POST)
 	public String reviewUpdate(@ModelAttribute Review review) {
+		
+		System.out.println(review.toString());
 		int result = rService.modifyReview(review);
 		if (result > 0) {
 			return "success";

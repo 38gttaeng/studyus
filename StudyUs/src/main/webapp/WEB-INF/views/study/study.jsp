@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>StudyUs : 스터디룸</title>
+    <title>StudyUs : 관리자 페이지</title>
     <!-- 타이틀을 개별 스터디룸 이름으로 해줘도 좋을듯 ! 'StudyUs : 삼팔광땡' 이러케 -->
 </head>
 <body>
@@ -70,11 +70,20 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-start">
-                                    <h5 class="card-title">공지사항</h5>
+                                    <h5 class="card-title">최신 공지사항</h5>
                                 </div>
                                 <hr>
                                 <div class="">
-                                	<p class="text-muted font-14 mb-3">공지사항 그으으으으ㅡ으으으으ㅡ으으을</p>
+	                                	<c:forEach items="${recentNotice }" var="notice" >
+    	                            		<c:if test="${notice.noContents ne null }">
+											<div class="card-body">
+													${notice.noContents }
+											</div>
+										</c:if>
+										<c:if test="${notice.noContents eq null }">
+											&nbsp;
+										</c:if>
+									</c:forEach>
                                 </div>
                             </div>
                         </div>

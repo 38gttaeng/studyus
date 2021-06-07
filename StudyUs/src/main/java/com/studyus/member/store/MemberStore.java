@@ -58,4 +58,6 @@ public interface MemberStore {
 	 * @return
 	 */
 	public ArrayList<Member> selectAllAssign(int grNo);
+	
+	public ArrayList<Member> selectList();
 }
