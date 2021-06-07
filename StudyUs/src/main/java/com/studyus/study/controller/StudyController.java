@@ -31,6 +31,8 @@ import com.studyus.file.controller.FileController;
 import com.studyus.meeting.domain.Meeting;
 import com.studyus.meeting.service.MeetingService;
 import com.studyus.member.domain.Member;
+import com.studyus.notice.domain.Notice;
+import com.studyus.notice.service.NoticeService;
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudySearchCriteria;
 import com.studyus.study.domain.StudySearchResult;
@@ -62,6 +64,9 @@ public class StudyController {
 	
 	@Autowired
 	MeetingService mService;
+	
+	@Autowired
+	private NoticeService nService;
 	
 	// 스터디 생성 폼 페이지 get
 	@RequestMapping(value="/study/register", method=RequestMethod.GET)
@@ -166,10 +171,11 @@ public class StudyController {
 	}
 	// 스터디 상세 페이지 get by Url
 	@RequestMapping(value="/study/{url}", method=RequestMethod.GET)
-	public String mainViewUrl(HttpServletRequest request, @PathVariable("url") String url) throws Exception {
+	public String mainViewUrl(HttpServletRequest request, @ModelAttribute Notice notice, @PathVariable("url") String url) throws Exception {
+		
 		Study study = sService.printOneByUrl(url);
 		Member member = (Member) request.getSession().getAttribute("loginUser");
-		
+		notice.setStNo(study.getStudyNo());
 		// 로그인여부 확인
 		if (member == null) {
 			return new RedirectWithMsg().redirect(request, "로그인이 필요합니다.", "/member/loginView");
@@ -182,7 +188,8 @@ public class StudyController {
 		if (eService.checkEnrollment(enrollment) < 1) {
 			return new RedirectWithMsg().redirect(request, "스터디에 가입한 회원이 아닙니다.", "/");
 		}
-		
+		// 최신 공지사항 출력 
+		ArrayList<Notice> recentNotice = nService.printRecentNotice(notice);
 		/*
 		 * 출석버튼 상태를 변경하기 위한 값
 		 * 0: 출석일이 아님
@@ -207,6 +214,7 @@ public class StudyController {
 		
 		request.getSession().setAttribute("study", study);
 		request.setAttribute("attendanceStatus", attendanceStatus);
+		request.setAttribute("recentNotice", recentNotice);
 		
 		return "study/study";
 	}

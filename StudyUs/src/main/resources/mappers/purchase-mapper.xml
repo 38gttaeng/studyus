@@ -18,6 +18,9 @@
 	</select> -->
 	
 	<insert id="insertPremium" parameterType="Purchase">
+		<selectKey keyProperty="puNo" resultType="int" order="AFTER">
+			select SEQ_PURCHASE.currval FROM DUAL
+		</selectKey>
 		INSERT INTO PURCHASE VALUES(
     	SEQ_PURCHASE.NEXTVAL, #{stNo}, #{mbNo}, DEFAULT, DEFAULT)
 	</insert>

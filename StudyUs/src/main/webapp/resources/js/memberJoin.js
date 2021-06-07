@@ -153,7 +153,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".enroll-btn").on("click", function() {
+	$(".enroll-btn").on("click", function() { 
 		goEnroll();
 	});
 

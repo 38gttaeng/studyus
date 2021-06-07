@@ -119,7 +119,7 @@ function replyList(data, listCount, loginMbNo) {
 	var $btnTool = "";
 	
 	$("#rCount").text(listCount);
-	//if(data.length > 0) {
+	if(data.length > 0) {
 		
 		/* 댓글 */
 		for(var i in data) {
@@ -131,37 +131,38 @@ function replyList(data, listCount, loginMbNo) {
 				$div = $("<div class='reply-box my-reply'>");
 			}
 			
-			 $rWriter = $("<div>");
-			/**.append("<img src='/resources/images/" + data[i].member.mbPhoto + ".png' class='rounded-circle'>&nbsp")
-			.append("<span class='nickName'>" + data[i].member.mbNickname + "</span>&nbsp"); **/
+			$rWriter = $("<div id='rWriter'>")
+			.append("<img src='/resources/images/" + data[i].member.mbPhoto + ".png' class='rounded-circle'>&nbsp")
+			.append("<span class='nickName'>" + data[i].member.mbNickname + "</span>&nbsp");
 			
 			if(noMbNo == data[i].mbNo) {
-				$rWriter.append("<div class='writerTag'>"+ data[i].noWriter +" </div>");
+				$rWriter.append("<div class='writerTag'> 작성자 </div>");
 			}
 			$rWriter.append("<span class='insertDate'>" + data[i].noInsertDate + "</span>");
 			
 			$rContent = $("<div class='contents-box'>").append(data[i].noContents);
 			
-			/** $btnArea = $("<div>")
-			.append("<button class='btn btn-sm btn-light'>답글</button>"); **/
+			$btnArea = $("<div>")
+			.append("&nbsp;");
 			
 			// 수정+삭제 버튼
-			/** if(loginMbNo == data[i].mbNo) {
-				$btnTool =$("<div class='btn-group'>");
-				$btnTool.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].noNo + ");'>수정</button>")
+			if(loginMbNo == data[i].mbNo) {
+				$btnTool = $("<div class='btn-group'>");
+				$btnTool
+				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].noNo + ");'>수정</button>")
 				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].noNo + ");'>삭제</button>");
 				$btnArea.append($btnTool); 
-			} **/
+			}
 			console.log(loginMbNo);
 			console.log(data[i].mbNo);
 			$div.append($rWriter);
 			$div.append($rContent);
 			$div.append($btnArea);
-			$div.attr("id", "noReply" + data[i].noNo);//////////////////
+			$div.attr("id", "noReply" + data[i].noNo);
 			
 			$rList.append($div);
 		}
-	//}
+	}
 }
 
 // 페이징

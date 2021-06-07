@@ -3,6 +3,7 @@
 <mapper namespace="memberMapper">
 	<resultMap type="Member" id="memberResultMap">
 		<result property="mbNo" column="MB_NO"/>
+		<result property="rnum" column="RNUM"/>
 		<result property="mbId" column="MB_ID"/>
 		<result property="mbPassword" column="MB_PASSWORD"/>
 		<result property="mbName" column="MB_NAME"/>

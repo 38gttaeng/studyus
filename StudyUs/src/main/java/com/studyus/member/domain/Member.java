@@ -3,6 +3,7 @@ package com.studyus.member.domain;
 public class Member {
 
 	private int mbNo;
+	private int rnum;
 	private String mbId;
 	private String mbPassword;
 	private String mbName;
@@ -43,6 +44,14 @@ public class Member {
 
 	public void setMbNo(int mbNo) {
 		this.mbNo = mbNo;
+	}
+	
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	public String getMbId() {
@@ -131,5 +140,5 @@ public class Member {
 				+ ", mbEmail=" + mbEmail + ", mbNickname=" + mbNickname + ", mbPhone=" + mbPhone + ", mbReputation="
 				+ mbReputation + ", mbPhoto=" + mbPhoto + ", mbStatus=" + mbStatus + ", authKey=" + authKey + "]";
 	}
-
+	
 }

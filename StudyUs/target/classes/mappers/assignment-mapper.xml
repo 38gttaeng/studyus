@@ -75,7 +75,7 @@
 		WHERE ST_NO = #{stNo}
 		AND AS_STATUS = 1
 	</select>
-	 
+	
 	<!-- 디테일 -->
 	<select id="selectOne" resultMap="assignmentResultMap">
 		SELECT * FROM ASSIGNMENT
