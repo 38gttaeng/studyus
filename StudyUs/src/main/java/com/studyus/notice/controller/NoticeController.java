@@ -104,10 +104,13 @@ public class NoticeController {
 											@RequestParam(value="page", required=false) Integer page) {
 		// int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		// search.setStNo(stNo);
+		Search sc = new Search(search.getSearchCondition(), search.getSearchValue());
 		Study study = (Study)session.getAttribute("study");
 		Notice notice = new Notice();
 		notice.setStNo(study.getStudyNo());
 		search.setStNo(study.getStudyNo());
+		// search.setSearchValue(sc.getSearchValue());
+		// search.setSearchCondition(sc.getSearchCondition());
 		// 2개의 값을 하나에 담아서 보내는 방법
 		// 1. Domain(VO) 클래스 이용
 		// 2. HashMap 사용하기
@@ -117,6 +120,7 @@ public class NoticeController {
 		ArrayList<Notice> searchList = nService.printSearchAll(pi, search);
 		ArrayList<Notice> mainNotice = nService.printMainNotice(notice);
 		
+		System.out.println(search.toString());
 		//@@@@@@@@게시글 뒤에 N 표시하기 @@@@@@
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();

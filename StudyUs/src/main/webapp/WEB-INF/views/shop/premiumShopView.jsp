@@ -88,7 +88,7 @@
 		              <li>&nbsp;</li>
 		            </ul>
 		            <c:if test="${empty sList }"> <!-- 스터디장만 결제 가능하게 -->
-		            		<button id="empty-login" type="button" class="btn btn-primary d-block px-3 py-3 mb-4"  style="width: 70%; margin-left:15%;">구매하기</button>
+		            		<button id="not-zzang" type="button" class="btn btn-primary d-block px-3 py-3 mb-4"  style="width: 70%; margin-left:15%;">구매하기</button>
 		            </c:if>
 		            <c:if test="${!empty sList }">
 		            		<!-- <button id="check_module" type="button" class="btn btn-primary d-block px-3 py-3 mb-4"  style="width: 70%; margin-left:15%;">구매하기</button>  -->
@@ -289,9 +289,9 @@
 	});
 
 	// 로그인 안했을 때 로그인 페이지로 이동
-	$("#empty-login").click(function(){
-		alert("로그인 후 이용해주세요.");
-		document.location.href="/member/loginView";
+	$("#not-zzang").click(function(){
+		alert("스터디장 전용 상품입니다.");
+		//document.location.href="/member/loginView";
 	});
 	</script>
   </body>

@@ -226,7 +226,7 @@
 							
 							<c:if test="${search.searchValue ne null }">
 								<ul class="pagination">
-									<c:url var="before" value="/notice/noticeSearch">
+									<c:url var="before" value="/notice/noticeSearch?searchValue=${search.searchValue }&searchCondition=${search.searchCondition}">
 										<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 									</c:url>
 									<li class="page-item disabled">
@@ -247,7 +247,7 @@
 									</li>
 
 									<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-										<c:url var="pagination" value="/notice/noticeSearch">
+										<c:url var="pagination" value="/notice/noticeSearch?searchValue=${search.searchValue }&searchCondition=${search.searchCondition}">
 											<c:param name="page" value="${p }"></c:param>
 										</c:url>
 										<li class="page-item active">
@@ -262,7 +262,7 @@
 										</li>
 									</c:forEach>
 
-									<c:url var="after" value="/notice/noticeSearch">
+									<c:url var="after" value="/notice/noticeSearch?searchValue=${search.searchValue }&searchCondition=${search.searchCondition}">
 										<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 									</c:url>
 									<li class="page-item disabled">

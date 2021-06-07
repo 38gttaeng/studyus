@@ -6,6 +6,12 @@ public class Search {
 	private int stNo;
 	
 	public Search() {}
+	
+	public Search(String searchCondition, String searchValue) {
+		super();
+		this.searchCondition = searchCondition;
+		this.searchValue = searchValue;
+	}
 
 	public String getSearchCondition() {
 		return searchCondition;
