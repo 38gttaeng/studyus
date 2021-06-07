@@ -173,8 +173,8 @@ public class CaferoomController {
 			for (Map<String, Integer> one : locations) {
 				Caferoom caferoom = new Caferoom();
 				caferoom.setCrNo(one.get("id"));
-				caferoom.setCrLeft(one.get("left"));
-				caferoom.setCrTop(one.get("top"));
+				caferoom.setCrLeftPx(one.get("left"));
+				caferoom.setCrTopPx(one.get("top"));
 				
 				crList.add(caferoom);
 			}
