@@ -10,6 +10,8 @@
 		<result property="rsStart" column="RS_START"></result>
 		<result property="rsEnd" column="RS_END"></result>
 		<result property="rsStatus" column="RS_STATUS"></result>
+		<result property="caName" column="CA_NAME"></result>
+		<result property="crName" column="CR_NAME"></result>
 	</resultMap>
 	
 	<!-- 예약정보 확인용 -->
@@ -19,6 +21,18 @@
 		WHERE RS_DATE = #{rsDate} AND CR_NO = #{crNo}
 	</select>
 	
+	<!-- 캘린더 -->
+	<select id="selectAllByStNo" parameterType="_int" resultMap="reservationResultMap">
+		SELECT R.*, C.CA_NAME, CR.CR_NAME
+		FROM RESERVATION R
+		JOIN CAFEROOM CR ON R.CR_NO = CR.CR_NO
+		JOIN CAFE C ON CR.CA_NO = C.CA_NO
+		WHERE ST_NO = #{stNo}
+	</select>
+	
+	<!-- 디테일 -->
+	
+	<!-- 등록 -->
 	<insert id="insertReservation" parameterType="Reservation">
 		<selectKey resultType="int" keyProperty="rsNo" order="BEFORE">
 			SELECT SEQ_RESERVATION.NEXTVAL FROM DUAL
@@ -29,6 +43,7 @@
 		)
 	</insert>
 	
+	<!-- 삭제 -->
 	<update id="deleteReservation" parameterType="Reservation">
 		UPDATE RESERVATION SET
 		RS_STATUS = 0

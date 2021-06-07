@@ -28,8 +28,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public ArrayList<Reservation> printReservationByStNo(int stNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return rsStore.selectReservationByStNo(stNo);
 	}
 
 	@Override

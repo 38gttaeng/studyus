@@ -28,8 +28,7 @@ public class ReservationStoreLogic implements ReservationStore {
 
 	@Override
 	public ArrayList<Reservation> selectReservationByStNo(int stNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectAllByStNo", stNo);
 	}
 
 	@Override

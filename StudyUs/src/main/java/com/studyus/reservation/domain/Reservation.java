@@ -16,6 +16,8 @@ public class Reservation {
 	private int rsStart;
 	private int rsEnd;
 	private int rsStatus;
+	private String caName;
+	private String crName;
 	
 	public Reservation() {}
 }

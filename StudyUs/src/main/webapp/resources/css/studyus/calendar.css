@@ -5,3 +5,20 @@
 input[type=date], input[type=time] {
 	width : 45%;
 }
+
+.backHover5 {
+	background-color : #858d96 !important;
+}
+
+.backHover6 {
+	background-color : #6927ff !important;
+}
+
+.backHover5:hover {
+	background-color : #6c757d !important;
+}
+
+.backHover6:hover {
+	background-color : #4200db !important;
+}
+
