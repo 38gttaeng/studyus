@@ -11,11 +11,13 @@ public class Caferoom {
 
 	private int crNo;
 	private int caNo;
-	private int crMax;
-	private int crCol;
-	private int crRow;
+	private int crTopPx;
+	private int crLeftPx;
+	private String crName;
 	private String crInfo;
-	private String crPrice;
+	private String crFilename;
+	private int crMax;
+	private int crPrice;
 
 	public Caferoom() {}
 

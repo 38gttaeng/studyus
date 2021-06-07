@@ -42,31 +42,6 @@
 				return result;
 			}
 			
-            /*var defaultEvents = [{
-					id : 1,
-					category : 1,
-					caMotherNo : 1,
-                    title: 'Meeting #3',
-					member : '지수,은지,나은',
-                    start: new Date($.now() - 399000000),
-                    end: new Date($.now() - 219000000),
-                    className: 'backHover1'
-                }, {
-                    title: 'Submission #1',
-                    start: today,
-                    end: today,
-                    className: 'bg-danger'
-                }, {
-					id : 2,
-					category : 1,
-					caMotherNo : 30,
-                    title: 'Meetup #6',
-                    start: '2021/05/08 15:33',
-					end : '2021/05/12 15:33',
-                    className: 'bg-info'
-				}
-            ];*/
-
             var $this = this;
             $this.$calendarObj = $this.$calendar.fullCalendar({
 				minTime: '00:00:00',

@@ -28,4 +28,11 @@ public interface CaferoomService {
 	public int modifyCaferoom(Caferoom caferoom);
 	public int removeCaferoom(int crNo);
 	
+	/**
+	 * 룸 위치 수정
+	 * @param caferoom
+	 * @return
+	 */
+	int updateLocation(Caferoom caferoom);
+	
 }

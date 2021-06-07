@@ -17,32 +17,33 @@ public class CaferoomStoreLogic implements CaferoomStore{
 
 	@Override
 	public ArrayList<Caferoom> selectAll(int caNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("caferoomMapper.selectList", caNo);
 	}
 
 	@Override
 	public Caferoom selectOne(int crNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("caferoomMapper.selectOne", crNo);
 	}
 
 	@Override
 	public int insertCaferoom(Caferoom caferoom) {
-		// TODO Auto-generated method stub
-		return 0;
+		sqlSession.insert("caferoomMapper.insertCaferoom", caferoom);
+		return caferoom.getCrNo();
 	}
 
 	@Override
 	public int updateCaferoom(Caferoom caferoom) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("caferoomMapper.updateCaferoom", caferoom);
 	}
 	
 	@Override
 	public int deleteCaferoom(int crNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("caferoomMapper.deleteCaferoom", crNo);
 	}
-
+	
+	@Override
+	public int updateLocation(Caferoom caferoom) {
+		return sqlSession.update("caferoomMapper.updateLocation", caferoom);
+	}
+	
 }

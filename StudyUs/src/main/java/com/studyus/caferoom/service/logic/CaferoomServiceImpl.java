@@ -17,32 +17,32 @@ public class CaferoomServiceImpl implements CaferoomService{
 
 	@Override
 	public ArrayList<Caferoom> printAll(int caNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return crStore.selectAll(caNo);
 	}
 
 	@Override
 	public Caferoom printOne(int crNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return crStore.selectOne(crNo);
 	}
 
 	@Override
 	public int registerCaferoom(Caferoom caferoom) {
-		// TODO Auto-generated method stub
-		return 0;
+		return crStore.insertCaferoom(caferoom);
 	}
 	
 	@Override
 	public int modifyCaferoom(Caferoom caferoom) {
-		// TODO Auto-generated method stub
-		return 0;
+		return crStore.updateCaferoom(caferoom);
 	}
 
 	@Override
 	public int removeCaferoom(int crNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return crStore.deleteCaferoom(crNo);
+	}
+	
+	@Override
+	public int updateLocation(Caferoom caferoom) {
+		return crStore.updateLocation(caferoom);
 	}
 
 }

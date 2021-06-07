@@ -15,4 +15,6 @@ public interface FileService {
 	public FileVO selectOne(int fiNO);
 	
 	public int removeFileByFiNo(int fiNo);
+
+	public String selectOriginName(String fiStoredName);
 }
