@@ -3,6 +3,7 @@ var duration = 1;
 var caTime = $("input[name=caTime]").val();
 var start = caTime.substring(0,2)*1;
 var end = caTime.substring(6,8)*1;
+var clicked = "";
 
 ! function($) {
     "use strict";
@@ -97,17 +98,43 @@ var end = caTime.substring(6,8)*1;
 						$(".fc-day").removeClass("clicked");
 						$(this).addClass("clicked");
 						
-						// 영업시간 가져와서 선택 가능한 시간 보여주기
-						$("#time-select").html("");
-						$("#time-select").attr("disabled", false);
-						for(var i=start; i<end; i++) {
+						// 날짜 정보 저장
+						clicked = date.format();
 						
-							$("#time-select").append("<option value='" + i + "'>" + i + ":00 ~ " + (i+1) + ":00</option>");
-						}
-						
-						// date별로 select 정보 보여줘야(ajax로 예약정보 가져오기)
-	
-						// DB에 저장된 시작 시간과 지금 예약한 시작 시간이 같을 경우
+						// 날짜별로 선택 가능한 시간만 표시
+							// ajax로 날짜별 예약된 시간 array 가져오기
+						var crNo = $("input[name=crNo]").val();
+						$.ajax ({
+							url : "/cafe/reservation-check",
+							type : "get",
+							data : {"crNo" : crNo , "rsDate" : clicked },
+							dataType : "json",
+							success : function(a) {
+								// 영업시간에 해당하는 array 만들기
+								var b = new Array();
+								
+								$("#time-select").html("");
+								$("#time-select").attr("disabled", false);
+								
+								for(var i=start; i<end; i++) {
+									b.push(i);
+								}
+								
+								// 배열 두개 비교해서 다른 값만 저장하고 select option으로 넣어주기
+								//var optionList = new Array();
+								var sum = a.concat(b); // 배열 합치기
+								var union = sum.filter((item, index) => sum.indexOf(item) === index); // 합집합
+								var intersec = sum.filter((item, index) => sum.indexOf(item) !== index); // 교집합
+								var optionList = union.filter(x => !intersec.includes(x)); // 차집합
+								
+								for(var i in optionList) {
+									$("#time-select").append("<option value='" + optionList[i] + "'>" + optionList[i] + ":00 ~ " + (optionList[i]+1) + ":00</option>");
+								}
+							},
+							error : function() {
+								alert("전송 실패..");
+							}
+						});
 				    }
 				}
             });
@@ -124,7 +151,62 @@ $(window).on('load', function() {
 
     $.CalendarApp.init();
 	
-	$("#time-select").on("change", function() {
-		console.log($(this).val());
+	// 예약정보에 선택한 스터디정보 넣어주기
+	var studyCheck = $("input[name=study-check]").val();
+	var study = "";
+	if(studyCheck == 1) {
+		study = $("select[name=studyNo] option:selected").text();
+		$("#reserv-name").html(study);
+	}
+	$("#study-select").on("change", function() {
+		study = $("#study-select option:selected").text();
+		$("#reserv-name").html(study);
 	});
+	
+	// 시간 선택값 변하면
+	$("#time-select").on("change", function() {
+		var arr = $(this).val();
+		var reservDate = "";
+		var duration = 0;
+	
+		// 예약정보에 선택한 날짜정보 넣어주기
+		if(arr.length > 1) {
+			reservDate = clicked + " / " + arr[0] + ":00 ~ " + (arr[arr.length-1]*1+1) + ":00";
+			duration = (arr[arr.length-1] * 1 + 1) - (arr[0] * 1);
+		} else {
+			reservDate = clicked + " / " + arr[0] + ":00 ~ " + (arr[0]*1+1) + ":00";
+			duration = 1;
+		}
+		$("#reserv-date").html(reservDate);
+		
+		var price = $("input[name=study-price]").val();
+		price = price * duration;
+		$("#reserv-price").html(price + "원 / " + duration + "시간");
+	});
+	
+	$("#reservation-btn").on("click", function() {
+		var arr = $("#time-select").val();
+		var rsStart = 0;
+		var rsEnd = 0;
+		
+		if(arr.length > 1) {
+			rsStart = arr[0] * 1;
+			rsEnd = ( arr[arr.length-1] * 1 + 1 );
+		} else {
+			rsStart = arr[0] * 1;
+			rsEnd = (arr[0] * 1 + 1);
+		}
+		
+		// input[type=hidden]에 값 넘겨주기
+			// 시간
+		$("input[name=startStr]").val(rsStart);
+		$("input[name=endStr]").val(rsEnd);
+			// 날짜
+		$("input[name=rsDate]").val(clicked);
+		
+		// form 태그 전송
+		$("#reservation-form").submit();
+	});
+	
 });
+

@@ -14,6 +14,11 @@ public class ReservationStoreLogic implements ReservationStore {
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Override
+	public ArrayList<Reservation> getReservationCheck(Reservation reservation) {
+		return (ArrayList)sqlSession.selectList("reservationMapper.reservationCheck", reservation);
+	}
 
 	@Override
 	public ArrayList<Reservation> selectAll(int crNo, String rsDate) {
@@ -22,15 +27,9 @@ public class ReservationStoreLogic implements ReservationStore {
 	}
 
 	@Override
-	public ArrayList<Reservation> selectMyReservation(int stNo) {
+	public ArrayList<Reservation> selectReservationByStNo(int stNo) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public int getReservationCheck(int mbNo, String rsDate) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -40,15 +39,13 @@ public class ReservationStoreLogic implements ReservationStore {
 	}
 
 	@Override
-	public int insertReservation() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertReservation(Reservation reservation) {
+		return sqlSession.insert("reservationMapper.insertReservation", reservation);
 	}
 
 	@Override
-	public int deleteReservation() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteReservation(int rsNo) {
+		return sqlSession.update("reservationMapper.deleteReservation", rsNo);
 	}
 
 }

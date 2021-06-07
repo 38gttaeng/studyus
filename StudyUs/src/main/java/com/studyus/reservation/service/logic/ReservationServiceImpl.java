@@ -14,23 +14,22 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	private ReservationStore rsStore;
+	
+	@Override
+	public ArrayList<Reservation> getReservationCheck(Reservation reservation) {
+		return rsStore.getReservationCheck(reservation);
+	}
 
 	@Override
-	public ArrayList<Reservation> printAll(int crNo, String rsDate) {
+	public ArrayList<Reservation> printAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Reservation> printMyReservation(int stNo) {
+	public ArrayList<Reservation> printReservationByStNo(int stNo) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public int getReservationCheck(int mbNo, String rsDate) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -40,15 +39,13 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public int registerReservation() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int registerReservation(Reservation reservation) {
+		return rsStore.insertReservation(reservation);
 	}
 
 	@Override
-	public int removeReservation() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int removeReservation(int rsNo) {
+		return rsStore.deleteReservation(rsNo);
 	}
 
 }

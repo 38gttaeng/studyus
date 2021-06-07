@@ -11,6 +11,15 @@
 	margin-top : 20px;
 }
 
+#time-select {
+	height : 80%;
+	text-align : center;
+}
+
+#time-select option {
+	padding : 10px;
+}
+
 /* 캘린더 페이지 */
 
 .fc-view {
