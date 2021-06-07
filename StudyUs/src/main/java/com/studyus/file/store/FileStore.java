@@ -15,4 +15,6 @@ public interface FileStore {
 	public FileVO selectOne(int fiNo);
 	
 	public int deleteFileByFiNo(int fiNo);
+
+	public String selectOriginName(String fiStoredName);
 }

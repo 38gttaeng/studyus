@@ -31,6 +31,7 @@ $(function() {
 	});
 
 	// Quill
+	var picArr = new Array();
 	var toolbarOptions = {
 		container : [
 		  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -54,23 +55,19 @@ $(function() {
 	var quill = new Quill('#editor', {
 		modules: {
 			imageResize: {},
-			//videoResize: {},
+			//videoResize: {}, 
 			imageUpload: {
-				url: '/file/upload/image',
+				url: '/file/upload/assignment-image',
 				method: 'POST',
 				name: 'uploadImage',
 				withCredentials: false,
-				//customUploader: () => {},
 				callbackOK: (serverResponse, next) => {
 			    	next(serverResponse);
+					picArr.push(serverResponse.substring(25));
 			    },
 				callbackKO: serverError => {
 					alert(serverError);
-				},
-				checkBeforeSend: (file, next) => {
-			    	console.log(file);
-			    	next(file); // go back to component and send to the server
-			    }
+				}
 			},
           "toolbar": toolbarOptions,
           "emoji-toolbar": true,
@@ -91,6 +88,7 @@ $(function() {
 		}
 	});
 	
+	// 등록버튼 클릭시
 	$("#submit-btn").on("click", function() {
 	
 		// 수정파일인지 여부 체크
@@ -102,11 +100,43 @@ $(function() {
 		if(quill.getLength() > 3) {
 			var html = quill.root.innerHTML;
 			$("input[name=suContents]").val(html);
+			$("input[name=picList]").val(picArr);
 			
 			$("#postForm").submit();
 		} else {
 			alert("내용을 입력하세요.");
 			$("#editor").css("border", "1px solid red");
+		}
+	});
+	
+	// 등록 취소버튼 클릭시
+	$("#reset-btn").on("click", function() {
+		var assignmentNo = $("#assignmentNo").val();
+		var submitNo = $("#submitNo").val();
+
+		// 업로드된 파일들 삭제
+		if(picArr.length != 0) {
+			$.ajax({
+				url : "/file/reset/image",
+				type : "get",
+				data : {"picList": picArr, "folder" : "\\auploadImages"},
+				traditional : true,
+				success : function() {
+					console.log("전송 성공");
+				},
+				error : function() {
+					alert("전송 실패!" + picArr);
+				}
+			});
+		}
+		
+		// 이전 페이지로 이동 (해당 리스트 페이지)
+		if($("input[name=viewCheck]").val() != "m") {
+			// 등록 파일인 경우
+			location.href="/study/assignment/detail?asNo=" + assignmentNo;
+		} else if($("input[name=viewCheck]").val() == "m") {
+			// 수정 파일인 경우
+			location.href="study/sAssignment/detail?suNo=" + submitNo;
 		}
 	});
 });

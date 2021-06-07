@@ -176,9 +176,18 @@
                         <div class="collapse navbar-collapse" id="ftco-nav">
 					        <ul class="navbar-nav ml-auto">
 					          <li class="nav-item"><a href="/" class="nav-link study">홈</a></li>
-					          <li class="nav-item"><a href="#" class="nav-link study">스터디</a></li>
-					          <li class="nav-item"><a href="#" class="nav-link study">스터디샵</a></li>
-					          <li class="nav-item"><a href="#" class="nav-link study">스터디카페</a></li>
+					          <li class="nav-item dropdown">
+					          	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">스터디</a>
+				              	<div class="dropdown-menu">
+					                <a class="dropdown-item" href="/study/search">스터디 검색</a>
+					                <a class="dropdown-item" href="#">Another action</a>
+					                <a class="dropdown-item" href="#">Something else here</a>
+					                <div class="dropdown-divider"></div>
+					                <a class="dropdown-item" href="/study/register">스터디 등록</a>
+				                </div>
+				          	  </li>
+					          <li class="nav-item"><a href="/shop/premiumShopView" class="nav-link study">스터디샵</a></li>
+					          <li class="nav-item"><a href="/cafe/list" class="nav-link study">스터디카페</a></li>
 					        </ul>
 					   	</div>
                         <!-- ============================================================== -->
@@ -272,7 +281,7 @@
 	                                        class="hide-menu"> 과제
 	                                    </span></a>
 	                            </li>
-	                            <li class="sidebar-item"><a href="/study/assignment/file" class="sidebar-link"><span
+	                            <li class="sidebar-item"><a href="/study/assignment/image" class="sidebar-link"><span
 	                                        class="hide-menu"> 파일함
 	                                    </span></a>
 	                            </li>

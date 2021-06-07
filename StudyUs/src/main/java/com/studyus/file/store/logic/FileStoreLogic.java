@@ -40,4 +40,9 @@ public class FileStoreLogic implements FileStore {
 		return sqlSession.update("fileMapper.deleteFileByFiNo", fiNo);
 	}
 
+	@Override
+	public String selectOriginName(String fiStoredName) {
+		return sqlSession.selectOne("fileMapper.selectOriginName", fiStoredName);
+	}
+
 }

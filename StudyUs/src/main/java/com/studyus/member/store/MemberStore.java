@@ -6,7 +6,7 @@ import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.review.domain.Review;
 
-public interface MemberStore { 
+public interface MemberStore {
 	
 	public Member selectOneMem(Member member);
 	
@@ -51,4 +51,11 @@ public interface MemberStore {
 	 */
 	public ArrayList<Member> selectAllEnrolled(int studyNo);
 
+	
+	/**
+	 * 해당 과제 그룹에 속한 모든 회원 출력
+	 * @param grNo
+	 * @return
+	 */
+	public ArrayList<Member> selectAllAssign(int grNo);
 }

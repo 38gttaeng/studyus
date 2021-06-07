@@ -82,6 +82,7 @@
 									        	<div class="form-group">
 									        		<label for="group-name">프로젝트명</label>
 									        		<input name="grName" class="form-control" type="text" id="group-name" required placeholder="프로젝트명">
+									        		<span id="name-msg" class="invalid-feedback">프로젝트명을 1자 이상 입력하세요.</span>
 									        	</div>
 									        	<div class="form-group">
 									        		<label for="group-info">설명</label>
@@ -96,19 +97,18 @@
 							                            <option value="4"></option>
 							                        </select>
 									        	</div>
-									        	<!-- 여기 추가해야함 -------------------------------------->
 									        	<div class="form-group">
 									        		<label for="group-member">참여 스터디원</label>
 									        		<select id="group-member" class="custom-select">
-							                            <option selected value="1"></option>
-							                            <option value="2"></option>
-							                            <option value="3"></option>
-							                            <option value="4"></option>
+									        			<option selected>선택해서 추가</option>
+									        			<!-- 여기에 추가됨 -->
 							                        </select>
+							                        <div id="input-box"></div>
+							                        <input type="hidden" name="grMember">
 									        	</div>
 									      	</div>
 									      	<div class="modal-footer">
-									        	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+									        	<button id="resetGroup-btn" type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 									        	<button id="addGroup-btn" type="button" class="btn btn-primary">추가</button>
 									   		</div>
 								    	</div>
@@ -130,13 +130,15 @@
                         		<div class="text-white">
 	                        		${ asGroup.grInfo }
                         		</div>
-                        		<div>
+                        		<div id="info-bottom">
                         			<div class="float-left">
-                        			<!-- 과제 할당된 사람 정보가 들어가는 부분 -->
+                        				<c:forEach items="${ mbList }" var="mOne">
+                        					<div class='mem-btn btn btn-sm btn-rounded text${ asGroup.grColor }'>${ mOne.mbNickname }</div>
+                        				</c:forEach>
                         			</div>
                         			
                         			<c:if test="${ loginUser.mbNo == study.leaderNo }">
-                        			<button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#modifyGroup">수정</button>
+                        			<button id="modify-btn" type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#modifyGroup">수정</button>
                         			
                         			<form id="groupModifyForm" action="/study/assignment/modifyGroup" method="post">
                         			<div class="modal fade" id="modifyGroup" tabindex="-1" aria-labelledby="modifyGroupLabel" aria-hidden="true" data-backdrop="static">
@@ -167,16 +169,6 @@
 								                            <option value="4" <c:if test="${ asGroup.grColor == 4 }">selected</c:if>></option>
 								                        </select>
 										        	</div>
-										        	<!-- <div class="form-group">
-										        		<label for="group-member">참여 스터디원</label>
-										        		for문 돌려서 스터디원 닉네임 전부 가져오기
-										        		<select id="group-member" class="custom-select">
-								                            <option selected value="1"></option>
-								                            <option value="2"></option>
-								                            <option value="3"></option>
-								                            <option value="4"></option>
-								                        </select>
-										        	</div> -->
 										      	</div>
 										      	<div class="modal-footer">
 										        	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>

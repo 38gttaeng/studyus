@@ -1,4 +1,5 @@
 var grStatus = 1;
+var memArr = new Array();
 
 $(document).ready(function(){
 
@@ -43,21 +44,80 @@ $(document).ready(function(){
 		$(this).css("background-color", color);
 	});
 	
-	// 유효성 체크 //////////////////////////////////////////////////////////!!
+	// 추가 버튼 클릭시 스터디원 정보 가져오기
+	$(".addGroup").on("click", function() {
+		var select = $("#group-member");
+		
+		$.ajax ({
+			url : "/study/assignment/mem-list",
+			type : "get",
+			dataType : "json",
+			success : function(mbList) {
+				for(var i in mbList) {
+					select.append("<option value='" + mbList[i].mbNo + "'>" + mbList[i].mbNickname + "</option>");
+				}
+			},
+			error : function() {
+				alert("전송 실패..");
+			}
+		});
+	});
+	
+	// 프로젝트에 할당할 멤버 설정
+	$("#group-member").change(function() {
+		var selectedValue = $('#group-member option:selected').val();
+		var selectedNick = $('#group-member option:selected').text();
+		$("#group-member option[value=" + selectedValue + "]").remove();
+		
+		$("#input-box").append("<div class='del-btn btn btn-sm btn-light btn-rounded' onclick='deleteMem(this," + selectedValue + ",\"" + selectedNick + "\")'>" + selectedNick + "&nbsp<i class='fas fa-times'></i></div>");
+		memArr.push(selectedValue);
+	});
+	
+	// 유효성 체크 //////////////////////////////////////////////////////////
+	var nameMsg = $("#name-msg");
+	
+	$("#group-name").on("keyup", function() {
+		if($(this).val() == "") {
+			$(this).removeClass("is-valid");
+			$(this).addClass("is-invalid");
+			nameMsg.css("display", "block");
+		} else {
+			$(this).removeClass("is-invalid");
+			$(this).addClass("is-valid");
+			nameMsg.css("display", "none");
+		}
+	});
 	
 	// 그룹 등록
 	$("#addGroup-btn").on("click", function() {
 		var grName = $("#group-name").val();
 		var grInfo = $("#group-info").val();
 		var grColor = $("#group-color").val();
-		//var list...로 멤버들 for문으로 할당 등록
 		
-		if(grName != "") {
-			$("#groupWriteForm").submit();
-		} else {
-			alert("프로젝트명을 입력해주세요!");
+		if(grName == "") {
 			$("#group-name").addClass("is-invalid");
+			nameMsg.css("display", "block");
+		} else if(memArr.length == 0) {
+			alert("스터디원을 한명이라도 할당해야 합니다!");
+			$("#group-member").addClass("is-invalid");
+		} else {
+			$("#group-name").removeClass("is-invalid");
+			$("#group-member").removeClass("is-invalid");
+			
+			// 할당정보(memArr)도 함께 전송
+			$("input[name=grMember]").val(memArr);
+			
+			// submit으로 그룹 등록 정보 전송
+			$("#groupWriteForm").submit();
 		}
+	});
+	
+	// 취소버튼 클릭시 할당정보 초기화
+	$("#resetGroup-btn").on("click", function() {
+		$("#input-box").html("");
+		memArr.length = 0;
+		$("#group-member").html("");
+		$("#group-member").appen("<option selected>선택해서 추가</option>");
 	});
 	
 	$("#modifyGroup-btn").on("click", function() {
@@ -73,6 +133,15 @@ $(document).ready(function(){
     
 });
 
+// 선택된 멤버 삭제시 실행하는 함수
+function deleteMem(obj, value, nick) {
+	$(obj).remove();
+	$("#group-member").append("<option value='" + value + "'>" + nick + "</option>");
+	
+	var idx = memArr.indexOf(value + "");
+	if (idx > -1) memArr.splice(idx, 1);
+}
+
 function getAllGroup() {
 	
 	var memberNo = $("#memberNo").val();
@@ -82,7 +151,7 @@ function getAllGroup() {
 	$box.html("");
 
 	$.ajax ({
-		url : "/study/assignment/groupList",
+		url : "/study/assignment/group-list",
 		data : { "grStatus" : grStatus },
 		type : "get",
 		dataType : "json",
@@ -116,7 +185,7 @@ function getAllGroup() {
 				$box.append($div);
 			}
 			
-			// Carousel
+			// Carousel 
 		    $('.owl-carousel').owlCarousel({
 		        items:5,                 // 한번에 보여줄 아이템 수
 		        loop:false,               // 반복여부

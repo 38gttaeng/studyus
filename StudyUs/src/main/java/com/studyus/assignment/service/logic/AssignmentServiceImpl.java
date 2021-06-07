@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.studyus.assignment.domain.Assign;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
@@ -13,12 +14,16 @@ import com.studyus.common.PageInfo;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.store.FileStore;
 import com.studyus.submittedAssignment.domain.SubmittedAssignment;
+import com.studyus.submittedAssignment.store.SAssignmentStore;
 
 @Service
 public class AssignmentServiceImpl implements AssignmentService {
 	
 	@Autowired
 	private AssignmentStore asStore;
+	
+	@Autowired
+	private SAssignmentStore suStore;
 	
 	@Autowired
 	private FileStore fiStore;
@@ -31,6 +36,10 @@ public class AssignmentServiceImpl implements AssignmentService {
 	@Override
 	public ArrayList<Assignment> printAll(PageInfo pi, int grNo) {
 		return asStore.selectAll(pi, grNo);
+	}
+	
+	public ArrayList<Assignment> printAllAssignment(int grNo) {
+		return asStore.selectAllAssignment(grNo);
 	}
 	
 	@Override
@@ -49,6 +58,13 @@ public class AssignmentServiceImpl implements AssignmentService {
 	}
 	
 	@Override
+	public ArrayList<Integer> printAllAssign(int grNo) {
+		return asStore.selectAllAssign(grNo);
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////
+	
+	@Override
 	public Assignment printOne(int asNo) {
 		
 		// Assignment 가져오기
@@ -63,6 +79,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 		
 		return assignment;
 	}
+	
+	/////////////////////////////////////////////////////////////////////////////////
 
 	@Override
 	public int registerGroup(AssignmentGroup asGroup) {
@@ -77,6 +95,17 @@ public class AssignmentServiceImpl implements AssignmentService {
 	@Override
 	public int removeGroup(int grNo) {
 		return asStore.deleteGroup(grNo);
+	}
+	
+	
+	@Override
+	public int addAssign(Assign assign) {
+		return asStore.addAssign(assign);
+	}
+
+	@Override
+	public int deleteAssign(Assign assign) {
+		return asStore.deleteAssign(assign);
 	}
 
 	@Override
@@ -95,9 +124,46 @@ public class AssignmentServiceImpl implements AssignmentService {
 	}
 
 	@Override
-	public int countAssignment(int stNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<Assignment> printAllByMbNo(int mbNo) {
+		return asStore.selectAllByMbNo(mbNo);
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public int printAssignmentRate(int mbNo) {
+		// 할당된 전체 과제 개수 가져오기
+		int allCount = asStore.selectAssignmentByMbNo(mbNo);
+		
+		// 실제로 한 개수 가져오기
+		int memCount = asStore.mySubmittedAssignment(mbNo);
+		
+		// 계산
+		int rate = 0;
+		if( allCount !=0 ) {
+			rate = (allCount / memCount) * 100;
+		}
+		
+		// 넘겨주기
+		return rate;
+	}
+
+	@Override
+	public int printAssignmentRate(Assignment assignment) {
+		// 할당된 전체 과제 개수 가져오기
+		int allCount = asStore.selectAssignmentStNo(assignment);
+		
+		// 실제로 한 개수 가져오기
+		int memCount = asStore.mySubmittedAssignmentByStNo(assignment);
+		
+		// 계산
+		int rate = 0;
+		if( allCount !=0 ) {
+			rate = (allCount / memCount) * 100;
+		}
+		
+		// 넘겨주기
+		return rate;
 	}
 
 }

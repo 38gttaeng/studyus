@@ -39,4 +39,9 @@ public class FileServiceImpl implements FileService {
 	public FileVO selectOne(int fiNo) {
 		return fiStore.selectOne(fiNo);
 	}
+	
+	@Override
+	public String selectOriginName(String fiStoredName) {
+		return fiStore.selectOriginName(fiStoredName);
+	}
 }

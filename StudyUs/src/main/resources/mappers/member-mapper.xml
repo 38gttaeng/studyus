@@ -71,10 +71,6 @@
 		SELECT COUNT(*) FROM MEMBER WHERE MB_NICKNAME = #{mbNickname}
 	</select> 
 	
-	<select id="checkEmailDup" resultType="_int">
-		SELECT COUNT(*) FROM MEMBER WHERE MB_Email = #{mbEmail}
-	</select>
-	
 	<select id="selectAllEnrolled" parameterType="int" resultMap="memberResultMap">
 		SELECT * FROM STUDY S
 			    LEFT OUTER JOIN ENROLLMENT E USING (ST_NO)
@@ -83,4 +79,10 @@
 			AND ST_NO = #{studyNo}
 	</select>
 	
+	<select id="selectAllAssign" parameterType="int" resultMap="memberResultMap">
+		SELECT M.*
+		FROM ASSIGN A
+		JOIN MEMBER M ON A.MB_NO = M.MB_NO
+		WHERE GR_NO = #{grNo}
+	</select>
 </mapper>

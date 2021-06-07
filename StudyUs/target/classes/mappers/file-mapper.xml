@@ -42,4 +42,9 @@
 		FI_STATUS = 0
 		WHERE FI_NO = #{fiNo} AND FI_STATUS = 1
 	</update>
+	
+	<select id="selectOriginName" parameterType="String" resultType="String">
+		SELECT FI_REALNAME FROM FILE_TABLE
+		WHERE FI_STOREDNAME = #{fiStoredName}
+	</select>
 </mapper>

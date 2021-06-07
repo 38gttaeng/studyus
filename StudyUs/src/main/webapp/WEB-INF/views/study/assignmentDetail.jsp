@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,21 +115,26 @@
                             <div class="card-body content">
 	                            <p>${ assignment.asContents }</p>
                             </div>
+                            
                             <div class="card-body">
-                            	<input type="hidden" name="suSize" value="${ suList.size() }">
-                            	<a id="collapseBtn" class="btn float-right" data-toggle="collapse" href="#collapseDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
-								    <span class="collapsed"><i class="fas fa-angle-up"></i></span>
+                            	<a id="collapseBtn" class="btn btn-sm btn-light btn-rounded float-right" data-toggle="collapse" href="#collapseDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
+								    <span class="collapsed">제출 정보</span>
 								</a>
 								<hr>
 								<br>
 								<div class="collapse show row" id="collapseDiv">
-									<div class="col-5">
-										<div class="chart" data-percent="30"></div>
-										<div class="chart-p">
-											<p>30%</p>
-										</div>
+									<div id="chart-box" class="col-4">
+										<c:if test="${ (fn:length(suList)) != 0 }">
+										<c:set var="pages" value="${ ((fn:length(suList)) / (fn:length(mbList))) * 100 }" />
+										<div class='chart' data-percent="${ ((fn:length(suList)) / (fn:length(mbList))) * 100 }"></div>
+										<p class='chart-p'>${pages+((pages%1>0.5)?(1-(pages%1))%1:-(pages%1))} %</p>
+										</c:if>
+										<c:if test="${ (fn:length(suList)) == 0 }">
+										<div class='chart' data-percent="0"></div>
+										<p class='chart-p'>0.0 %</p>
+										</c:if>
 									</div>
-									<div class="col-7">
+									<div class="col-8">
 										<table class="table tColor${ assignmentGroup.grColor }">
 											<thead class="back${ assignmentGroup.grColor } back0 text-white">
 												<tr>
@@ -138,11 +144,25 @@
 	                            				</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>f</td>
-													<td>f</td>
-													<td>f</td>
-												</tr>
+												<c:forEach var="mOne" items="${ mbList }">
+													<tr>
+														<td>${ mOne.mbNickname }</td>
+														<c:forEach var="sAssignment" items="${ suList }">
+															<c:if test="${ sAssignment.mbNo == mOne.mbNo && sAssignment.suStatus == 1 }">
+																<td><div class='btn btn-sm btn-outline-primary btn-rounded'>&nbsp;제출&nbsp;</div></td>
+																<td>${ sAssignment.suInsertDate }</td>
+															</c:if>
+															<c:if test="${ sAssignment.mbNo == mOne.mbNo && sAssignment.suStatus == 2 }">
+																<td><div class='btn btn-sm btn-outline-secondary btn-rounded'>미제출</div></td>
+																<td>${ sAssignment.suInsertDate }</td>
+															</c:if>
+															<c:if test="${ sAssignment.mbNo != mOne.mbNo }">
+																<td><div class='btn btn-sm btn-outline-secondary btn-rounded'>미제출</div></td>
+																<td></td>
+															</c:if>
+														</c:forEach>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
 									</div>

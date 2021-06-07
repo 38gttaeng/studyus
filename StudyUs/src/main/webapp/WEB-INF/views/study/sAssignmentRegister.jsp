@@ -78,6 +78,7 @@
 												<td valign=top>내용</td>
 												<td>
 													<input type="hidden" name="suContents">
+													<input type="hidden" name="picList">
       												<div id="editor" style="min-height:400px;"></div>
 												</td>
 											</tr>
@@ -90,7 +91,8 @@
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='/study/assignment/detail?asNo=${ assignment.asNo }'">
+													<input id="assignmentNo" type="hidden" value="${ assignment.asNo }">
+													<input id="reset-btn" type="button" class="btn waves-effect waves-light btn-light" value="취소">
 													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="등록">
 												</td>
 											</tr>

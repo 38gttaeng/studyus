@@ -74,6 +74,18 @@ public interface SAssignmentService {
 	
 	////////////////////////////////////////////////////////////
 	
+	/**
+	 * 파일함 (게시물 + 댓글 전부 가져오기)
+	 * @param stNo
+	 * @return
+	 */
+	public ArrayList<SubmittedAssignment> printAllContents(int stNo);
+	
+	/**
+	 * 게시물, 댓글 관리
+	 * @param stNo
+	 * @return
+	 */
 	public ArrayList<HashMap<String, Object>> printAllByStNo(int stNo);
 	public ArrayList<HashMap<String, Object>> printAllByMemberNo(HashMap<String, Integer> map);
 	public ArrayList<HashMap<String, Object>> printAllReplyByStNo(int stNo);

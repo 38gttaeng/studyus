@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="caferoomMapper">
+	<resultMap type="Caferoom" id="caferoomResultMap">
+		<id property="crNo" column="CR_NO"></id>
+		<result property="caNo" column="CA_NO"></result>
+		<result property="crTopPx" column="CR_TOPPX"></result>
+		<result property="crLeftPx" column="CR_LEFTPX"></result>
+		<result property="crName" column="CR_NAME"></result>
+		<result property="crInfo" column="CR_INFO"></result>
+		<result property="crFilename" column="CR_FILENAME"></result>
+		<result property="crMax" column="CR_MAX"></result>
+		<result property="crPrice" column="CR_PRICE"></result>
+	</resultMap>
+	
+	<select id="selectList" parameterType="_int" resultMap="caferoomResultMap">
+		SELECT * FROM CAFEROOM
+		WHERE CA_NO = #{caNo}
+	</select>
+	
+	<select id="selectOne" parameterType="_int" resultMap="caferoomResultMap">
+		SELECT * FROM CAFEROOM
+		WHERE CR_NO = #{crNo}
+	</select>
+	
+	<insert id="insertCaferoom" parameterType="Caferoom">
+		<selectKey resultType="int" keyProperty="crNo" order="BEFORE">
+			SELECT SEQ_CAFEROOM.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO CAFEROOM VALUES (
+			#{crNo}, #{caNo}, 0, 0, #{crName}, #{crInfo}, #{crFilename}, #{crMax}, #{crPrice}
+		)
+	</insert>
+	
+	<update id="updateCaferoom" parameterType="Caferoom">
+		UPDATE CAFEROOM SET
+		CR_NAME = #{crName}, CR_INFO = #{crInfo}, CR_FILENAME = #{crFilename}, CR_MAX = #{crMax}, CR_PRICE = #{crPrice}
+		WHERE CR_NO = #{crNo}
+	</update>
+	
+	<delete id="deleteCaferoom" parameterType="_int">
+		DELETE FROM CAFEROOM
+		WHERE CR_NO = #{crNo}
+	</delete>
+	
+	<update id="updateLocation" parameterType="Caferoom">
+		UPDATE CAFEROOM SET
+		CR_TOPPX = #{crTopPx}, CR_LEFTPX = #{crLeftPx}
+		WHERE CR_NO = #{crNo}
+	</update>
+</mapper>

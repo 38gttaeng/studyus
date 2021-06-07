@@ -1,0 +1,36 @@
+ .grid-item img {
+	display: block;
+	min-width:100%;
+	max-width: 100%;
+	cursor : pointer;
+}
+
+.detail-btn {
+	position : absolute;
+	top : 10px;
+	left : 10px;
+	display : none !important;
+}
+
+.grid-item:hover img {
+ 	filter : brightness(80%);
+}
+
+.grid-item:hover .detail-btn{
+ 	display : block !important;
+}
+
+.grid-sizer, .grid-item {
+	width: 23%;
+}
+
+.grid-item-a {
+	width: 46%;
+}
+
+.grid-item {
+	border-radius: 10px;
+	overflow:hidden;
+	margin-top : 10px;
+	position : relative;
+}

@@ -76,11 +76,10 @@ public class SAssignmentStoreLogic implements SAssignmentStore {
 	}
 
 	@Override
-	public int mySubmittedAssignment(SubmittedAssignment sAssignment) {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<SubmittedAssignment> selectAllContents(int stNo) {
+		return (ArrayList)sqlSession.selectList("sAssignmentMapper.selectAllContents", stNo);
 	}
-
+	
 	@Override
 	public ArrayList<HashMap<String, Object>> selectAllByStNo(int stNo) {
 		return (ArrayList)sqlSession.selectList("sAssignmentMapper.selectAllByStNo", stNo);

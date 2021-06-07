@@ -95,6 +95,7 @@
 												<td valign=top>내용</td>
 												<td>
 													<input type="hidden" name="boContents">
+													<input type="hidden" name="picList">
       												<div id="editor" style="min-height:400px;">${ board.boContents }</div>
 												</td>
 											</tr>
@@ -118,10 +119,7 @@
 											</tr>
 											<tr>
 												<td colspan="2" align="center">
-													<c:url var="bDetail" value="/study/board/detail">
-														<c:param name="boNo" value="${ board.boNo }"></c:param>
-													</c:url>
-													<input type="button" class="btn waves-effect waves-light btn-light" value="취소" onclick="location.href='${ bDetail }'">
+													<input id="reset-btn" type="button" class="btn waves-effect waves-light btn-light" value="취소">
 													<input id="submit-btn" type="button" class="btn waves-effect waves-light btn-primary" value="수정">
 												</td>
 											</tr>
@@ -132,6 +130,7 @@
                 		</div>
             		</div>
             		<div class="col-1"></div>
+            	</div>
            	</div>
 
             <!-- footer -->
@@ -140,6 +139,6 @@
     </div>
     
     <!-- 해당 페이지 JS 파일 -->
-    <script src="/resources/js/register.js"></script>
+    <script src="/resources/js/boardRegister.js"></script>
 </body>
 </html>

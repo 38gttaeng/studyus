@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 import com.studyus.board.domain.Board;
 import com.studyus.board.service.BoardService;
 import com.studyus.common.PageInfo;
@@ -41,6 +40,9 @@ public class BoardController {
 	
 	@Autowired
 	private FileService fiService;
+	
+	@Autowired
+	private FileController fiController;
 	
 	/******************* 게시물 보기 *******************/
 	
@@ -164,17 +166,25 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/study/board/register", method=RequestMethod.POST)
-	public String boardRegister(HttpServletRequest request, @ModelAttribute Board board, @RequestParam(value="fList", required=false) List<MultipartFile> fList) {
-		HttpSession session = request.getSession();
-		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
-		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
-		board.setStNo(stNo);
+	public String boardRegister(HttpServletRequest request, @ModelAttribute Board board, 
+			@RequestParam(value="fList", required=false) List<MultipartFile> fList,
+			@RequestParam(value="picList", required=false) List<String> picList) {
+		
+		// 텍스트 에디터 사진 처리
+		if(!picList.isEmpty()) {
+			fiController.addImages("\\buploadImages", board.getBoContents(), picList, request);
+		}
 		
 		// 실제 파일 저장
 		ArrayList<FileVO> boFiles = null;
 		if(fList != null && !fList.isEmpty()) {
-        	boFiles = new FileController().saveFile(fList, 5, request);
+        	boFiles = fiController.saveFile(fList, 5, request);
         }
+		
+		HttpSession session = request.getSession();
+		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		board.setStNo(stNo);
 		
 		// Board DB 저장
 		int boNo = boService.registerBoard(board);
@@ -219,13 +229,21 @@ public class BoardController {
 	@RequestMapping(value="/study/board/modify", method=RequestMethod.POST)
 	public ModelAndView boardUpdate(HttpServletRequest request, ModelAndView mv, @ModelAttribute Board board, 
 			@RequestParam(value="fList", required=false) List<MultipartFile> fList,
-			@RequestParam(value="delFiles", required=false) List<String> delFiles) {
+			@RequestParam(value="delFiles", required=false) List<String> delFiles,
+			@RequestParam(value="picList", required=false) List<String> picList) {
 		
+		// 텍스트 에디터 사진 처리
+		if(!picList.isEmpty()) {
+			fiController.addImages("\\buploadImages", board.getBoContents(), picList, request);
+		}
+		Board oldBoard = boService.printOne(board.getBoNo());
+		fiController.editImages("\\buploadImages", board.getBoContents(), oldBoard.getBoContents(), request);
+
 		// 기존 파일 삭제
 		if(delFiles != null && !delFiles.isEmpty()) {
 			for(int i=0; i<delFiles.size(); i++) {
 				FileVO file = fiService.selectOne(Integer.parseInt(delFiles.get(i)));
-				new FileController().deleteFile("\\buploadFiles", file.getFiStoredName(), request);
+				fiController.deleteFile("\\buploadFiles", file.getFiStoredName(), request);
 				fiService.removeFileByFiNo(file.getFiNo());
 			}
 		}
@@ -233,7 +251,7 @@ public class BoardController {
 		// 새파일 업로드
 		ArrayList<FileVO> boFiles = null;
 		if(fList != null && !fList.isEmpty()) {
-			boFiles = new FileController().saveFile(fList, 5, request);
+			boFiles = fiController.saveFile(fList, 5, request);
 		}
 		
 		// Board DB 수정
@@ -270,6 +288,9 @@ public class BoardController {
 		
 		HttpSession session = request.getSession();
 		
+		// 텍스트 에디터 이미지 삭제
+		fiController.deleteImages("\\buploadImages", boService.printOne(boNo).getBoContents(), request);
+		
 		// 파일 삭제
 		int fiResult = 0;
 		FileVO fileVO = new FileVO(5, boNo);
@@ -277,7 +298,7 @@ public class BoardController {
 		if(!boFiles.isEmpty()) {
 			String folder = "\\buploadFiles";
 			for(FileVO file : boFiles) {
-				new FileController().deleteFile(folder, file.getFiStoredName(), request);
+				fiController.deleteFile(folder, file.getFiStoredName(), request);
 			}
 			
 			fiResult = fiService.removeFile(fileVO);
@@ -305,7 +326,15 @@ public class BoardController {
 	// 등록
 	@ResponseBody
 	@RequestMapping(value="/study/board/addReply", method=RequestMethod.POST)
-	public String replyRegister(HttpSession session, @ModelAttribute Board board) {
+	public String replyRegister(HttpServletRequest request, @ModelAttribute Board board,
+			@RequestParam("picList") List<String> picList) {
+		
+		HttpSession session = request.getSession();
+		
+		// 텍스트 에디터 사진 처리
+		if(!picList.isEmpty()) {
+			fiController.addImages("\\buploadImages", board.getBoContents(), picList, request);
+		}
 		
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		board.setStNo(stNo);
@@ -321,7 +350,16 @@ public class BoardController {
 	// 수정
 	@ResponseBody
 	@RequestMapping(value="/study/board/modifyReply", method=RequestMethod.POST)
-	public String replyUpdate(@ModelAttribute Board board) {
+	public String replyUpdate(HttpServletRequest request, @ModelAttribute Board board,
+			@RequestParam("picList") List<String> picList) {
+		
+		// 텍스트 에디터 사진 처리
+		if(!picList.isEmpty()) {
+			fiController.addImages("\\buploadImages", board.getBoContents(), picList, request);
+		}
+		Board oldBoard = boService.printOne(board.getBoNo());
+		fiController.editImages("\\buploadImages", board.getBoContents(), oldBoard.getBoContents(), request);
+		
 		int result = boService.modifyBoard(board);
 		if(result > 0) {
 			return "success";
@@ -333,7 +371,11 @@ public class BoardController {
 	// 삭제
 	@ResponseBody
 	@RequestMapping(value="/study/board/deleteReply", method=RequestMethod.GET)
-	public String replyDelete(@RequestParam("boNo") int boNo) {
+	public String replyDelete(HttpServletRequest request, @RequestParam("boNo") int boNo) {
+		
+		// 텍스트 에디터 이미지 삭제
+		fiController.deleteImages("\\buploadImages", boService.printOne(boNo).getBoContents(), request);
+		
 		int result = boService.removeBoard(boNo);
 		if(result > 0) {
 			return "success";

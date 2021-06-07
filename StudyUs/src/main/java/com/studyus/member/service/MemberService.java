@@ -52,4 +52,6 @@ public interface MemberService {
 	 */
 	public ArrayList<Member> printAllByStudyNo(int studyNo);
 
+	ArrayList<Member> printAllAssign(int grNo);
+
 }

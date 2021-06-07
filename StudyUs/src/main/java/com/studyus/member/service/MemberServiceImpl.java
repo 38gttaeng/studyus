@@ -219,4 +219,9 @@ public class MemberServiceImpl implements MemberService {
 		return store.selectAllEnrolled(studyNo);
 	}
 
+	@Override
+	public ArrayList<Member> printAllAssign(int grNo) {
+		return store.selectAllAssign(grNo);
+	}
+
 }

@@ -24,7 +24,6 @@ import com.google.gson.GsonBuilder;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.assignment.service.AssignmentService;
-import com.studyus.board.domain.Board;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
 import com.studyus.common.RedirectWithMsg;
@@ -48,17 +47,9 @@ public class SAssignmentController {
 	@Autowired
 	private FileService fiService;
 	
-	/******************* 과제 제출여부 보기 *******************/
+	@Autowired
+	private FileController fiController;
 	
-	// 과제당 총 과제제출 개수 보여주기
-	public String getSubmittedCheckList(@RequestParam("asNo") int asNo) {
-		return 0 + "";
-	}
-	
-	// 개인당 과제제출 여부 보여주기
-	public String submittedCheckByLogin(HttpSession session, @RequestParam("asNo") int asNo) {
-		return null;
-	}
 	
 	/******************* 과제제출 디테일 *******************/
 	
@@ -120,12 +111,18 @@ public class SAssignmentController {
 	}
 	
 	@RequestMapping(value="/study/sAssignment/register", method=RequestMethod.POST)
-	public String submittedAssignmentRegister(HttpServletRequest request, 
-			@ModelAttribute SubmittedAssignment sAssignment, @RequestParam(value="fList", required=false) List<MultipartFile> fList) {
+	public String submittedAssignmentRegister(HttpServletRequest request, @ModelAttribute SubmittedAssignment sAssignment,
+			@RequestParam(value="fList", required=false) List<MultipartFile> fList,
+			@RequestParam(value="picList", required=false) List<String> picList) {
 		
 		HttpSession session = request.getSession();
 		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
 		sAssignment.setMbNo(mbNo);
+		
+		// 텍스트 에디터 사진 처리
+		if(!picList.isEmpty()) {
+			fiController.addImages("\\auploadImages", sAssignment.getSuContents(), picList, request);
+		}
 		
 		// 실제 파일 저장
 		ArrayList<FileVO> suFiles = null;
@@ -183,10 +180,18 @@ public class SAssignmentController {
 	public String submittedAssignmentUpdate(HttpServletRequest request,
 			@ModelAttribute SubmittedAssignment sAssignment,
 			@RequestParam(value="fList", required=false) List<MultipartFile> fList,
-			@RequestParam(value="delFiles", required=false) List<String> delFiles) {
+			@RequestParam(value="delFiles", required=false) List<String> delFiles,
+			@RequestParam(value="picList", required=false) List<String> picList) {
 		
 		HttpSession session = request.getSession();
 		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+		
+		// 텍스트 에디터 사진 처리
+		if(!picList.isEmpty()) {
+			fiController.addImages("\\auploadImages", sAssignment.getSuContents(), picList, request);
+		}
+		SubmittedAssignment oldSAssignment = suService.printOneSubmittedAssignment(sAssignment.getSuNo());
+		fiController.editImages("\\auploadImages", sAssignment.getSuContents(), oldSAssignment.getSuContents(), request);
 		
 		// 기존 파일 삭제
 		if(delFiles != null && !delFiles.isEmpty()) {
@@ -234,6 +239,9 @@ public class SAssignmentController {
 	@RequestMapping(value="/study/sAssignment/delete", method=RequestMethod.GET)
 	public String submittedAssignmentDelete(HttpServletRequest request, @ModelAttribute SubmittedAssignment sAssignment) {
 		
+		// 텍스트 에디터 이미지 삭제
+		fiController.deleteImages("\\auploadImages", suService.printOneSubmittedAssignment(sAssignment.getSuNo()).getSuContents(), request);
+		
 		// 파일 삭제
 		int fiResult = 0;
 		FileVO fileVO = new FileVO(2, sAssignment.getSuNo());
@@ -269,7 +277,14 @@ public class SAssignmentController {
 	// 등록
 	@ResponseBody
 	@RequestMapping(value="/study/sAssignment/addReply", method=RequestMethod.POST)
-	public String submittedReplyRegister(HttpSession session, @ModelAttribute SubmittedAssignment sAssignment) {
+	public String submittedReplyRegister(HttpServletRequest request, @ModelAttribute SubmittedAssignment sAssignment,
+			@RequestParam("picList") List<String> picList) {
+		
+		// 텍스트 에디터 사진 처리
+		if(!picList.isEmpty()) {
+			fiController.addImages("\\auploadImages", sAssignment.getSuContents(), picList, request);
+		}
+		
 		int result = suService.registerSubmittedAssignment(sAssignment);
 		if(result > 0) {
 			return "success";
@@ -280,7 +295,16 @@ public class SAssignmentController {
 	
 	@ResponseBody
 	@RequestMapping(value="/study/sAssignment/modifyReply", method=RequestMethod.POST)
-	public String submittedReplyUpdate(@ModelAttribute SubmittedAssignment sAssignment) {
+	public String submittedReplyUpdate(HttpServletRequest request, @ModelAttribute SubmittedAssignment sAssignment,
+			@RequestParam("picList") List<String> picList) {
+		
+		// 텍스트 에디터 사진 처리
+		if(!picList.isEmpty()) {
+			fiController.addImages("\\auploadImages", sAssignment.getSuContents(), picList, request);
+		}
+		SubmittedAssignment oldSAssignment = suService.printOneSubmittedAssignment(sAssignment.getSuNo());
+		fiController.editImages("\\auploadImages", sAssignment.getSuContents(), oldSAssignment.getSuContents(), request);
+		
 		int result = suService.modifySubmittedAssignment(sAssignment);
 		if(result > 0) {
 			return "success";
@@ -292,7 +316,11 @@ public class SAssignmentController {
 	// 삭제
 	@ResponseBody
 	@RequestMapping(value="/study/sAssignment/deleteReply", method=RequestMethod.GET)
-	public String submittedReplyDelete(@RequestParam("suNo") int suNo) {
+	public String submittedReplyDelete(HttpServletRequest request, @RequestParam("suNo") int suNo) {
+		
+		// 텍스트 에디터 이미지 삭제
+		fiController.deleteImages("\\auploadImages", suService.printOneSubmittedAssignment(suNo).getSuContents(), request);
+		
 		int result = suService.removeSubmittedAssignment(suNo);
 		if(result > 0) {
 			return "success";

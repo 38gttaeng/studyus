@@ -69,17 +69,18 @@ public interface SAssignmentStore {
 	public int updateSubmittedAssignment(SubmittedAssignment sAssignment);
 	public int deleteSubmittedAssignment(int suNo);
 	
-	////////////////////////////////////////////////////////////
-	// 현재날짜 기준으로 그 날이 속한 달!
+	/**
+	 * 파일함 (게시물 + 댓글 전부 가져오기)
+	 * @param stNo
+	 * @return
+	 */
+	public ArrayList<SubmittedAssignment> selectAllContents(int stNo);
 	
 	/**
-	 * 한달 총 과제 제출 개수
-	 * @param sAssignment(stNo, mbNo)
+	 * 게시물, 댓글 관리
+	 * @param stNo
+	 * @return
 	 */
-	public int mySubmittedAssignment(SubmittedAssignment sAssignment);
-	
-	////////////////////////////////////////////////////////////
-	
 	public ArrayList<HashMap<String, Object>> selectAllByStNo(int stNo);
 	public ArrayList<HashMap<String, Object>> selectAllByMemberNo(HashMap<String, Integer> map);
 	public ArrayList<HashMap<String, Object>> selectAllReplyByStNo(int stNo);
