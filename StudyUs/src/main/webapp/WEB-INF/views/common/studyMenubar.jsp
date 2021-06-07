@@ -287,7 +287,7 @@
 	                            </li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/chat"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/${ study.url }/chat"
 	                            aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
 	                                class="hide-menu">채팅 </span></a></li>
 			

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>채팅 - StudyUs</title>
+<title>chat.jsp 입니다.</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 </head>
@@ -220,7 +220,23 @@
                                         <!--chat Row -->
                                         <ul id="chat-box" class="chat-list list-style-none px-3 pt-3">
                                             <!--chat Row -->
-                                            <li class="chat-item list-style-none mt-3 d-none">
+                                            <li class="chat-item list-style-none mt-3">
+                                                <div class="chat-img d-inline-block"><img
+                                                        src="/resources/css/study/assets/images/users/1.jpg" alt="user"
+                                                        class="rounded-circle" width="45">
+                                                </div>
+                                                <div class="chat-content d-inline-block pl-3">
+                                                    <h6 class="font-weight-medium">James Anderson</h6>
+                                                    <div class="msg p-2 d-inline-block mb-1">Lorem
+                                                        Ipsum is simply
+                                                        dummy text of the
+                                                        printing &amp; type setting industry.</div>
+                                                </div>
+                                                <div class="chat-time d-block font-10 mt-1 mr-0 mb-3">10:56 am
+                                                </div>
+                                            </li>
+                                            <!--chat Row -->
+                                            <li class="chat-item list-style-none mt-3">
                                                 <div class="chat-img d-inline-block"><img
                                                         src="/resources/css/study/assets/images/users/2.jpg" alt="user"
                                                         class="rounded-circle" width="45">
@@ -235,13 +251,60 @@
                                                 </div>
                                             </li>
                                             <!--chat Row -->
-                                            <li class="chat-item odd list-style-none mt-3 d-none">
+                                            <li class="chat-item odd list-style-none mt-3">
                                                 <div class="chat-content text-right d-inline-block pl-3">
                                                     <div class="box msg p-2 d-inline-block mb-1">I
                                                         would love to
                                                         join the team.</div>
                                                     <br>
                                                 </div>
+                                            </li>
+                                            <!--chat Row -->
+                                            <li class="chat-item odd list-style-none mt-3">
+                                                <div class="chat-content text-right d-inline-block pl-3">
+                                                    <div class="box msg p-2 d-inline-block mb-1 box">
+                                                        Whats budget
+                                                        of the new project.</div>
+                                                    <br>
+                                                </div>
+                                                <div class="chat-time text-right d-block font-10 mt-1 mr-0 mb-3">
+                                                    10:59 am</div>
+                                            </li>
+                                            <!--chat Row -->
+                                            <li class="chat-item list-style-none mt-3">
+                                                <div class="chat-img d-inline-block"><img
+                                                        src="/resources/css/study/assets/images/users/3.jpg" alt="user"
+                                                        class="rounded-circle" width="45">
+                                                </div>
+                                                <div class="chat-content d-inline-block pl-3">
+                                                    <h6 class="font-weight-medium">Angelina Rhodes</h6>
+                                                    <div class="msg p-2 d-inline-block mb-1">Well we
+                                                        have good budget
+                                                        for the project
+                                                    </div>
+                                                </div>
+                                                <div class="chat-time d-block font-10 mt-1 mr-0 mb-3">11:00 am
+                                                </div>
+                                            </li>
+                                            <!--chat Row -->
+                                            <li class="chat-item odd list-style-none mt-3">
+                                                <div class="chat-content text-right d-inline-block pl-3">
+                                                    <div class="box msg p-2 d-inline-block mb-1">I
+                                                        would love to
+                                                        join the team.</div>
+                                                    <br>
+                                                </div>
+                                            </li>
+                                            <!--chat Row -->
+                                            <li class="chat-item odd list-style-none mt-3">
+                                                <div class="chat-content text-right d-inline-block pl-3">
+                                                    <div class="box msg p-2 d-inline-block mb-1 box">
+                                                        Whats budget
+                                                        of the new project.</div>
+                                                    <br>
+                                                </div>
+                                                <div class="chat-time text-right d-block font-10 mt-1 mr-0 mb-3">
+                                                    10:59 am</div>
                                             </li>
                                         </ul>
                                     </div>
@@ -255,7 +318,7 @@
                                             </div>
                                             <div class="col-3">
                                                 <a class="btn-circle btn-lg btn-cyan float-right text-white"
-                                                    href="javascript:send()"><i class="fas fa-paper-plane"></i></a>
+                                                    href="javascript:sendButtonClicked()"><i class="fas fa-paper-plane"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -274,51 +337,22 @@
     </div>
 </body>
 
-<!-- <script th:inline="javascript"> -->
 <script type="text/javascript">
 // 로컬 유저의 닉네임
-var nickname = '${loginUser.mbNickname}';
-// 채팅중인 스터디의 url
-var studyUrl = '${study.url}';
-// 채팅 input
+var localNickname = '${loginUser.mbNickname}';
+
 var chatInput = document.getElementById("input-chat");
-// 채팅 메세지 출력영역
+
+// 채팅을 출력하는 태그
 var chatBox = document.getElementById("chat-box");
 
-// 웹소켓 연결
-// var webSocket = new WebSocket("ws://" + location.hostname + (location.port ? ':' + location.port: '') + "/chat/message");
-var webSocket = new SockJS("http://localhost:8080/chat/message");
-webSocket.onopen = onOpen;
-webSocket.onclose = onClose;
-webSocket.onmessage = onMessage;
-function onOpen () {
-	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : nickname, "type" : "OPEN", "message" : nickname + " 님이 입장하셨습니다."}));
-}
-function onClose () {
-	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : nickname, "type" : "CLOSE", "message" : nickname + " 님이 퇴장하셨습니다."}));
-	webSocket.close();
-}
-function send () {
-	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : nickname, "type" : "SEND", "message" : chatInput.value}));
-	chatInput.value = "";
-}
-function onMessage (message) {
-	jsonMsg = JSON.parse(message.data);
-	
-	var msgNickname = jsonMsg["nickname"];
-	var msgContents = jsonMsg["message"];
-	var msgInsertDate = jsonMsg["insertDate"];
-	
-	console.log(jsonMsg);
-	
-	if (jsonMsg["nickname"] == nickname) {
-		printMyMessage(msgContents, msgInsertDate);
-	} else {
-		printReceivedMessage(msgNickname, msgContents, msgInsertDate)
-	}
-}
+//var sock = new SockJS(location.protocol + "//" + location.hostname + (location.port ? ':' + location.port: '') + '/chat/receive');
+var sock = new SockJS('http://localhost:8080/chat/receive');
+sock.onmessage = onMessage;
+sock.onclose = onClose;
+sock.onopen = onOpen;
 
-// 로컬 유저의 메세지 출력
+// 타인의 메세지 출력
 function printMyMessage(message, time) {
 	
 	var newMessage = '<li class="chat-item odd list-style-none mt-3">' + 
@@ -336,11 +370,10 @@ function printMyMessage(message, time) {
 	chatBox.innerHTML += newMessage;
 }
 
-// 타인의 메세지 출력
+// 로컬 유저의 메세지 출력
 function printReceivedMessage(username, message, time) {
 	
 	var newMessage = '<li class="chat-item list-style-none mt-3">' +
-// 프로필 이미지 영역
 // 				        '<div class="chat-img d-inline-block">' +
 // 							'<img src="/resources/css/study/assets/images/users/3.jpg" alt="user" class="rounded-circle" width="45">' +
 // 						'</div>' +
@@ -354,6 +387,78 @@ function printReceivedMessage(username, message, time) {
 						'</li>';
 						
 	chatBox.innerHTML += newMessage;
+}
+
+
+//전송 버튼 누르는 이벤트
+function sendButtonClicked () {
+	sendMessage();
+	chatInput.value = '';
+}
+
+// 채팅 메세지 전송
+function sendMessage() {
+	sock.send(chatInput.value);
+}
+
+//서버에서 메시지를 받았을 때
+function onMessage(msg) {
+	
+	var data = msg.data;
+	var sessionId = null; //데이터를 보낸 사람
+	var message = null;
+	
+	var arr = data.split(":");
+	
+	for(var i=0; i<arr.length; i++){
+		console.log('arr[' + i + ']: ' + arr[i]);
+	}
+	
+	var cur_session = localNickname; //현재 세션에 로그인 한 사람
+	console.log("cur_session : " + cur_session);
+	
+	sessionId = arr[0];
+	message = arr[1];
+	
+    //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
+	if (sessionId == cur_session) {
+		
+		printMyMessage(sessionId, message, currentTime); //TODO 현재시간 추가
+		
+// 		var str = "<div class='col-6'>";
+// 		str += "<div class='alert alert-secondary'>";
+// 		str += "<b>" + sessionId + " : " + message + "</b>";
+// 		str += "</div></div>";
+		
+// 		$("#msgArea").append(str);
+	} else {
+		
+		printReceivedMessage(sessionId, message, currentTime); //TODO 현재시간 추가
+		
+// 		var str = "<div class='col-6'>";
+// 		str += "<div class='alert alert-warning'>";
+// 		str += "<b>" + sessionId + " : " + message + "</b>";
+// 		str += "</div></div>";
+		
+// 		$("#msgArea").append(str);
+	}
+	
+}
+//채팅창에서 나갔을 때
+function onClose(evt) {
+	
+	var user = localNickname;
+	var str = user + " 님이 퇴장하셨습니다.";
+	
+	$("#msgArea").append(str);
+}
+//채팅창에 들어왔을 때
+function onOpen(evt) {
+	
+	var user = localNickname;
+	var str = user + "님이 입장하셨습니다.";
+	
+	$("#msgArea").append(str);
 }
 </script>
 

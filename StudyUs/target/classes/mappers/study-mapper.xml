@@ -78,7 +78,7 @@
 	<select id="printStudyList" resultMap="studyResultMap">
 		SELECT MB_NO, ST_NO, ST_NAME FROM STUDY 
 		WHERE MB_NO = #{leaderNo}  AND ST_MAX_PERSONNEL = 20
-	</select> 
+	</select>
 	
 	<select id="checkUrl" resultType="int">
 		SELECT COUNT(*) FROM STUDY WHERE ST_URL = #{url}
