@@ -6,11 +6,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <style>
+    .delete-btn {
+    margin-top : 0px !important ;
+    }
+    </style>
         <!-- 추가 css -->
     <link href="/resources/css/study/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
-    
-    
+	<link href="/resources/css/studyus/manage.css" rel="stylesheet">
+   
     <title>StudyUs : 회원관리</title>
 </head>
 <body>
@@ -64,10 +68,6 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-            <!-- js에 보내주는 용도 -->
-			<input type="hidden" id="leaderNo" value="${ study.leaderNo }">
-			<input type="hidden" id="userNo" value="${ loginUser.mbNo }">
-            <div class="container-fluid">
             	<!-- 게시판 게시물 목록 -->
                 <div class="row">
                     <div class="col-12">
@@ -75,7 +75,7 @@
                             <div class="card-body ">
                                 <h4 class="card-title">회원 목록</h4>
                                 <div class="table-responsive">
-                                    <table id="board-list" class="table table-striped table-bordered display no-wrap"
+                                    <table id="mlist" class="table table-striped table-bordered display no-wrap"
                                         style="width:100%">
                                         <thead>
                                             <tr>
@@ -97,7 +97,6 @@
                         </div>
                     </div>
                 </div>
-                                
             </div>
 
             <!-- footer -->
@@ -108,5 +107,85 @@
    <!--This page JavaScript -->
    <script src="/resources/css/study/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
    <script src="/resources/js/memberAdmin.js"></script>
+<!-- <script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+    	 ajax: {
+    	      "type" : "POST",
+    	         "url" : "<c:url value='/admin/member/list' />",
+    	            "dataType": "JSON"
+    	         },
+        columns: [
+    		{ data : "mbNo"},
+            { data : "mbNo"},
+            { data : "mbId"},
+            { data : "mbPassword"},
+            { data : "mbName"},
+            { data : "mbNickname"},
+            { data : "mbEmail"},
+            { data : "mbPhone"}
+        ]
+    } );
+} );
+</script> -->
+
+<!-- <script>
+	function getMemberList(){
+		var mamberNo = "${member.mbNo}"
+		$.ajax({
+			url : "/admin/member/list",
+			type : "get",
+			data : {
+				"mbNo" : mbNo
+			},
+			dataType : "json",
+			success : function(data){
+				var $tableBody = $("mlist thead");
+				$tableBody.html("");
+				var $tr;
+				var $mbNo;
+				var $mbId;
+				var $mbPassword;
+				var $mbName;
+				var $mbNickname;
+				var $mbEmail;
+				var $mbPhone;
+				
+				if (data.length > 0) {
+					for ( var i in data) {
+						// 							tr태그를 담는 변수(tr을 만들겠다)
+						$tr = $("<tr>");
+						// 							td태그를 담는 변수(td를 만들겠다)
+						$mbNo = $("<td width='100'>").text(
+								data[i].mbNo);
+						$mbId = $("<td>").text(data[i].mbId);
+						$mbPassword = $("<td width='100'>").text(
+								data[i].mbPassword);
+						$mbName = $("<td width='100'>").text(
+								data[i].mbName);
+						$mbNickname = $("<td width='100'>").text(
+								data[i].mbNickname);
+						$mbEmail = $("<td width='100'>").text(
+								data[i].mbEmail);
+						$mbPhone = $("<td width='100'>").text(
+								data[i].mbPhone);
+						// 							.append("<a href='/deleteReply.kh?refBoardNo="+boardNo+"&replyNo="+data[i].replyNo+"'> 삭제</a>");
+						// 							tr 태그 밑으로 값을 넣어주는 변수
+						$tr.append($mbNo);
+						$tr.append($mbId);
+						$tr.append($mbPassword);
+						$tr.append($mbName);
+						$tr.append($mbNickname);
+						$tr.append($mbEmail);
+						$tr.append($mbPhone);
+					}
+				}
+			},
+			error : function() {
+
+			}
+		})
+	}
+</script> -->
 </body>
 </html>

@@ -1,11 +1,4 @@
-var check = "";
-var leaderNo = $("#leaderNo").val();
-var userNo = $("#userNo").val();
-if(leaderNo == userNo) {
-	check = "l"
-} else {
-	check = "m"
-}
+var data = $("#mbNo").val();
 
 /****************************************
  *        관리자 회원관리  목록           *
@@ -46,7 +39,7 @@ var table = $('#mList').DataTable({
 	// 보기 옵션 선택정보 저장여부
 	// stateSave: true,
 	
-	// 컬럼에 값이 null인 경우 처리
+	// 컬럼에 값이 null인 경우 처리(css 작업)
 	columnDefs: [{
 		'targets': 0,
 		'searchable': false,
@@ -60,13 +53,25 @@ var table = $('#mList').DataTable({
 		'className': 'dt-body-center',
 	}, {
 		'targets': 2,
-		'className': 'dt-category',
+		'className': 'dt-body-center ',
 	}, {
 		'targets': 4,
-		'className': 'dt-date',
+		'className': 'dt-category',
 	}, {
 		'targets': 5,
-		'className': 'dt-date',
+		'className': 'dt-category',
+	}, {
+		'targets': 6,
+		'className': 'dt-category',
+	}, {
+		'targets': 7,
+		'className': 'dt-category',
+	}, {
+		'targets': 8,
+		'className': 'dt-category',
+	}, {
+		'targets': 9,
+		'className': 'dt-category',
 	}, {
         defaultContent: "-",
         targets: "_all"
@@ -82,49 +87,28 @@ var table = $('#mList').DataTable({
 		// bServerSide를  true로 할 경우 pagination 등을 서버단에서 처리해야 함
 	processing: true,
 	bServerSide: false,
-		// 받은 json 값이 data가 아닐 경우엔는 dataSrc로 이름 변경
+		// 받은 json 값이 data가 아닐 경우에는 dataSrc로 이름 변경
     ajax: {
 	    'url':'/admin/member/list', 
 	    'type': 'GET',
-		'data' : {'mbNo' : mbNo},
+	    'data' : {'mbNo' : mbNo},
 	    'dataSrc':''
  	},
 		// 컬럼별로 들어갈 데이터 정보를 저장
     columns: [
-		{"data": "mbNo"},
-        {"data": "mbNo"},
-        {
-		"data": "mbAdCategory",
-			"render": function(data, type, row, meta){
-				switch(data) {
-				case 1: data = '자유';
-					break;
-				case 2: data = '공유';
-					break;
-				case 2: data = '질문';
-					break;
-				}
-	            
-	            return data;
-			}
-		},
-		{ 
-         "data": "boTitle",
-	         "render": function(data, type, row, meta){
-	            if(type === 'display'){
-	                data = '<a href="/study/board/detail?boNo=' + row["boNo"] + '">' + data + '</a>';
-	            }
-	            
-	            return data;
-			}
-        },
-        {"data": "member.mbNickname"},
-		{"data": "boInsertDate"}
+		{ data : "mbNo"},
+        { data : "mbNo"},
+        { data : "mbId"},
+        { data : "mbPassword"},
+        { data : "mbName"},
+        { data : "mbNickname"},
+        { data : "mbEmail"},
+        { data : "mbPhone"}
     ]
 });
 
 // 컬럼별 검색기능 추가
-$("#board-list_filter").prepend('<select id="board-list-select" class="select"></select>');
+/* $("#board-list_filter").prepend('<select id="board-list-select" class="select"></select>');
 $('#board-list > thead > tr').children().each(function (indexInArray, valueOfElement) { 
     $('#board-list-select').append('<option value="' + indexInArray + '">'+ valueOfElement.innerHTML +'</option>');
 });
@@ -169,4 +153,4 @@ $("#board-btn").on("click", function() {
 			}
 		});
 	}
-});
+}); */

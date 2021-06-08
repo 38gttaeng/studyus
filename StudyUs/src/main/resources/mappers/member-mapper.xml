@@ -87,6 +87,8 @@
 	</select>
 	
 	<select id="selectAllList" resultMap="memberResultMap">
-		SELECT * FROM MEMBER
+		SELECT
+		MB_NO, MB_ID, MB_PASSWORD, MB_NAME, MB_NICKNAME, MB_EMAIL, MB_PHONE
+	 	FROM MEMBER
 	</select>
 </mapper>
