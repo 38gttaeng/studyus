@@ -113,13 +113,7 @@ public class MemberStoreLogic implements MemberStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
-	@Override
-	public ArrayList<Review> myReviewList(int mbNo) {
-		return (ArrayList)sqlSession.selectList("reviewMapper.selectMyReviewList", mbNo);
-	}
-
 	@Override
 	public ArrayList<Member> selectAllEnrolled(int studyNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectAllEnrolled", studyNo);

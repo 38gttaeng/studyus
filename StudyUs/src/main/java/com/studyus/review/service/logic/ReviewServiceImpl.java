@@ -38,11 +38,12 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public ArrayList<Review> printAllByMemberNo(int mbNo) {
-		return null;
+		return rStore.selectAllByMemberNo(mbNo);
 	}
 
 	@Override
 	public int getListCount(int caNo) {
 		return 0;
 	}
+	
 }

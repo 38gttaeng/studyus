@@ -20,7 +20,7 @@ a:hover, a:focus {
 
 .myPage-box {
 	width: 900px;
-	height: 1600px;
+	height: 1700px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -62,8 +62,8 @@ a:hover, a:focus {
 }
 
 .box-zone {
-	width: 800px;
-	height: 1400px;
+	width: 900px;
+	height: 1430px;
 	background-color: #ffffff;
 	margin-left: auto;
 	margin-right: auto;
@@ -85,10 +85,11 @@ a:hover, a:focus {
 	border-radius: 5px;
 	padding: 5px;
 	text-align: center;
+	margin-bottom: 10px;
 }
 
 .my-study {
-	width: 650px;
+	width: 800px;
 	height: 300px;
 	margin-left: auto;
 	margin-right: auto;
@@ -96,28 +97,37 @@ a:hover, a:focus {
 }
 
 .my-calender {
-	width: 650px;
-	height: 600px;
+	width: 800px;
+	height: 630px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
 }
 
-.calender-box {
-	width: 600px;
-	height: 500px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 20px;
-	padding: 1px;
+.col-md-12 {
+	padding: 0 !important;
+}
+
+#calendar-events {
+	text-align: left;
 }
 
 .my-review {
-	width: 650px;
+	width: 800px;
 	height: 300px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
 }
 
+.review-box {
+	width: 798px;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	overflow: scroll;
+}
 

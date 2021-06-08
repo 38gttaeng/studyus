@@ -8,7 +8,7 @@ import com.studyus.member.domain.Member;
 import com.studyus.review.domain.Review;
 
 public interface MemberService { 
-
+	
 	public Member loginMember(Member member);
 	
 	public Member selectOneById(String mbId);
@@ -42,8 +42,6 @@ public interface MemberService {
 	public Member findMemPw(Member member);
 	
 	public ArrayList<Enrollment> myStudyList(int mbNo);
-	
-	public ArrayList<Review> myReviewList(int mbNo);
 	
 	/**
 	 * 해당 번호의 스터디에 가입한 모든 회원을 출력합니다.

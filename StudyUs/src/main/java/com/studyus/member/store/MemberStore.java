@@ -42,8 +42,6 @@ public interface MemberStore {
 	
 	public ArrayList<Enrollment> myStudyList(int mbNo);
 	
-	public ArrayList<Review> myReviewList(int mbNo);
-	
 	/**
 	 * 스터디에 가입한 모든 회원을 select합니다.
 	 * @param studyNo

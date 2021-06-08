@@ -141,4 +141,5 @@ public class Member {
 				+ mbReputation + ", mbPhoto=" + mbPhoto + ", mbStatus=" + mbStatus + ", authKey=" + authKey + "]";
 	}
 	
+	
 }

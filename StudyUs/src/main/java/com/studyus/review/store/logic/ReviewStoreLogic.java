@@ -37,9 +37,7 @@ public class ReviewStoreLogic implements ReviewStore{
 
 	@Override
 	public ArrayList<Review> selectAllByMemberNo(int mbNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectAllByMbNo", mbNo);
 	}
-
 
 }
