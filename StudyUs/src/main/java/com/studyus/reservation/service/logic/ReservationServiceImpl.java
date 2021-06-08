@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.studyus.reservation.domain.Reservation;
+import com.studyus.reservation.domain.ReservationMember;
 import com.studyus.reservation.service.ReservationService;
 import com.studyus.reservation.store.ReservationStore;
 
 @Service
-public class ReservationServiceImpl implements ReservationService { 
+public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	private ReservationStore rsStore;
@@ -22,8 +23,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public ArrayList<Reservation> printAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return rsStore.selectAll();
 	}
 
 	@Override
@@ -33,18 +33,32 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public Reservation printOne(int rsNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return rsStore.selectOne(rsNo);
 	}
 
+	@Override
+	public ArrayList<ReservationMember> printAllMember(int rsNo) {
+		return rsStore.selectAllMember(rsNo);
+	}
+	
+	@Override
+	public int registerMember(ReservationMember reservMember) {
+		return rsStore.insertMember(reservMember);
+	}
+	
+	@Override
+	public int removeMember(ReservationMember reservMember) {
+		return rsStore.deleteMember(reservMember);
+	}
+	
 	@Override
 	public int registerReservation(Reservation reservation) {
 		return rsStore.insertReservation(reservation);
 	}
 
 	@Override
-	public int removeReservation(int rsNo) {
-		return rsStore.deleteReservation(rsNo);
+	public int removeReservation(Reservation reservation) {
+		return rsStore.deleteReservation(reservation);
 	}
 
 }

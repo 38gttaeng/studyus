@@ -3,6 +3,7 @@ package com.studyus.reservation.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -21,8 +23,10 @@ import com.studyus.cafe.domain.Cafe;
 import com.studyus.cafe.service.CafeService;
 import com.studyus.caferoom.domain.Caferoom;
 import com.studyus.caferoom.service.CaferoomService;
+import com.studyus.common.RedirectWithMsg;
 import com.studyus.member.domain.Member;
 import com.studyus.reservation.domain.Reservation;
+import com.studyus.reservation.domain.ReservationMember;
 import com.studyus.reservation.service.ReservationService;
 import com.studyus.study.domain.Study;
 import com.studyus.study.service.StudyService;
@@ -90,9 +94,66 @@ public class ReservationController {
 	}
 	
 	// 예약 확인 페이지
-	@RequestMapping(value="/cafe/reservation/ss", method=RequestMethod.GET)
-	public String reservationDetail(@RequestParam("rsNo") int rsNo) {
-		return null;
+	@RequestMapping(value="/study/reservation/detail", method=RequestMethod.GET)
+	public ModelAndView reservationDetail(ModelAndView mv, @RequestParam("rsNo") int rsNo) {
+		
+		Reservation reservation = rsService.printOne(rsNo); // 예약하나 정보
+		Caferoom caferoom = crService.printOne(reservation.getCrNo()); // 예약 하나에 해당하는 카페룸 정보
+		Cafe cafe = cfService.printOne(caferoom.getCaNo()); // 카페룸 하나에 해당하는 카페 정보
+		
+		if(reservation != null && caferoom != null && cafe != null) {
+			mv.addObject("reservation", reservation);
+			mv.addObject("caferoom", caferoom);
+			mv.addObject("cafe", cafe);
+			mv.setViewName("study/reservationDetail");
+		} else {
+			System.out.println("스터디 카페 예약확인 실패");
+			System.out.println("reservation : " + reservation);
+			System.out.println("caferoom : " + caferoom);
+			System.out.println("cafe : " + cafe);
+		}
+		return mv;
+	}
+	
+	// 예약 멤버 리스트
+	@RequestMapping(value="/study/reservation/member", method=RequestMethod.GET)
+	public void reservationMbList(HttpServletResponse response, @RequestParam("rsNo") int rsNo) throws Exception {
+		
+		// 예약에 할당된 멤버 리스트(값이 없을 수 있음)
+		ArrayList<ReservationMember> mbList = rsService.printAllMember(rsNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(mbList, response.getWriter());
+	}
+	
+	// 예약 멤버 등록
+	@ResponseBody
+	@RequestMapping(value="/study/reservation/member-register", method=RequestMethod.GET)
+	public String memberRegister(HttpSession session, @RequestParam("rsNo") int rsNo) {
+		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+		ReservationMember reservMember = new ReservationMember(rsNo, mbNo);
+		
+		int result = rsService.registerMember(reservMember);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
+	// 예약 멤버 삭제
+	@ResponseBody
+	@RequestMapping(value="/study/reservation/member-remove", method=RequestMethod.GET)
+	public String memberRemove(HttpSession session, @RequestParam("rsNo") int rsNo) {
+		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+		ReservationMember reservMember = new ReservationMember(rsNo, mbNo);
+		
+		int result = rsService.removeMember(reservMember);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
 	/*********************************** 등록, 삭제 ***********************************/
@@ -109,10 +170,11 @@ public class ReservationController {
 		reservation.setRsEnd(rsEnd);
 		int rsNo = rsService.registerReservation(reservation);
 		
+		System.out.println(rsNo);/****************************************************************/
+		
 		if(rsNo > 0) {
 			mv.addObject("reservation", reservation);
-			// 이동하는 곳은 예약정보 확인하는 곳으로~~~~~~변경해라ㅏㅏㅏㅏㅇ나아아아
-			mv.setViewName("cafe/reservation-room?crNo=" + reservation.getCrNo());
+			mv.setViewName("/study/reservation/detail?rsNo=" + rsNo);
 		} else {
 			System.out.println("예약 등록 실패!");
 		}
@@ -121,7 +183,14 @@ public class ReservationController {
 	}
 	
 	// 예약취소
-	public ModelAndView reservationDelete(ModelAndView mv, @RequestParam("rsNo") int rsNo) {
-		return null; 
+	@RequestMapping(value="/study/reservation/delete", method=RequestMethod.GET)
+	public String reservationDelete(HttpServletRequest request, @ModelAttribute Reservation reservation) {
+		int result = rsService.removeReservation(reservation);
+		
+		if(result > 0) {
+			return new RedirectWithMsg().redirect(request, "예약이 취소되었습니다.", "/study/calendar");
+		} else {
+			return new RedirectWithMsg().redirect(request, "예약 삭제 실패!", "/study/calendar");
+		}
 	}
 }

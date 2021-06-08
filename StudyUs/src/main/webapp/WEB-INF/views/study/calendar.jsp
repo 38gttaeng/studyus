@@ -43,12 +43,7 @@
                 		</div>
             		</div>
             		
-            		<!-- 저장하는 버튼(팀장만) -->
-            		<!-- <div class="col-5 align-self-center">
-                        <div class="customize-input float-right">
-                            <button class="btn btn-primary"><i class="fas fa-check"></i> 저장 </button>
-                        </div>
-                    </div> -->
+            		<!-- 검색? -->
             	</div>
             </div>
             
@@ -77,33 +72,17 @@
                                                 		<tr class="calendar-events cEvents2">
                                                 			<td>모임 일정</td>
                                                 		</tr>
+                                                		<tr>
+                                                			<td>
+                                                				<div id="checkHide" class="custom-control custom-checkbox">
+	                                                				<input type="checkbox" class="custom-control-input" id="drop-remove">
+	                                                				<label class="custom-control-label" for="drop-remove">취소된 예약 숨기기</label>
+                                                				</div>
+                                                			</td>
+                                                		</tr>
                                                 	</table>
                                              </div>
                                          </div>
-                                         
-                                         <!-- modal창 -->
-                                         <div id="my-event">
-	                                         <div class="modal fade" id="centermodal" tabindex="-1" role="dialog" aria-hidden="true">
-				                             	<div class="modal-dialog modal-dialog-centered">
-				                                	<div class="modal-content">
-				                                    	<div class="modal-header">
-				                                        	<h4 class="modal-title" id="myCenterModalLabel">일정 정보</h4>
-				                                        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				                                        </div>
-				                                        <div class="modal-body">
-				                                        	<h5>제목</h5>
-				                                        	<p>기한</p>
-				                                         	<p>닉네임들</p>
-				                                        </div>
-				                                        <div class="modal-footer">
-			                                                <button type="button" class="btn btn-light"
-			                                                    data-dismiss="modal">취소</button>
-			                                                <button type="button" class="btn btn-primary">상세보기</button>
-			                                            </div>
-				                                	</div>
-				                             	</div>
-				                            </div>
-			                        	</div>
 	                             	</div>
                                  </div>
                                  <div class="col-lg-9">
@@ -164,6 +143,7 @@
     <script src="/resources/css/study/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
     <script src="/resources/css/study/assets/libs/moment/min/moment.min.js"></script>
     <script src="/resources/css/study/assets/libs/fullcalendar/fullcalendar.js"></script>
+    <script src="/resources/css/study/assets/libs/fullcalendar/gcal.min.js"></script>
     <script src="/resources/js/calendar.js"></script>
     
 </body>

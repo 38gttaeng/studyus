@@ -3,6 +3,7 @@ package com.studyus.reservation.service;
 import java.util.ArrayList;
 
 import com.studyus.reservation.domain.Reservation;
+import com.studyus.reservation.domain.ReservationMember;
 
 public interface ReservationService {
 	
@@ -36,9 +37,30 @@ public interface ReservationService {
 	 */
 	public Reservation printOne(int rsNo);
 	
+	/**
+	 * 예약 참여자 리스트
+	 * @param rsNo
+	 * @return
+	 */
+	public ArrayList<ReservationMember> printAllMember(int rsNo);
+	
+	/**
+	 * 예약 참여자 추가
+	 * @param reservMember(rsNo, mbNo)
+	 * @return
+	 */
+	public int registerMember(ReservationMember reservMember);
+	
+	/**
+	 * 예약 참여자 삭제
+	 * @param reservMember(rsNo, mbNo)
+	 * @return
+	 */
+	public int removeMember(ReservationMember reservMember);
+	
 	// 예약 등록, 삭제
 	
 	public int registerReservation(Reservation reservation);
-	public int removeReservation(int rsNo);
+	public int removeReservation(Reservation reservation);
 
 }

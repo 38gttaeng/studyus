@@ -12253,27 +12253,9 @@ strong {
   font-size: 11px;
 }
 
-#calendar-events {
-	border-spacing : 10px;
-	border-collapse: separate;
-	text-align : center;
-	width : 100%;
-}
+.fc-sat { color:#ff4f70; }     /* 토요일 */
+.fc-sun { color:#ff4f70; }    /* 일요일 */
 
-#calendar-events .calendar-events {
-	height : 33px;
-	cursor : pointer;
-}
-
-#calendar-events .calendar-events td {
-	border-radius : 30px;
-	color : #fff;
-	background-color : #e8eaec;
-}
-
-#calendar-events .cEvents0 td {
-	background-color : #6c757d;
-}
 
 @media (max-width: 767.98px) {
   .fc-toolbar .fc-left,

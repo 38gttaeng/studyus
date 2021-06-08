@@ -1,6 +1,7 @@
 package com.studyus.calendar.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -56,6 +57,43 @@ public class CalendarController {
 		}
 	}
 	
+	// 모임
+	@RequestMapping(value="/study/calendar/reservation", method=RequestMethod.GET)
+	public void reservationCalendar(HttpSession session, HttpServletResponse response) throws Exception {
+		
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		ArrayList<Reservation> rsList = rsService.printReservationByStNo(stNo);
+		
+		if(!rsList.isEmpty()) {
+			// rsStatus가 1인 것와 2인 것 따로 저장
+			ArrayList<Calendar> caList1 = new ArrayList<Calendar>();
+			ArrayList<Calendar> caList0 = new ArrayList<Calendar>();
+			
+			// 캘린더 객체로 바꿔서 보내주기
+			for(Reservation rsOne : rsList) {
+				String url = "/study/reservation/detail?rsNo=" + rsOne.getRsNo();
+				String start = rsOne.getRsDate() + " " + rsOne.getRsStart() + ":00";
+				String end = rsOne.getRsDate() + " " + rsOne.getRsEnd() + ":00";
+				Calendar calendar = new Calendar("모임", rsOne.getCaName() + " / " + rsOne.getCrName(), start, end, url, "backHover" + (rsOne.getRsStatus() + 5));
+				
+				if(rsOne.getRsStatus() == 1) {
+					caList1.add(calendar);
+				} else {
+					caList0.add(calendar);
+				}
+			}
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("caList1", caList1);
+			map.put("caList0", caList0);
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(map, response.getWriter());
+		} else {
+			System.out.println("스터디에 해당하는 예약 전부 가져오기 실패~~~");
+		}
+	}
+	
 	// 마이페이지에서 띄우기
 	@RequestMapping(value="/member/calendar/assignment", method=RequestMethod.GET)
 	public void memAsCalendar(HttpSession session, HttpServletResponse response) throws Exception {
@@ -78,28 +116,4 @@ public class CalendarController {
 		}
 	}
 	
-	// 모임
-	@RequestMapping(value="/study/calendar/reservation", method=RequestMethod.GET)
-	public void reservationCalendar(HttpSession session, HttpServletResponse response) throws Exception {
-		
-		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
-		ArrayList<Reservation> rsList = rsService.printReservationByStNo(stNo);
-		
-		if(!rsList.isEmpty()) {
-			ArrayList<Calendar> caList = new ArrayList<Calendar>();
-			for(Reservation rsOne : rsList) {
-				//String url = "/study/assignment/detail?asNo=" + asOne.getAsNo();
-				String url = "";
-				String start = rsOne.getRsDate() + " " + rsOne.getRsStart() + ":00";
-				String end = rsOne.getRsDate() + " " + rsOne.getRsEnd() + ":00";
-				Calendar calendar = new Calendar("모임", rsOne.getCaName() + " " + rsOne.getCrName(), start, end, url, "backHover" + (rsOne.getRsStatus() + 4));
-				caList.add(calendar);
-			}
-			
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			gson.toJson(caList, response.getWriter());
-		} else {
-			System.out.println("스터디에 해당하는 과제 전부 가져오기 실패~~~");
-		}
-	}
 }
