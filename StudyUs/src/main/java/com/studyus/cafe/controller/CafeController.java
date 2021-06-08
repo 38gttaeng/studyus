@@ -75,33 +75,9 @@ public class CafeController {
 	// 스터디카페 등록
 	@RequestMapping(value = "/cafe/register", method = RequestMethod.POST)
 	public ModelAndView cafeRegister(ModelAndView mv, @ModelAttribute Cafe cafe,
-//									@RequestParam("admCd") String admCd,
-//									@RequestParam("rnMgtSn") String rnMgtSn,
-//									@RequestParam("udrtYn") String udrtYn,
-//									@RequestParam("buldMnnm") String buldMnnm,
-//									@RequestParam("buldSlno") String buldSlno,
-//									@RequestParam("confmKey") String confmKey,
 									@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile,
 									HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		// 주소 검색
-		// OPEN API 호출 URL 정보 설정
-//		String apiUrl = "https://www.juso.go.kr/addrlink/addrCoordApi.do?admCd ="+admCd+"&rnMgtSn="+rnMgtSn+"&udrtYn="+udrtYn+"&buldMnnm="+buldMnnm+"&buldSlno="+buldSlno+"&confmKey="+confmKey;
-//		URL url = new URL(apiUrl);
-//    	BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
-//    	StringBuffer sb = new StringBuffer();
-//    	String tempStr = null;
-//
-//    	while(true){
-//    		tempStr = br.readLine();
-//    		if(tempStr == null) break;
-//    		sb.append(tempStr);		// 응답결과 XML 저장
-//    	}
-//    	br.close();
-//    	response.setCharacterEncoding("UTF-8");
-//		response.setContentType("text/xml");
-//		response.getWriter().write(sb.toString());
-		
 		// 파일 등록
 		if (!uploadFile.getOriginalFilename().equals("")) {
 			FileVO fileVO = saveFile(uploadFile, request);
@@ -178,11 +154,10 @@ public class CafeController {
 	@RequestMapping(value = "/cafe/modify", method = RequestMethod.POST)
 	public ModelAndView cafeUpdate(ModelAndView mv, HttpServletRequest request, @ModelAttribute Cafe cafe,
 			@RequestParam(value = "reloadFile", required = false) MultipartFile reloadFile) {
+		
 		int fiResult = 0;
 		if (reloadFile != null && !reloadFile.isEmpty()) {
 			// 1. 파일 수정
-
-			// 기존 파일 삭제
 			FileVO fileVO = saveFile(reloadFile, request);
 			deleteFile(cafe.getCaFiName(), request); // 기존 파일 삭제
 
@@ -198,7 +173,7 @@ public class CafeController {
 
 			cafe.setCaFiName(fileVO.getFiStoredName());
 		} else {
-			// 2. 파일 안 수정
+			// 2. 파일 수정 X
 			fiResult = 1;
 		}
 
@@ -246,10 +221,8 @@ public class CafeController {
 			// 댓글과 게시물 삭제
 			int caResult = cService.removeCafe(cafe.getCaNo()); 
 			if(caResult > 0) {
-				
 				return new RedirectWithMsg().redirect(request, "카페 삭제 성공!", "/cafe/list");
 			}else {
-				
 				return new RedirectWithMsg().redirect(request, "게시물 삭제 실패!", "/cafe/list");
 			}
 		}else {

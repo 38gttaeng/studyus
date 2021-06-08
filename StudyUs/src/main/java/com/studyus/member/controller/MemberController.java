@@ -3,6 +3,7 @@ package com.studyus.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.member.service.MemberService;
@@ -498,17 +502,24 @@ public class MemberController {
 	}
 	
 	/*********** 관리자 ************/
+	// 회원 목록 화면
+	@RequestMapping(value="/admin/member", method=RequestMethod.GET)
+	public String memberListView() {
+		return "admin/memberAdmin";
+	}
+	
 	// 회원 목록
 	@RequestMapping(value="/admin/member/list", method=RequestMethod.GET)
-	public ModelAndView memberList(ModelAndView mv){
-		ArrayList<Member> mList = service.printAll();
-		if(!mList.isEmpty()){
-			mv.addObject("mList", mList);
-			mv.setViewName("admin/memberAdmin");
-		} else {
-			mv.addObject("msg", "회원 목록 조회 실패");
-			mv.setViewName("common/errorPage");
-		}
-		return mv;
+	public void memberList(HttpSession session, HttpServletResponse response) throws JsonIOException, IOException {
+		System.out.println("ddd");
+//		Member member = new Member();
+//		member.setMbNo(mbNo);
+		ArrayList<Member> data = service.printAll();
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		map.put("data", mList);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(data, response.getWriter());
+		System.out.println(data);
 	}
 }

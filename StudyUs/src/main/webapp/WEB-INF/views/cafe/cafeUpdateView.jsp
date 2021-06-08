@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-		<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html> 
 <html>
 <head>
@@ -35,8 +34,11 @@
 										value="${ cafe.caName }">
 								</h3>
 								<p>
-									<input class="form-control" type="text" size="50" name="caAddr"
-										value="${cafe.caAddr }">
+									<input class="form-control" type="text" size="50" id="caAddr" name="caAddr" value="${cafe.caAddr }" readonly>
+									<input type="button" onclick="goPopup();" class="btn btn-primary px-3 py-2 mt-2" style="background-color: white; color: purple" value="검색">
+								    <input type="hidden" id="confmKey" name="confmKey" value=""  >
+									<input type="hidden" id="caLat"  name="caLat" value="">
+									<input type="hidden" id="caLong" name="caLng" value="">
 								</p>
 							</div>
 						</div>
@@ -57,7 +59,8 @@
 								</div>
 								<div class="col-md-6 ">
 								 <div class="form-group">
-									<input type="file" size="50" name="reloadFile">
+									<input type="file" size="50" name="reloadFile" value="${cafe.caFiName }">
+									<input type="hidden" name="file" value="${cafe.caFiName }">
 									</div>
 								</div>
 								<div class="col-md-6 pr-md-5">
@@ -104,19 +107,28 @@
 				</div>
 				<div align="center">
 					<p>
-					<c:url var="cDelete" value="/cafe/delete">
-							<c:param name="caNo" value="${cafe.caNo }"></c:param>
-							<c:param name="caFiName" value="${cafe.caFiName }"></c:param>
-						</c:url>
-							<a href="${cDelete}" class="btn btn-primary px-4 py-3 mt-5 mr-3"
-								style="background-color: white; color: purple">삭제하기</a>
+						<a href="${cDelete}" class="btn btn-primary px-4 py-3 mt-5 mr-3"
+								style="background-color: white; color: purple">취소</a>
 						<button type="submit" class="btn btn-primary px-4 py-3 mt-5">수정하기</button>
 					</p>
 				</div>
 			</form>
 		</div>
 	</section>
-
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+	
+	<script>
+		function goPopup(){
+			// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrCoordUrl.do)를 호출하게 됩니다.
+		    var pop = window.open("/cafe/caAddrPop","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+		}
+		function jusoCallBack(roadFullAddr, entX, entY){
+			// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+			var addressEl = document.querySelector("#caAddr");
+			addressEl.value = roadFullAddr;
+			document.getElementById("caLat").value = entX;
+			document.getElementById("caLong").value = entY;
+		}
+		</script>
 </body>
 </html>

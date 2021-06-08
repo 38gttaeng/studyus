@@ -39,9 +39,7 @@ public class ReviewController {
 		
 		int currentPage = (page != null) ? page : 1;
 		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
-		//////////////
 		ArrayList<Review> rList = rService.printAllReview(pi, caNo);
-		/////////////
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("page", pi);
 		map.put("rList", rList);
