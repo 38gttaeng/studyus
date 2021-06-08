@@ -2,10 +2,12 @@ package com.studyus.purchase.store.logic;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.studyus.common.PageInfo;
 import com.studyus.purchase.domain.Purchase;
 import com.studyus.purchase.store.PurchaseStore;
 import com.studyus.study.domain.Study;
@@ -17,9 +19,19 @@ public class PurchaseStoreLogic implements PurchaseStore{
 	public SqlSession sqlSession;
 
 	@Override
+	public ArrayList<Study> printStudyList(Study study) {
+		return (ArrayList)sqlSession.selectList("studyMapper.printStudyList", study);
+	}
+	
+	@Override
 	public int insertPremium(Purchase purchase) {
 		System.out.println(purchase.toString());
 		return sqlSession.insert("purchaseMapper.insertPremium", purchase);
+	}
+	
+	@Override
+	public int updateStudy(Study study) {
+		return sqlSession.update("studyMapper.updatePreStudy", study);
 	}
 
 	@Override
@@ -29,8 +41,14 @@ public class PurchaseStoreLogic implements PurchaseStore{
 	}
 
 	@Override
-	public ArrayList<Study> printStudyList(Study study) {
-		return (ArrayList)sqlSession.selectList("studyMapper.printStudyList", study);
+	public int selectListCount(Purchase purchase) {
+		return sqlSession.selectOne("purchaseMapper.selectListCount", purchase);
 	}
 
+	@Override
+	public ArrayList<Purchase> selectAll(PageInfo pi, Purchase purchase) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("purchaseMapper.selectPurchaseList", purchase, rowBounds);
+	}
 }

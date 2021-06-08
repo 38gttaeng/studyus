@@ -207,6 +207,31 @@ public class AssignmentController {
 		return "redirect:/study/assignment?grNo=0";
 	}
 	
+	// 사진파일 가져오기
+	@RequestMapping(value="/study/assignment/pic-list", method=RequestMethod.GET)
+	public void getAssignmentPics(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		String text = "";
+		
+		ArrayList<Assignment> asList = asService.printAllByStudyNo(stNo);
+		for(Assignment asOne : asList) {
+			text += asOne.getAsContents();
+		}
+		
+		Matcher matcher = pattern.matcher(text);
+		
+		ArrayList<String> picList = new ArrayList<String>();
+		while(matcher.find()){
+			picList.add(matcher.group(1));
+        }
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(picList, response.getWriter());
+	}
+	
 	/******************* 과제 등록, 수정, 삭제 *******************/
 	
 	// 등록

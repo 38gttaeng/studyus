@@ -30,4 +30,7 @@ public interface EnrollmentService {
 
 	// 이미 가입한 회원여부 확인
 	public int checkEnrollment(Enrollment enrollment) throws Exception;
+	
+	// 추방
+	public int banishMember(int memberNo);
 }

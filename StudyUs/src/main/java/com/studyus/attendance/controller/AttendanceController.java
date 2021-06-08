@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.studyus.attendance.domain.Attendance;
 import com.studyus.attendance.service.AttendanceService;
@@ -30,6 +31,12 @@ public class AttendanceController {
 	public String attCheck(@ModelAttribute Attendance attendance,
 							Model model) throws Exception {
 		return String.valueOf(aService.checkAttendance(attendance));
+	}
+	
+	// 출석 리스트
+	@RequestMapping(value="/attendance/list")
+	public String printAtt() {
+		return "study/attendanceList";
 	}
 	
 	// 평점 추가 
