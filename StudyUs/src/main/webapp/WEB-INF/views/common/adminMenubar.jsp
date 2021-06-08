@@ -144,19 +144,19 @@
 						<!-- MANAGEMENT -->
 	                    <li class="nav-small-cap"><span class="hide-menu">management</span></li>
 	                    
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/member"
 	                            aria-expanded="false"><i data-feather="box" class="feather-icon"></i><span
-	                                class="hide-menu">회원 관리 </span></a>
+	                                class="hide-menu">회원 관리</span></a>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="javascript:void(0)"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/study"
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
 	                                class="hide-menu">스터디 관리 </span></a>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/enrollment/list"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/cafe"
 	                            aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
 	                                class="hide-menu">스터디카페 관리</span></a>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="javascript:void(0)"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/payment"
 	                            aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
 	                                class="hide-menu">결제 관리 </span></a>
 	                </ul>

@@ -15,7 +15,7 @@
     <link href="/resources/css/study/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 	<link href="/resources/css/studyus/manage.css" rel="stylesheet">
    
-    <title>StudyUs : 회원관리</title>
+    <title>StudyUs : 스터디카페 관리</title>
 </head>
 <body>
 	<!-- ============================================================== -->
@@ -42,7 +42,7 @@
             <div class="page-breadcrumb">
             	<div class="row">
                     <div class="col-9 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">회원 관리</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">스터디카페 관리</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
@@ -68,31 +68,31 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-            	<!-- 게시판 게시물 목록 -->
+            	<!-- 스터디 카페 목록 -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body ">
-                                <h4 class="card-title">회원 목록</h4>
+                                <h4 class="card-title">스터디카페 목록</h4>
                                 <div class="table-responsive">
-                                    <table id="mList" class="table table-striped table-bordered display no-wrap"
+                                    <table id="caList" class="table table-striped table-bordered display no-wrap"
                                         style="width:100%">
                                         <thead>
                                             <tr>
-                                            	<th><input type="checkbox" id="board-select-all"></th>
-                                                <th>회원번호</th>
-                                                <th>아이디</th>
-                                                <th>비밀번호</th>
-                                                <th>이름</th>
-                                                <th>닉네임</th>
-                                                <th>이메일</th>
-                                                <th>휴대폰번호</th>
+                                            	<th><input type="checkbox" id="cafe-select-all"></th>
+                                                <th>카페번호</th>
+                                                <th>카페명</th>
+                                                <th>주소</th>
+                                                <th>전화번호</th>
+                                                <th>영업시간</th>
+                                                <th>소개</th>
+                                                <th>매장이미지</th>
                                             </tr>
                                         </thead>
                                     </table>
                                 </div>
 		                    <input id="delete-btn" type="button" class="btn btn-primary float-right delete-btn" value="삭제">
-<!-- 		                    <input id="modify-btn" type="button" class="btn btn-primary float-right modify-btn" value="수정"> -->
+		                    <input id="modify-btn" type="button" class="btn btn-primary float-right modify-btn" value="수정">
                             </div>
                         </div>
                     </div>
@@ -106,6 +106,6 @@
    
    <!--This page JavaScript -->
    <script src="/resources/css/study/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-   <script src="/resources/js/memberAdmin.js"></script>
+   <script src="/resources/js/cafeAdmin.js"></script>
 </body>
 </html>

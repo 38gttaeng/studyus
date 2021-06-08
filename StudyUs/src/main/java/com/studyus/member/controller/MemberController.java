@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -493,25 +494,4 @@ public class MemberController {
 		return mv;
 	}
 	
-	/*********** 관리자 ************/
-	// 회원 목록 화면
-	@RequestMapping(value="/admin/member", method=RequestMethod.GET)
-	public String memberListView() {
-		return "admin/memberAdmin";
-	}
-	
-	// 회원 목록
-	@RequestMapping(value="/admin/member/list", method=RequestMethod.GET)
-	public void memberList(HttpSession session, HttpServletResponse response) throws JsonIOException, IOException {
-		System.out.println("ddd");
-//		Member member = new Member();
-//		member.setMbNo(mbNo);
-		ArrayList<Member> data = service.printAll();
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		map.put("data", mList);
-		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(data, response.getWriter());
-		System.out.println(data);
-	}
 }

@@ -15,7 +15,7 @@
     <link href="/resources/css/study/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 	<link href="/resources/css/studyus/manage.css" rel="stylesheet">
    
-    <title>StudyUs : 회원관리</title>
+    <title>StudyUs : 스터디관리</title>
 </head>
 <body>
 	<!-- ============================================================== -->
@@ -68,25 +68,23 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-            	<!-- 게시판 게시물 목록 -->
+            	<!-- 스터디 관리 목록 -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body ">
-                                <h4 class="card-title">회원 목록</h4>
+                                <h4 class="card-title">스터디 목록</h4>
                                 <div class="table-responsive">
-                                    <table id="mList" class="table table-striped table-bordered display no-wrap"
+                                    <table id="sList" class="table table-striped table-bordered display no-wrap"
                                         style="width:100%">
                                         <thead>
                                             <tr>
-                                            	<th><input type="checkbox" id="board-select-all"></th>
-                                                <th>회원번호</th>
-                                                <th>아이디</th>
-                                                <th>비밀번호</th>
-                                                <th>이름</th>
-                                                <th>닉네임</th>
-                                                <th>이메일</th>
-                                                <th>휴대폰번호</th>
+                                            	<th><input type="checkbox" id="study-select-all"></th>
+                                                <th>스터디번호</th>
+                                                <th>스터디명</th>
+                                                <th>인원</th>
+                                                <th>개설일</th>
+<!--                                                 <th>해시태그</th> -->
                                             </tr>
                                         </thead>
                                     </table>
@@ -106,6 +104,6 @@
    
    <!--This page JavaScript -->
    <script src="/resources/css/study/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-   <script src="/resources/js/memberAdmin.js"></script>
+   <script src="/resources/js/studyAdmin.js"></script>
 </body>
 </html>
