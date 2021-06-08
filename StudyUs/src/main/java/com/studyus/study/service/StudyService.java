@@ -7,7 +7,7 @@ import com.studyus.study.domain.StudySearchCriteria;
 import com.studyus.study.domain.StudySearchResult;
 import com.studyus.study.domain.StudyWithDays_dep;
 
-public interface StudyService {
+public interface StudyService { 
 	
 	// TODO throws Exception 추가
 	
@@ -47,5 +47,8 @@ public interface StudyService {
 	
 	// 스터디 삭제 post
 	public int deleteStudy(int studyNo);
+	
+	// 팀장 번호로 스터디 리스트 출력
+	public ArrayList<Study> getStudyListByMbNo(int leaderNo);
 	
 }

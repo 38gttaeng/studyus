@@ -21,15 +21,23 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	private SqlSession sqlSession;
 	
 	@Override
-	public int getListCount(int grNo) {
-		return sqlSession.selectOne("assignmentMapper.selectListCount", grNo);
+	public int getListCount(int grNo, int stNo) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("grNo", grNo);
+		map.put("stNo", stNo);
+		return sqlSession.selectOne("assignmentMapper.selectListCount", map);
 	}
 
 	@Override
-	public ArrayList<Assignment> selectAll(PageInfo pi, int grNo) {
+	public ArrayList<Assignment> selectAll(PageInfo pi, int grNo, int stNo) {
 		int offset = (pi.getCurrentPage() - 1) *pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllList", grNo, rowBounds);
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("grNo", grNo);
+		map.put("stNo", stNo);
+		
+		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllList", map, rowBounds);
 	}
 	
 	@Override

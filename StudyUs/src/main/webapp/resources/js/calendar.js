@@ -33,10 +33,30 @@
 					async: false,
 					success : function(data) {
 						result =  data;
+						console.log(result); 
+					},
+					error : function() {
+						console.log("데이터 없뜸");
+					}
+				});
+				return result;
+			}
+			
+			/* 모임 */
+			var rsList = getRsList();
+			function getRsList() {
+				var result = "";
+				$.ajax ({
+					url : "/study/calendar/reservation",
+					type : "get",
+					dataType : "json",
+					async: false,
+					success : function(data) {
+						result =  data;
 						console.log(result);
 					},
 					error : function() {
-						alert("전송 실패..");
+						console.log("데이터 없뜸");
 					}
 				});
 				return result;
@@ -56,7 +76,7 @@
                     center: 'title',
                     right: 'month, agendaWeek, listWeek'
                 },
-                events: asList,
+                events: rsList,
                 editable: false,
                 droppable: false, // this allows things to be dropped onto the calendar !!!
                 eventLimit: false, // allow "more" link when too many events
@@ -105,18 +125,18 @@ $(window).on('load', function() {
 
     $.CalendarApp.init()
 
-	// 구분해서 보기
+	// 구분해서 보기 #ff4f70 rgb(196, 178, 234)
 	$(".calendar-events").on("click", function() {
 		$(".calendar-events td:first-child").css("background-color", "#e8eaec");
 		
 		if($(this).hasClass("cEvents0")) {
 			$(".cEvents0 td").css("background-color", "#6c757d");
 		} else if($(this).hasClass("cEvents1")) {
-			$(".cEvents1 td:first-child").css("background-color", "#ff4f70");
+			$(".cEvents1 td:first-child").css("background-color", "#6c757d");
 		} else if($(this).hasClass("cEvents2")) {
-			$(".cEvents2 td:first-child").css("background-color", "#fdc16a");
-		} else if($(this).hasClass("cEvents3")) {
-			$(".cEvents3 td:first-child").css("background-color", "#6927ff");
+			$(".cEvents2 td:first-child").css("background-color", "#6927ff");
 		}
 	});
+	
+	
 });

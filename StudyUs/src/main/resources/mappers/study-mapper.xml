@@ -80,6 +80,12 @@
 		WHERE MB_NO = #{leaderNo}  AND ST_MAX_PERSONNEL = 20
 	</select>
 	
+	<!-- 예약페이지에서 가입한 스터디 모두 출력 -->
+	<select id="printAllStudy" resultMap="studyResultMap">
+		SELECT MB_NO, ST_NO, ST_NAME FROM STUDY 
+		WHERE MB_NO = #{leaderNo}
+	</select>
+	
 	<select id="checkUrl" resultType="int">
 		SELECT COUNT(*) FROM STUDY WHERE ST_URL = #{url}
 	</select> 

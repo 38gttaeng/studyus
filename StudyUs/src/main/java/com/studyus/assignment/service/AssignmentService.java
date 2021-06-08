@@ -1,7 +1,6 @@
 package com.studyus.assignment.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.studyus.assignment.domain.Assign;
 import com.studyus.assignment.domain.Assignment;
@@ -15,17 +14,19 @@ public interface AssignmentService {
 	/**
 	 * 전체 게시물수(원글번호가 null인 것만 가져오기)
 	 * @param grNo
+	 * @param stNo
 	 * @return
 	 */
-	public int getListCount(int grNo);
+	public int getListCount(int grNo, int stNo);
 	
 	/**
 	 * 전체보기 (5개씩)
 	 * @param pi
 	 * @param grNo
+	 * @param stNo
 	 * @return
 	 */
-	public ArrayList<Assignment> printAll(PageInfo pi, int grNo);
+	public ArrayList<Assignment> printAll(PageInfo pi, int grNo, int stNo);
 	
 	/**
 	 * 전체보기 (삭제용)

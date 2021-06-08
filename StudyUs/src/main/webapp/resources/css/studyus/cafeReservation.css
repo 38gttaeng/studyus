@@ -1,0 +1,213 @@
+@charset "UTF-8";
+
+/* 시간 관련 */
+
+#time-box {
+	margin-top : 100px;
+}
+
+#time-btn {
+	float : right;
+	margin-top : 20px;
+}
+
+#time-select {
+	height : 80%;
+	text-align : center;
+}
+
+#time-select option {
+	padding : 10px;
+}
+
+/* 캘린더 페이지 */
+
+.fc-view {
+  margin-top: 30px;
+}
+
+.none-border .modal-footer {
+  border-top: none;
+}
+
+.fc-toolbar {
+  margin: 15px 0 5px 0;
+}
+.fc-toolbar h2 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  text-transform: uppercase;
+}
+
+.fc-day-grid-event .fc-time {
+  font-weight: 600;
+}
+
+.fc-day {
+  background: transparent;
+  cursor : pointer;
+}
+
+.fc-day:hover {
+  background: #efe8ff;
+}
+
+.clicked {
+	background-color: #6927ff !important; 
+}
+
+.fc-toolbar .fc-state-active,
+.fc-toolbar .ui-state-active,
+.fc-toolbar button:focus,
+.fc-toolbar button:hover,
+.fc-toolbar .ui-state-hover {
+  z-index: 0;
+}
+
+.fc th.fc-widget-header {
+  background: #f2f4f5;
+  font-size: 13px;
+  line-height: 20px;
+  padding: 10px 0;
+  text-transform: uppercase;
+}
+
+.fc-unthemed th,
+.fc-unthemed td,
+.fc-unthemed thead,
+.fc-unthemed tbody,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-row,
+.fc-unthemed .fc-popover {
+  border-color: #e8eaec;
+}
+
+.fc-button {
+  background: #f2f4f5;
+  border: none;
+  color: #b8c3d5;
+  text-shadow: none;
+  text-transform: capitalize;
+  box-shadow: none;
+  border-radius: 3px;
+  margin: 0 3px;
+  padding: 6px 12px;
+  height: auto;
+}
+
+.fc-text-arrow {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.fc-state-hover {
+  background: #e9ecef;
+}
+
+.fc-state-highlight {
+  background: #dee2e6;
+}
+
+.fc-state-down,
+.fc-state-active,
+.fc-state-disabled {
+  background-color: #6927ff;
+  color: #fff;
+  text-shadow: none;
+}
+
+.fc-cell-overlay {
+  background: #dee2e6;
+}
+
+.fc-unthemed td.fc-today {
+  background: #edeff1;
+}
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-list-heading td,
+.fc-unthemed .fc-popover .fc-header {
+  background: #e8eaec;
+}
+
+.fc-event {
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  margin: 5px 7px;
+  padding: 5px 5px;
+  text-align: center;
+}
+
+.external-event {
+  cursor: move;
+  margin: 10px 0;
+  padding: 8px 10px;
+  color: #fff;
+}
+
+.fc-basic-view td.fc-week-number span {
+  padding-right: 8px;
+}
+.fc-basic-view td.fc-day-number {
+  padding-right: 8px;
+}
+.fc-basic-view .fc-content {
+  color: #fff;
+}
+
+.fc-time-grid-event .fc-content {
+  color: #fff;
+}
+
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+  float: right;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  line-height: 20px;
+  background-color: #e8eaec;
+  border-radius: 50%;
+  margin: 5px;
+  font-size: 11px;
+}
+
+#calendar-events {
+	border-spacing : 10px;
+	border-collapse: separate;
+	text-align : center
+}
+
+#calendar-events .calendar-events {
+	height : 33px;
+	cursor : pointer;
+}
+
+#calendar-events .calendar-events td:first-child {
+	border-radius : 30px;
+	color : #fff;
+	background-color : #e8eaec;
+}
+
+#calendar-events .cEvents0 td:first-child {
+	background-color : #6c757d;
+}
+
+@media (max-width: 767.98px) {
+  .fc-toolbar .fc-left,
+.fc-toolbar .fc-right,
+.fc-toolbar .fc-center {
+    float: none;
+    display: block;
+    clear: both;
+    margin: 10px 0;
+  }
+
+  .fc .fc-toolbar > * > * {
+    float: none;
+  }
+
+  .fc-today-button {
+    display: none;
+  }
+}

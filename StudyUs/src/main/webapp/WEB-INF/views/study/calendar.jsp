@@ -67,25 +67,15 @@
                                      <div class="card-body">
                                          <div class="row">
                                              <div class="col-md-12">
-                                                	<table id="calendar-events" onclick="location.href='#'">
+                                                	<table id="calendar-events">
                                                 		<tr class="calendar-events cEvents0">
-                                                			<td colspan="2">전체보기</td>
+                                                			<td>전체보기</td>
                                                 		</tr>
                                                 		<tr class="calendar-events cEvents1">
                                                 			<td>과제 기한</td>
-                                                			<td><i class="fa fa-circle text-danger"></i></td>
                                                 		</tr>
                                                 		<tr class="calendar-events cEvents2">
-                                                			<td>&nbsp;&nbsp;스터디카페 대여정보&nbsp;&nbsp;</td>
-                                                			<td><i class="fa fa-circle text-warning"></i></td>
-                                                		</tr>
-                                                		<tr class="calendar-events cEvents3">
                                                 			<td>모임 일정</td>
-                                                			<td>
-                                                				<i class="fa fa-circle text-info"></i>&nbsp;
-                                                      	<i class="fa fa-circle text-success"></i>&nbsp;
-                                                      	<i class="fa fa-circle text-secondary"></i>
-                                                			</td>
                                                 		</tr>
                                                 	</table>
                                              </div>

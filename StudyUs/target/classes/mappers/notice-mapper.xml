@@ -19,13 +19,14 @@
 		<result property="replyCnt" column="NO_REPLY_COUNT"></result>
 		<result property="mainNotice" column="MAIN_NOTICE"></result>
 		<result property="mainSetDate" column="MAIN_SET_DATE"></result>
+		<collection property="member" resultMap="memberMapper.memberResultMap"></collection>
 	</resultMap>
 	
 	<select id="selectListCount" parameterType="Notice"  resultType="_int">
 		SELECT COUNT(*) FROM NOTICE 
 		<if test="noMotherNo == 0">
 			WHERE NO_MOTHER_NO IS NULL 
-			AND ST_NO = 1 AND NO_STATUS = 1
+			AND ST_NO = #{stNo} AND NO_STATUS = 1
 		</if>
 		<if test="noMotherNo != 0">
 			WHERE NO_MOTHER_NO = #{noMotherNo} 
@@ -34,7 +35,7 @@
 	</select>
 	
 	<select id="selectPageCount" parameterType="Notice"  resultType="_int">
-		SELECT COUNT(*) FROM NOTICE WHERE NO_MOTHER_NO IS NULL AND ST_NO = 1 AND NO_STATUS = 1 
+		SELECT COUNT(*) FROM NOTICE WHERE NO_MOTHER_NO IS NULL AND ST_NO = #{stNo} AND NO_STATUS = 1 
 		<if test="searchCondition.toString() == 'title'">
 			AND NO_TITLE LIKE '%' || #{searchValue } || '%'
 		</if>
@@ -46,41 +47,44 @@
 			OR NO_CONTENTS LIKE '%' || #{searchValue } || '%')
 		</if>
 	</select>
-	<!-- <select id="selectNListCount" parameterType="Notice"  resultType="_int">
-		SELECT COUNT(*) FROM NOTICE 
-		WHERE NO_MOTHER_NO IS NULL 
-		AND ST_NO = 1
-	</select>
-	
-	<select id="selectRListCount" parameterType="Notice"  resultType="_int">
-		SELECT COUNT(*) FROM NOTICE 
-		WHERE NO_MOTHER_NO = #{noMotherNo} 
-		AND NO_STATUS = 1
-	</select> -->
 		
 	<select id="selectNoticeList" resultMap="noticeResultMap">
 		SELECT ROW_NUMBER() OVER(ORDER BY NO_INSERTDATE) AS NO_RNUM, 
-		NO_NO, NO_TITLE, NO_CONTENTS, NO_INSERTDATE, NO_COUNT , MB_NICKNAME, NO_REPLY_COUNT, MAIN_NOTICE, MAIN_SET_DATE
+		NO_NO, ST_NO, NO_TITLE, NO_CONTENTS, NO_INSERTDATE, NO_COUNT , MB_NICKNAME, NO_REPLY_COUNT, MAIN_NOTICE, MAIN_SET_DATE
 		FROM NOTICE
 		JOIN MEMBER USING(MB_NO)
-		WHERE NO_STATUS = 1 AND NO_MOTHER_NO IS NULL
+		WHERE NO_STATUS = 1 AND ST_NO = #{stNo} AND NO_MOTHER_NO IS NULL
 		ORDER BY NO_RNUM DESC
 	</select>
 	
 	<select id="selectOne" resultMap="noticeResultMap">
-		<!--  SELECT * FROM NOTICE WHERE NO_NO = #{noNo }-->
-		SELECT NO_NO, ST_NO, MB_NO, MB_NICKNAME, 
-		NO_MOTHER_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS,
-		NO_FILENAME, NO_REFILENAME, NO_STATUS, NO_COUNT, NO_REPLY_COUNT
-		FROM NOTICE 
-		JOIN MEMBER USING(MB_NO)
-		WHERE NO_NO = #{noNo } 
+		<!-- SELECT N.NO_NO, N.ST_NO, MB_NO, M.MB_NICKNAME, M.MB_PHOTO
+		N.NO_MOTHER_NO, N.NO_INSERTDATE, N.NO_TITLE, N.NO_CONTENTS,
+		N.NO_FILENAME, N.NO_REFILENAME, N.NO_STATUS, N.NO_COUNT, N.NO_REPLY_COUNT
+		FROM NOTICE N
+		JOIN MEMBER M USING(MB_NO)
+		WHERE NO_NO = #{noNo }  -->
+		SELECT N.NO_NO, N.ST_NO, MB_NO, N.NO_TITLE, N.NO_CONTENTS, 
+		N.NO_MOTHER_NO, NO_INSERTDATE, N.NO_STATUS, M.MB_NICKNAME, M.MB_PHOTO
+     	FROM NOTICE N
+	    JOIN MEMBER M USING(MB_NO)
+	    WHERE NO_NO = #{noNo}
 	</select>
 	
+	<!-- 메인 공지사항 -->
 	<select id="selectMainNotice" resultMap="noticeResultMap">
 		SELECT ROWNUM, NO_NO, ST_NO, NO_CONTENTS, MAIN_NOTICE, MAIN_SET_DATE FROM NOTICE 
-		WHERE MAIN_NOTICE = 1 AND ROWNUM = 1 AND ST_NO = 1 AND NO_STATUS IS NOT NULL
+		WHERE MAIN_NOTICE = 1 AND ROWNUM = 1 AND ST_NO = #{stNo} AND NO_STATUS IS NOT NULL
 		ORDER BY MAIN_SET_DATE DESC
+	</select>
+	
+	<!-- 대시보드 최신 공지글  -->
+	<select id="printRecentNotice" resultMap="noticeResultMap">
+		SELECT * FROM(
+		SELECT * FROM NOTICE
+		ORDER BY NO_NO DESC)
+		WHERE ROWNUM = 1 AND ST_NO = #{stNo} AND 
+		NO_STATUS = 1 AND NO_MOTHER_NO IS NULL
 	</select>
 	
 	<select id="selectSearchList" resultMap="noticeResultMap">
@@ -88,7 +92,7 @@
 		NO_NO, NO_TITLE, NO_INSERTDATE, NO_COUNT , MB_NICKNAME, NO_REPLY_COUNT
 		FROM NOTICE
 		JOIN MEMBER USING(MB_NO)
-		WHERE NO_STATUS = 1 AND NO_MOTHER_NO IS NULL
+		WHERE NO_STATUS = 1 AND ST_NO = #{stNo} AND NO_MOTHER_NO IS NULL
 		<if test="searchCondition.toString() == 'title'">
 			AND NO_TITLE LIKE '%' || #{searchValue } || '%'
 		</if>
@@ -107,13 +111,14 @@
 			select SEQ_NOTICE.currval FROM DUAL
 		</selectKey>
 		INSERT INTO NOTICE(NO_NO, ST_NO, MB_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS, NO_FILENAME, NO_REFILENAME, NO_STATUS, NO_COUNT) 
-		VALUES (SEQ_NOTICE.NEXTVAL, 1, #{mbNo}, DEFAULT, #{noTitle}, #{noContents}, #{noFileName}, #{noReFileName}, DEFAULT, DEFAULT)
+		VALUES (SEQ_NOTICE.NEXTVAL, #{stNo}, #{mbNo}, DEFAULT, #{noTitle}, #{noContents}, #{noFileName}, #{noReFileName}, DEFAULT, DEFAULT)
 	</insert>
 	
 	<update id="resetMainNotice" parameterType="Notice">
 		UPDATE NOTICE SET 
 		MAIN_NOTICE = 0, 
 		MAIN_SET_DATE = NULL
+		WHERE ST_NO = #{stNo}
 	</update>
 	
 	<update id="updateMainNotice" parameterType="_int">
@@ -141,13 +146,13 @@
 	
 	<!-- 댓글~~ --> 
 	<select id="selectReplyList" resultMap="noticeResultMap">
-		SELECT N.NO_NO, N.ST_NO, MB_NO, N.NO_MOTHER_NO, N.NO_INSERTDATE, N.NO_TITLE, N.NO_CONTENTS, N.NO_FILENAME, N.NO_STATUS, M.MB_NICKNAME 
+		SELECT N.NO_NO, N.ST_NO, MB_NO, N.NO_MOTHER_NO, N.NO_INSERTDATE, N.NO_TITLE, N.NO_CONTENTS, N.NO_FILENAME, N.NO_STATUS, M.MB_NICKNAME, M.MB_PHOTO 
 		FROM NOTICE N 
 		JOIN MEMBER M 
 		USING(MB_NO) 
 		WHERE N.NO_MOTHER_NO = #{noMotherNo} 
 		AND N.NO_STATUS = 1 
-		ORDER BY N.NO_NO DESC
+		ORDER BY N.NO_NO ASC
 	</select>
 	
 	<select id="selectOneReply">
@@ -161,13 +166,17 @@
 	<insert id="insertReply"  parameterType="Notice">
 		<if test="noMotherNo != 0">
 			INSERT INTO NOTICE(NO_NO, ST_NO, MB_NO, NO_MOTHER_NO, NO_INSERTDATE, NO_TITLE, NO_CONTENTS, NO_STATUS) 
-			VALUES(SEQ_NOTICE.NEXTVAL, 1, #{mbNo}, #{noMotherNo}, DEFAULT, '댓글이야', #{noContents}, DEFAULT)
+			VALUES(SEQ_NOTICE.NEXTVAL, #{stNo}, #{mbNo}, #{noMotherNo}, DEFAULT, '댓글이야', #{noContents}, DEFAULT)
 		</if>
 	</insert>
 	 <!-- 댓글 수 업데이트 -->
 	<update id="updateReplyCount" parameterType="_int">
 		UPDATE NOTICE SET NO_REPLY_COUNT = (SELECT COUNT(NO_NO) FROM NOTICE 
         WHERE NO_MOTHER_NO = #{noMotherNo} ) WHERE NO_NO = #{noMotherNo} 
+	</update>
+	
+	<update id="updateReply" parameterType="Notice">
+		UPDATE NOTICE SET NO_CONTENTS = #{noContents} WHERE NO_NO = #{noNo}
 	</update>
 	
 	<update id="deleteReply" parameterType="_int">

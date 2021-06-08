@@ -88,6 +88,8 @@ public class AssignmentController {
 	public ModelAndView assignmentListView(HttpSession session, ModelAndView mv, 
 			@RequestParam("grNo") int grNo, @RequestParam(value="page", required=false) Integer page) {
 		
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		
 		// 상단에서 해당 그룹을 선택한 경우
 		// 세션에 선택한 그룹 등록 (이전에 등록된 정보는 삭제)
 		if(session.getAttribute("groupNo") != null) {
@@ -100,9 +102,9 @@ public class AssignmentController {
 		
 		// 선택된 그룹에 해당하는 과제 리스트 가져오기
 		int currentPage = (page != null) ? page : 1;
-		int listCount = asService.getListCount(grNo);
+		int listCount = asService.getListCount(stNo, grNo);
 		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
-		ArrayList<Assignment> asList = asService.printAll(pi, grNo);
+		ArrayList<Assignment> asList = asService.printAll(pi, stNo, grNo);
 		
 		// 선택된 그룹에 해당하는 스터디원 정보 가져오기
 		ArrayList<Member> mbList = mbService.printAllAssign(grNo);

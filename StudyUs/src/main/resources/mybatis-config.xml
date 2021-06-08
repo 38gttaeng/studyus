@@ -22,8 +22,9 @@
 		<typeAlias type="com.studyus.file.domain.FileVO" alias="FileVO"/>
 		<typeAlias type="com.studyus.enrollment.domain.Enrollment" alias="Enrollment" />
 		<typeAlias type="com.studyus.cafe.domain.Cafe" alias="Cafe" />
-		<typeAlias type="com.studyus.caferoom.domain.Caferoom" alias="Caferoom" />
 		<typeAlias type="com.studyus.review.domain.Review" alias="Review" />
+		<typeAlias type="com.studyus.caferoom.domain.Caferoom" alias="Caferoom" />
+		<typeAlias type="com.studyus.reservation.domain.Reservation" alias="Reservation" />
 	</typeAliases>
 	
 	<mappers> 
@@ -40,7 +41,8 @@
 		<mapper resource="mappers/file-mapper.xml"/>
 		<mapper resource="mappers/enrollment-mapper.xml"/>
 		<mapper resource="mappers/cafe-mapper.xml"/>
-		<mapper resource="mappers/caferoom-mapper.xml"/>
 		<mapper resource="mappers/review-mapper.xml"/>
+		<mapper resource="mappers/caferoom-mapper.xml"/>
+		<mapper resource="mappers/reservation-mapper.xml"/>
 	</mappers>  
 </configuration> 

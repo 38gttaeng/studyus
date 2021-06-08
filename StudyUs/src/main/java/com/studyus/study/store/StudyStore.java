@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudySearchCriteria;
-import com.studyus.study.domain.StudySearchResult;
+import com.studyus.study.domain.StudySearchResult; 
 
 public interface StudyStore {
 	
@@ -29,4 +29,6 @@ public interface StudyStore {
 	public int deleteStudy(int studyNo);
 	public int selectStudyNoByUrl(String url);
 	
+	// 팀장 번호로 스터디 리스트 출력
+	public ArrayList<Study> getStudyListByMbNo(int leaderNo);
 }

@@ -2,8 +2,12 @@ $(function() {
 	getRoomList();
 	
 	$("#reservation-btn").on("click", function() {
-		var caNo = $("input[name=caNo]").val();
-		location.href="/cafe/reservation-room?crNo" + crNo;
+		var crNo = $("input[name=crNo]").val();
+		if(crNo > 0) {
+			location.href="/cafe/reservation-room?crNo=" + crNo;
+		} else {
+			alert("룸을 선택해주세요!");
+		}
 	});
 });
 
@@ -77,7 +81,7 @@ function getOneRoom(crNo) {
 	    type: 'GET',
 	    success: function(map) {
 			var caferoom = map.caferoom;
-			var originFilename = map.originFilename;
+			var originFilename = map.originFilename; 
 
 			// 정보 보여주기
 			$("#roomName").html("<strong>" + caferoom.crName + "</strong>");
@@ -90,9 +94,11 @@ function getOneRoom(crNo) {
 			$("#roomMax").html(caferoom.crMax + " 명");
 			$("#roomPrice").html(caferoom.crPrice + " 원");
 			
-			// 정보 보여주기
 			$("#detail-box").removeClass("d-none");
 			$("#detail-box > div").css("display", "inline-block");
+			
+			// 선택된 값 보내기
+			$("input[name=crNo]").val(caferoom.crNo);
 	    },
 	    error : function(){
 	    	console.log("전송 실패..ㅜ");

@@ -118,7 +118,7 @@
 		UPDATE SUBMITTED_ASSIGNMENT SET
 		SU_STATUS = 0
 		WHERE SU_NO = #{suNo}
-	</update> 
+	</update>
 	
 	<!-- 과제율 계산 : 총 과제 제출 개수 / 스터디 내부 과제 제출 개수 -->
 	<select id="selectCountByMbNo" parameterType="_int" resultType="_int">

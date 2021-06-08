@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservationMapper">
+	<resultMap type="Reservation" id="reservationResultMap">
+		<id property="rsNo" column="RS_NO"></id>
+		<result property="crNo" column="CR_NO"></result>
+		<result property="mbNo" column="MB_NO"></result>
+		<result property="stNo" column="ST_NO"></result>
+		<result property="rsDate" column="RS_DATE"></result>
+		<result property="rsStart" column="RS_START"></result>
+		<result property="rsEnd" column="RS_END"></result>
+		<result property="rsStatus" column="RS_STATUS"></result>
+		<result property="caName" column="CA_NAME"></result>
+		<result property="crName" column="CR_NAME"></result>
+	</resultMap>
+	
+	<!-- 예약정보 확인용 -->
+	<select id="reservationCheck" parameterType="Reservation" resultMap="reservationResultMap">
+		SELECT RS_DATE, RS_START, RS_END
+		FROM RESERVATION
+		WHERE RS_DATE = #{rsDate} AND CR_NO = #{crNo}
+	</select>
+	
+	<!-- 캘린더 -->
+	<select id="selectAllByStNo" parameterType="_int" resultMap="reservationResultMap">
+		SELECT R.*, C.CA_NAME, CR.CR_NAME
+		FROM RESERVATION R
+		JOIN CAFEROOM CR ON R.CR_NO = CR.CR_NO
+		JOIN CAFE C ON CR.CA_NO = C.CA_NO
+		WHERE ST_NO = #{stNo}
+	</select>
+	
+	<!-- 디테일 -->
+	
+	<!-- 등록 -->
+	<insert id="insertReservation" parameterType="Reservation">
+		<selectKey resultType="int" keyProperty="rsNo" order="BEFORE">
+			SELECT SEQ_RESERVATION.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO RESERVATION VALUES (
+			#{rsNo}, #{crNo}, #{mbNo}, #{stNo}, #{rsDate}, #{rsStart}, #{rsEnd}, 1
+		)
+	</insert>
+	
+	<!-- 삭제 -->
+	<update id="deleteReservation" parameterType="Reservation">
+		UPDATE RESERVATION SET
+		RS_STATUS = 0
+		WHERE RS_NO = #{rsNo}
+	</update>
+</mapper>
