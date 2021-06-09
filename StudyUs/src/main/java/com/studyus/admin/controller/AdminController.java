@@ -26,6 +26,8 @@ import com.studyus.member.domain.Member;
 import com.studyus.member.service.MemberService;
 import com.studyus.purchase.domain.Purchase;
 import com.studyus.purchase.service.PurchaseService;
+import com.studyus.reservation.domain.Reservation;
+import com.studyus.reservation.service.ReservationService;
 import com.studyus.study.domain.Study;
 import com.studyus.study.domain.StudySearchCriteria;
 import com.studyus.study.service.StudyService;
@@ -45,6 +47,10 @@ public class AdminController {
 	// 스터디카페 리스트가 필요하면 - cafeService
 	@Autowired
 	private CafeService cService;
+	
+	// 예약 리스트
+	@Autowired
+	private ReservationService rService;
 	
 	// 결제 리스트 
 	@Autowired
@@ -158,7 +164,36 @@ public class AdminController {
 	
 	// 예약 목록 화면
 	@RequestMapping(value="/admin/reservation", method=RequestMethod.GET)
-	public String reservationListView() {
-		return "admin/reservationAdmin";
+	public ModelAndView reservationListView(ModelAndView mv) {
+		ArrayList<Cafe> caList = cService.printAll();
+		if(!caList.isEmpty()) {
+			mv.addObject("caList", caList);
+			mv.setViewName("admin/reservationAdmin");
+		} else {
+			mv.addObject("msg", "카페 리스트 조회 실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	// 카페에 해당하는 예약 정보 전부 가져오기 (관리자 확인용)
+	@RequestMapping(value="/admin/reservation-list", method=RequestMethod.GET)
+	public void getAllReservationByCaNo(HttpServletResponse response) throws Exception {
+		
+		// 카페전체 예약 리스트를 담는 메소드
+			// 카페별로 나누어 담기 위해서 
+		ArrayList<ArrayList<Reservation>> cafeList = new ArrayList<ArrayList<Reservation>>();
+		
+		// 카페 리스트 출력
+		ArrayList<Cafe> caList = cService.printAll();
+		
+		// 카페전체 리스트에 카페에 해당하는 예약리스트 넣기
+		for(Cafe cafe : caList) {
+			ArrayList<Reservation> rList = rService.printAll(cafe.getCaNo());
+			cafeList.add(rList);
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(cafeList, response.getWriter());
 	}
 }

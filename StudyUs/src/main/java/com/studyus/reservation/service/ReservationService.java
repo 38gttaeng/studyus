@@ -21,7 +21,7 @@ public interface ReservationService {
 	 * 관리자 전체 예약정보 확인
 	 * @return
 	 */
-	public ArrayList<Reservation> printAll();
+	public ArrayList<Reservation> printAll(int caNo);
 	
 	/**
 	 * 스터디 예약 정보 확인 (일정)

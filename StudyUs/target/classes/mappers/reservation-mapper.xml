@@ -13,6 +13,7 @@
 		<result property="rsAlert" column="RS_ALERT"></result>
 		<result property="caName" column="CA_NAME"></result>
 		<result property="crName" column="CR_NAME"></result>
+		<result property="mbNickname" column="MB_NICKNAME"></result>
 	</resultMap>
 	
 	<resultMap type="ReservationMember" id="reservMemberResultMap">
@@ -32,11 +33,12 @@
 	
 	<!-- 관리자 리스트 -->
 	<select id="selectAll" parameterType="_int" resultMap="reservationResultMap">
-		SELECT R.*, C.CA_NAME, CR.CR_NAME
+		SELECT R.*, C.CA_NAME, CR.CR_NAME, C.CA_NO, M.MB_NICKNAME
 		FROM RESERVATION R
 		JOIN CAFEROOM CR ON R.CR_NO = CR.CR_NO
 		JOIN CAFE C ON CR.CA_NO = C.CA_NO
-		ORDER BY RS_DATE DESC
+        JOIN MEMBER M ON R.MB_NO = M.MB_NO
+		WHERE CR.CA_NO = #{caNo}
 	</select>
 	
 	<!-- 캘린더 -->

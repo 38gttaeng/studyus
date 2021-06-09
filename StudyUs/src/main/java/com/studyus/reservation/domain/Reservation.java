@@ -19,6 +19,7 @@ public class Reservation {
 	private String rsAlert;
 	private String caName;
 	private String crName;
+	private String mbNickname;
 	
 	public Reservation() {}
 }
