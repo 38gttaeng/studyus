@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservationMapper">
+	<resultMap type="Reservation" id="reservationResultMap">
+		<id property="rsNo" column="RS_NO"></id>
+		<result property="crNo" column="CR_NO"></result>
+		<result property="mbNo" column="MB_NO"></result>
+		<result property="stNo" column="ST_NO"></result>
+		<result property="rsDate" column="RS_DATE"></result>
+		<result property="rsStart" column="RS_START"></result>
+		<result property="rsEnd" column="RS_END"></result>
+		<result property="rsStatus" column="RS_STATUS"></result>
+		<result property="rsAlert" column="RS_ALERT"></result>
+		<result property="caName" column="CA_NAME"></result>
+		<result property="crName" column="CR_NAME"></result>
+	</resultMap>
+	
+	<resultMap type="ReservationMember" id="reservMemberResultMap">
+		<id property="rsNo" column="RS_NO"></id>
+		<result property="mbNo" column="MB_NO"></result>
+		<result property="mbNickname" column="MB_NICKNAME"></result>
+	</resultMap>
+	
+	<!-- 예약정보 확인용 -->
+	<select id="reservationCheck" parameterType="Reservation" resultMap="reservationResultMap">
+		SELECT RS_DATE, RS_START, RS_END
+		FROM RESERVATION
+		WHERE RS_DATE = #{rsDate}
+		AND CR_NO = #{crNo}
+		AND RS_STATUS = 1
+	</select>
+	
+	<!-- 관리자 리스트 -->
+	<select id="selectAll" parameterType="_int" resultMap="reservationResultMap">
+		SELECT R.*, C.CA_NAME, CR.CR_NAME
+		FROM RESERVATION R
+		JOIN CAFEROOM CR ON R.CR_NO = CR.CR_NO
+		JOIN CAFE C ON CR.CA_NO = C.CA_NO
+		ORDER BY RS_DATE DESC
+	</select>
+	
+	<!-- 캘린더 -->
+	<select id="selectAllByStNo" parameterType="Map" resultMap="reservationResultMap">
+		SELECT R.*, C.CA_NAME, CR.CR_NAME
+		FROM RESERVATION R
+		JOIN CAFEROOM CR ON R.CR_NO = CR.CR_NO
+		JOIN CAFE C ON CR.CA_NO = C.CA_NO
+		WHERE ST_NO = #{stNo}
+	</select>
+
+	<!-- 디테일 -->
+	<select id="selectOne" parameterType="_int" resultMap="reservationResultMap">
+		SELECT * FROM RESERVATION
+		WHERE RS_NO = #{rsNo}
+	</select>
+	
+	<!-- 모임 멤버 리스트 -->
+	<select id="selectAllMember" parameterType="_int" resultMap="reservMemberResultMap">
+		SELECT R.*, M.MB_NICKNAME
+		FROM RESERVATION_MEMBER R
+		JOIN MEMBER M ON R.MB_NO = M.MB_NO
+		WHERE RS_NO = #{rsNo}
+	</select>
+	
+	<!-- 모임 인원 추가 -->
+	<insert id="insertMember" parameterType="ReservationMember">
+		INSERT INTO RESERVATION_MEMBER VALUES (
+			#{rsNo}, #{mbNo}
+		)
+	</insert>
+	
+	<!-- 모임 인원 삭제 -->
+	<insert id="deleteMember" parameterType="ReservationMember">
+		DELETE FROM RESERVATION_MEMBER
+		WHERE MB_NO = #{mbNo} AND RS_NO = #{rsNo}
+	</insert>
+	
+	<!-- 등록 -->
+	<insert id="insertReservation" parameterType="Reservation">
+		<selectKey resultType="int" keyProperty="rsNo" order="BEFORE">
+			SELECT SEQ_RESERVATION.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO RESERVATION VALUES (
+			#{rsNo}, #{crNo}, #{mbNo}, #{stNo}, #{rsDate}, #{rsStart}, #{rsEnd}, DEFAULT, DEFAULT
+		)
+	</insert>
+	
+	<!-- 삭제 -->
+	<update id="deleteReservation" parameterType="Reservation">
+		UPDATE RESERVATION SET
+		RS_STATUS = 0, RS_ALERT = #{rsAlert}
+		WHERE RS_NO = #{rsNo}
+	</update>
+</mapper>

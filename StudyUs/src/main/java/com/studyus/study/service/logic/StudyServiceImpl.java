@@ -17,7 +17,7 @@ import com.studyus.study.service.StudyService;
 import com.studyus.study.store.StudyStore;
 
 @Service
-public class StudyServiceImpl implements StudyService {
+public class StudyServiceImpl implements StudyService { 
 	
 	@Autowired
 	StudyStore sStore;
@@ -63,9 +63,8 @@ public class StudyServiceImpl implements StudyService {
 	}
 	
 	@Override
-	public ArrayList<Study> printAll(StudySearchCriteria sc) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Study> printAll() {
+		return sStore.selectAll();
 	}
 
 	@Override
@@ -102,5 +101,10 @@ public class StudyServiceImpl implements StudyService {
 	public int deleteStudy(int studyNo) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ArrayList<Study> getStudyListByMbNo(int leaderNo) {
+		return sStore.getStudyListByMbNo(leaderNo);
 	}
 }

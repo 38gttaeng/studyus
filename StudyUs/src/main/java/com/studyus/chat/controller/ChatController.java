@@ -2,14 +2,17 @@ package com.studyus.chat.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ChatController {
 	
-	@RequestMapping(value="/chat")
-	public String chat(Model model) {
-		return "chat/chat-develop";
+//	@RequestMapping(value="/chat")
+	@RequestMapping(value="/study/{url}/chat")
+	public String chatView(Model model
+					, @PathVariable String url) {
+		return "chat/chat";
 	}
 	
 	// 채팅 페이지
@@ -30,9 +33,9 @@ public class ChatController {
 //		return "chat/chat";
 //	}
 	
-	@RequestMapping(value="/study/{url}/chat/new")
-	public String makeChatRoom(Model model) {
-		return "chat/new";
-	}
+//	@RequestMapping(value="/study/{url}/chat/new")
+//	public String makeChatRoom(Model model) {
+//		return "chat/new";
+//	}
 	
 }

@@ -15,5 +15,13 @@ public class Enrollment {
 	private int studyNo;
 	private Date insertDate;
 	private String message;
-	private int status;	
+	private int status;
+	
+	public Enrollment(int enrollmentNo) {
+		super();
+		this.enrollmentNo = enrollmentNo;
+	}
+
+	public Enrollment() {}	
+	
 }

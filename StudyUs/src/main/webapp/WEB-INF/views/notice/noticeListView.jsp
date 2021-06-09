@@ -95,13 +95,15 @@
 					</div>
 					<!-- if문 추가하기 -->
 					<div class="col-12">
-						<button onclick="location.href='/notice/mainSelectView'" class="btn waves-effect waves-light btn-primary float-right">
-							<span>메인 수정</span>
-						</button>
-						<span class="float-right">&nbsp;</span>
-						<button id="write-btn" onclick="location.href='/notice/noticeWriteView'" class="btn waves-effect waves-light btn-primary float-right">
-							<span>공지 작성</span>
-						</button>
+						<c:if test="${loginUser.mbNo eq study.leaderNo }">
+							<button onclick="location.href='/notice/mainSelectView'" class="btn waves-effect waves-light btn-primary float-right">
+								<span>메인 수정</span>
+							</button>
+							<span class="float-right">&nbsp;</span>
+							<button id="write-btn" onclick="location.href='/notice/noticeWriteView'" class="btn waves-effect waves-light btn-primary float-right">
+								<span>공지 작성</span>
+							</button>
+						</c:if>
 					</div>
 					<br> <br>
 					<table class="table col-lg-12" id="nTable">
@@ -123,6 +125,7 @@
 										<input type="hidden" name="noMotherNo" value="${notice.noMotherNo }">
 										<input type="hidden" name="mainNotice" value="${notice.mainNotice }">
 										<input type="hidden" name="mainSetDate" value="${notice.mainSetDate }">
+										<input type="hidden" name="stNo" value="${notice.stNo }">
 									</th>
 									<th scope="row">${notice.rowNum }</th>
 									<td class="">
@@ -220,9 +223,10 @@
 									</li>
 								</ul>
 							</c:if>
+							
 							<c:if test="${search.searchValue ne null }">
 								<ul class="pagination">
-									<c:url var="before" value="/notice/noticeSearch">
+									<c:url var="before" value="/notice/noticeSearch?searchValue=${search.searchValue }&searchCondition=${search.searchCondition}">
 										<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 									</c:url>
 									<li class="page-item disabled">
@@ -243,7 +247,7 @@
 									</li>
 
 									<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-										<c:url var="pagination" value="/notice/noticeSearch">
+										<c:url var="pagination" value="/notice/noticeSearch?searchValue=${search.searchValue }&searchCondition=${search.searchCondition}">
 											<c:param name="page" value="${p }"></c:param>
 										</c:url>
 										<li class="page-item active">
@@ -258,7 +262,7 @@
 										</li>
 									</c:forEach>
 
-									<c:url var="after" value="/notice/noticeSearch">
+									<c:url var="after" value="/notice/noticeSearch?searchValue=${search.searchValue }&searchCondition=${search.searchCondition}">
 										<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 									</c:url>
 									<li class="page-item disabled">

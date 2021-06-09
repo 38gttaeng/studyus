@@ -10,7 +10,7 @@
     <!-- footer -->
     <!-- ============================================================== -->
     <footer class="footer text-center text-muted">
-        All Rights Reserved by StudyUs. Designed and Developed by 38gttaeng</a>.
+        All Rights Reserved by StudyUs. Designed and Developed by 38gttaeng.
     </footer>
 
     <!-- ============================================================== -->

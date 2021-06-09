@@ -27,10 +27,26 @@
 	<beans:bean id="naverLoginBO" class="com.studyus.member.controller.NaverLoginBO" />
 	<beans:bean id="chatHandler" class="com.studyus.common.handler.ChatHandler"/>
 	
+	<!-- Mail 인증 관련 -->
+    <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <beans:property name="host" value="smtp.gmail.com" />
+        <beans:property name="port" value="587" />
+        <beans:property name="username" value="38gttaeng@gmail.com" />
+        <beans:property name="password" value="38gtgtgt" />
+        <beans:property name="javaMailProperties">
+            <beans:props>
+                <beans:prop key="mail.transport.protocol">smtp</beans:prop>
+                <beans:prop key="mail.smtp.auth">true</beans:prop>
+                <beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+                <beans:prop key="mail.debug">true</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+	
 	<context:component-scan base-package="com.studyus.*" />
 	
 	<websocket:handlers>
-		<websocket:mapping handler="chatHandler" path="/chat/receive"/>
+		<websocket:mapping handler="chatHandler" path="/chat/message"/>
 		<websocket:sockjs></websocket:sockjs>
 	</websocket:handlers>
 	

@@ -1,111 +1,83 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset = UTF-8" />
-    <title>채팅 서비스</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>웹소켓 채팅</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+	<script type="text/javascript">
+		var webSocket = {
+			init: function(param) {
+				this._url = param.url;
+				this._initSocket();
+			},
+			sendChat: function() {
+				this._sendMessage('${param.bang_id}', 'CMD_MSG_SEND', $('#message').val());
+				$('#message').val('');
+			},
+			sendEnter: function() {
+				this._sendMessage('${param.bang_id}', 'CMD_ENTER', $('#message').val());
+				$('#message').val('');
+			},
+			receiveMessage: function(msgData) {
+
+				// 정의된 CMD 코드에 따라서 분기 처리
+				if(msgData.cmd == 'CMD_MSG_SEND') {					
+					$('#divChatData').append('<div>' + msgData.msg + '</div>');
+				}
+				// 입장
+				else if(msgData.cmd == 'CMD_ENTER') {
+					$('#divChatData').append('<div>' + msgData.msg + '</div>');
+				}
+				// 퇴장
+				else if(msgData.cmd == 'CMD_EXIT') {					
+					$('#divChatData').append('<div>' + msgData.msg + '</div>');
+				}
+			},
+			closeMessage: function(str) {
+				$('#divChatData').append('<div>' + '연결 끊김 : ' + str + '</div>');
+			},
+			disconnect: function() {
+				this._socket.close();
+			},
+			_initSocket: function() {
+				this._socket = new SockJS(this._url);
+				this._socket.onopen = function(evt) {
+					webSocket.sendEnter();
+				};
+				this._socket.onmessage = function(evt) {
+					webSocket.receiveMessage(JSON.parse(evt.data));
+				};
+				this._socket.onclose = function(evt) {
+					webSocket.closeMessage(JSON.parse(evt.data));
+				}
+			},
+			_sendMessage: function(bang_id, cmd, msg) {
+				var msgData = {
+						bang_id : bang_id,
+						cmd : cmd,
+						msg : msg
+				};
+				var jsonData = JSON.stringify(msgData);
+				this._socket.send(jsonData);
+			}
+		};
+	</script>	
+	<script type="text/javascript">
+        $(window).on('load', function () {
+			webSocket.init({ url: '<c:url value="/chat" />' });	
+		});
+	</script>
 </head>
-
 <body>
-
-<div class="container">
-	<div class="col-6">
-		<label><b>채팅방</b></label>
+	<div style="width: 800px; height: 700px; padding: 10px; border: solid 1px #e1e3e9;">
+		<div id="divChatData"></div>
 	</div>
-	<div>
-		<div id="msgArea" class="col">
-		
-		</div>
-		<div class="col-6">
-		<div class="input-group mb-3">
-			<input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-			<div class="input-group-append">
-				<button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
-			</div>
-		</div>
-		</div>
+	<div style="width: 100%; height: 10%; padding: 10px;">
+		<input type="text" id="message" size="110" onkeypress="if(event.keyCode==13){webSocket.sendChat();}" />
+		<input type="button" id="btnSend" value="채팅 전송" onclick="webSocket.sendChat()" />
 	</div>
-	<div class="col-6">
-	</div>
-</div>
 </body>
-
-<script type="text/javascript">
-
-//전송 버튼 누르는 이벤트
-$("#button-send").on("click", function(e) {
-	sendMessage();
-	$('#msg').val('')
-});
-
-var sock = new SockJS('http://localhost:8080/chat/receive');
-sock.onmessage = onMessage;
-sock.onclose = onClose;
-sock.onopen = onOpen;
-
-function sendMessage() {
-	sock.send($("#msg").val());
-}
-//서버에서 메시지를 받았을 때
-function onMessage(msg) {
-	
-	var data = msg.data;
-	var sessionId = null; //데이터를 보낸 사람
-	var message = null;
-	
-	var arr = data.split(":");
-	
-	for(var i=0; i<arr.length; i++){
-		console.log('arr[' + i + ']: ' + arr[i]);
-	}
-	
-	var cur_session = '${userid}'; //현재 세션에 로그인 한 사람
-	console.log("cur_session : " + cur_session);
-	
-	sessionId = arr[0];
-	message = arr[1];
-	
-    //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
-	if(sessionId == cur_session){
-		
-		var str = "<div class='col-6'>";
-		str += "<div class='alert alert-secondary'>";
-		str += "<b>" + sessionId + " : " + message + "</b>";
-		str += "</div></div>";
-		
-		$("#msgArea").append(str);
-	}
-	else{
-		
-		var str = "<div class='col-6'>";
-		str += "<div class='alert alert-warning'>";
-		str += "<b>" + sessionId + " : " + message + "</b>";
-		str += "</div></div>";
-		
-		$("#msgArea").append(str);
-	}
-	
-}
-//채팅창에서 나갔을 때
-function onClose(evt) {
-	
-	var user = '${pr.username}';
-	var str = user + " 님이 퇴장하셨습니다.";
-	
-	$("#msgArea").append(str);
-}
-//채팅창에 들어왔을 때
-function onOpen(evt) {
-	
-	var user = '${pr.username}';
-	var str = user + "님이 입장하셨습니다.";
-	
-	$("#msgArea").append(str);
-}
-
-</script>
 </html>

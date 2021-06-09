@@ -29,13 +29,13 @@ public class AssignmentServiceImpl implements AssignmentService {
 	private FileStore fiStore;
 
 	@Override
-	public int getListCount(int grNo) {
-		return asStore.getListCount(grNo);
+	public int getListCount(int grNo, int stNo) {
+		return asStore.getListCount(grNo, stNo);
 	}
 
 	@Override
-	public ArrayList<Assignment> printAll(PageInfo pi, int grNo) {
-		return asStore.selectAll(pi, grNo);
+	public ArrayList<Assignment> printAll(PageInfo pi, int grNo, int stNo) {
+		return asStore.selectAll(pi, grNo, stNo);
 	}
 	
 	public ArrayList<Assignment> printAllAssignment(int grNo) {

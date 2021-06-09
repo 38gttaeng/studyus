@@ -77,8 +77,14 @@
 	<!-- 결제페이지에서 가입한 스터디 출력 -->
 	<select id="printStudyList" resultMap="studyResultMap">
 		SELECT MB_NO, ST_NO, ST_NAME FROM STUDY 
-		WHERE MB_NO = #{leaderNo}  AND ST_MAX_PERSONNEL = 20
-	</select> 
+		WHERE MB_NO = #{leaderNo}  AND ST_MAX_PERSONNEL = 5
+	</select>
+	
+	<!-- 예약페이지에서 가입한 스터디 모두 출력 -->
+	<select id="printAllStudy" resultMap="studyResultMap">
+		SELECT MB_NO, ST_NO, ST_NAME FROM STUDY 
+		WHERE MB_NO = #{leaderNo}
+	</select>
 	
 	<select id="checkUrl" resultType="int">
 		SELECT COUNT(*) FROM STUDY WHERE ST_URL = #{url}
@@ -124,5 +130,9 @@
 		UPDATE STUDY SET ST_MAX_PERSONNEL = 20 
 		WHERE ST_NO =  #{studyNo}
 	</update>
+	
+	<select id="selectAllList" resultMap="studyResultMap">
+		SELECT * FROM STUDY
+	</select>
 	
 </mapper>

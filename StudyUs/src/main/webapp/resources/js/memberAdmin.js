@@ -1,13 +1,10 @@
-var data = $("#mbNo").val();
-
 /****************************************
  *        관리자 회원관리  목록           *
  ****************************************/
 var table = $('#mList').DataTable({
 	destroy: true,
     bPaginate: true,
-    bLengthChange: true,
-
+    bLengthChange: true,	
 	// 각 상황별 멘트
 	language: {
 	    emptyTable: '회원정보가 없습니다.',
@@ -34,10 +31,10 @@ var table = $('#mList').DataTable({
 	order: [[1, 'desc']],
 	
 	// 여러개 보기 옵션
-	lengthMenu: [ 5, 10, 25, 50 ],
+	lengthMenu: [ 10, 25, 50 ],
 	
 	// 보기 옵션 선택정보 저장여부
-	// stateSave: true,
+	stateSave: true,
 	
 	// 컬럼에 값이 null인 경우 처리(css 작업)
 	columnDefs: [{
@@ -46,7 +43,7 @@ var table = $('#mList').DataTable({
 		'orderable': false,
 		'className': 'dt-body-center',
 		'render': function (data, type, full, meta){
-		    return '<input type="checkbox" name="board" value="' + $('<div/>').text(data).html() + '">';
+		    return '<input type="checkbox" name="member" value="' + $('<div/>').text(data).html() + '">';
 		}
     }, {
 		'targets': 1,
@@ -54,6 +51,9 @@ var table = $('#mList').DataTable({
 	}, {
 		'targets': 2,
 		'className': 'dt-body-center ',
+	}, {
+		'targets': 3,
+		'className': 'dt-category',
 	}, {
 		'targets': 4,
 		'className': 'dt-category',
@@ -65,12 +65,6 @@ var table = $('#mList').DataTable({
 		'className': 'dt-category',
 	}, {
 		'targets': 7,
-		'className': 'dt-category',
-	}, {
-		'targets': 8,
-		'className': 'dt-category',
-	}, {
-		'targets': 9,
 		'className': 'dt-category',
 	}, {
         defaultContent: "-",
@@ -91,12 +85,12 @@ var table = $('#mList').DataTable({
     ajax: {
 	    'url':'/admin/member/list', 
 	    'type': 'GET',
-	    'data' : {'mbNo' : mbNo},
+	    'data' : '',
 	    'dataSrc':''
  	},
 		// 컬럼별로 들어갈 데이터 정보를 저장
     columns: [
-		{ data : "mbNo"},
+		{ data : "mbId"},
         { data : "mbNo"},
         { data : "mbId"},
         { data : "mbPassword"},
@@ -108,17 +102,17 @@ var table = $('#mList').DataTable({
 });
 
 // 컬럼별 검색기능 추가
-/* $("#board-list_filter").prepend('<select id="board-list-select" class="select"></select>');
-$('#board-list > thead > tr').children().each(function (indexInArray, valueOfElement) { 
-    $('#board-list-select').append('<option value="' + indexInArray + '">'+ valueOfElement.innerHTML +'</option>');
+$("#mList_filter").prepend('<select id="mList-select" class="select"></select>');
+$('#mList > thead > tr').children().each(function (indexInArray, valueOfElement) { 
+    $('#mList-select').append('<option value="' + indexInArray + '">'+ valueOfElement.innerHTML +'</option>');
 });
-$('#board-list .dataTables_filter input').unbind().bind('keyup', function () {
-    var colIndex = $('#board-list-select').val();
+$('#mList .dataTables_filter input').unbind().bind('keyup', function () {
+    var colIndex = $('#mList-select').val();
     table.column(colIndex).search(this.value).draw();
 });
 
-$("#board-select-all").on("change", function(){
-    var delcheck = $("input[name=board]");
+$("#member-select-all").on("change", function(){
+    var delcheck = $("input[name=member]");
     if($(this).is(":checked")) {
         delcheck.prop("checked", true);
     }else {
@@ -126,26 +120,26 @@ $("#board-select-all").on("change", function(){
     }
 });
 
-$("#board-btn").on("click", function() {
+$("#delete-btn").on("click", function() {
 	var result = confirm('정말 삭제하시겠습니까?');
 	
 	if(result) {
 		var arr = new Array();
-		$("input[name=board]:checked").each(function(){
+		$("input[name=member]:checked").each(function(){
 			arr.push($(this).val());
 		});
 		
 		$.ajax({
-			url : "/study/contentsList/delete-board",
+			url : "/admin/member/delete",
 			type : "get",
 			data : { "deList" : arr },
 			traditional : true,
 			success : function(data) {
 				if(data == "success") {
-					console.log("게시물 삭제 성공");
+					console.log("회원 삭제 성공");
 					table.ajax.reload();
 				} else {
-					console.log("게시물 삭제 실패");
+					console.log("회원 삭제 실패");
 				}
 			},
 			error : function() {
@@ -153,4 +147,4 @@ $("#board-btn").on("click", function() {
 			}
 		});
 	}
-}); */
+});

@@ -1,13 +1,11 @@
 package com.studyus.assignment.store;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.studyus.assignment.domain.Assign;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.domain.AssignmentGroup;
 import com.studyus.common.PageInfo;
-import com.studyus.submittedAssignment.domain.SubmittedAssignment; 
 
 public interface AssignmentStore {
 	
@@ -16,17 +14,19 @@ public interface AssignmentStore {
 	/**
 	 * 전체 게시물수(원글번호가 null인 것만 가져오기)
 	 * @param grNo
+	 * @param stNo
 	 * @return
 	 */
-	public int getListCount(int grNo);
+	public int getListCount(int grNo, int stNo);
 	
 	/**
 	 * 전체보기 (5개씩)
 	 * @param pi
 	 * @param grNo
+	 * @param stNo
 	 * @return
 	 */
-	public ArrayList<Assignment> selectAll(PageInfo pi, int grNo);
+	public ArrayList<Assignment> selectAll(PageInfo pi, int grNo, int stNo);
 	
 	/**
 	 * 전체보기 (삭제용)

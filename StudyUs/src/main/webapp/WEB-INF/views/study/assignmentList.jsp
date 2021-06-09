@@ -199,19 +199,24 @@
 	                            		</tr>
 	                            	</thead>
 	                            	<tbody>
-	                            		<c:forEach items="${ asList }" var="aOne">
-	                            		
-	                            		<c:url var="asDetail" value="/study/assignment/detail">
-											<c:param name="asNo" value="${ aOne.asNo }"></c:param>
-										</c:url>
-		                            	<tr>
-		                            		<td>${ aOne.asNo }</td>
-	                            			<td class="tableName" onclick="location.href='${ asDetail }'">${ aOne.asName }</td>
-	                            			<td>${ aOne.asInsertDate }</td>
-	                            			<td>${ aOne.asDeadLine }</td>
-		                            	</tr>
-		                            	
-		                            	</c:forEach>
+	                            		<c:if test="${ empty asList }">
+		                            		<tr>
+		                            			<td colspan="4">과제 게시물이 없습니다.</td>
+		                            		</tr>
+	                            		</c:if>
+	                            		<c:if test="${ !empty asList }">
+		                            		<c:forEach items="${ asList }" var="aOne">
+			                            		<c:url var="asDetail" value="/study/assignment/detail">
+													<c:param name="asNo" value="${ aOne.asNo }"></c:param>
+												</c:url>
+				                            	<tr>
+				                            		<td>${ aOne.asNo }</td>
+			                            			<td class="tableName" onclick="location.href='${ asDetail }'">${ aOne.asName }</td>
+			                            			<td>${ aOne.asInsertDate }</td>
+			                            			<td>${ aOne.asDeadLine }</td>
+				                            	</tr>
+			                            	</c:forEach>
+		                            	</c:if>
 	                            	</tbody>
 	                            </table>
 	                            

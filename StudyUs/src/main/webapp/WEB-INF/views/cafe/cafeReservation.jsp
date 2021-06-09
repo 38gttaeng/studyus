@@ -88,12 +88,13 @@
 			</div>
 			<div align="center">
 				<p>
+					<input type="hidden" name="crNo">
 					<c:url var="cDetail" value="/cafe/detail">
 						<c:param name="caNo" value="${cafe.caNo }"></c:param>
 					</c:url>
 					<a href="${cDetail}" class="btn btn-primary px-4 py-3 mt-5 mr-3"
 							style="background-color: white; color: #6927ff">취소하기</a>
-					<button id="reservation-btn" type="button" class="btn btn-primary px-4 py-3 mt-5">예약하기</button>
+					<button id="reservation-btn" type="button" class="btn btn-primary px-4 py-3 mt-5">다음단계</button>
 				</p>
 			</div>
 		</div>

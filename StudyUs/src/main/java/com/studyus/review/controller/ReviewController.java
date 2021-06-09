@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.studyus.cafe.domain.Cafe;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
@@ -93,5 +95,24 @@ public class ReviewController {
 			return "fail";
 		}
 
+	}
+	
+	// 후기모음 
+	@RequestMapping(value = "/member/myReview", method = RequestMethod.GET)
+	public void myReviewList(@RequestParam("mbNo") int mbNo,
+							@RequestParam(value="page", required=false) Integer page,
+							HttpServletResponse response) throws JsonIOException, IOException {
+		int listCount = rService.getMemListCount(mbNo);
+		int currentPage = (page != null) ? page : 1;
+		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Review> rList = rService.printAllByMemberNo(pi, mbNo);
+		System.out.println(rList);
+		if(!rList.isEmpty()) {
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create(); // 날짜 포맷 변경!
+			gson.toJson(rList, response.getWriter());
+		}else {
+			System.out.println("데이터가 없습니다.");
+		}
 	}
 }

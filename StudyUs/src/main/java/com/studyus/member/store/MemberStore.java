@@ -1,7 +1,8 @@
 package com.studyus.member.store;
 
 import java.util.ArrayList;
- 
+
+import com.studyus.common.PageInfo;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.review.domain.Review;
@@ -28,7 +29,7 @@ public interface MemberStore {
 	
 	public int updateMember(Member member);
 	
-	public int deleteMember(String mbId);
+	public int deleteMember(Member mOne);
 	
 	public int checkIdDup(String mbId);
 	
@@ -40,9 +41,9 @@ public interface MemberStore {
 	
 	public Member findMemPw(Member member);
 	
-	public ArrayList<Enrollment> myStudyList(int mbNo);
+	public ArrayList<Enrollment> selectAllStudyByMbNo(PageInfo pi, int mbNo);
 	
-	public ArrayList<Review> myReviewList(int mbNo);
+	public int selectStudyListCount(int mbNo);
 	
 	/**
 	 * 스터디에 가입한 모든 회원을 select합니다.

@@ -26,3 +26,22 @@ function insertAttendance(memberNo, studyNo) {
         }
     });
 }
+
+$(function() {
+
+	// 과제 현황
+	let pieChartData = {
+	    labels: ['foo', 'bar', 'baz', 'fie', 'foe', 'fee'],
+	    datasets: [{
+	        data: [95, 12, 13, 7, 13, 10],
+	        backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)']
+	    }] 
+	};
+	
+	var ctx = document.getElementById("myChart").getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'pie',
+		data: pieChartData,
+	});
+
+});

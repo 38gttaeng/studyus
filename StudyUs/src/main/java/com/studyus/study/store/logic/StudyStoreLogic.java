@@ -14,7 +14,7 @@ import com.studyus.study.domain.StudySearchResult;
 import com.studyus.study.store.StudyStore;
 
 @Repository
-public class StudyStoreLogic implements StudyStore {
+public class StudyStoreLogic implements StudyStore { 
 	
 	@Autowired
 	SqlSession sqlSession;
@@ -42,9 +42,8 @@ public class StudyStoreLogic implements StudyStore {
 	}
 
 	@Override
-	public ArrayList<Study> selectAll(StudySearchCriteria pi) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Study> selectAll() {
+		return (ArrayList)sqlSession.selectList("studyMapper.selectAllList");
 	}
 
 	@Override
@@ -90,6 +89,11 @@ public class StudyStoreLogic implements StudyStore {
 	@Override
 	public int selectStudyNoByUrl(String url) {
 		return ((Study)sqlSession.selectOne("studyMapper.selectOneByUrl", url)).getStudyNo();
+	}
+
+	@Override
+	public ArrayList<Study> getStudyListByMbNo(int leaderNo) {
+		return (ArrayList)sqlSession.selectList("studyMapper.printAllStudy", leaderNo);
 	}
 
 

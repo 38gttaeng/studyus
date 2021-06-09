@@ -10,13 +10,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/member/login.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script type="text/javascript" src="/resources/js/naverLogin.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>로그인</title>
 </head>
 <body>
 	<div class="user_card">
 		<div class="img-zone">
-			<img alt="#" src="#">
+			<img src="/resources/images/plane.png"> 
 		</div>
 		<div class="login-zone">
 			<div class="login-box">
@@ -27,7 +27,7 @@
 					<div class="input-group" id="input1">
 						<div class="input-group-append">
 							<span class="input-group-text">
-								<img alt="#" src="../../resources/images/user.png" width="15px" height="15px">
+								<i class="fas fa-user"></i>
 							</span>
 						</div>
 						<input type="text" name="mbId" class="form-control input_user" placeholder="Username">
@@ -35,7 +35,7 @@
 					<div class="input-group" id="input2">
 						<div class="input-group-append">
 							<span class="input-group-text">
-								<img alt="#" src="../../resources/images/key.png" width="15px" height="15px">
+								<i class="fas fa-key"></i>
 							</span>
 						</div>
 						<input type="password" name="mbPassword" class="form-control input_pass" placeholder="비밀번호">

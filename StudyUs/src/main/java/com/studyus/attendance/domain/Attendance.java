@@ -9,7 +9,9 @@ import lombok.ToString;
 @ToString 
 public class Attendance {
 	private int attendanceNo;
+	private int rNum;
 	private int memberNo;
 	private int studyNo;
 	private int meetingNo;
+	private int atInsertDate; 
 }

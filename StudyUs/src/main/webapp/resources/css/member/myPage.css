@@ -20,7 +20,7 @@ a:hover, a:focus {
 
 .myPage-box {
 	width: 900px;
-	height: 1600px;
+	height: 1700px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -62,8 +62,8 @@ a:hover, a:focus {
 }
 
 .box-zone {
-	width: 800px;
-	height: 1400px;
+	width: 900px;
+	height: 1430px;
 	background-color: #ffffff;
 	margin-left: auto;
 	margin-right: auto;
@@ -85,39 +85,126 @@ a:hover, a:focus {
 	border-radius: 5px;
 	padding: 5px;
 	text-align: center;
+	margin-bottom: 10px;
 }
 
 .my-study {
-	width: 650px;
-	height: 300px;
+	width: 800px;
+	height: 320px; 
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 40px;
 }
 
-.my-calender {
+.study-zone {
+	width: 800px;
+	height: 260px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	overflow: scroll;
+}
+
+.study-zone::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+}
+.study-zone::-webkit-scrollbar-thumb {
+	border-radius: 3.5px;
+  	background-color: #ced4da;
+	&:hover {
+    	background-color: #adb5bd;
+	}
+}
+.study-zone::-webkit-scrollbar-track {
+	background: #ffffff;
+}
+
+.study-box {
+	width: 792px;
+	height: 60px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	border: 1px solid #cccccc;
+}
+
+.txt-box {
 	width: 650px;
-	height: 600px;
+	height: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15px;
+}
+
+.study-name {
+	width: 100px;
+	height: 20px;
+	margin-right: 120px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.label {
+	margin-right: 15px;
+	font-size: 14px;
+}
+
+.value {
+	margin-right: 30px;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.my-calender {
+	width: 800px;
+	height: 630px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
 }
 
-.calender-box {
-	width: 600px;
-	height: 500px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 20px;
-	padding: 1px;
+.col-md-12 {
+	padding: 0 !important;
+}
+
+#calendar-events {
+	text-align: left;
 }
 
 .my-review {
-	width: 650px;
+	width: 800px;
 	height: 300px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
+}
+
+.review-box {
+	width: 798px;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	overflow: scroll;
+}
+.review-box::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+}
+.review-box::-webkit-scrollbar-thumb {
+	border-radius: 3.5px;
+  	background-color: #ced4da;
+	&:hover {
+    	background-color: #adb5bd;
+	}
+}
+.review-box::-webkit-scrollbar-track {
+	background: #ffffff;
 }
 
 
