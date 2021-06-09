@@ -41,20 +41,22 @@
 					<span>나의 스터디</span>
 				</div>
 				<div class="study-zone">
-					<c:if test="${!empty enrolledStudyList}">
-						<c:forEach var="study" items="${enrolledStudyList}" varStatus="i">
+					<c:if test="${!empty myStudyList}">
+						<c:forEach var="study" items="${myStudyList}" varStatus="i">
 							<div class="study-box" onclick="location.href='/study/${study.url}'">
 								<div class="txt-box">
-									<a class="study-name">${study.studyName}</a>
-									<span class="label">출석률</span><span class="value">00%</span>
-									<span class="label">과제완료율</span><span class="value ">00%</span>
-									<span class="label">남은 과제</span><span class="value">0개</span>
+									<div class="study-name"><a>${study.studyName}</a></div>
+									<div class="study-info">
+										<span class="label">출석률</span><span class="value">${study.attRate}%</span>
+										<span class="label">과제완료율</span><span class="value ">${study.taskRate}%</span>
+										<span class="label">남은 과제</span><span class="value">${study.remTask}개</span>
+									</div>
 								</div>
 							</div>
 						</c:forEach>
 					</c:if>
 					
-					<c:if test="${empty enrolledStudyList}">
+					<c:if test="${empty myStudyList}">
 						<div class="study-box">
 							<div class="txt-box">
 								<a class="study-name">가입한 스터디가 없습니다.</a>

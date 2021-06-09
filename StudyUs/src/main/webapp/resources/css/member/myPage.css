@@ -131,7 +131,7 @@ a:hover, a:focus {
 }
 
 .txt-box {
-	width: 650px;
+	width: 600px;
 	height: 30px;
 	margin-left: auto;
 	margin-right: auto;
@@ -139,11 +139,15 @@ a:hover, a:focus {
 }
 
 .study-name {
-	width: 100px;
-	height: 20px;
-	margin-right: 120px;
+	display: inline-block;
+	float: left;
 	font-weight: bold;
 	font-size: 15px;
+}
+
+.study-info {
+	display: inline-block;
+	float: right;
 }
 
 .label {

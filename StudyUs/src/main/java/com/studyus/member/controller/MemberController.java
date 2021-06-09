@@ -28,11 +28,13 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.studyus.assignment.service.AssignmentService;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.member.domain.Member;
+import com.studyus.member.domain.MyStudyInfo;
 import com.studyus.member.service.MemberService;
 import com.studyus.review.domain.Review;
 import com.studyus.study.domain.Study;
@@ -48,7 +50,10 @@ public class MemberController {
 	private StudyService sService;
 	
 	@Autowired
-	EnrollmentService eService;
+	private EnrollmentService eService;
+	
+	@Autowired
+	private AssignmentService asService;
 	
 	// NaverLoginBO
 	private NaverLoginBO naverLoginBO;
@@ -399,15 +404,21 @@ public class MemberController {
 	public String myPageView(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		ArrayList<Study> enrolledStudyList = (ArrayList<Study>)session.getAttribute("enrolledStudyList");
-		
+		ArrayList<MyStudyInfo> myStudyList = new ArrayList<MyStudyInfo>();
+		for(int i = 0; i < enrolledStudyList.size(); i++) {
+			MyStudyInfo myStudy = new MyStudyInfo();
+			String studyName = enrolledStudyList.get(i).getStudyName();
+			String url = enrolledStudyList.get(i).getUrl();
+			myStudy.setStudyName(studyName);
+//			int taskRate = asService.printAssignmentRate(loginMember.getMbNo());
+			myStudy.setTaskRate(0);
+			myStudy.setAttRate(0);
+			myStudy.setRemTask(0);
+			myStudy.setUrl(url);
+			myStudyList.add(myStudy);
+		}
+		session.setAttribute("myStudyList", myStudyList);
 		return "member/myPage";
-//		if(!myStudyList.isEmpty()) {
-//			
-//			return "";
-//		}else {
-//			
-//			return "";
-//		}
 	}
 	
 	// 회원정보 뷰
