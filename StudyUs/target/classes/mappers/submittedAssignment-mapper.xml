@@ -122,12 +122,17 @@
 	
 	<!-- 과제율 계산 : 총 과제 제출 개수 / 스터디 내부 과제 제출 개수 -->
 	<select id="selectCountByMbNo" parameterType="_int" resultType="_int">
+	<![CDATA[
 		SELECT COUNT(*) FROM SUBMITTED_ASSIGNMENT
 		WHERE MB_NO = #{mbNo}
 		AND SU_STATUS = 1
+        AND SUBSTR(SU_INSERTDATE, 1, 10) <= TO_CHAR(LAST_DAY(ADD_MONTHS(SYSDATE, -1)), 'YYYY/MM/DD')
+        AND SUBSTR(SU_INSERTDATE, 1, 10) >= TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYY/MM/') || '01'
+	]]>
 	</select>
 	
 	<select id="selectCountByStNo" parameterType="Map" resultType="_int"> 
+	<![CDATA[
 		SELECT
 		   COUNT(*)
 		FROM SUBMITTED_ASSIGNMENT S
@@ -139,6 +144,9 @@
 		WHERE A.MB_NO = #{mbNo}
 		AND S.SU_STATUS = 1
 		AND G.ST_NO = #{stNo}
+        AND SUBSTR(S.SU_INSERTDATE, 1, 10) <= TO_CHAR(LAST_DAY(ADD_MONTHS(SYSDATE, -1)), 'YYYY/MM/DD')
+        AND SUBSTR(S.SU_INSERTDATE, 1, 10) >= TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYY/MM/') || '01'
+	]]>
 	</select>
 	
 	<!-- 파일함 -->

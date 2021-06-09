@@ -86,7 +86,7 @@
 									<th scope="row">${member.rnum } </th>
 									<td class="">${ member.mbNickname }</td>
 									<td>${ member.mbEmail }</td>
-									<td> </td>
+									<td>${ member.mbReputation }%</td> 
 									<td>99%</td>
 									<td> 
 										<c:if test="${member.mbNo eq study.leaderNo }">

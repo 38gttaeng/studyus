@@ -14,17 +14,12 @@ import com.studyus.assignment.store.AssignmentStore;
 import com.studyus.common.PageInfo;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.store.FileStore;
-import com.studyus.submittedAssignment.domain.SubmittedAssignment;
-import com.studyus.submittedAssignment.store.SAssignmentStore;
 
 @Service
 public class AssignmentServiceImpl implements AssignmentService {
 	
 	@Autowired
 	private AssignmentStore asStore;
-	
-	@Autowired
-	private SAssignmentStore suStore;
 	
 	@Autowired
 	private FileStore fiStore;
@@ -169,12 +164,12 @@ public class AssignmentServiceImpl implements AssignmentService {
 		
 		// 계산
 		int rate = 0;
-		if( allCount !=0 ) {
-			rate = (allCount / memCount) * 100;
+		if( allCount != 0 ) {
+			rate = (memCount / allCount) * 100;
 		}
 		
 		// 넘겨주기
-		return rate;
+		return rate; 
 	}
 
 	@Override
@@ -187,12 +182,10 @@ public class AssignmentServiceImpl implements AssignmentService {
 		
 		// 계산
 		int rate = 0;
-		if( allCount !=0 ) {
+		if( allCount != 0 ) {
 			rate = (memCount / allCount) * 100;
 		}
-		System.out.println(allCount);
-		System.out.println(memCount);
-		System.out.println(rate);
+		
 		// 넘겨주기
 		return rate;
 	}
