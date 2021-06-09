@@ -37,6 +37,7 @@ public class EnrollmentController {
 	@Autowired
 	private StudyService sService;
 	
+	@Autowired
 	private AssignmentService aService;
 	
 	// 가입신청 보내기
@@ -79,13 +80,13 @@ public class EnrollmentController {
 	public ModelAndView printStudyMember(ModelAndView mv, HttpSession session) {
 		Study study = (Study)session.getAttribute("study");
 		ArrayList<Member> mList = mService.printAllByStudyNo(study.getStudyNo());
-//		for(Member m : mList) {
-//			HashMap<String, Integer> map = new HashMap<String, Integer>();
-//			map.put("stNo", study.getStudyNo());
-//			map.put("mbNo", m.getMbNo());
-//			int rate = aService.printAssignmentRate(map);
-//			m.setMbReputation(rate);
-//		}
+		for(Member m : mList) {
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("stNo", study.getStudyNo());
+			map.put("mbNo", m.getMbNo());
+			int rate = aService.printAssignmentRate(map);
+			m.setMbReputation(rate);
+		}
 		
 		for(Member m : mList) {
 		System.out.println(m.toString());

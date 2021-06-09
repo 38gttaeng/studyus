@@ -163,7 +163,7 @@
                                 <h5 class="card-title">프로젝트 현황</h5>
                                 <p>프로젝트별 과제 개수</p>
 								<div>
-									<canvas id="myChart"></canvas>
+									<canvas id="group-chart"></canvas>
 								</div>
                             </div>
                         </div>
