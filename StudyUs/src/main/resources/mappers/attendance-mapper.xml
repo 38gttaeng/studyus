@@ -25,11 +25,12 @@
 		INSERT INTO ATTENDANCE VALUES (SEQ_ATTENDANCE.NEXTVAL,
 										#{memberNo},
 										#{studyNo},
-										#{meetingNo})
+										#{meetingNo},
+										SYSDATE)
 	</insert>
 	
 	<select id="checkTodayAttendedAlready" parameterType="Attendance" resultType="int">
-		SELECT COUNT(*) FROM ATTENDANCE WHERE ME_NO = #{meetingNo} AND MB_NO = #{memberNo}
+		SELECT COUNT(*) FROM ATTENDANCE WHERE ME_NO = #{meetingNo} AND MB_NO = #{memberNo} AND TRUNC(SYSDATE) &lt;= AT_INSERTDATE
 	</select>
 	
 </mapper>

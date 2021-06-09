@@ -4,7 +4,7 @@
 
 	<resultMap type="Meeting" id="meetingResultMap">
 		<id property="meetingNo" column="ME_NO"></id>
-		<result property="studyNo" column="ST_NO"></result> 
+		<result property="studyNo" column="ST_NO"></result>
 		<result property="start" column="ME_START_TIME"></result>
 		<result property="end" column="ME_END_TIME"></result>
 		<result property="requiredAttendance" column="ME_REQUIRED_ATTENDANCE"></result>
@@ -21,7 +21,7 @@
    </insert>
 	
 	<select id="selectCurrentOneByStudyNo" resultMap="meetingResultMap">
-		SELECT * FROM MEETING WHERE #{currentTime} BETWEEN ME_START_TIME AND ME_END_TIME AND ST_NO = #{studyNo}
+		SELECT * FROM MEETING WHERE #{currentTime} BETWEEN ME_START_TIME AND ME_END_TIME AND ST_NO = #{studyNo} AND TRUNC(SYSDATE) &lt;= ME_INSERTDATE
 	</select>
 	
 </mapper>

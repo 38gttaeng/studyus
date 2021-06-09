@@ -30,6 +30,7 @@ import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.file.controller.FileController;
 import com.studyus.meeting.domain.Meeting;
 import com.studyus.meeting.service.MeetingService;
+import com.studyus.meeting.utils.MeetingUtils;
 import com.studyus.member.domain.Member;
 import com.studyus.notice.domain.Notice;
 import com.studyus.notice.service.NoticeService;
@@ -198,18 +199,27 @@ public class StudyController {
 		 */
 		int attendanceStatus = 0;
 		
-		// 오늘이 출석일인지 확인
-		Meeting currentMeeting = mService.printCurrentOneByStudyNo(study.getStudyNo());
-		
-		// 오늘이 출석일일 경우 이미 출석체크 하였는지 확인.
-		if (currentMeeting != null) {
-			Attendance attendance = new Attendance();
-			attendance.setMeetingNo(currentMeeting.getMeetingNo());
-			attendance.setMemberNo(member.getMbNo());
+		// 오늘이 출석 요일인지 확인
+		if (MeetingUtils.isMeetingDay(study)) {
+			// 오늘의 미팅기록이 있는지 확인
+			Meeting currentMeeting = mService.printCurrentOneByStudyNo(study.getStudyNo());
 			
-			// 오늘 이미 출석하였는지 확인
-			boolean attendedAlready = aService.checkAttendedAlready(attendance);
-			attendanceStatus = attendedAlready ? 2 : 1;
+			// 오늘의 미팅기록이 있을 경우 이미 출석체크 하였는지 확인.
+			if (currentMeeting != null) {
+				Attendance attendance = new Attendance();
+				attendance.setMeetingNo(currentMeeting.getMeetingNo());
+				attendance.setMemberNo(member.getMbNo());
+				
+				// 오늘 이미 출석하였는지 확인
+				boolean attendedAlready = aService.checkAttendedAlready(attendance);
+				attendanceStatus = attendedAlready ? 2 : 1;
+			} 
+			/*
+			 * 오늘 출석일이지만 아직 아무도 출석체크 하지 않음.
+			 */
+			else {
+				attendanceStatus = 1;
+			}
 		}
 		
 		request.getSession().setAttribute("study", study);
