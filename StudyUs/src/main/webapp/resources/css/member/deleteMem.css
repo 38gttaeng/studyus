@@ -72,7 +72,7 @@ body {
 	margin-left: 10px;
 }
 
-.study-box {
+.study-check-box {
 	width: 395px;
 	height: 195px;
 	border: 1px solid #bbbbbb;
@@ -82,6 +82,47 @@ body {
 	margin-top: 10px;
 	margin-bottom: 15px;;
 	padding: 5px;
+}
+
+.study-list {
+	width: 390px;
+	height: 190px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	overflow: scroll;
+}
+
+.study-list::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background: #ffffff;
+}
+.study-list::-webkit-scrollbar-thumb {
+	border-radius: 3.5px;
+  	background-color: #ced4da;
+	&:hover {
+    	background-color: #adb5bd;
+	}
+}
+.study-list::-webkit-scrollbar-track {
+	background: #ffffff;
+}
+
+.study-box {
+	width: 380px;
+	height: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	border-bottom: 1px solid #cccccc;
+}
+
+.study-name {
+	width: 100px;
+	height: 20px;
+	margin-left: 15px;
+	font-size: 15px;
 }
 
 .reason-box {

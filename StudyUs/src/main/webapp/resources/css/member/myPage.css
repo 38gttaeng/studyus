@@ -90,7 +90,7 @@ a:hover, a:focus {
 
 .my-study {
 	width: 800px;
-	height: 320px; 
+	height: 250px; 
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 40px;
@@ -98,7 +98,7 @@ a:hover, a:focus {
 
 .study-zone {
 	width: 800px;
-	height: 260px;
+	height: 200px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 10px;
@@ -165,8 +165,14 @@ a:hover, a:focus {
 	margin-top: 20px;
 }
 
-.col-md-12 {
-	padding: 0 !important;
+.container-fluid {
+	overflow: scroll;
+	-ms-overflow-style: none;
+    scrollbar-width: none;
+    padding: 0 !important;
+}
+.container-fluid::-webkit-scrollbar {
+    display: none;
 }
 
 #calendar-events {

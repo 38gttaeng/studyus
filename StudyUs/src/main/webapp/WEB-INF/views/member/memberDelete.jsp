@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +25,16 @@
 		<div class="delete-box">
 			<div class="study-zone">
 				<span class="check">활동 중인 스터디 확인</span>
-				<div class="study-box">
-					
+				<div class="study-check-box">
+					<div class="study-list">
+					<c:if test="${!empty enrolledStudyList}">
+						<c:forEach var="study" items="${enrolledStudyList}" varStatus="i">
+							<div class="study-box">
+								<span class="study-name">${study.studyName}</span>
+							</div>
+						</c:forEach>
+					</c:if>
+				</div>
 				</div>
 			</div>
 			<form action="/member/delete" name="deleteForm">
@@ -58,6 +67,7 @@
 				</div>
 				<div class="check-zone">
 					<input type="checkbox" value="agree" id="agree">위 내용을 확인했으며, 탈퇴를 진행합니다.
+					<input type="hidden" name="mbId" value="${loginUser.mbId}">
 				</div>
 				<div class="btn-zone">
 					<input type="button" value="취소" onclick="location.href='/member/myInfo'" class="cancel-btn">
