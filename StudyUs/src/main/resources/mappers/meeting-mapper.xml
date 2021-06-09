@@ -15,7 +15,8 @@
 									#{studyNo},
 									#{start},
 									#{end},
-									#{requiredAttendance}
+									#{requiredAttendance},
+									SYSDATE
 		)
 	</insert>
 	

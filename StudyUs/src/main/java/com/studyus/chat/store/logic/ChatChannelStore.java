@@ -34,20 +34,22 @@ public class ChatChannelStore {
 	 * @param session
 	 * url에 참가할 session
 	 * @param url
+	 * @param nickname
+	 * session 사용자의 닉네임
 	 * 스터디 url
 	 * @return
 	 * 참가한 채널
 	 */
-	public ChatChannel joinOrCreateChannel (WebSocketSession session, String url) {
+	public ChatChannel joinOrCreateChannel (WebSocketSession session, String url, String nickname) {
 		ChatChannel channel = null;
 		channel = map.get(url);
 		if (channel == null) {
 			channel = ChatChannel.create(url);
-			channel.addSession(session);
+			channel.addSession(session, nickname);
 			map.put(url, channel);
 			return channel;
 		} else {
-			channel.addSession(session);
+			channel.addSession(session, nickname);
 			return channel;
 		}
 	}
@@ -76,6 +78,20 @@ public class ChatChannelStore {
 			omg.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * 세션이 연결되어 있던 채널을 찾은 후 해당 채널에 연결된 사용자들에게 연결 종료를 알림
+	 * @param session
+	 */
+	public ChatChannel findChannelWithSession (WebSocketSession session) {
+		ChatChannel channel = null;
+		for (ChatChannel c : map.values()) {
+			if (c.getSessions().containsKey(session))
+				return c;
+		}
+		
+		return channel;
 	}
 	
 }

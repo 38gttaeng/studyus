@@ -13,7 +13,8 @@
 		INSERT INTO ATTENDANCE VALUES (SEQ_ATTENDANCE.NEXTVAL,
 										#{memberNo},
 										#{studyNo},
-										#{meetingNo})
+										#{meetingNo},
+										SYSDATE)
 	</insert>
 	
 	<select id="checkTodayAttendedAlready" parameterType="Attendance" resultType="int">

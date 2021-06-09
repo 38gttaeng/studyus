@@ -26,10 +26,8 @@
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
-                                    <li class="breadcrumb-item text-muted" aria-current="page">Apps</li>
+                                    <li class="breadcrumb-item text-muted" aria-current="page">${study.studyName }</li>
                                     <li class="breadcrumb-item text-muted active" aria-current="page">채팅</li>
-                                    <li class="breadcrumb-item text-muted" aria-current="page"><input type="button" value="받은 메세지" onclick="printReceivedMessage('{사용자명}', '{메세지}', '{시간}');"></li>
-                                    <li class="breadcrumb-item text-muted" aria-current="page"><input type="button" value="보낸 메세지" onclick="printMyMessage('{메세지}', '{시간}');"></li>
                                 </ol>
                             </nav>
                         </div>
@@ -58,146 +56,26 @@
                         <div class="card">
                             <div class="row no-gutters">
                             	<!-- #region 채팅방 -->
-<!--                                 <div class="col-lg-3 col-xl-2 border-right"> -->
+                                <div class="col-lg-3 col-xl-2 border-right">
 <!--                                     <div class="card-body border-bottom"> -->
 <!--                                         <form> -->
 <!--                                             <input class="form-control" type="text" placeholder="Search Contact"> -->
 <!--                                         </form> -->
 <!--                                     </div> -->
-<!--                                     <div class="scrollable position-relative" style="height: calc(100vh - 111px);"> -->
-<!--                                         <ul class="mailbox list-style-none"> -->
-<!--                                             <li> -->
-<!--                                                 <div class="message-center"> -->
-<!--                                                     Message -->
-<!--                                                     <a href="javascript:void(0)" -->
-<!--                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2"> -->
-<!--                                                         <div class="user-img"><img src="/resources/css/study/assets/images/users/1.jpg" -->
-<!--                                                                 alt="user" class="img-fluid rounded-circle" -->
-<!--                                                                 width="40px"> <span -->
-<!--                                                                 class="profile-status online float-right"></span> -->
-<!--                                                         </div> -->
-<!--                                                         <div class="w-75 d-inline-block v-middle pl-2"> -->
-<!--                                                             <h6 class="message-title mb-0 mt-1">Pavan kumar</h6> -->
-<!--                                                             <span -->
-<!--                                                                 class="font-12 text-nowrap d-block text-muted text-truncate">Just -->
-<!--                                                                 see -->
-<!--                                                                 the my new -->
-<!--                                                                 admin!</span> -->
-<!--                                                             <span class="font-12 text-nowrap d-block text-muted">9:30 -->
-<!--                                                                 AM</span> -->
-<!--                                                         </div> -->
-<!--                                                     </a> -->
-<!--                                                     Message -->
-<!--                                                     <a href="javascript:void(0)" -->
-<!--                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2"> -->
-<!--                                                         <div class="user-img"><img src="/resources/css/study/assets/images/users/2.jpg" -->
-<!--                                                                 alt="user" class="img-fluid rounded-circle" -->
-<!--                                                                 width="40px"> <span -->
-<!--                                                                 class="profile-status busy float-right"></span> -->
-<!--                                                         </div> -->
-<!--                                                         <div class="w-75 d-inline-block v-middle pl-2"> -->
-<!--                                                             <h6 class="message-title mb-0 mt-1">Sonu Nigam</h6> -->
-<!--                                                             <span -->
-<!--                                                                 class="font-12 text-nowrap d-block text-muted text-truncate">I've -->
-<!--                                                                 sung a -->
-<!--                                                                 song! See you at</span> -->
-<!--                                                             <span class="font-12 text-nowrap d-block text-muted">9:10 -->
-<!--                                                                 AM</span> -->
-<!--                                                         </div> -->
-<!--                                                     </a> -->
-<!--                                                     Message -->
-<!--                                                     <a href="javascript:void(0)" -->
-<!--                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2"> -->
-<!--                                                         <div class="user-img"> <img src="/resources/css/study/assets/images/users/3.jpg" -->
-<!--                                                                 alt="user" class="img-fluid rounded-circle" -->
-<!--                                                                 width="40px"> <span -->
-<!--                                                                 class="profile-status away float-right"></span> -->
-<!--                                                         </div> -->
-<!--                                                         <div class="w-75 d-inline-block v-middle pl-2"> -->
-<!--                                                             <h6 class="message-title mb-0 mt-1">Arijit Sinh</h6> -->
-<!--                                                             <span -->
-<!--                                                                 class="font-12 text-nowrap d-block text-muted text-truncate">I -->
-<!--                                                                 am a -->
-<!--                                                                 singer!</span> -->
-<!--                                                             <span class="font-12 text-nowrap d-block text-muted">9:08 -->
-<!--                                                                 AM</span> -->
-<!--                                                         </div> -->
-<!--                                                     </a> -->
-<!--                                                     Message -->
-<!--                                                     <a href="javascript:void(0)" -->
-<!--                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2"> -->
-<!--                                                         <div class="user-img"><img src="/resources/css/study/assets/images/users/4.jpg" -->
-<!--                                                                 alt="user" class="img-fluid rounded-circle" -->
-<!--                                                                 width="40px"> <span -->
-<!--                                                                 class="profile-status offline float-right"></span> -->
-<!--                                                         </div> -->
-<!--                                                         <div class="w-75 d-inline-block v-middle pl-2"> -->
-<!--                                                             <h6 class="message-title mb-0 mt-1">Nirav Joshi</h6> -->
-<!--                                                             <span -->
-<!--                                                                 class="font-12 text-nowrap d-block text-muted text-truncate">Just -->
-<!--                                                                 see the my admin!</span> -->
-<!--                                                             <span class="font-12 text-nowrap d-block text-muted">9:02 -->
-<!--                                                                 AM</span> -->
-<!--                                                         </div> -->
-<!--                                                     </a> -->
-<!--                                                     Message -->
-<!--                                                     <a href="javascript:void(0)" -->
-<!--                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2"> -->
-<!--                                                         <div class="user-img"><img src="/resources/css/study/assets/images/users/5.jpg" -->
-<!--                                                                 alt="user" class="img-fluid rounded-circle" -->
-<!--                                                                 width="40px"> <span -->
-<!--                                                                 class="profile-status offline float-right"></span></span> -->
-<!--                                                         </div> -->
-<!--                                                         <div class="w-75 d-inline-block v-middle pl-2"> -->
-<!--                                                             <h6 class="message-title mb-0 mt-1">Sunil Joshi</h6> -->
-<!--                                                             <span -->
-<!--                                                                 class="font-12 text-nowrap d-block text-muted text-truncate">Just -->
-<!--                                                                 see the my admin!</span> -->
-<!--                                                             <span class="font-12 text-nowrap d-block text-muted">9:02 -->
-<!--                                                                 AM</span> -->
-<!--                                                         </div> -->
-<!--                                                     </a> -->
-<!--                                                     Message -->
-<!--                                                     <a href="javascript:void(0)" -->
-<!--                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2"> -->
-<!--                                                         <div class="user-img"><img src="/resources/css/study/assets/images/users/6.jpg" -->
-<!--                                                                 alt="user" class="img-fluid rounded-circle" -->
-<!--                                                                 width="40px"> <span -->
-<!--                                                                 class="profile-status offline float-right"></span> -->
-<!--                                                         </div> -->
-<!--                                                         <div class="w-75 d-inline-block v-middle pl-2"> -->
-<!--                                                             <h6 class="message-title mb-0 mt-1">Akshay Kumar</h6> -->
-<!--                                                             <span -->
-<!--                                                                 class="font-12 text-nowrap d-block text-muted text-truncate">Just -->
-<!--                                                                 see the my admin!</span> -->
-<!--                                                             <span class="font-12 text-nowrap d-block text-muted">9:02 -->
-<!--                                                                 AM</span> -->
-<!--                                                         </div> -->
-<!--                                                     </a> -->
-<!--                                                     Message -->
-<!--                                                     <a href="javascript:void(0)" -->
-<!--                                                         class="message-item d-flex align-items-center border-bottom px-3 py-2"> -->
-<!--                                                         <div class="user-img"><img src="/resources/css/study/assets/images/users/7.jpg" -->
-<!--                                                                 alt="user" class="img-fluid rounded-circle" -->
-<!--                                                                 width="40px"> <span -->
-<!--                                                                 class="profile-status offline float-right"></span> -->
-<!--                                                         </div> -->
-<!--                                                         <div class="w-75 d-inline-block v-middle pl-2"> -->
-<!--                                                             <h6 class="message-title mb-0 mt-1">Pavan kumar</h6> -->
-<!--                                                             <span -->
-<!--                                                                 class="font-12 text-nowrap d-block text-muted text-truncate">Just -->
-<!--                                                                 see the my admin!</span> -->
-<!--                                                             <span class="font-12 text-nowrap d-block text-muted">9:02 -->
-<!--                                                                 AM</span> -->
-<!--                                                         </div> -->
-<!--                                                     </a> -->
-<!--                                                     Message -->
-<!--                                                     <a href="javascript:void(0)" -->
-<!--                                                         class="message-item d-flex align-items-center px-3 py-2"> -->
-<!--                                                         <div class="user-img"><img src="/resources/css/study/assets/images/users/8.jpg" -->
-<!--                                                                 alt="user" class="img-fluid rounded-circle" -->
-<!--                                                                 width="40px"> <span -->
-<!--                                                                 class="profile-status offline float-right"></span> -->
+                                    <div class="card-body border-bottom">
+                                        <div>
+                                                                              참여중인 사람들
+                                        </div>
+                                    </div>
+                                    <div class="scrollable position-relative" style="height: calc(100vh - 111px);">
+                                        <ul class="mailbox list-style-none">
+                                            <li>
+                                                <div id="user-list" class="message-center">
+<!--                                                 	<div id="user-{nickname}" class="message-item d-flex align-items-center px-3 py-2 d-none"> -->
+<!--                                                         <div class="user-img"> -->
+<!--                                                         	<img src="/resources/css/study/assets/images/users/8.jpg" alt="user"  -->
+<!--                                                         		class="img-fluid rounded-circle" width="40px">  -->
+<!--                                                        		<span class="profile-status offline float-right"></span> -->
 <!--                                                         </div> -->
 <!--                                                         <div class="w-75 d-inline-block v-middle pl-2"> -->
 <!--                                                             <h6 class="message-title mb-0 mt-1">Varun Dhavan</h6> -->
@@ -207,14 +85,14 @@
 <!--                                                             <span class="font-12 text-nowrap d-block text-muted">9:02 -->
 <!--                                                                 AM</span> -->
 <!--                                                         </div> -->
-<!--                                                     </a> -->
-<!--                                                 </div> -->
-<!--                                             </li> -->
-<!--                                         </ul> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
+<!--                                                     </div> -->
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
 									<!-- #endregion -->
-                                <div class="col">
+                                <div class="col-lg-9">
                                     <div class="chat-box scrollable position-relative"
                                         style="height: calc(100vh - 111px);">
                                         <!--chat Row -->
@@ -249,7 +127,7 @@
                                         <div class="row">
                                             <div class="col-9">
                                                 <div class="input-field mt-0 mb-0">
-                                                    <input id="input-chat" placeholder="Type and enter"
+                                                    <input id="input-chat" placeholder="내용을 입력하세요."
                                                         class="form-control border-0" type="text">
                                                 </div>
                                             </div>
@@ -277,13 +155,15 @@
 <!-- <script th:inline="javascript"> -->
 <script type="text/javascript">
 // 로컬 유저의 닉네임
-var nickname = '${loginUser.mbNickname}';
+var localNickname = '${loginUser.mbNickname}';
 // 채팅중인 스터디의 url
 var studyUrl = '${study.url}';
 // 채팅 input
 var chatInput = document.getElementById("input-chat");
 // 채팅 메세지 출력영역
 var chatBox = document.getElementById("chat-box");
+// 참여중인 사용자를 출력하는 영역
+var userList = document.getElementById("user-list");
 
 // 웹소켓 연결
 // var webSocket = new WebSocket("ws://" + location.hostname + (location.port ? ':' + location.port: '') + "/chat/message");
@@ -292,14 +172,14 @@ webSocket.onopen = onOpen;
 webSocket.onclose = onClose;
 webSocket.onmessage = onMessage;
 function onOpen () {
-	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : nickname, "type" : "OPEN", "message" : nickname + " 님이 입장하셨습니다."}));
+	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : localNickname, "type" : "OPEN", "message" : localNickname + " 님이 입장하셨습니다."}));
 }
 function onClose () {
-	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : nickname, "type" : "CLOSE", "message" : nickname + " 님이 퇴장하셨습니다."}));
+	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : localNickname, "type" : "CLOSE", "message" : localNickname + " 님이 퇴장하셨습니다."}));
 	webSocket.close();
 }
 function send () {
-	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : nickname, "type" : "SEND", "message" : chatInput.value}));
+	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : localNickname, "type" : "SEND", "message" : chatInput.value}));
 	chatInput.value = "";
 }
 function onMessage (message) {
@@ -308,14 +188,49 @@ function onMessage (message) {
 	var msgNickname = jsonMsg["nickname"];
 	var msgContents = jsonMsg["message"];
 	var msgInsertDate = jsonMsg["insertDate"];
+	var msgType = jsonMsg["type"];
+	console.log(msgType);
 	
-	console.log(jsonMsg);
-	
-	if (jsonMsg["nickname"] == nickname) {
-		printMyMessage(msgContents, msgInsertDate);
-	} else {
-		printReceivedMessage(msgNickname, msgContents, msgInsertDate)
+	// 채팅을 입장한 사람의 메세지 수신
+	if (msgType == "OPEN") {
+		console.log(msgNickname + "님 참가요.");
+		addUser (msgNickname);
+	} 
+	// 채팅을 퇴장한 사람의 메세지 수신
+	else if (msgType == "CLOSE") {
+		console.log(msgNickname + "님 나가요");
+		removeUser (msgNickname);
+	} 
+	// 기존에 채팅중이던 사람의 닉네임 수신
+	else if (msgType == "EXISTING") {
+		addUser (msgNickname);
 	}
+	// 채팅 수신
+	else if (msgType == "SEND") {
+		if (jsonMsg["nickname"] == localNickname) {
+			printMyMessage(msgContents, msgInsertDate);
+		} else {
+			printReceivedMessage(msgNickname, msgContents, msgInsertDate)
+		}
+	}
+}
+
+function addUser (userName) {
+	userList.innerHTML += '<div id="user-' + userName + '" class="message-item d-flex align-items-center px-3 py-2">' +
+							    '<div class="user-img">' +
+// 이미지 필요시 추가
+// 									'<img src="/resources/css/study/assets/images/users/8.jpg" alt="user"' + 
+// 										'class="img-fluid rounded-circle" width="40px">' + 
+										'<span class="profile-status offline float-right"></span>' +
+								'</div>' +
+								'<div class="w-75 d-inline-block v-middle pl-2">' +
+								    '<h6 class="message-title mb-0 mt-1">' + userName + '</h6>' +
+								'</div>' +
+						   '</div>';
+}
+
+function removeUser (userName) {
+	document.getElementById("user-" + userName).remove();
 }
 
 // 로컬 유저의 메세지 출력
@@ -355,6 +270,7 @@ function printReceivedMessage(username, message, time) {
 						
 	chatBox.innerHTML += newMessage;
 }
+
 </script>
 
 </html>
