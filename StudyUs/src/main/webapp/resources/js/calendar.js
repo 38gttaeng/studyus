@@ -50,6 +50,15 @@ $(function() {
 		
 		return result;
 	}
+	
+	/* 구글 캘린더 : 한국 공휴일 */
+	var google = 
+	{
+		googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com",
+		className : "koHolidays",
+		color: "#ffffff"
+    };
+	
 
 	$('#calendar').fullCalendar({
 	    minTime: '00:00:00',
@@ -65,12 +74,7 @@ $(function() {
             right: 'month, agendaWeek, listWeek'
         },
 		googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE",      // Google API KEY (대한민국 공휴일)
-        eventSources: [asList, rsList1,
-		{
-        	googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com",
-			className : "koHolidays",
-			color: "#ffffff"
-        }],
+        eventSources: [asList, rsList1, google],
         editable: false,
         droppable: false, // this allows things to be dropped onto the calendar !!!
         eventLimit: false, // allow "more" link when too many events
@@ -131,6 +135,8 @@ $(function() {
 			$("#calendar").fullCalendar('addEventSource', rsList0);
 			$("#calendar").fullCalendar('addEventSource', rsList1);
 		}
+		
+		$("#calendar").fullCalendar('addEventSource', google);
 	});
 	
 	$("#drop-remove").on("change", function() {
@@ -147,5 +153,7 @@ $(function() {
 			$("#calendar").fullCalendar('addEventSource', rsList1);
 			$("#calendar").fullCalendar('addEventSource', rsList0);
 		}
+		
+		$("#calendar").fullCalendar('addEventSource', google);
 	});
 });

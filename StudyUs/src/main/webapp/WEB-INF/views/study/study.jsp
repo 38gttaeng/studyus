@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>StudyUs : 관리자 페이지</title>
+    <title>StudyUs : 스터디룸</title>
     <!-- 타이틀을 개별 스터디룸 이름으로 해줘도 좋을듯 ! 'StudyUs : 삼팔광땡' 이러케 -->
 </head>
 <body>
@@ -160,8 +160,11 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">과제 진행율</h5>
-                                <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
+                                <h5 class="card-title">프로젝트 현황</h5>
+								<div>
+									<canvas id="myChart"></canvas>
+								</div>
+                                <!-- <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
                                 <ul class="list-style-none mb-0">
                                     <li>
                                         <i class="fas fa-circle text-primary font-10 mr-2"></i>
@@ -178,7 +181,7 @@
                                         <span class="text-muted">Affiliate Sales</span>
                                         <span class="text-dark float-right font-weight-medium">$1204</span>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div>
                         </div>
                     </div>
@@ -192,6 +195,7 @@
     </div>
    
    <!--This page JavaScript -->
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
    <script src="/resources/css/study/dist/js/pages/dashboards/dashboard1.min.js"></script>
    <script src="/resources/js/study.js"></script>
 </body>
