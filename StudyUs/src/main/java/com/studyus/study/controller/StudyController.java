@@ -203,7 +203,7 @@ public class StudyController {
 		if (MeetingUtils.isMeetingDay(study)) {
 			// 오늘의 미팅기록이 있는지 확인
 			Meeting currentMeeting = mService.printCurrentOneByStudyNo(study.getStudyNo());
-			
+			System.out.println("currentMeeting is null: " + currentMeeting == null);
 			// 오늘의 미팅기록이 있을 경우 이미 출석체크 하였는지 확인.
 			if (currentMeeting != null) {
 				Attendance attendance = new Attendance();
@@ -221,7 +221,8 @@ public class StudyController {
 				attendanceStatus = 1;
 			}
 		}
-		
+
+		System.out.println(attendanceStatus);
 		request.getSession().setAttribute("study", study);
 		request.setAttribute("attendanceStatus", attendanceStatus);
 		request.setAttribute("recentNotice", recentNotice);
