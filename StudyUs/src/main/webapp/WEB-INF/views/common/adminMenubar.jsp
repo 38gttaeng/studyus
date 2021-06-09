@@ -156,9 +156,14 @@
 	                            aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
 	                                class="hide-menu">스터디카페 관리</span></a>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/payment"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/reservation"
+	                            aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
+	                                class="hide-menu">카페 예약 관리 </span></a>
+                        </li>
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin/purchase"
 	                            aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
 	                                class="hide-menu">결제 관리 </span></a>
+	                    </li>
 	                </ul>
 	            </nav>
         	</div>

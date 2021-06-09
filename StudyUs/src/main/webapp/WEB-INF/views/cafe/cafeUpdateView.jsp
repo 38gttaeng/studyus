@@ -107,8 +107,8 @@
 				</div>
 				<div align="center">
 					<p>
-						<a href="${cDelete}" class="btn btn-primary px-4 py-3 mt-5 mr-3"
-								style="background-color: white; color: purple">취소</a>
+						<button type="reset-btn" class="btn btn-primary px-4 py-3 mt-5 mr-3"
+								style="background-color: white; color: purple">취소</button> 
 						<button type="submit" class="btn btn-primary px-4 py-3 mt-5">수정하기</button>
 					</p>
 				</div>

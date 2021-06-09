@@ -63,9 +63,8 @@ public class StudyServiceImpl implements StudyService {
 	}
 	
 	@Override
-	public ArrayList<Study> printAll(StudySearchCriteria sc) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Study> printAll() {
+		return sStore.selectAll(); 
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public interface StudyService {
 	public ArrayList<StudySearchResult> printSearchResult(StudySearchCriteria sc) throws Exception;
 	
 	// 관리자 페이지 스터디 리스트 get
-	public ArrayList<Study> printAll(StudySearchCriteria sc);
+	public ArrayList<Study> printAll(); 
 	
 	// 관리자 페이지 스터디 리스트 이름검색 get
 	public ArrayList<Study> printAllByStudyName(String studyName, StudySearchCriteria sc);

@@ -119,7 +119,7 @@ public class AdminController {
 			gson.toJson(data, response.getWriter());
 		}
 		
-		// 스터디 선택 삭제
+		// 스터디카페 선택 삭제
 		@ResponseBody
 		@RequestMapping(value="/admin/cafe/delete", method=RequestMethod.GET)
 		public String cafeListDelete(@RequestParam("deList") List<Integer> deList) {
@@ -139,15 +139,19 @@ public class AdminController {
 		
 	/*********** 결제 관리 ************/
 		
-	// 결제 정보 조회 
-	@RequestMapping(value="/admin/purchaselist")
-	public ModelAndView purchaseList(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
-		Purchase purchase = new Purchase();
-		int listCount = pService.getListCount(purchase);
-		int currentPage = (page != null) ? page : 1;
-		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
-		ArrayList<Purchase> pList = pService.printAll(pi, purchase);
-		return mv;
+	// 결제 정보 조회
+	@RequestMapping(value="/admin/purchase", method=RequestMethod.GET)
+	public String purchaseListView() {
+		return "admin/purchaseAdmin";
+	}
+				
+	// 결제 정보 리스트 
+	@RequestMapping(value="/admin/purchase/list", method=RequestMethod.GET)
+	public void purchaseList(HttpSession session, HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Purchase> data = pService.printAll();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(data, response.getWriter());
 	}
 	
 	/*********** 예약 관리 ************/

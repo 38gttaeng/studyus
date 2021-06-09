@@ -46,9 +46,7 @@ public class PurchaseStoreLogic implements PurchaseStore{
 	}
 
 	@Override
-	public ArrayList<Purchase> selectAll(PageInfo pi, Purchase purchase) {
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("purchaseMapper.selectPurchaseList", purchase, rowBounds);
+	public ArrayList<Purchase> selectAll() { 
+		return (ArrayList)sqlSession.selectList("purchaseMapper.selectPurchaseList");
 	}
 }

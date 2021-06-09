@@ -50,7 +50,7 @@ var table = $('#sList').DataTable({
 		'className': 'dt-body-center',
 	}, {
 		'targets': 2,
-		'className': 'dt-body-center ',
+		'className': 'dt-category', 
 	}, {
 		'targets': 3,
 		'className': 'dt-category',
