@@ -1,17 +1,17 @@
 /****************************************
- *        관리자 회원관리  목록           *
+ *        관리자 스터디 관리  목록           *
  ****************************************/
-var table = $('#mList').DataTable({
+var table = $('#sList').DataTable({
 	destroy: true,
     bPaginate: true,
     bLengthChange: true,	
 	// 각 상황별 멘트
 	language: {
-	    emptyTable: '회원정보가 없습니다.',
-	    infoEmpty: '회원정보가 없습니다.',
+	    emptyTable: '스터디정보가 없습니다.',
+	    infoEmpty: '스터디정보가 없습니다.',
 	    info: ' _TOTAL_ 개의 게시물이 있습니다.',
 		infoFiltered: "( _MAX_건의 데이터에서 필터링됨 )",
-		zeroRecords: "일치하는 회원정보가 없습니다.",
+		zeroRecords: "일치하는 스터디정보가 없습니다.",
 	    search: "&nbsp;에서 검색: ",
 	    searchPlaceholder: '검색어 입력',
 	    lengthMenu: '보기 _MENU_',
@@ -43,7 +43,7 @@ var table = $('#mList').DataTable({
 		'orderable': false,
 		'className': 'dt-body-center',
 		'render': function (data, type, full, meta){
-		    return '<input type="checkbox" name="member" value="' + $('<div/>').text(data).html() + '">';
+		    return '<input type="checkbox" name="study" value="' + $('<div/>').text(data).html() + '">';
 		}
     }, {
 		'targets': 1,
@@ -56,15 +56,6 @@ var table = $('#mList').DataTable({
 		'className': 'dt-category',
 	}, {
 		'targets': 4,
-		'className': 'dt-category',
-	}, {
-		'targets': 5,
-		'className': 'dt-category',
-	}, {
-		'targets': 6,
-		'className': 'dt-category',
-	}, {
-		'targets': 7,
 		'className': 'dt-category',
 	}, {
         defaultContent: "-",
@@ -83,36 +74,33 @@ var table = $('#mList').DataTable({
 	bServerSide: false,
 		// 받은 json 값이 data가 아닐 경우에는 dataSrc로 이름 변경
     ajax: {
-	    'url':'/admin/member/list', 
+	    'url':'/admin/study/list', 
 	    'type': 'GET',
 	    'data' : '',
 	    'dataSrc':''
  	},
 		// 컬럼별로 들어갈 데이터 정보를 저장
     columns: [
-		{ data : "mbId"},
-        { data : "mbNo"},
-        { data : "mbId"},
-        { data : "mbPassword"},
-        { data : "mbName"},
-        { data : "mbNickname"},
-        { data : "mbEmail"},
-        { data : "mbPhone"}
+		{ data : "studyNo"},
+        { data : "studyNo"},
+        { data : "studyName"},
+        { data : "maxPersonnel"},
+        { data : "insertDate"},
     ]
 });
 
 // 컬럼별 검색기능 추가
-$("#mList_filter").prepend('<select id="mList-select" class="select"></select>');
-$('#mList > thead > tr').children().each(function (indexInArray, valueOfElement) { 
-    $('#mList-select').append('<option value="' + indexInArray + '">'+ valueOfElement.innerHTML +'</option>');
+$("#sList_filter").prepend('<select id="sList-select" class="select"></select>');
+$('#sList > thead > tr').children().each(function (indexInArray, valueOfElement) { 
+    $('#sList-select').append('<option value="' + indexInArray + '">'+ valueOfElement.innerHTML +'</option>');
 });
-$('#mList .dataTables_filter input').unbind().bind('keyup', function () {
-    var colIndex = $('#mList-select').val();
+$('#sList .dataTables_filter input').unbind().bind('keyup', function () {
+    var colIndex = $('#sList-select').val();
     table.column(colIndex).search(this.value).draw();
 });
 
-$("#member-select-all").on("change", function(){
-    var delcheck = $("input[name=member]");
+$("#study-select-all").on("change", function(){
+    var delcheck = $("input[name=study]");
     if($(this).is(":checked")) {
         delcheck.prop("checked", true);
     }else {
@@ -125,12 +113,12 @@ $("#delete-btn").on("click", function() {
 	
 	if(result) {
 		var arr = new Array();
-		$("input[name=member]:checked").each(function(){
+		$("input[name=study]:checked").each(function(){
 			arr.push($(this).val());
 		});
 		
 		$.ajax({
-			url : "/admin/member/delete",
+			url : "/admin/study/delete",
 			type : "get",
 			data : { "deList" : arr },
 			traditional : true,
