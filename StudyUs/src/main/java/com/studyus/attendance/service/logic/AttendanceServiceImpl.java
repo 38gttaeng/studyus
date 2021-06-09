@@ -1,6 +1,7 @@
 package com.studyus.attendance.service.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public StudyService studyService;
 
 	@Override
-	public ArrayList<Attendance> printAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<HashMap<String, Object>> printAll(int studyNo) {
+		return attStore.printAll(studyNo); 
 	}
 
 	/**

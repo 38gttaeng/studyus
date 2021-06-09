@@ -1,6 +1,7 @@
 package com.studyus.attendance.store.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,8 @@ public class AttendanceStoreLogic implements AttendanceStore{
 	public SqlSession sqlSession;
 
 	@Override
-	public ArrayList<Attendance> printAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<HashMap<String, Object>> printAll(int studyNo) { 
+		return (ArrayList)sqlSession.selectList("attendanceMapper.printAllAtt", studyNo);
 	}
 
 	@Override

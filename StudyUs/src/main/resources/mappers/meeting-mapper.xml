@@ -11,13 +11,14 @@
 	</resultMap>
 	
 	<insert id="insertOne" parameterType="Meeting" useGeneratedKeys="true" keyProperty="meetingNo" keyColumn="ME_NO">
-		INSERT INTO MEETING VALUES ( SEQ_MEETING.NEXTVAL,
-									#{studyNo},
-									#{start},
-									#{end},
-									#{requiredAttendance}
-		)
-	</insert>
+	      INSERT INTO MEETING VALUES ( SEQ_MEETING.NEXTVAL,
+	                           #{studyNo},
+	                           #{start},
+	                           #{end},
+	                           #{requiredAttendance},
+	                           SYSDATE
+	      ) 
+   </insert>
 	
 	<select id="selectCurrentOneByStudyNo" resultMap="meetingResultMap">
 		SELECT * FROM MEETING WHERE #{currentTime} BETWEEN ME_START_TIME AND ME_END_TIME AND ST_NO = #{studyNo}

@@ -18,7 +18,8 @@
 	.noTitle :hover {
 		color: #6928FF;
 }
-</style>
+</style> 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"/>
 </head>
 <body>
 	<!-- ============================================================== -->
@@ -86,16 +87,42 @@
 					</div>
 					
 					<br> <br>
-					<div class="col-md-2">
-						<select  class="custom-select custom-select-lg mb-3">
-							<option>2021-6</option>
+					<!-- <div>
+						<select  id="YEAR" class="custom-select custom-select-lg mb-3" name="year">
 						</select>
 					</div>
-					<table class="table col-lg-12" id="nTable">
+					<div>
+						<select  id=MONTH class="custom-select custom-select-lg mb-3" name="month">
+						</select>
+					</div> -->
+					<div class="col-md-1">
+						<input type="hidden" name="studyNo" value="${attendance.stNo }">
+					</div>
+					<div class="col-md-10">
+						<table id="userList"  class="table table-hover">
+						  <thead>
+						    <tr class="text-center">
+						    	  <th>#</th>
+						      <th>닉네임</th>
+						      <th>날짜</th>
+						      <th>출석여부</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+							  <c:forEach items="${ aList }" var="Attendance">
+							  		<td>${attendance.rNum }</td>
+							  		<td>${member.mbNickname }</td>
+							  		<td>${attendance.atInsertDate }</td>
+							  		<td></td>
+							  </c:forEach>
+						  </tbody>
+						</table>
+					</div>
+					<!-- <table class="table col-lg-12" id="nTable">
 						<thead class="thead-light">
 							<tr>
-								<th scope="col" style="width: 5%"></th>
-								<th scope="col" style="width: 15%">날짜</th>
+								<th scope="col" style="width: 7%"></th>
+								<th scope="col" style="width: 10%">날짜</th>
 								<th scope="col" style="width: 10%">닉네임</th>
 								<th scope="col" style="width: 10%">출석여부</th>
 							</tr>
@@ -109,26 +136,62 @@
 							</tr>
 						</tbody>
 						<tr></tr>
-					</table>
+					</table> -->
 				</div>
 			</div>
 		</div>
 		<!-- footer -->
 		<jsp:include page="../common/studyFooter.jsp" />
 	</div>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script>
-		$("#sidebarnav>li:nth-child(5)").addClass("selected");
-		$("#sidebarnav>li:nth-child(5) a").addClass("active");
+		$('#userList').DataTable();
 		
-		$('#currentPage').click(function() { // 현재페이지를 클릭했을때 클릭 안되게 
-			return false;
-		});
+		/* var table = $("#userList").DataTable();
+		table.destroy();
+
+		$.ajax({
+		  url:"/attendance/attList",
+		  type:"get",
+		  success:function(data){
+		 	 $("#userList").dataTable({
+		 	 data: data,
+		 	 columns: [
+		  		{ data: 'user_nm_ko' },
+		  		{ data: 'user_id' },
+		       	{ data: 'email' },
+		        	{ data: 'enable' },
+		        	{ data: 'pos_nm' }
+		  	]
+		  });
+
+		    },error:function(request, status, error){
+		    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    }
+		}); */
 		
-		$(document).ready(function(){
-			$("#searchIcon").on("click", function(){
-				$("#searchForm").submit();
-			});
-		});	
+/*	 $(document).ready(function(){
+	         setDateBox();
+	    });    
+	 
+ 	    // select box 연도 , 월 표시
+	    function setDateBox(){
+	        var dt = new Date();
+	        var year = "";
+	        var com_year = dt.getFullYear();
+	        // 발행 뿌려주기
+	        $("#YEAR").append("<option value=''>년도</option>");
+	        // -1년~현재
+	        for(var y = (com_year-1); y <= (com_year); y++){
+	            $("#YEAR").append("<option value='"+ y +"'>"+ y + " 년" +"</option>");
+	        }
+	        // 월 뿌려주기(1월부터 12월)
+	        var month;
+	        $("#MONTH").append("<option value=''>월</option>");
+	        for(var i = 1; i <= 12; i++){
+	            $("#MONTH").append("<option value='"+ i +"'>"+ i + " 월" +"</option>");
+	        }
+	    } */
 	</script>
 </body>
 </html>
