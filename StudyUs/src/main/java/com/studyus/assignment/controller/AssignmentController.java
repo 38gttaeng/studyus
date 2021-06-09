@@ -499,5 +499,32 @@ public class AssignmentController {
 		mv.addObject("picList", picList).setViewName("study/assignmentImage");
 		return mv;
 	}
-
+	
+	/******************* 스터디룸 메인페이지 차트 *******************/
+	
+	@RequestMapping(value="/study/assignment-chart", method=RequestMethod.GET)
+	public void assignmentChart(HttpSession session, HttpServletResponse response) throws Exception {
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		// 스터디에 해당하는 그룹리스트와 그에 해당하는 과제개수, 그룹명, 그룹색 가져오기
+		ArrayList<AssignmentGroup> grList = asService.printGroupChart(stNo);
+		
+		// 각각에 해당하는 어레이로 나누어서 넣어주기
+		ArrayList<String> labelList = new ArrayList<String>();
+		ArrayList<String> colorList = new ArrayList<String>();
+		ArrayList<Integer> countList = new ArrayList<Integer>();
+		for(AssignmentGroup grOne : grList) {
+			labelList.add(grOne.getGrName());
+			colorList.add(grOne.getGrInfo());
+			countList.add(grOne.getGrStatus());
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("labelList", labelList);
+		map.put("colorList", colorList);
+		map.put("countList", countList);
+		
+		// 과제그룹과 과제가 아직 없는 스터디도 있기 때문에 빈값 확인 없이 전송
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(map, response.getWriter());
+	}
 }

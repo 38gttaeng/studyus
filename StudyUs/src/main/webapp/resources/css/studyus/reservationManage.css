@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+/* modal */
+
+input {
+	text-align : center;
+}
+
+input[type=time] {
+	width : 48%;
+}
+
+/* 
+
+table tr {
+	padding : 10px;
+	margin : 10px;
+}
+
+.backHover5 {
+	background-color : #858d96 !important;
+}
+
+.backHover6 {
+	background-color : #6927ff !important;
+}
+
+.backHover5:hover {
+	background-color : #6c757d !important;
+}
+
+.backHover6:hover {
+	background-color : #4200db !important;
+}
+
+#calendar-events {
+	border-spacing : 30px;
+	border-collapse: separate;
+	text-align : center;
+	width : 100%;
+}
+
+#calendar-events .calendar-events {
+	height : 33px;
+	cursor : pointer;
+}
+
+#calendar-events .calendar-events td {
+	border-radius : 30px;
+	color : #fff;
+	background-color : #e8eaec;
+}
+
+#calendar-events .cEvents0 td {
+	background-color : #6c757d;
+}
+
+#checkHide {
+	display : none;
+} */
+
+/* 공휴일 클릭 이벤트 막기 */
+
+.koHolidays {
+	pointer-events: none;
+}
+
+.koHolidays .fc-title {
+	color : #ff4f70 !important;
+}

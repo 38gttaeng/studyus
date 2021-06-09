@@ -91,6 +91,13 @@ public interface AssignmentService {
 	////////////////////////////////////////////////////////////
 	
 	/**
+	 * 스터디룸 메인페이지 과제 차트
+	 * @param stNo
+	 * @return
+	 */
+	public ArrayList<AssignmentGroup> printGroupChart(int stNo);
+	
+	/**
 	 * 마이페이지 과제 리스트
 	 * @param mbNo
 	 * @return

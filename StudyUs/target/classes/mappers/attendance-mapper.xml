@@ -6,7 +6,7 @@
 		<id property="attendanceNo" column="AT_NO"></id>
 		<result property="rNum" column="RNUM"></result>
 		<result property="memberNo" column="MB_NO"></result>
-		<result property="studyNo" column="ST_NO"></result> 
+		<result property="studyNo" column="ST_NO"></result>
 		<result property="meetingNo" column="ME_NO"></result>
 		<result property="atInsertDate" column="AT_INSERTDATE"></result> 
 	</resultMap>

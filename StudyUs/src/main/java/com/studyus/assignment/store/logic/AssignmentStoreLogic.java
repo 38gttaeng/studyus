@@ -130,6 +130,11 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	public ArrayList<Assignment> selectAllByMbNo(int mbNo) {
 		return (ArrayList)sqlSession.selectList("assignmentMapper.selectAllByMbNo", mbNo);
 	}
+	
+	@Override
+	public ArrayList<AssignmentGroup> selectGroupChart(int stNo) {
+		return (ArrayList)sqlSession.selectList("assignmentMapper.selectGroupChart", stNo);
+	}
 
 	@Override
 	public int selectAssignmentByMbNo(int mbNo) {
