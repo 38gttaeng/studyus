@@ -44,15 +44,6 @@
                             </nav>
                         </div>
                     </div>
-				<div class="col-md-3 align-self-center d-none d-lg-block">
-                    	<form>
-	                    	<div class="customize-input">
-                            	<input class="form-control custom-shadow custom-radius border-0 bg-white"
-                                           type="search" placeholder="Search" aria-label="Search">
-                            	<i class="form-control-icon" data-feather="search"></i>
-	                    	</div>
-                    	</form>
-                	</div>
             	</div>
             </div>
 
@@ -66,7 +57,7 @@
                 <!-- *************************************************************** -->
                 <div class="row">
                 	<!-- 공지사항 -->
-                    <div class="col-md-7 col-lg-9">
+                    <div class="col-md-7 col-lg-8">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-start">
@@ -89,14 +80,66 @@
                         </div>
                     </div>
                     <!-- 날짜 -->
-                    <div class="col-md-5 col-lg-3">
+                    <div class="col-md-5 col-lg-4">
                         <div class="card">
-                            <div class="card-body">
-                            	<div class="d-flex align-items-start">
-                                	<h5 class="card-title">날짜</h5>
+                            <div class="card-body" style="padding:0;">
+                            	<div class="text-center" style="margin-top:15%; margin-bottom:10%; color:#683FF7;">
+                            		<h2>${meeting.requiredAttendance} / ${  }</h2>
                                 </div>
-                                <div class="">
-                                	<p class="font-18 mb-3">5/20</p>
+                                <div class="text-center">
+                                		<!-- 월  -->
+                                		<c:if test="${ study.monday eq 0 }">
+	                              	  <span class="btn btn-light btn-sm mr-1" style="border-radius: 50%;">월</span>
+	                              	 </c:if>
+	                              	 <c:if test="${ study.monday eq 1 }">
+	                              	  <span class="btn btn-primary btn-sm mr-1" style="border-radius: 50%;">월</span>
+	                              	 </c:if>
+	                              	 <!-- 화 -->
+									<c:if test="${ study.tuesday eq 0 }">
+	                              	  <span class="btn btn-light btn-sm mr-1" style="border-radius: 50%;">화</span>
+	                              	 </c:if>
+	                              	 <c:if test="${ study.tuesday eq 1 }">
+	                              	  <span class="btn btn-primary btn-sm mr-1" style="border-radius: 50%;">화</span>
+	                              	 </c:if>
+	                              	 <!-- 수 -->
+									<c:if test="${ study.wednesday eq 0 }">
+	                              	  <span class="btn btn-light btn-sm mr-1" style="border-radius: 50%;">수</span>
+	                              	 </c:if>
+	                              	 <c:if test="${ study.wednesday eq 1 }">
+	                              	  <span class="btn btn-primary btn-sm mr-1" style="border-radius: 50%;">수</span>
+	                              	 </c:if>
+	                              	 <!-- 목 -->
+									<c:if test="${ study.thursday eq 0 }">
+	                              	  <span class="btn btn-light btn-sm mr-1" style="border-radius: 50%;">목</span>
+	                              	 </c:if>
+	                              	 <c:if test="${ study.thursday eq 1 }">
+	                              	  <span class="btn btn-primary btn-sm mr-1" style="border-radius: 50%;">목</span>
+	                              	 </c:if>
+	                              	 <!-- 금 -->
+									<c:if test="${ study.friday eq 0 }">
+	                              	  <span class="btn btn-light btn-sm mr-1" style="border-radius: 50%;">금</span>
+	                              	 </c:if>
+	                              	 <c:if test="${ study.friday eq 1 }">
+	                              	  <span class="btn btn-primary btn-sm mr-1" style="border-radius: 50%;">금</span>
+	                              	 </c:if>
+	                              	 <!-- 토 -->
+									<c:if test="${ study.saturday eq 0 }">
+	                              	  <span class="btn btn-light btn-sm mr-1" style="border-radius: 50%;">토</span>
+	                              	 </c:if>
+	                              	 <c:if test="${ study.saturday eq 1 }">
+	                              	  <span class="btn btn-primary btn-sm mr-1" style="border-radius: 50%;">토</span>
+	                              	 </c:if>
+	                              	 <!-- 일 -->
+									<c:if test="${ study.sunday eq 0 }">
+	                              	  <span class="btn btn-light btn-sm mr-1" style="border-radius: 50%;">일</span>
+	                              	 </c:if>
+	                              	 <c:if test="${ study.sunday eq 1 }">
+	                              	  <span class="btn btn-primary btn-sm mr-1" style="border-radius: 50%;">일</span>
+	                              	 </c:if>
+	                              	 
+                                </div>
+                                <div class="text-center" style="margin-top:5%;">
+                                		<p>${study.start } ~ ${study.end } </p>
                                 </div>
                             </div>
                         </div>

@@ -172,11 +172,12 @@ public class StudyController {
 	}
 	// 스터디 상세 페이지 get by Url
 	@RequestMapping(value="/study/{url}", method=RequestMethod.GET)
-	public String mainViewUrl(HttpServletRequest request, @ModelAttribute Notice notice, @PathVariable("url") String url) throws Exception {
+	public String mainViewUrl(HttpServletRequest request, @ModelAttribute Meeting meeting, @ModelAttribute Notice notice, @PathVariable("url") String url) throws Exception {
 		
 		Study study = sService.printOneByUrl(url);
 		Member member = (Member) request.getSession().getAttribute("loginUser");
 		notice.setStNo(study.getStudyNo());
+		meeting.setStudyNo(study.getStudyNo());
 		// 로그인여부 확인
 		if (member == null) {
 			return new RedirectWithMsg().redirect(request, "로그인이 필요합니다.", "/member/loginView");
@@ -191,6 +192,10 @@ public class StudyController {
 		}
 		// 최신 공지사항 출력 
 		ArrayList<Notice> recentNotice = nService.printRecentNotice(notice);
+		// 스터디 인원  수 출력 
+		// int requiredAttendance = mService.
+		// 날짜 출력 
+		ArrayList<Study> studyWeek = sService.printStudyWeek(study);
 		/*
 		 * 출석버튼 상태를 변경하기 위한 값
 		 * 0: 출석일이 아님
@@ -226,6 +231,7 @@ public class StudyController {
 		request.getSession().setAttribute("study", study);
 		request.setAttribute("attendanceStatus", attendanceStatus);
 		request.setAttribute("recentNotice", recentNotice);
+		request.setAttribute("studyWeek", studyWeek);
 		
 		return "study/study";
 	}

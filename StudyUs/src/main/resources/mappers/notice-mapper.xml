@@ -152,7 +152,7 @@
 		USING(MB_NO) 
 		WHERE N.NO_MOTHER_NO = #{noMotherNo} 
 		AND N.NO_STATUS = 1 
-		ORDER BY N.NO_NO ASC
+		ORDER BY N.NO_NO DESC
 	</select>
 	
 	<select id="selectOneReply">

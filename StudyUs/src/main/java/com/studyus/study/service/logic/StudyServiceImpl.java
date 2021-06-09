@@ -108,4 +108,9 @@ public class StudyServiceImpl implements StudyService {
 	public ArrayList<Study> getStudyListByMbNo(int leaderNo) {
 		return sStore.getStudyListByMbNo(leaderNo);
 	}
+
+	@Override
+	public ArrayList<Study> printStudyWeek(Study study) {
+		return sStore.selectStudyWeek(study);
+	}
 }

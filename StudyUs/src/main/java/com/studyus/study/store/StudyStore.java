@@ -31,4 +31,6 @@ public interface StudyStore {
 	
 	// 팀장 번호로 스터디 리스트 출력
 	public ArrayList<Study> getStudyListByMbNo(int leaderNo);
+	// 대시보드에 스터디 날짜 출력
+	public ArrayList<Study> selectStudyWeek(Study study);
 }

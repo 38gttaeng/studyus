@@ -114,14 +114,14 @@
 								</h6>
 								<hr>
 							</div>
-						<!-- 댓글 리스트 -->
-						<div id="rList"></div>
-						<!-- 페이징 -->
-						<nav id='rPage'></nav>
 							<div class="reply-enter">
 								<div id="editor"></div>
 								<button id="rSubmit" class="reply-enter-btn">등록</button>
 							</div>
+						<!-- 댓글 리스트 -->
+						<div id="rList"></div>
+						<!-- 페이징 -->
+						<nav id='rPage'></nav>
 						</div>
 					</div>
 				</div>

@@ -103,7 +103,7 @@
 			AND (NO_TITLE LIKE '%' || #{searchValue } || '%'
 			OR NO_CONTENTS LIKE '%' || #{searchValue } || '%')
 		</if>
-		ORDER BY NO_RNUM DESC
+		ORDER BY NO_RNUM DESC 
 	</select>
 
 	<insert id="insertNotice" parameterType="Notice">
@@ -152,7 +152,7 @@
 		USING(MB_NO) 
 		WHERE N.NO_MOTHER_NO = #{noMotherNo} 
 		AND N.NO_STATUS = 1 
-		ORDER BY N.NO_NO ASC
+		ORDER BY N.NO_NO DESC
 	</select>
 	
 	<select id="selectOneReply">
