@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.studyus.common.PageInfo;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.review.domain.Review;
@@ -76,9 +77,9 @@ public class MemberStoreLogic implements MemberStore {
 	}
 
 	@Override
-	public int deleteMember(String mbId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteMember(Member mOne) {
+		int result = sqlSession.update("memberMapper.updateStatus", mOne);
+		return result;
 	}
 
 	@Override
@@ -109,9 +110,13 @@ public class MemberStoreLogic implements MemberStore {
 	}
 
 	@Override
-	public ArrayList<Enrollment> myStudyList(int mbNo) {
-		// TODO Auto-generated method stub
+	public ArrayList<Enrollment> selectAllStudyByMbNo(PageInfo pi, int mbNo) {
 		return null;
+	}
+
+	@Override
+	public int selectStudyListCount(int mbNo) {
+		return sqlSession.selectOne("memberMapper.selectStudyListCount", mbNo);
 	}
 	
 	@Override
@@ -128,4 +133,5 @@ public class MemberStoreLogic implements MemberStore {
 	public ArrayList<Member> selectList() {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllList");
 	}
+
 }

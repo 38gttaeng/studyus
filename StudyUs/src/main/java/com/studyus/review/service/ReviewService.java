@@ -11,7 +11,8 @@ public interface ReviewService {
 	public int registerReview(Review review);
 	public int modifyReview(Review review);
 	public int removeReview(Review review);
-	public ArrayList<Review> printAllByMemberNo(int mbNo);
+	public ArrayList<Review> printAllByMemberNo(PageInfo pi, int mbNo);
 	public int getListCount(int caNo);
+	public int getMemListCount(int mbNo);
 	
 }

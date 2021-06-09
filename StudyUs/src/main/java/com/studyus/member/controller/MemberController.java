@@ -27,6 +27,8 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.studyus.common.PageInfo;
+import com.studyus.common.Pagination5;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.member.service.MemberService;
@@ -389,8 +391,18 @@ public class MemberController {
 	
 	// 마이페이지 뷰
 	@RequestMapping(value = "/member/myPage", method = RequestMethod.GET)
-	public String myPageView() {
+	public String myPageView(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		ArrayList<Study> enrolledStudyList = (ArrayList<Study>)session.getAttribute("enrolledStudyList");
+		
 		return "member/myPage";
+//		if(!myStudyList.isEmpty()) {
+//			
+//			return "";
+//		}else {
+//			
+//			return "";
+//		}
 	}
 	
 	// 회원정보 뷰
@@ -434,7 +446,9 @@ public class MemberController {
 	public String memberDelete(@RequestParam("mbId") String mbId, Model model,
 								HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
-		int result = service.removeMember(mbId);
+		int mbStatus = 0;
+		Member mOne = new Member(mbId, mbStatus);
+		int result = service.removeMember(mOne);
 		if(result > 0) {
 			HttpSession session = request.getSession();
 			session.invalidate();
@@ -456,17 +470,6 @@ public class MemberController {
 	@RequestMapping(value = "/member/purchaseView", method = RequestMethod.GET)
 	public String memPurchaseView() {
 		return "member/memberPurchase";
-	}
-	
-	// 내 스터디 정보
-	@ResponseBody
-	@RequestMapping(value = "/member/myStudy", method = RequestMethod.GET)
-	public String myStudyList(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		Member member = (Member)session.getAttribute("loginUser");
-		ArrayList<Enrollment> myStudy = service.myStudyList(member.getMbNo());
-		session.setAttribute("myStudy", myStudy);
-		return null;
 	}
 	
 //	@RequestMapping(value="/study/38gttaeng/member")

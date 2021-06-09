@@ -100,8 +100,13 @@ public class ReviewController {
 	// 후기모음
 	@RequestMapping(value = "/member/myReview", method = RequestMethod.GET)
 	public void myReviewList(@RequestParam("mbNo") int mbNo,
+							@RequestParam(value="page", required=false) Integer page,
 							HttpServletResponse response) throws JsonIOException, IOException {
-		ArrayList<Review> rList = rService.printAllByMemberNo(mbNo);
+		int listCount = rService.getMemListCount(mbNo);
+		int currentPage = (page != null) ? page : 1;
+		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Review> rList = rService.printAllByMemberNo(pi, mbNo);
 		System.out.println(rList);
 		if(!rList.isEmpty()) {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create(); // 날짜 포맷 변경!

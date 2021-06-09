@@ -38,7 +38,20 @@
 		<div class="box-zone">
 			<div class="my-study">
 				<div class="menu-mark"><span>나의 스터디</span></div>
-				
+				<div class="study-zone">
+					<c:if test="${!empty enrolledStudyList}">
+						<c:forEach var="study" items="${enrolledStudyList}" varStatus="i">
+							<div class="study-box" onclick="location.href='/study/${study.url}'">
+								<div class="txt-box">
+									<span class="study-name">${study.studyName}</span>
+									<span class="label">출석률</span><span class="value">00%</span>
+									<span class="label">과제완료율</span><span class="value ">00%</span>
+									<span class="label">남은 과제</span><span class="value">0개</span>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+				</div>
 			</div>
 			
 			<div class="my-calender">

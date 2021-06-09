@@ -16,11 +16,17 @@ public class Member {
 	private String authKey;
 	
 	public Member() {}
-
+	
 	public Member(String mbId, String mbPassword) {
 		super();
 		this.mbId = mbId;
 		this.mbPassword = mbPassword;
+	}
+	
+	public Member(String mbId, int mbStatus) {
+		super();
+		this.mbId = mbId;
+		this.mbStatus = mbStatus;
 	}
 
 	public Member(String mbId, String mbName, String mbEmail) {
