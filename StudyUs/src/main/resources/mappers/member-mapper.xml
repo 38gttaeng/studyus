@@ -75,7 +75,6 @@
 		SELECT 
 			ROW_NUMBER() OVER(ORDER BY M.MB_NO) AS RNUM,
 			E.EN_NO, 
-			S.*, 
 			M.MB_NO, 
 			M.MB_NICKNAME, 
 			M.MB_EMAIL 

@@ -4,10 +4,22 @@
 
 	<resultMap type="Attendance" id="attendanceResultMap">
 		<id property="attendanceNo" column="AT_NO"></id>
+		<result property="rNum" column="RNUM"></result>
 		<result property="memberNo" column="MB_NO"></result>
 		<result property="studyNo" column="ST_NO"></result>
 		<result property="meetingNo" column="ME_NO"></result>
+		<result property="atInsertDate" column="AT_INSERTDATE"></result>
 	</resultMap>
+	
+<!-- 	<select id="printAllAtt" parameterType="_int" resultType="attendanceResultMap">
+		SELECT ROW_NUMBER() OVER(ORDER BY A.AT_INSERTDATE DESC) AS RNUM,
+		A.AT_NO, A.MB_NO, ST_NO, M.MB_NICKNAME, 
+		A.AT_INSERTDATE, A.ME_NO, T.ME_REQUIRED_ATTENDANCE 
+		FROM ATTENDANCE A
+		JOIN MEETING T USING (ST_NO)
+		JOIN MEMBER M ON A.MB_NO = M.MB_NO
+		WHERE ST_NO = #{studyNo}
+	</select> -->
 	
 	<insert id="insertAttendance" parameterType="Attendance">
 		INSERT INTO ATTENDANCE VALUES (SEQ_ATTENDANCE.NEXTVAL,

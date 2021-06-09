@@ -27,7 +27,7 @@
 		<typeAlias type="com.studyus.reservation.domain.Reservation" alias="Reservation" />
 	</typeAliases>
 	
-	<mappers>
+	<mappers> 
 		<mapper resource="mappers/study-mapper.xml" />
 		<mapper resource="mappers/attendance-mapper.xml" />
 		<mapper resource="mappers/meeting-mapper.xml" />

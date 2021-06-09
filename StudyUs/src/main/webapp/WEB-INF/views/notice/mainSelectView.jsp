@@ -168,7 +168,7 @@
 						<nav aria-label="Page navigation example">
 							<c:if test="${ search.searchValue eq null}">
 								<ul class="pagination" style="justify-content: center;">
-									<c:url var="before" value="/notice/noticeList">
+									<c:url var="before" value="/notice/mainSelectView">
 										<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 									</c:url>
 									<li class="page-item disabled">
@@ -189,7 +189,7 @@
 									</li>
 
 									<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-										<c:url var="pagination" value="/notice/noticeList">
+										<c:url var="pagination" value="/notice/mainSelectView">
 											<c:param name="page" value="${p }"></c:param>
 										</c:url>
 										<li class="page-item active">
@@ -204,7 +204,7 @@
 										</li>
 									</c:forEach>
 
-									<c:url var="after" value="/notice/noticeList">
+									<c:url var="after" value="/notice/mainSelectView">
 										<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 									</c:url>
 									<li class="page-item disabled">
@@ -217,65 +217,6 @@
 									</li>
 									<li class="page-item">
 									<c:if test="${pi.currentPage < pi.maxPage }">
-											<a href="${after }" class="page-link" aria-label="Next">
-												<span aria-hidden="true">>></span> 
-												<span class="sr-only">Next</span>
-											</a>
-										</c:if>
-									</li>
-								</ul>
-							</c:if>
-							<c:if test="${search.searchValue ne null }">
-								<ul class="pagination">
-									<c:url var="before" value="/notice/noticeSearch">
-										<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
-									</c:url>
-									<li class="page-item disabled">
-										<c:if test="${pi.currentPage <= 1 }">
-											<a href="#" class="page-link" aria-label="Previous"> 
-												<span aria-hidden="true"><<</span> 
-												<span class="sr-only">Previous</span>
-											</a>
-										</c:if>
-									</li>
-									<li class="page-item">
-										<c:if test="${pi.currentPage > 1 }">
-											<a href="${before }" class="page-link" aria-label="Previous">
-												<span aria-hidden="true"><<</span> 
-												<span class="sr-only">Previous</span>
-											</a>
-										</c:if>
-									</li>
-
-									<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-										<c:url var="pagination" value="/notice/noticeSearch">
-											<c:param name="page" value="${p }"></c:param>
-										</c:url>
-										<li class="page-item active">
-											<c:if test="${p eq pi.currentPage }">
-												<a href="${pagination }" class="page-link" id="currentPage">${p }</a>
-											</c:if>
-										</li>
-										<li class="page-item">
-											<c:if test="${p ne pi.currentPage }">
-												<a href="${pagination }" class="page-link">${p }</a>
-											</c:if>
-										</li>
-									</c:forEach>
-
-									<c:url var="after" value="/notice/noticeSearch">
-										<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
-									</c:url>
-									<li class="page-item disabled">
-										<c:if test="${pi.currentPage >= pi.maxPage }">
-											<a href="#" class="page-link" aria-label="Next"> 
-												<span aria-hidden="true">>></span> 
-												<span class="sr-only">Next</span>
-											</a>
-										</c:if>
-									</li>
-									<li class="page-item">
-										<c:if test="${pi.currentPage < pi.maxPage }">
 											<a href="${after }" class="page-link" aria-label="Next">
 												<span aria-hidden="true">>></span> 
 												<span class="sr-only">Next</span>

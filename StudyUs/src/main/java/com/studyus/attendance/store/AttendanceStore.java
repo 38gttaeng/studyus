@@ -1,11 +1,12 @@
 package com.studyus.attendance.store;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.studyus.attendance.domain.Attendance; 
 
 public interface AttendanceStore {
-	public ArrayList<Attendance> printAll();
+	public ArrayList<HashMap<String, Object>> printAll(int studyNo);
 	public int insertAttendance(Attendance attendance);
 	public int addPoint(Attendance attendance);
 	public int attRate(Attendance attendance);

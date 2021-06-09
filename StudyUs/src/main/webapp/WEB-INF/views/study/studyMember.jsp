@@ -104,15 +104,15 @@
 									<td>32%</td>
 									<td>99%</td>
 									<td> 
+										<c:if test="${member.mbNo eq study.leaderNo }">
+											
+										</c:if>
 										<c:if test="${ member.mbNo ne study.leaderNo }">
 											<form action="/member/banish" method="get">
 												<input type="submit" class="btn waves-effect waves-light btn-danger btn-sm" value="추방">
 												<input type="hidden" name="mbNo" value="${ member.mbNo }"> 
 												<input type="hidden" name="studyNo" value="${ study.studyNo }"> 
 											</form>
-										</c:if>
-										<c:if test="${member.mbNo eq study.leaderNo }">
-											
 										</c:if>
 									</td>
 								</tr>
