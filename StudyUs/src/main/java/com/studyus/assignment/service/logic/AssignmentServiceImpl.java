@@ -128,6 +128,34 @@ public class AssignmentServiceImpl implements AssignmentService {
 		return asStore.selectAllByMbNo(mbNo);
 	}
 	
+	public ArrayList<AssignmentGroup> printGroupChart(int stNo) {
+		
+		// 스터디에 해당하는 그룹별 과제 개수 가져오기
+			// grStatus를 과제 개수 담는 변수로 사용
+		ArrayList<AssignmentGroup> grList = asStore.selectGroupChart(stNo);
+		
+		// 그룹별로 그룹이름과 색상 넣어주기
+		for(AssignmentGroup gOne : grList) {
+			AssignmentGroup group = asStore.selectOneGroup(gOne.getGrNo());
+			gOne.setGrName(group.getGrName());
+			
+			String grColor = "";
+			switch(group.getGrColor()) {
+			case 1: grColor = "rgb(196, 178, 234)";
+				break;
+			case 2: grColor = "rgb(165, 228, 216)";
+				break;
+			case 3: grColor = "rgb(243, 211, 244)";
+				break;
+			case 4: grColor = "rgb(188, 209, 241)";
+				break;
+			}
+			gOne.setGrInfo(grColor); // grInfo를 color 정보 담는 변수로 사용
+		}
+		
+		return grList;
+	}
+	
 	/////////////////////////////////////////////////////////////////////////////////
 
 	@Override

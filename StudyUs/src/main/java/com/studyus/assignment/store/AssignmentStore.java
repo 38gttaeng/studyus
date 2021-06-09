@@ -100,6 +100,13 @@ public interface AssignmentStore {
 	public ArrayList<Assignment> selectAllByMbNo(int mbNo);
 	
 	/**
+	 * 스터디룸 메인페이지 과제 차트
+	 * @param stNo
+	 * @return
+	 */
+	public ArrayList<AssignmentGroup> selectGroupChart(int stNo);
+	
+	/**
 	 * 과제율(전체 - 스터디 가입 신청 / 마이페이지)
 	 * @param mbNo
 	 * @return

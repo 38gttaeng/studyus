@@ -153,6 +153,18 @@
 	</update>
 	
 	
+	<!-- 메인페이지 프로젝트별 과제 개수 산정 (과제수 카운트 - GR_STATUS로 가져오기) -->
+	<select id="selectGroupChart" parameterType="_int" resultMap="asGroupResultMap">
+		SELECT A.GR_NO, COUNT(*) AS GR_STATUS
+		FROM ASSIGNMENT_GROUP G
+		LEFT OUTER JOIN ASSIGNMENT A ON G.GR_NO = A.GR_NO
+		WHERE A.AS_STATUS = 1
+		AND G.ST_NO = #{stNo}
+		GROUP BY A.GR_NO
+		ORDER BY A.GR_NO DESC
+	</select>
+	
+	
 	<!-- 마이페이지 내 과제 보기 -->
 	<select id="selectAllByMbNo" parameterType="_int" resultMap="assignmentResultMap">
 		SELECT

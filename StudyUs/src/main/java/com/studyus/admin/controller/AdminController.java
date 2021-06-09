@@ -149,4 +149,12 @@ public class AdminController {
 		ArrayList<Purchase> pList = pService.printAll(pi, purchase);
 		return mv;
 	}
+	
+	/*********** 예약 관리 ************/
+	
+	// 예약 목록 화면
+	@RequestMapping(value="/admin/reservation", method=RequestMethod.GET)
+	public String reservationListView() {
+		return "admin/reservationAdmin";
+	}
 }
