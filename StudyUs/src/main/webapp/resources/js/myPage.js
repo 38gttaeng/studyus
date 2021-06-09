@@ -121,7 +121,8 @@ $(window).on('load', function() {
 	});
 });
 
-var mbNo = $("#mbNo").val();
+$(document).ready(function getReviewList(){
+	var mbNo = $("#mbNo").val();
 	$.ajax({
 		url : "/member/myReview",
 		type : "get",
@@ -180,7 +181,13 @@ var mbNo = $("#mbNo").val();
 			}
 		},
 		error : function() {
-			console.log("전송 실패");
+			console.log("전송 실패"); 
 		}
-		
 	});
+});
+
+$(".review-box").scroll(function () {
+	if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+		getReviewList();
+	}
+});

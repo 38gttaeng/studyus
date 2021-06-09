@@ -3,6 +3,7 @@ package com.studyus.member.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.studyus.common.PageInfo;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
 import com.studyus.review.domain.Review;
@@ -29,9 +30,9 @@ public interface MemberService {
 	
 	public int modifyMember(Member member);
 	
-	public int removeMember(String mbId);
+	public int removeMember(Member mOne);
 	
-	public int checkIdDup(String mbId);
+	public int checkIdDup(String mbId); 
 	
 	public int checkNickDup(String mbNickname);
 	
@@ -41,7 +42,9 @@ public interface MemberService {
 	
 	public Member findMemPw(Member member);
 	
-	public ArrayList<Enrollment> myStudyList(int mbNo);
+	public int getStudyListCount(int mbNo);
+	
+	public ArrayList<Enrollment> printAllStudyByMbNo(PageInfo pi, int mbNo);
 	
 	/**
 	 * 해당 번호의 스터디에 가입한 모든 회원을 출력합니다.
@@ -53,4 +56,6 @@ public interface MemberService {
 	public ArrayList<Member> printAllAssign(int grNo);
 	
 	public ArrayList<Member> printAll();
+
+	
 }

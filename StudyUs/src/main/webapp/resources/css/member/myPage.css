@@ -90,10 +90,71 @@ a:hover, a:focus {
 
 .my-study {
 	width: 800px;
-	height: 300px;
+	height: 320px; 
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 40px;
+}
+
+.study-zone {
+	width: 800px;
+	height: 260px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	overflow: scroll;
+}
+
+.study-zone::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+}
+.study-zone::-webkit-scrollbar-thumb {
+	border-radius: 3.5px;
+  	background-color: #ced4da;
+	&:hover {
+    	background-color: #adb5bd;
+	}
+}
+.study-zone::-webkit-scrollbar-track {
+	background: #ffffff;
+}
+
+.study-box {
+	width: 792px;
+	height: 60px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	border: 1px solid #cccccc;
+}
+
+.txt-box {
+	width: 650px;
+	height: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15px;
+}
+
+.study-name {
+	width: 100px;
+	height: 20px;
+	margin-right: 120px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.label {
+	margin-right: 15px;
+	font-size: 14px;
+}
+
+.value {
+	margin-right: 30px;
+	font-weight: bold;
+	font-size: 14px;
 }
 
 .my-calender {
@@ -130,4 +191,20 @@ a:hover, a:focus {
 	border-radius: 5px;
 	overflow: scroll;
 }
+.review-box::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+}
+.review-box::-webkit-scrollbar-thumb {
+	border-radius: 3.5px;
+  	background-color: #ced4da;
+	&:hover {
+    	background-color: #adb5bd;
+	}
+}
+.review-box::-webkit-scrollbar-track {
+	background: #ffffff;
+}
+
 

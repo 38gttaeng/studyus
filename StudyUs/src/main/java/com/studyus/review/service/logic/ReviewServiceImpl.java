@@ -36,14 +36,19 @@ public class ReviewServiceImpl implements ReviewService {
 		return rStore.deleteReview(review);
 	}
 
-	@Override
-	public ArrayList<Review> printAllByMemberNo(int mbNo) {
-		return rStore.selectAllByMemberNo(mbNo);
+	@Override 
+	public ArrayList<Review> printAllByMemberNo(PageInfo pi, int mbNo) {
+		return rStore.selectAllByMemberNo(pi, mbNo);
 	}
 
 	@Override
 	public int getListCount(int caNo) {
 		return 0;
+	}
+
+	@Override
+	public int getMemListCount(int mbNo) {
+		return rStore.selectMemListCount(mbNo);
 	}
 	
 }

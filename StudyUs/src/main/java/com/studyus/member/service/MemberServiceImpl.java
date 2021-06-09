@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.studyus.common.PageInfo;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.MailUtils;
 import com.studyus.member.domain.Member;
@@ -117,8 +118,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int removeMember(String mbId) {
-		int result = store.deleteMember(mbId);
+	public int removeMember(Member mOne) {
+		int result = store.deleteMember(mOne);
 		return result;
 	}
 
@@ -200,11 +201,15 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return mOne;
 	}
+	
+	@Override
+	public int getStudyListCount(int mbNo) {
+		return store.selectStudyListCount(mbNo);
+	}
 
 	@Override
-	public ArrayList<Enrollment> myStudyList(int mbNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Enrollment> printAllStudyByMbNo(PageInfo pi, int mbNo) {
+		return store.selectAllStudyByMbNo(pi, mbNo); 
 	}
 
 	@Override
@@ -223,3 +228,4 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 }
+
