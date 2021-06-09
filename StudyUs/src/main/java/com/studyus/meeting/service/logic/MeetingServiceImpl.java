@@ -24,5 +24,4 @@ public class MeetingServiceImpl implements MeetingService {
 	public Meeting printCurrentOneByStudyNo(int studyNo) throws Exception {
 		return store.selectCurrentOneByStudyNo(studyNo);
 	}
-
 }

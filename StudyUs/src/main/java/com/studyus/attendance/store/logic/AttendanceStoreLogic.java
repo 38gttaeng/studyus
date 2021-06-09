@@ -1,7 +1,10 @@
 package com.studyus.attendance.store.logic;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,27 @@ public class AttendanceStoreLogic implements AttendanceStore{
 	@Override
 	public boolean checkTodayAttendedAlready(Attendance attendance) {
 		return 0 != (Integer)sqlSession.selectOne("attendanceMapper.checkTodayAttendedAlready", attendance);
+	}
+	
+	@Override
+	public boolean checkAttendanceToday (int studyNo, int memberNo) {
+		Attendance attendance = new Attendance();
+		attendance.setStudyNo(studyNo);
+		attendance.setMemberNo(memberNo);
+		return 0 != (Integer)sqlSession.selectOne("attendanceMapper.checkAttendanceToday", attendance);
+	}
+	
+	@Override
+	public boolean checkAttendanceTime (int studyNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+		Date now = new Date(System.currentTimeMillis());
+		
+		map.put("now", format.format(now));
+		map.put("studyNo", studyNo);
+		
+		return 0 != (Integer)sqlSession.selectOne("attendanceMapper.checkAttendanceTime", map);
 	}
 
 }
