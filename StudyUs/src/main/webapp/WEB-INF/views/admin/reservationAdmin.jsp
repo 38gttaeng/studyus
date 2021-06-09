@@ -73,26 +73,13 @@
                                      <div class="card-body">
                                          <div class="row">
                                              <div class="col-md-12">
-                                                	<table id="calendar-events">
-                                                		<tr class="calendar-events cEvents0">
-                                                			<td>전체보기</td>
-                                                			<td>
-                                                		</tr>
-                                                		<tr class="calendar-events cEvents1">
-                                                			<td>과제 기한</td>
-                                                		</tr>
-                                                		<tr class="calendar-events cEvents2">
-                                                			<td>모임 일정</td>
-                                                		</tr>
-                                                		<tr>
-                                                			<td>
-                                                				<div id="checkHide" class="custom-control custom-checkbox">
-	                                                				<input type="checkbox" class="custom-control-input" id="drop-remove">
-	                                                				<label class="custom-control-label" for="drop-remove">취소된 예약 숨기기</label>
-                                                				</div>
-                                                			</td>
-                                                		</tr>
-                                                	</table>
+                                             	<input type="hidden" name="cafe" value="${ caList }">
+                                             	<c:forEach items="${ caList }" var="cafe" varStatus="i">
+	                                   				<div class="custom-control custom-checkbox">
+	                                    				<input type="checkbox" class="custom-control-input cafe-name" id="${ cafe.caNo }" value="${ i.index }">
+	                                    				<label class="custom-control-label" for="${ cafe.caNo }">${ cafe.caName }</label>
+	                                   				</div>
+                                             	</c:forEach>
                                              </div>
                                          </div>
 	                             	</div>

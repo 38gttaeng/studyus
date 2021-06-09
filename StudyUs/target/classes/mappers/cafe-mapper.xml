@@ -17,6 +17,7 @@
 
 	<select id="selectAllList" resultMap="cafeResultMap">
 		SELECT * FROM CAFE
+		ORDER BY CA_NO
 	</select>
 
 	<select id="selectOne" resultMap="cafeResultMap">

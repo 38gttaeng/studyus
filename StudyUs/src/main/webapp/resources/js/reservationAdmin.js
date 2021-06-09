@@ -1,6 +1,24 @@
 $(function() {
-	/* 룸리스트 가져오기 */
 	
+	/* 전체 리스트 가져오기 */
+	var eventsList = getList();
+	function getList() {
+		var result = "";
+		$.ajax({
+		    method: 'get',
+		    url: '/admin/reservation-list',
+			dataType : "json",
+			async: false,  // ajax가 서버에서 응답을 기다렸다가 응답한 후 실행하도록
+		    success: function (list) {
+				result = list;
+				console.log(list);
+			},
+			error : function(){
+		    	console.log("데이터 업뜸");
+		    }
+		});
+		return result;
+	}
 	
 	/* 구글 캘린더 : 한국 공휴일 */
 	var google = 
@@ -36,7 +54,7 @@ $(function() {
 		// 이벤트 클릭시
 		
 			// modal 창 안에 데이터 넣기
-			$("#infoLabel").text(event.category);					
+			/*$("#infoLabel").text(event.category);					
 			
 			$("#name").val(event.title);
 			
@@ -58,7 +76,7 @@ $(function() {
 			$("#modal-header").removeClass();
 			$("#modal-header").addClass("modal-header");
 			$("#modal-header").addClass(event.className);
-			$("#info").modal("show");
+			$("#info").modal("show");*/
 		}
 	});
 	
@@ -89,6 +107,36 @@ $(function() {
 		
 		$("#calendar").fullCalendar('addEventSource', google);
 	});
+	
+	/* 카페별로 구분해서 보기 */
+	$(".cafe-name").on("change", function() {
+	
+		// 기존 데이터 모두 삭제
+		$('#calendar').fullCalendar('removeEvents');
+		
+		// 현재 선택된 소스 가져오기 
+	    var sources = getEventSources();
+	    
+	    // 현재 선택된 소스 추가하기
+	    sources.forEach(eventSource => {
+			$("#calendar").fullCalendar('addEventSource', eventSource);
+	    });
+	});
+	
+	function getEventSources() {
+    	var sources = [];
+    	$(".cafe-name:checked").each(function() {
+			/*sources.push({
+				category : eventsList[$(this).val() - 1]
+				className: $(this).data("color"),
+				events: eventsList[$(this).val() - 1]
+			});*/
+			console.log(eventsList[$(this).val()]);
+			console.log($(this).val());
+     		 //console.log(sources);
+    	});
+    	return sources;
+	}
 	
 	// 왼쪽 차트
 	new Chart(document.getElementById("week-chart"), {

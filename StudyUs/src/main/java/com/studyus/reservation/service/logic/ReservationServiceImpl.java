@@ -22,8 +22,8 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public ArrayList<Reservation> printAll() {
-		return rsStore.selectAll();
+	public ArrayList<Reservation> printAll(int caNo) {
+		return rsStore.selectAll(caNo);
 	}
 
 	@Override

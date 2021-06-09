@@ -23,8 +23,8 @@ public class ReservationStoreLogic implements ReservationStore {
 	}
 
 	@Override
-	public ArrayList<Reservation> selectAll() {
-		return (ArrayList)sqlSession.selectList("reservationMapper.selectAll");
+	public ArrayList<Reservation> selectAll(int caNo) {
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectAll", caNo);
 	}
 
 	@Override
