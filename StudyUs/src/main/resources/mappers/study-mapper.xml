@@ -80,6 +80,11 @@
 		WHERE MB_NO = #{leaderNo}  AND ST_MAX_PERSONNEL = 5
 	</select>
 	
+	<!-- 대시보드 스터디 날짜 출력  -->
+	<select id="printStudyWeek" resultMap="studyResultMap">
+		SELECT * FROM STUDY WHERE ST_NO = #{studyNo}
+	</select>
+	
 	<!-- 예약페이지에서 가입한 스터디 모두 출력 -->
 	<select id="printAllStudy" resultMap="studyResultMap">
 		SELECT MB_NO, ST_NO, ST_NAME FROM STUDY 

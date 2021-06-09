@@ -96,5 +96,10 @@ public class StudyStoreLogic implements StudyStore {
 		return (ArrayList)sqlSession.selectList("studyMapper.printAllStudy", leaderNo);
 	}
 
+	@Override
+	public ArrayList<Study> selectStudyWeek(Study study) {
+		return (ArrayList)sqlSession.selectList("studyMapper.printStudyWeek", study);
+	}
+
 
 }
