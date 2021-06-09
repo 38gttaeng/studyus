@@ -74,11 +74,11 @@
 	<select id="selectAllEnrolled" parameterType="int" resultMap="memberResultMap">
 		SELECT 
 			ROW_NUMBER() OVER(ORDER BY M.MB_NO) AS RNUM,
-			E.EN_NO, 
+			E.EN_NO,
 			M.MB_NO, 
 			M.MB_NICKNAME, 
 			M.MB_EMAIL 
-		FROM STUDY S 
+		FROM STUDY S
 			LEFT OUTER JOIN ENROLLMENT E 
 				ON E.ST_NO = S.ST_NO
 			LEFT OUTER JOIN MEMBER M 

@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>StudyUs : 공지사항</title>
+<title>StudyUs : 회원 목록</title>
 <!-- 타이틀을 개별 스터디룸 이름으로 해줘도 좋을듯 ! 'StudyUs : 삼팔광땡' 이러케 -->
 <style>
 	.noTitle {
@@ -53,21 +53,6 @@
 							</nav>
 						</div>
 					</div>
-					<%-- <div class="col-lg-8 align-self-center">
-						<form action="/notice/noticeSearch" method="get" id="searchForm">
-							<div class="customize-input float-right">
-								<input class="form-control custom-shadow custom-radius border-0 bg-white" type="text" placeholder="Search" aria-label="Search" name="searchValue" value="${search.searchValue }"> 
-								<i class="form-control-icon" data-feather="search" id="searchIcon"></i>
-							</div>
-							<div class="customize-input float-right" style="margin-right: 10px;">
-								<select class="custom-select bg-white custom-radius border-0 custom-shadow" name="searchCondition">
-									<option value="all" <c:if test="${search.searchCondition == 'all' }">selected</c:if>>제목+내용</option>
-									<option value="title" <c:if test="${search.searchCondition == 'title' }">selected</c:if>>제목</option>
-									<option value="content" <c:if test="${search.searchCondition == 'content' }">selected</c:if>>내용</option>
-								</select>
-							</div>
-						</form>
-					</div> --%>
 				</div>
 			</div>
 
@@ -101,17 +86,16 @@
 									<th scope="row">${member.rnum } </th>
 									<td class="">${ member.mbNickname }</td>
 									<td>${ member.mbEmail }</td>
-									<td>32%</td>
+									<td> </td>
 									<td>99%</td>
 									<td> 
 										<c:if test="${member.mbNo eq study.leaderNo }">
 											
 										</c:if>
 										<c:if test="${ member.mbNo ne study.leaderNo }">
-											<form action="/member/banish" method="get">
+											<form action="/study/banish" method="get">
 												<input type="submit" class="btn waves-effect waves-light btn-danger btn-sm" value="추방">
-												<input type="hidden" name="mbNo" value="${ member.mbNo }"> 
-												<input type="hidden" name="studyNo" value="${ study.studyNo }"> 
+												<input type="hidden" name="memberNo" value="${ member.mbNo }">
 											</form> 
 										</c:if>
 									</td>
@@ -128,16 +112,6 @@
 	<script>
 		$("#sidebarnav>li:nth-child(12)").addClass("selected");
 		$("#sidebarnav>li:nth-child(12) a").addClass("active");
-		
-		$('#currentPage').click(function() { // 현재페이지를 클릭했을때 클릭 안되게 
-			return false;
-		});
-		
-		$(document).ready(function(){
-			$("#searchIcon").on("click", function(){
-				$("#searchForm").submit();
-			});
-		});	
 	</script>
 </body>
 </html>

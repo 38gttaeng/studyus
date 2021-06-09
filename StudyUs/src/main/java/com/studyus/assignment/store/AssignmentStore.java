@@ -1,6 +1,7 @@
 package com.studyus.assignment.store;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.studyus.assignment.domain.Assign;
 import com.studyus.assignment.domain.Assignment;
@@ -111,7 +112,7 @@ public interface AssignmentStore {
 	 * @param assignment(stNo, mbNo)
 	 * @return
 	 */
-	public int selectAssignmentStNo(Assignment assignment);
+	public int selectAssignmentStNo(HashMap<String, Integer> map);
 	
 	/**
 	 * 한달 총 과제 제출 개수
@@ -123,6 +124,6 @@ public interface AssignmentStore {
 	 * 한달 총 과제 제출 개수(스터디 내부)
 	 * @param sAssignment(stNo, mbNo)
 	 */
-	public int mySubmittedAssignmentByStNo(Assignment assignment);
+	public int mySubmittedAssignmentByStNo(HashMap<String, Integer> map);
 	
 }

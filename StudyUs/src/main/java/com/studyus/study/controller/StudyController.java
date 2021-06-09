@@ -174,6 +174,7 @@ public class StudyController {
 	public String mainViewUrl(HttpServletRequest request, @ModelAttribute Notice notice, @PathVariable("url") String url) throws Exception {
 		
 		Study study = sService.printOneByUrl(url);
+		System.out.println(study.toString());
 		Member member = (Member) request.getSession().getAttribute("loginUser");
 		notice.setStNo(study.getStudyNo());
 		// 로그인여부 확인
@@ -199,8 +200,8 @@ public class StudyController {
 		int attendanceStatus = 0;
 		
 		// 오늘이 출석일인지 확인
-		Meeting currentMeeting = mService.printCurrentOneByStudyNo(study.getStudyNo());
-		
+		 // Meeting currentMeeting = mService.printCurrentOneByStudyNo(study.getStudyNo());
+		// @@@@@@@@@@@@@@@@@@@@@@@@ 요기 요기 
 		// 오늘이 출석일일 경우 이미 출석체크 하였는지 확인.
 		if (currentMeeting != null) {
 			Attendance attendance = new Attendance();

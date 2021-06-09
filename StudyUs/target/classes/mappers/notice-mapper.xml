@@ -103,7 +103,7 @@
 			AND (NO_TITLE LIKE '%' || #{searchValue } || '%'
 			OR NO_CONTENTS LIKE '%' || #{searchValue } || '%')
 		</if>
-		ORDER BY NO_RNUM DESC
+		ORDER BY NO_RNUM DESC 
 	</select>
 
 	<insert id="insertNotice" parameterType="Notice">

@@ -56,6 +56,5 @@ public interface MemberService {
 	public ArrayList<Member> printAllAssign(int grNo);
 	
 	public ArrayList<Member> printAll();
-
 	
 }

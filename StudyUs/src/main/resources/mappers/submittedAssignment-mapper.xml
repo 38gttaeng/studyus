@@ -127,7 +127,7 @@
 		AND SU_STATUS = 1
 	</select>
 	
-	<select id="selectCountByStNo" parameterType="SubmittedAssignment" resultType="_int">
+	<select id="selectCountByStNo" parameterType="Map" resultType="_int">
 		SELECT
 		   COUNT(*)
 		FROM SUBMITTED_ASSIGNMENT S

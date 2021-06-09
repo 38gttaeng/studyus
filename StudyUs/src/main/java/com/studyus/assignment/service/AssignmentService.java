@@ -1,6 +1,7 @@
 package com.studyus.assignment.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.studyus.assignment.domain.Assign;
 import com.studyus.assignment.domain.Assignment;
@@ -109,6 +110,6 @@ public interface AssignmentService {
 	 * @param assignment(stNo, mbNo)
 	 * @return
 	 */
-	public int printAssignmentRate(Assignment assignment);
+	public int printAssignmentRate(HashMap<String, Integer> map);
 
 }
