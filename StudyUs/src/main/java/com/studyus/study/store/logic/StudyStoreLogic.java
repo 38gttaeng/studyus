@@ -42,9 +42,8 @@ public class StudyStoreLogic implements StudyStore {
 	}
 
 	@Override
-	public ArrayList<Study> selectAll(StudySearchCriteria pi) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Study> selectAll() {
+		return (ArrayList)sqlSession.selectList("studyMapper.selectAllList");
 	}
 
 	@Override

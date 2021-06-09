@@ -17,7 +17,7 @@ public interface StudyStore {
 	public int insertStudy(Study study) throws Exception;
 	public int checkUrl(String url);
 	public ArrayList<StudySearchResult> selectAllBySearch(StudySearchCriteria sc) throws Exception;
-	public ArrayList<Study> selectAll(StudySearchCriteria pi);
+	public ArrayList<Study> selectAll();
 	public ArrayList<Study> selectAllByStudyName(String studyName, StudySearchCriteria pi);
 	public Study selectOneByNo(int studyNo);
 	public ArrayList<Study> selectAllEnrolledByMemberNo(int memberNo);

@@ -39,7 +39,7 @@
 		JOIN MEMBER M USING(MB_NO)
 		WHERE MB_NO = #{mbNo} AND R.RV_STATUS = 1
 		ORDER BY R.RV_NO DESC
-	</select>
+	</select> 
 	
 	<select id="selectMemListCount" resultType="_int">
 		SELECT COUNT(*) FROM REVIEW WHERE MB_NO = #{mbNo} AND RV_STATUS = 1

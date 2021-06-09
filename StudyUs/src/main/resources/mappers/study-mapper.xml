@@ -131,4 +131,8 @@
 		WHERE ST_NO =  #{studyNo}
 	</update>
 	
+	<select id="selectAllList" resultMap="studyResultMap">
+		SELECT * FROM STUDY
+	</select>
+	
 </mapper>

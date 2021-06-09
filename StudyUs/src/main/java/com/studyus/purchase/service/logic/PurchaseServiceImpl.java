@@ -44,7 +44,7 @@ public class PurchaseServiceImpl implements PurchaseService{
 	}
 
 	@Override
-	public ArrayList<Purchase> printAll(PageInfo pi, Purchase purchase) {
-		return pStore.selectAll(pi, purchase);
+	public ArrayList<Purchase> printAll() {
+		return pStore.selectAll();
 	}
 }
