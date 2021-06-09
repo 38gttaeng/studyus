@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,7 @@ import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.file.controller.FileController;
 import com.studyus.meeting.domain.Meeting;
 import com.studyus.meeting.service.MeetingService;
+import com.studyus.meeting.service.logic.MeetingServiceImpl;
 import com.studyus.meeting.utils.MeetingUtils;
 import com.studyus.member.domain.Member;
 import com.studyus.notice.domain.Notice;
@@ -43,16 +46,7 @@ import com.studyus.study.util.StudyUtil;
 @Controller
 public class StudyController {
 	
-	// 스터디 생성 페이지 get
-	// 스터디 생성 post
-	// 스터디 검색 페이지 get
-	// 스터디 검색 결과페이지 get
-	// 스터디 상세 페이지 get
-	// 스터디 수정 페이지 get
-	// 스터디 수정 post
-	// 스터디 삭제 post
-	
-	///////////////////////////////////////////
+	private static final Logger logger = LoggerFactory.getLogger(MeetingServiceImpl.class);
 	
 	@Autowired
 	StudyService sService;
@@ -193,36 +187,41 @@ public class StudyController {
 		ArrayList<Notice> recentNotice = nService.printRecentNotice(notice);
 		/*
 		 * 출석버튼 상태를 변경하기 위한 값
-		 * 0: 출석일이 아님
+		 * 0: 출석시간이 아님
 		 * 1: 오늘이 출석일이지만 아직 출석체크 하지않음
 		 * 2: 오늘이 출석일이며 출석체크 완료함 
 		 */
-		int attendanceStatus = 0;
+		int attendanceStatus = aService.getAttendanceStatus(study, member.getMbNo());
 		
-		// 오늘이 출석 요일인지 확인
-		if (MeetingUtils.isMeetingDay(study)) {
-			// 오늘의 미팅기록이 있는지 확인
-			Meeting currentMeeting = mService.printCurrentOneByStudyNo(study.getStudyNo());
-			System.out.println("currentMeeting is null: " + currentMeeting == null);
-			// 오늘의 미팅기록이 있을 경우 이미 출석체크 하였는지 확인.
-			if (currentMeeting != null) {
-				Attendance attendance = new Attendance();
-				attendance.setMeetingNo(currentMeeting.getMeetingNo());
-				attendance.setMemberNo(member.getMbNo());
-				
-				// 오늘 이미 출석하였는지 확인
-				boolean attendedAlready = aService.checkAttendedAlready(attendance);
-				attendanceStatus = attendedAlready ? 2 : 1;
-			} 
-			/*
-			 * 오늘 출석일이지만 아직 아무도 출석체크 하지 않음.
-			 */
-			else {
-				attendanceStatus = 1;
-			}
-		}
+//		// 오늘이 출석 요일인지 확인
+//		boolean isMeetingDay = MeetingUtils.isMeetingTime(study);
+//		
+//		System.out.println("===============================================");
+//		System.out.println("isMeetingDay: " + MeetingUtils.isMeetingTime(study));
+//		// 오늘이 출석 요일인지 확인
+//		if (MeetingUtils.isMeetingTime(study)) {
+//			// 오늘 누군가 첫 번째 출석체크를 완료했는지 확인
+//			Meeting currentMeeting = mService.printCurrentOneByStudyNo(study.getStudyNo());
+//			System.out.println("currentMeeting is null: " + (currentMeeting == null));
+//			// 오늘의 미팅기록이 있을 경우 이미 출석체크 하였는지 확인.
+//			if (currentMeeting != null) {
+//				Attendance attendance = new Attendance();
+//				attendance.setMeetingNo(currentMeeting.getMeetingNo());
+//				attendance.setMemberNo(member.getMbNo());
+//				
+//				// 오늘 이미 출석하였는지 확인
+//				boolean attendedAlready = aService.checkAttendedAlready(attendance);
+//				System.out.println("attendedAlready: " + attendedAlready);
+//				attendanceStatus = attendedAlready ? 2 : 1;
+//			} 
+//			/*
+//			 * 오늘 출석일이지만 아직 아무도 출석체크 하지 않음.
+//			 */
+//			else {
+//				attendanceStatus = 0;
+//			}
+//		}
 
-		System.out.println(attendanceStatus);
 		request.getSession().setAttribute("study", study);
 		request.setAttribute("attendanceStatus", attendanceStatus);
 		request.setAttribute("recentNotice", recentNotice);

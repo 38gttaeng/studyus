@@ -12,7 +12,7 @@ public class MeetingUtils {
 	 * @return
 	 * 오늘이 모임 요일이 맞으면 true, 아니면 false.
 	 */
-	public static boolean isMeetingDay (Study study) {
+	public static boolean isMeetingTime (Study study) {
 		boolean result = false;
 		
 		// 오늘 요일 가져오기

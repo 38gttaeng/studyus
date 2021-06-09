@@ -21,10 +21,26 @@ public class EnrollmentStoreLogic implements EnrollmentStore {
 	StudyStore sStore;
 
 	@Override
-	public int insertEnrollment(Enrollment enrollment, String url) throws Exception {
+	public int applyEnrollment(int memberNo, String message, String url) throws Exception {
 		int studyNo = sStore.selectStudyNoByUrl(url);
-		enrollment.setStudyNo(studyNo);
-		return session.insert("enrollmentMapper.insertEnrollmentApply", enrollment);
+		// 새로 추가하려는 가입신청
+		Enrollment newEnrollment = new Enrollment();
+		newEnrollment.setMemberNo(memberNo);
+		newEnrollment.setMessage(message);
+		newEnrollment.setStudyNo(studyNo);
+		
+		// 새로 추가하려는 가입신청 정보로 이미 가입이 되어있는지 확인 후 가입되어 있으면 2을 반환합니다.
+		if (0 < (Integer)session.selectOne("enrollmentMapper.checkEnrollment", newEnrollment)) {
+			return 2;
+		}
+		
+		// 새로 추가하려는 가입신청 정보로 이미 가입신청이 되어있는지 확인 후 신청되어 있으면 3을 반환합니다. 가입이 이미 수락된 신청서는 확인하지 않습니다.
+		int exist = session.selectOne("enrollmentMapper.selectExistingApplication", newEnrollment);
+		if (0 < exist) {
+			return 3;
+		}
+		int result = session.insert("enrollmentMapper.insertEnrollmentApply", newEnrollment);
+		return result;
 	}
 	
 	@Override

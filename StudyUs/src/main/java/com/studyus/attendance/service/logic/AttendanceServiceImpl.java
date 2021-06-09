@@ -12,6 +12,7 @@ import com.studyus.attendance.service.AttendanceService;
 import com.studyus.attendance.store.AttendanceStore;
 import com.studyus.meeting.domain.Meeting;
 import com.studyus.meeting.service.MeetingService;
+import com.studyus.meeting.utils.MeetingUtils;
 import com.studyus.member.service.MemberService;
 import com.studyus.study.domain.Study;
 import com.studyus.study.service.StudyService;
@@ -87,6 +88,35 @@ public class AttendanceServiceImpl implements AttendanceService {
 	@Override
 	public boolean checkAttendedAlready(Attendance attendance) {
 		return attStore.checkTodayAttendedAlready(attendance);
+	}
+	
+	/**
+	 * memberNo가 studyNo에 오늘 출석한 상태를 확인하여 반환합니다.
+	 * memberNo가 이미 studyNo에 가입된 것을 전제합니다.
+	 * @param studyNo
+	 * 출석 대상 스터디 번호
+	 * @param memberNo
+	 * 출석할 사용자 번호
+	 * @return
+	 * 0: 현재 studyNo의 출석시간이 아님
+	 * 1: 현재 studyNo의 출석시간이지만 memberNo가 아직 출석체크하지 않음
+	 * 2: studyNo에 대한 memberNo의 오늘 출석이 이미 완료됨
+	 */
+	public int getAttendanceStatus (Study study, int memberNo) {
+		// 오늘이 출석 요일인지 확인 후 맞다면 진행, 아니면 0 리턴
+		if (MeetingUtils.isMeetingTime(study) == false) {
+			return 0;
+		}
+		
+		// 지금이 출석 시간인지 확인 후 맞다면 진행, 아니면 0 리턴
+		if (attStore.checkAttendanceTime(study.getStudyNo()) == false) {
+			return 0;
+		}
+		
+		// 출석체크 하였는지 확인 후 했다면 2 리턴, 아니면 1 리턴
+		if (attStore.checkAttendanceToday(study.getStudyNo(), memberNo)) {
+			return 2;
+		} else return 1;
 	}
 
 	@Override

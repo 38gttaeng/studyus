@@ -56,15 +56,21 @@
 										#{studyNo},
 										SYSDATE,
 										#{message},
-										#{status})
+										DEFAULT)
 	</insert>
 	
 	<select id="selectAllByStudyNo" parameterType="int" resultMap="enrollmentWithMemberResultMap">
 		SELECT ROWNUM AS RNUM, E.*, M.* FROM ENROLLMENT E LEFT OUTER JOIN MEMBER M ON E.MB_NO = M.MB_NO WHERE E.ST_NO = #{studyNo} AND E.EN_STATUS = 0 ORDER BY E.EN_NO ASC
 	</select>
+	
+	<!-- 이미 가입신청이 되어있는지 확인합니다. 되어있다면 행 갯수를 반환합니다. 이미 가입신청이 수락된 신청서는 확인하지 않습니다. -->
+	<select id="selectExistingApplication">
+		SELECT COUNT(*) FROM ENROLLMENT WHERE MB_NO = #{memberNo} AND ST_NO = #{studyNo} AND EN_STATUS = 0
+	</select>
 	 
+	<!-- 이미 가입이 되어있는 행의 갯수를 반환합니다. -->
 	<select id="checkEnrollment" parameterType="Enrollment" resultType="int">
-		SELECT COUNT(*) FROM ENROLLMENT WHERE MB_NO = #{memberNo} AND ST_NO = #{studyNo} 
+		SELECT COUNT(*) FROM ENROLLMENT WHERE MB_NO = #{memberNo} AND ST_NO = #{studyNo} AND EN_STATUS = 1
 	</select>
 	
 	<update id="updateStatus" parameterType="Enrollment">
