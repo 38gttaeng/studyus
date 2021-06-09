@@ -1,25 +1,43 @@
 package com.studyus.enrollment.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.studyus.assignment.domain.Assignment;
+import com.studyus.assignment.service.AssignmentService;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.member.domain.Member;
+import com.studyus.member.service.MemberService;
+import com.studyus.study.domain.Study;
+import com.studyus.study.service.StudyService;
 
 @Controller
 public class EnrollmentController {
-
+	@Autowired
+	private MemberService mService;
+	
 	@Autowired
 	EnrollmentService eService;
+	
+	@Autowired
+	private StudyService sService;
+	
+	private AssignmentService aService;
 	
 	// 가입신청 보내기
 	@ResponseBody
@@ -54,17 +72,44 @@ public class EnrollmentController {
 	@RequestMapping(value="enrollment/list", method=RequestMethod.GET)
 	public String printEnrollmentByStudyNo(@RequestParam int studyNo) throws Exception {
 		return "";
+	} 
+	
+	// 스터디 가입한 회원 목록
+	@RequestMapping(value="/study/member", method=RequestMethod.GET)
+	public ModelAndView printStudyMember(ModelAndView mv, HttpSession session) {
+		Study study = (Study)session.getAttribute("study");
+		ArrayList<Member> mList = mService.printAllByStudyNo(study.getStudyNo());
+//		for(Member m : mList) {
+//			HashMap<String, Integer> map = new HashMap<String, Integer>();
+//			map.put("stNo", study.getStudyNo());
+//			map.put("mbNo", m.getMbNo());
+//			int rate = aService.printAssignmentRate(map);
+//			m.setMbReputation(rate);
+//		}
+		
+		for(Member m : mList) {
+		System.out.println(m.toString());
+		}
+		mv.addObject("mList", mList);
+		mv.setViewName("study/studyMember");
+		return mv;
 	}
 	
 	// 추방 
-		@RequestMapping(value="/member/banish")
-		public String banishMember(@RequestParam("memberNo") int memberNo, @RequestParam(value="studyNo", required=false) int studyNo) {
-			int result = eService.banishMember(memberNo);
-			if(result > 0) {
-				return "study/studyMember";
-			}else {
-				return "";
-			}
+	@RequestMapping(value="/study/banish", method=RequestMethod.GET)
+	public ModelAndView banishMember(ModelAndView mv, HttpSession session, @RequestParam("memberNo") int memberNo) {
+		Study study = (Study)session.getAttribute("study");
+		Enrollment enrollment = new Enrollment();
+		enrollment.setStudyNo(study.getStudyNo());
+		enrollment.setMemberNo(memberNo);
+		int result = eService.banishMember(enrollment);
+		if(result > 0) {
+			mv.setViewName("redirect:/study/member");
+		}else {
+			mv.addObject("msg", "추방 실패").setViewName("common/errorPage");
 		}
+		return mv;
+	}
+
 	
 }

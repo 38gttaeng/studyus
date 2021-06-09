@@ -133,4 +133,5 @@ public class MemberStoreLogic implements MemberStore {
 	public ArrayList<Member> selectList() {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllList");
 	}
+ 
 }

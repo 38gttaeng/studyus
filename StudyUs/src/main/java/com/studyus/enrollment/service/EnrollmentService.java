@@ -32,5 +32,5 @@ public interface EnrollmentService {
 	public int checkEnrollment(Enrollment enrollment) throws Exception;
 	
 	// 추방
-	public int banishMember(int memberNo);
+	public int banishMember(Enrollment enrollment); 
 }

@@ -48,8 +48,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public int banishMember(int memberNo) {
-		return eStore.banishMember(memberNo);
+	public int banishMember(Enrollment enrollment) {
+		return eStore.banishMember(enrollment); 
 	}
 
 }

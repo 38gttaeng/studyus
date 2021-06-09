@@ -309,7 +309,7 @@
 	                            </li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/{url}/member"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/member" 
 	                            aria-expanded="false"><i data-feather="box" class="feather-icon"></i><span
 	                                class="hide-menu">회원 목록 </span></a>
 	                    </li>

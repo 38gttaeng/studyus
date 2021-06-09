@@ -165,6 +165,7 @@ public class NoticeController {
 			mv.setViewName("notice/mainSelectView");
 		}else {
 			// mv.addObject("msg", "조회 실패");
+			mv.addObject("mainNotice", mainNotice); 
 			mv.setViewName("notice/noData");
 		}
 		return mv;

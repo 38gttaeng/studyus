@@ -1,6 +1,7 @@
 package com.studyus.assignment.service.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -177,19 +178,21 @@ public class AssignmentServiceImpl implements AssignmentService {
 	}
 
 	@Override
-	public int printAssignmentRate(Assignment assignment) {
+	public int printAssignmentRate(HashMap<String, Integer> map) {
 		// 할당된 전체 과제 개수 가져오기
-		int allCount = asStore.selectAssignmentStNo(assignment);
+		int allCount = asStore.selectAssignmentStNo(map);
 		
 		// 실제로 한 개수 가져오기
-		int memCount = asStore.mySubmittedAssignmentByStNo(assignment);
+		int memCount = asStore.mySubmittedAssignmentByStNo(map);
 		
 		// 계산
 		int rate = 0;
 		if( allCount !=0 ) {
-			rate = (allCount / memCount) * 100;
+			rate = (memCount / allCount) * 100;
 		}
-		
+		System.out.println(allCount);
+		System.out.println(memCount);
+		System.out.println(rate);
 		// 넘겨주기
 		return rate;
 	}

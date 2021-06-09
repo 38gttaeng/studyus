@@ -31,6 +31,7 @@ import com.google.gson.JsonIOException;
 import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
 import com.studyus.enrollment.domain.Enrollment;
+import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.member.domain.Member;
 import com.studyus.member.service.MemberService;
 import com.studyus.review.domain.Review;
@@ -45,6 +46,9 @@ public class MemberController {
 	
 	@Autowired
 	private StudyService sService;
+	
+	@Autowired
+	EnrollmentService eService;
 	
 	// NaverLoginBO
 	private NaverLoginBO naverLoginBO;
@@ -477,24 +481,5 @@ public class MemberController {
 //	public String memberView() {
 //		return "study/studyMember";
 //	}
-	
-	// 스터디 가입한 회원 목록
-	@RequestMapping(value="/study/{url}/member", method=RequestMethod.GET)
-	public ModelAndView printStudyMember(ModelAndView mv, HttpSession session,  @PathVariable String url) {
-		Study study = (Study)session.getAttribute("study");
-		if (study == null) {
-			study = sService.printOneByUrl(url);
-		}
-		
-		ArrayList<Member> mList = service.printAllByStudyNo(study.getStudyNo());
-		
-		for(Member m : mList) {
-		System.out.println(m.toString());
-		}
-		System.out.println(study.toString());
-		mv.addObject("mList", mList);
-		mv.setViewName("study/studyMember");
-		return mv;
-	}
 	
 }

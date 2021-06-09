@@ -54,8 +54,8 @@ public class EnrollmentStoreLogic implements EnrollmentStore {
 	}
 
 	@Override
-	public int banishMember(int memberNo) {
-		return session.update("enrollmentMapper.banishMember", memberNo);
+	public int banishMember(Enrollment enrollment) {
+		return session.update("enrollmentMapper.banishMember", enrollment); 
 	}
 
 }

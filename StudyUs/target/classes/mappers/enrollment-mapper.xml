@@ -72,7 +72,7 @@
 	</update>
 	<!-- 추방 -->
 	<update id="banishMember" parameterType="Enrollment">
-		UPDATE ENROLLMENT SET EN_STATUS = 3 WHERE EN_NO = #{enrollmentNO} AND MB_NO = #{memberNo}
+		UPDATE ENROLLMENT SET EN_STATUS = 3 WHERE ST_NO = #{studyNo} AND MB_NO = #{memberNo} AND EN_STATUS = 1 
 	</update>
 	
 </mapper>

@@ -142,8 +142,8 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	}
 
 	@Override
-	public int selectAssignmentStNo(Assignment assignment) {
-		return sqlSession.selectOne("assignmentMapper.selectCountByStNo", assignment);
+	public int selectAssignmentStNo(HashMap<String, Integer> map) {
+		return sqlSession.selectOne("assignmentMapper.selectCountByStNo", map);
 	}
 	
 	@Override
@@ -152,8 +152,8 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	}
 
 	@Override
-	public int mySubmittedAssignmentByStNo(Assignment assignment) {
-		return sqlSession.selectOne("sAssignmentMapper.selectCountByStNo", assignment);
+	public int mySubmittedAssignmentByStNo(HashMap<String, Integer> map) {
+		return sqlSession.selectOne("sAssignmentMapper.selectCountByStNo", map);
 	}
 
 }

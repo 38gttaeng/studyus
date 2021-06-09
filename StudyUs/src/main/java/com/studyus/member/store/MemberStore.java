@@ -61,4 +61,5 @@ public interface MemberStore {
 	public ArrayList<Member> selectAllAssign(int grNo);
 	
 	public ArrayList<Member> selectList();
+ 
 }

@@ -191,9 +191,9 @@
 	    AND SUBSTR(AS_DEADLINE, 1, 10)	<= TO_CHAR(LAST_DAY(ADD_MONTHS(SYSDATE, -1)), 'YYYY/MM/DD')
         AND SUBSTR(AS_DEADLINE, 1, 10) >= TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYY/MM/') || '01' 
      ]]>
-	</select>
+	</select> 
 	
-	<select id="selectCountByStNo" parameterType="Assignment" resultType="_int">
+	<select id="selectCountByStNo" parameterType="Map" resultType="_int">
 	<![CDATA[
 		SELECT
 		   COUNT(*)

@@ -193,7 +193,7 @@
      ]]>
 	</select>
 	
-	<select id="selectCountByStNo" parameterType="Assignment" resultType="_int">
+	<select id="selectCountByStNo" parameterType="Map" resultType="_int">
 	<![CDATA[
 		SELECT
 		   COUNT(*)
