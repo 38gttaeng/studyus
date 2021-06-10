@@ -154,13 +154,16 @@
                         <div class="card">
                             <div class="card-body">
                             	<div class="row">
-	                                <div class="col-md-1">
-	                                    <h5 class="card-title">출석율</h5>
+	                                <div class="col-md-2">
+	                                    <h5 class="card-title">최근 30일 출석율</h5>
 	                                </div>
-	                                <div class="col-md-8">
+	                                <div class="col-md-6">
 	                                	<div class="progress mb-2">
-	                                    	<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+	                                    	<div class="progress-bar bg-info" role="progressbar" style="width: ${studyAttendanceRate}%" aria-valuenow="${studyAttendanceRate}" aria-valuemin="0" aria-valuemax="100"></div>
 	                                    </div>
+	                                </div>
+	                                <div class="col-md-1">
+	                                    <h5>${studyAttendanceRate }%</h5>
 	                                </div>
 	                                <div class="col-md-3 d-flex flex-row-reverse">
 	                                <c:if test="${attendanceStatus eq 0  }">
@@ -172,7 +175,7 @@
                                 	</c:if>
 	                                <c:if test="${attendanceStatus eq 2  }">
 	                                	<button id="attendance-check-button" class="btn btn-primary btn-rounded btn-sm" disabled>출석확인</button>
-	                                	<span id="attendance-help" class="pr-4">출석체크 완료</span>
+	                                	<span id="attendance-help" class="pr-4">오늘 출석체크 완료</span>
                                 	</c:if>
 	                                </div> 
                                 </div>
@@ -183,24 +186,20 @@
             
                 <!-- *************************************************************** -->
                 <!-- 과제 -->
+                
                 <!-- *************************************************************** -->
                 <div class="row">
-                    <div class="col-md-6 col-lg-8">
+                    <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex align-items-start">
-                                    <h5 class="card-title">진행중인 과제</h5>
+                                <h4 class="card-title">출석률 차트</h4>
+                                <div>
+                                    <canvas id="bar-chart-horizontal" height="150"> </canvas>
                                 </div>
-                                <div class="pl-4 mb-5">
-                                    <div class="stats ct-charts position-relative" style="height: 315px;"></div>
-                                </div>
-                                <ul class="list-inline text-center mt-4 mb-0">
-                                    <li class="list-inline-item text-muted font-italic">Earnings for this month</li>
-                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-4 col-lg-4">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">프로젝트 현황</h5>
@@ -224,5 +223,6 @@
    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
    <script src="/resources/css/study/dist/js/pages/dashboards/dashboard1.min.js"></script>
    <script src="/resources/js/study.js"></script>
+   
 </body>
 </html>

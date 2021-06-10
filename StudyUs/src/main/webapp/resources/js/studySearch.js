@@ -252,14 +252,28 @@ function applyStudy(studyUrl) {
         },
         dataType: "json",
         success: function(result) {
-            if (result == -1) {
-                alert('로그인이 필요합니다.');
-                window.location.href='/member/loginView';
-                return false;
+            console.log(result);
+            switch (result) {
+                case -1:
+                    alert('로그인이 필요합니다.');
+                    window.location.href='/member/loginView';
+                    break;
+                case 0:
+                    alert('DB 오류로 인해 실패하였습니다.');
+                    break;
+                case 1:
+                    alert('가입 신청이 완료되었습니다.');
+                    break;
+                case 2:
+                    alert('이미 가입한 스터디입니다.');
+                    break;
+                case 3:
+                    alert('이미 가입신청 후 승인 대기중인 스터디입니다.');
+                    break;
             }
 
+            // 가입신청 모달 닫기
             $('#exampleModal').modal('hide');
-            alert('가입 신청이 완료되었습니다.');
         },
         error: function(result) {
             alert('가입 신청에 실패했습니다.');

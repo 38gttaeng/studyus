@@ -134,7 +134,7 @@
 	<update id="updatePreStudy" parameterType="Study">
 		UPDATE STUDY SET ST_MAX_PERSONNEL = 20 
 		WHERE ST_NO =  #{studyNo}
-	</update>
+	</update> 
 	
 	<select id="selectAllList" resultMap="studyResultMap">
 		SELECT * FROM STUDY

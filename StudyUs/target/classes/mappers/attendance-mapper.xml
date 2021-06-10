@@ -30,7 +30,69 @@
 	</insert>
 	
 	<select id="checkTodayAttendedAlready" parameterType="Attendance" resultType="int">
-		SELECT COUNT(*) FROM ATTENDANCE WHERE ME_NO = #{meetingNo} AND MB_NO = #{memberNo} AND TRUNC(SYSDATE) &gt;= AT_INSERTDATE
+		SELECT COUNT(*) FROM ATTENDANCE WHERE ME_NO = #{meetingNo} AND MB_NO = #{memberNo} AND TRUNC(SYSDATE) &lt;= AT_INSERTDATE
+	</select>
+	
+	<!-- 회원 한 명의 출석률을 출력합니다. @author 김동현 -->
+	<select id="selectPersonalAttendanceRate" parameterType="Map" resultType="float">
+		SELECT 
+			CASE 
+				WHEN REQUIRED_ATT = 0 
+		    		OR REQUIRED_ATT IS NULL 
+		    		OR ACTUAL_ATT = 0 
+		    		OR ACTUAL_ATT IS NULL 
+		    	THEN 0
+    		ELSE ACTUAL_ATT / REQUIRED_ATT END ATTENDANCE_RATE 
+    	FROM 
+		    (SELECT
+		        (SELECT COUNT(*) FROM ATTENDANCE 
+		            WHERE ST_NO = #{studyNo} 
+		                AND MB_NO = #{memberNo}) AS ACTUAL_ATT
+		        ,
+		        (SELECT COUNT(*) FROM MEMBER M LEFT OUTER JOIN ATTENDANCE A USING (MB_NO)
+		            WHERE ST_NO = #{studyNo}
+		                AND MB_NO = #{memberNo}
+		                AND SYSDATE - #{recentDays} &lt;= A.AT_INSERTDATE) AS REQUIRED_ATT
+		    FROM DUAL)
+	</select>
+	
+	<!-- 특정 스터디 내 종합 출석률을 출력합니다. -->
+	<select id="selectStudyTotalAttendanceRate" parameterType="Map" resultType="float">
+		SELECT 
+		    CASE 
+		    	WHEN REQUIRED_ATT = 0 
+		    		OR REQUIRED_ATT IS NULL 
+		    		OR ACTUAL_ATT = 0 
+		    		OR ACTUAL_ATT IS NULL 
+		    	THEN 0
+		    ELSE ACTUAL_ATT / REQUIRED_ATT END ATTENDANCE_RATE
+		FROM
+		    (SELECT 
+		        (SELECT SUM(ME_REQUIRED_ATTENDANCE) 
+		        	FROM MEETING 
+		        		WHERE ST_NO = #{studyNo} 
+		        			AND SYSDATE - #{recentDays} &lt;= ME_INSERTDATE) 
+		        	AS REQUIRED_ATT,
+		        (SELECT COUNT(*) 
+		        	FROM ATTENDANCE 
+		        		WHERE ST_NO = #{studyNo}
+		        			AND SYSDATE - #{recentDays} &lt;= AT_INSERTDATE) 
+		        	AS ACTUAL_ATT
+		    FROM DUAL)
+	</select>
+	
+	<select id="selectStudyTopAttendanceMember" parameterType="Map" resultType="Member">
+		
+	</select>
+	
+	<!-- 해당 스터디가 현재 출석체크 시간인지 확인합니다. -->
+	<select id="checkAttendanceTime" parameterType="Map" resultType="int">
+		SELECT COUNT(*) FROM STUDY WHERE ST_NO = #{studyNo} AND #{now} BETWEEN ST_START AND ST_END
+	</select>
+	
+	<!-- studyNo에 대해 memberNo가 오늘 출석체크한 기록이 몇 개인지 확인합니다. -->
+	<select id="checkAttendanceToday" parameterType="Attendance" resultType="int">
+		SELECT COUNT(*) FROM ATTENDANCE WHERE ST_NO = #{studyNo} AND MB_NO = #{memberNo} AND TRUNC(SYSDATE) &lt;= AT_INSERTDATE
 	</select>
 	
 </mapper>

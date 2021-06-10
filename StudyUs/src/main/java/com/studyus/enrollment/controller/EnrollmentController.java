@@ -55,7 +55,7 @@ public class EnrollmentController {
 		Enrollment enrollment = new Enrollment();
 		enrollment.setMemberNo(loginMember.getMbNo());
 		enrollment.setMessage(message);
-		int result = eService.apply(enrollment, url);
+		int result = eService.applyEnrollment(loginMember.getMbNo(), message, url);
 		
 		return String.valueOf(result);
 	}
