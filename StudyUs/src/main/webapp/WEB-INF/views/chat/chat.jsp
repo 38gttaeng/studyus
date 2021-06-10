@@ -179,6 +179,10 @@ function onClose () {
 	webSocket.close();
 }
 function send () {
+	// 입력 내용이 없으면 보내지 않음
+	if (chatInput.value == "") {
+		return false;
+	}
 	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : localNickname, "type" : "SEND", "message" : chatInput.value}));
 	chatInput.value = "";
 }

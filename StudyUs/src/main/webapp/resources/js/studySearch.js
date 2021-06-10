@@ -270,6 +270,8 @@ function applyStudy(studyUrl) {
                     alert('이미 가입신청 후 승인 대기중인 스터디입니다.');
                     break;
             }
+            
+            // 가입신청 모달 닫기
             $('#exampleModal').modal('hide');
         },
         error: function(result) {

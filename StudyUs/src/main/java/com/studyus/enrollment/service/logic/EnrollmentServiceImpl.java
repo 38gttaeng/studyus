@@ -17,7 +17,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	EnrollmentStore eStore;
 
 	@Override
-	public int apply(int memberNo, String message, String url) throws Exception {
+	public int applyEnrollment(int memberNo, String message, String url) throws Exception {
 		return eStore.applyEnrollment(memberNo, message, url);
 	}
 	

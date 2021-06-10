@@ -186,10 +186,6 @@ public class StudyController {
 		}
 		// 최신 공지사항 출력 
 		ArrayList<Notice> recentNotice = nService.printRecentNotice(notice);
-		// 스터디 인원  수 출력 
-		// int requiredAttendance = mService.
-		// 날짜 출력 
-		ArrayList<Study> studyWeek = sService.printStudyWeek(study);
 		/*
 		 * 출석버튼 상태를 변경하기 위한 값
 		 * 0: 출석시간이 아님
@@ -197,11 +193,11 @@ public class StudyController {
 		 * 2: 오늘이 출석일이며 출석체크 완료함 
 		 */
 		int attendanceStatus = aService.getAttendanceStatus(study, member.getMbNo());
-		
+		float studyAttendanceRate = aService.printStudyAttendanceRate(study.getStudyNo(), 30);
 		request.getSession().setAttribute("study", study);
 		request.setAttribute("attendanceStatus", attendanceStatus);
 		request.setAttribute("recentNotice", recentNotice);
-		request.setAttribute("studyWeek", studyWeek);
+		request.setAttribute("studyAttendanceRate", (int)(studyAttendanceRate * 100));
 		
 		return "study/study";
 	}

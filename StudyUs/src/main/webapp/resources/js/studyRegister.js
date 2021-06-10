@@ -25,6 +25,7 @@ function urlCheck (e) {
     if (inputUrl.length < 4 || 32 < inputUrl.length) {
         urlHelp.innerHTML = '4 ~ 32 자리의 영문 및 숫자만 가능합니다.';
         urlHelp.style.color = 'gray';
+        urlAvailable = false;
     } else {
         $.ajax({
             type: 'POST',
@@ -44,6 +45,7 @@ function urlCheck (e) {
             },
             error: function(result) {
                 urlHelp.innerHTML = '서버와의 통신 오류';
+                urlAvailable = true;
             }
         });
     }
@@ -55,17 +57,17 @@ function onAddHashtagClicked() {
     var currentHashtag = document.getElementById("inputHashtag").value.replace(/\s/g,'');
 
     // 샵(#) 제거
-    var currentHashtag = currentHashtag.substring(1);
+    var currentHashtag = currentHashtag.substring(1); 
     
     // 해시태그 미입력시 return
     if (currentHashtag == '') {
-        return;
+        return false;
     }
     
     // 이미 입력되었을시 inputfield 초기화 후 return
     if (hashtags.includes(currentHashtag)) {
         hashtagInput.value = '';
-        return;
+        return false;
     }
     
     // 해시태그 리스트에 추가

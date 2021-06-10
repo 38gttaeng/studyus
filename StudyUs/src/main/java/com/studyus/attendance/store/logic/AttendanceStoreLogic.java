@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.studyus.attendance.domain.Attendance;
 import com.studyus.attendance.store.AttendanceStore;
+import com.studyus.member.domain.Member;
 
 @Repository
 public class AttendanceStoreLogic implements AttendanceStore{ 
@@ -28,6 +29,37 @@ public class AttendanceStoreLogic implements AttendanceStore{
 	public int insertAttendance(Attendance attendance) {
 		return sqlSession.insert("attendanceMapper.insertAttendance", attendance);
 	}
+	
+	@Override
+	public float selectPersonalAttendanceRate(int memberNo, int studyNo, int recentDays) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("memberNo", memberNo);
+		map.put("studyNo", studyNo);
+		map.put("recentDays", recentDays);
+		
+		return sqlSession.selectOne("attendanceMapper.selectPersonalAttendanceRate", map);
+	}
+	
+	@Override
+	public float selectStudyAttendanceRate(int studyNo, int recentDays) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("studyNo", studyNo);
+		map.put("recentDays", recentDays);
+		
+		return sqlSession.selectOne("attendanceMapper.selectStudyTotalAttendanceRate", map);
+	}
+	
+	@Override
+	public ArrayList<Member> selectStudyTopAttendanceMember(int studyNo, int memberAmount) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("studyNo", studyNo);
+		map.put("memberAmount", memberAmount);
+		
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectStudyTopAttendanceMember", map);
+	}
 
 	@Override
 	public int addPoint(Attendance attendance) {
@@ -42,7 +74,10 @@ public class AttendanceStoreLogic implements AttendanceStore{
 	}
 
 	@Override
-	public boolean checkTodayAttendedAlready(Attendance attendance) {
+	public boolean checkTodayAttendedAlready(int meetingNo, int memberNo) {
+		Attendance attendance = new Attendance();
+		attendance.setMemberNo(memberNo);
+		attendance.setMeetingNo(meetingNo);
 		return 0 != (Integer)sqlSession.selectOne("attendanceMapper.checkTodayAttendedAlready", attendance);
 	}
 	
@@ -66,5 +101,4 @@ public class AttendanceStoreLogic implements AttendanceStore{
 		
 		return 0 != (Integer)sqlSession.selectOne("attendanceMapper.checkAttendanceTime", map);
 	}
-
 }

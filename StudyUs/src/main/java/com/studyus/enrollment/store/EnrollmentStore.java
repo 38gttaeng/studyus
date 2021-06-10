@@ -17,6 +17,7 @@ public interface EnrollmentStore {
 	/**
 	 * 입력한 String url에 해당하는 스터디를 찾아 enrollment를 추가합니다.
 	 * 이미 enrollment가 추가된 상태라면 추가하지 않습니다.
+	 * @author 김동현
 	 * @param enrollment
 	 * @param url
 	 * @return 
@@ -28,6 +29,13 @@ public interface EnrollmentStore {
 	 */
 	public int applyEnrollment(int memberNo, String message, String url) throws Exception;
 	
+	/**
+	 * Enrollment의 값을 그대로 테이블에 추가합니다.
+	 * @author 김동현
+	 * @param enrollment
+	 * @return
+	 * 실패시 0, 성공시 1
+	 */
 	public int insertEnrollment(Enrollment enrollment);
 	
 	// update status

@@ -13,6 +13,7 @@ import com.studyus.attendance.store.AttendanceStore;
 import com.studyus.meeting.domain.Meeting;
 import com.studyus.meeting.service.MeetingService;
 import com.studyus.meeting.utils.MeetingUtils;
+import com.studyus.member.domain.Member;
 import com.studyus.member.service.MemberService;
 import com.studyus.study.domain.Study;
 import com.studyus.study.service.StudyService;
@@ -37,31 +38,25 @@ public class AttendanceServiceImpl implements AttendanceService {
 		return attStore.printAll(studyNo); 
 	}
 
-	/**
-	 * 지금이 출석 날짜 및 출석 시간인지 확인 후, 맞으면 출석체크를 진행합니다.
-	 * 
-	 * @return
-	 * 2: 이미 오늘의 출석체크가 되어있을 경우
-	 */
 	@Override
 	@Transactional
-	public int checkAttendance(Attendance attendance) throws Exception {
+	public int tryInsertAttendance(int studyNo, int memberNo) throws Exception {
 		// 오늘에 대한 MEETING이 있는지 확인
-		Meeting currentMeeting = meetingService.printCurrentOneByStudyNo(attendance.getStudyNo());
+		Meeting currentMeeting = meetingService.printCurrentOneByStudyNo(studyNo);
 		
-		Study study = studyService.printOneByNo(attendance.getStudyNo());
+		Study study = studyService.printOneByNo(studyNo);
 		
 		// 없으면 새로 insert할 오늘의 MEETING 생성
 		if (currentMeeting == null) {
 			currentMeeting = new Meeting();
-			currentMeeting.setStudyNo(attendance.getStudyNo());
+			currentMeeting.setStudyNo(studyNo);
 			
 			// 모임 시작,끝 시간이 null일경우 00:00 ~ 23:59로 설정
 			String start = (study.getStart() == null) ? "00:00" : study.getStart();
 			String end = (study.getEnd() == null) ? "23:59" : study.getEnd(); 
 			currentMeeting.setStart(start);
 			currentMeeting.setEnd(end);
-			currentMeeting.setRequiredAttendance(memberService.printAllByStudyNo(attendance.getStudyNo()).size());
+			currentMeeting.setRequiredAttendance(memberService.printAllByStudyNo(studyNo).size());
 			currentMeeting.setMeetingNo(meetingService.insertOne(currentMeeting));
 			
 			/*
@@ -69,39 +64,35 @@ public class AttendanceServiceImpl implements AttendanceService {
 			 * 이미 출석체크 했을 경우 2 return
 			 */
 		} else {
-			attendance.setMeetingNo(currentMeeting.getMeetingNo());
-			boolean attendedAlready = attStore.checkTodayAttendedAlready(attendance);
+			boolean attendedAlready = attStore.checkTodayAttendedAlready(currentMeeting.getMeetingNo(), memberNo);
 			if (attendedAlready) {
 				return 2;
 			}
 		}
 		
 		// ATTENDANCE 추가
+		Attendance attendance = new Attendance();
 		attendance.setMeetingNo(currentMeeting.getMeetingNo());
+		attendance.setMemberNo(memberNo);
+		attendance.setStudyNo(studyNo);
 		return attStore.insertAttendance(attendance);
 	}
 	
-	/**
-	 * 오늘 이미 출석체크를 완료하였는지 확인합니다.
-	 * @return 이미 출석되었으면 true, 아니면 false
-	 */
+//	@Override
+//	public boolean checkAttendedAlready(Attendance attendance) {
+//		return attStore.checkTodayAttendedAlready(attendance.getStudyNo(), attendance.getMemberNo());
+//	}
+	
 	@Override
-	public boolean checkAttendedAlready(Attendance attendance) {
-		return attStore.checkTodayAttendedAlready(attendance);
+	public float printPersonalAttendanceRate(int memberNo, int studyNo, int recentDays) {
+		return attStore.selectPersonalAttendanceRate(memberNo, studyNo, recentDays);
 	}
 	
-	/**
-	 * memberNo가 studyNo에 오늘 출석한 상태를 확인하여 반환합니다.
-	 * memberNo가 이미 studyNo에 가입된 것을 전제합니다.
-	 * @param studyNo
-	 * 출석 대상 스터디 번호
-	 * @param memberNo
-	 * 출석할 사용자 번호
-	 * @return
-	 * 0: 현재 studyNo의 출석시간이 아님
-	 * 1: 현재 studyNo의 출석시간이지만 memberNo가 아직 출석체크하지 않음
-	 * 2: studyNo에 대한 memberNo의 오늘 출석이 이미 완료됨
-	 */
+	@Override
+	public float printStudyAttendanceRate(int studyNo, int recentDays) {
+		return attStore.selectStudyAttendanceRate(studyNo, recentDays);
+	}
+	
 	public int getAttendanceStatus (Study study, int memberNo) {
 		// 오늘이 출석 요일인지 확인 후 맞다면 진행, 아니면 0 리턴
 		if (MeetingUtils.isMeetingTime(study) == false) {
@@ -118,17 +109,28 @@ public class AttendanceServiceImpl implements AttendanceService {
 			return 2;
 		} else return 1;
 	}
-
+	
 	@Override
-	public int addPoint(Attendance attendance) {
+	public ArrayList<Member> printStudyTopAttendanceMember(int studyNo, int memberAmount) {
+		return attStore.selectStudyTopAttendanceMember(studyNo, memberAmount);
+	}
+
+	
+	@Override
+	public float printAllPersonalAttendanceRate(ArrayList<Integer> memberNoList, int studyNo, int recentDays) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int attRate(Attendance attendance) {
+	public int checkAttendance(Attendance attendance) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	@Override
+	public boolean checkAttendedAlready(Attendance attendance) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

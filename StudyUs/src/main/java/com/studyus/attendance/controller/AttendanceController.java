@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,14 +37,28 @@ public class AttendanceController {
 //		
 //		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 //		gson.toJson(data, response.getWriter());
-//	} 
+//	}
 	
-	// 출석하기 
-	@ResponseBody 
+	/*
+	 * 출석체크를 시도합니다.
+	 * @return
+	 * 0: 출석체크 오류
+	 * 1: 출석체크 성공
+	 * 2: 이미 오늘의 출석체크 완료
+	 */
+	@ResponseBody
 	@RequestMapping(value="/attendance/check", method=RequestMethod.GET, produces="application/text; charset=UTF-8")
 	public String attCheck(@ModelAttribute Attendance attendance,
 							Model model) throws Exception {
-		return String.valueOf(aService.checkAttendance(attendance));
+		return String.valueOf(aService.tryInsertAttendance(attendance.getStudyNo(), attendance.getMemberNo()));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/attendance/rate/study/{studyNo}", method=RequestMethod.GET, produces="application/text; charset=UTF-8")
+	public float studyAttendanceRate(@PathVariable int studyNo) throws Exception {
+		// 최근 30일간의 출석률
+		float attendanceRate = aService.printStudyAttendanceRate(studyNo, 30);
+		return attendanceRate;
 	}
 	
 	// 출석 리스트

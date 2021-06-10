@@ -52,13 +52,7 @@ public class EnrollmentController {
 			return String.valueOf(-1);
 		}
 		
-		/*
-		 * DB오류시 0
-		 * 신청 성공시 1
-		 * 이미 가입되어 있으면 2
-		 * 이미 가입신청 되어있으면 3
-		 */
-		int result = eService.apply(loginMember.getMbNo(), message, url);
+		int result = eService.applyEnrollment(loginMember.getMbNo(), message, url);
 		return String.valueOf(result);
 	}
 

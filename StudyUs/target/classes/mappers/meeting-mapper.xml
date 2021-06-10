@@ -20,8 +20,8 @@
 	      ) 
    </insert>
 	
-	<select id="selectCurrentOneByStudyNo" resultMap="meetingResultMap">
-		SELECT * FROM MEETING WHERE #{currentTime} BETWEEN ME_START_TIME AND ME_END_TIME AND ST_NO = #{studyNo} AND TRUNC(SYSDATE) &gt;= ME_INSERTDATE
+	<select id="selectCurrentOneByStudyNo" resultMap="meetingResultMap"> 
+		SELECT * FROM MEETING WHERE #{currentTime} BETWEEN ME_START_TIME AND ME_END_TIME AND ST_NO = #{studyNo} AND TRUNC(SYSDATE) &lt;= ME_INSERTDATE
 	</select>
 	
 </mapper>

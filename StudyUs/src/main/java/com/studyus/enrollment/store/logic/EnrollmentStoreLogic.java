@@ -25,7 +25,7 @@ public class EnrollmentStoreLogic implements EnrollmentStore {
 		int studyNo = sStore.selectStudyNoByUrl(url);
 		// 새로 추가하려는 가입신청
 		Enrollment newEnrollment = new Enrollment();
-		newEnrollment.setMemberNo(memberNo);
+		newEnrollment.setMemberNo(memberNo); 
 		newEnrollment.setMessage(message);
 		newEnrollment.setStudyNo(studyNo);
 		
