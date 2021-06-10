@@ -1,14 +1,12 @@
 package com.studyus.chat.domain;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import lombok.Getter;
@@ -18,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class ChatChannel {
 	private String url;
-	private Set<WebSocketSession> sessions = new HashSet<>();
+	private Map<WebSocketSession, String> sessions = new HashMap<>();
 	
 	public static ChatChannel create(String url) {
 		ChatChannel chatChannel = new ChatChannel();
@@ -36,11 +34,11 @@ public class ChatChannel {
 	 */
 	public void handleMessage(WebSocketSession session, ChatMessage chatMessage) throws Exception {
 		if (chatMessage.getType() == MessageType.OPEN) {
-			sessions.add(session);
-			chatMessage.setMessage(chatMessage.getNickname() + " 님이 입장하셨습니다.");
+			sessions.put(session, chatMessage.getNickname());
+			chatMessage.setMessage("알림:" + chatMessage.getNickname() + " 님이 입장하셨습니다.");
 		} else if (chatMessage.getType() == MessageType.CLOSE) {
 			sessions.remove(session);
-			chatMessage.setMessage(chatMessage.getNickname() + " 님이 퇴장하셨습니다.");
+			chatMessage.setMessage("알림:" + chatMessage.getNickname() + " 님이 퇴장하셨습니다.");
 		} else {
 			chatMessage.setMessage(chatMessage.getMessage());
 		}
@@ -55,9 +53,20 @@ public class ChatChannel {
 	private void send(ChatMessage chatMessage) throws Exception {
 		Gson gson = new Gson();
 		TextMessage textMessage = new TextMessage(gson.toJson(chatMessage));
-		for (WebSocketSession s : sessions) {
-			s.sendMessage(textMessage);
+		for (WebSocketSession s : sessions.keySet()) {
+			if (s.isOpen()) {
+				s.sendMessage(textMessage);
+			}
 		}
+	}
+	
+	/**
+	 * 해당 세션이 사용중인 닉네임을 반환합니다.
+	 * @param nickname
+	 * @return
+	 */
+	public String getNicknameBySession (WebSocketSession session) {
+		return sessions.get(session);
 	}
 	
 	/**
@@ -72,8 +81,17 @@ public class ChatChannel {
 		return (ArrayList)sessions;
 	}
 	
-	public void addSession (WebSocketSession session) {
-		sessions.add(session);
+	/**
+	 * 채널에 접속중인 모든 사용자들의 닉네임을 반환합니다.
+	 * @return
+	 * 사용자 닉네임
+	 */
+	public ArrayList<String> getAllNicknames () {
+		return new ArrayList<>(sessions.values());
+	}
+	
+	public void addSession (WebSocketSession session, String nickname) {
+		sessions.put(session, nickname);
 	}
 	
 	public void removeSession (WebSocketSession session) {
