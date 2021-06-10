@@ -37,8 +37,8 @@
 									<input class="form-control" type="text" size="50" id="caAddr" name="caAddr" value="${cafe.caAddr }" readonly>
 									<input type="button" onclick="goPopup();" class="btn btn-primary px-3 py-2 mt-2" style="background-color: white; color: purple" value="검색">
 								    <input type="hidden" id="confmKey" name="confmKey" value=""  >
-									<input type="hidden" id="caLat"  name="caLat" value="">
-									<input type="hidden" id="caLong" name="caLng" value="">
+									<input type="hidden" id="caLat"  name="caLat" value="${cafe.caLat }">
+									<input type="hidden" id="caLong" name="caLng" value="${cafe.caLng }">
 								</p>
 							</div>
 						</div>
@@ -59,8 +59,8 @@
 								</div>
 								<div class="col-md-6 ">
 								 <div class="form-group">
-									<input type="file" size="50" name="reloadFile" value="${cafe.caFiName }">
-									<input type="hidden" name="file" value="${cafe.caFiName }">
+									<input type="file" size="50" name="reloadFile">
+									<input type="hidden" name="caFiName" value="${cafe.caFiName }">
 									</div>
 								</div>
 								<div class="col-md-6 pr-md-5">

@@ -74,7 +74,7 @@
 	<select id="selectAllEnrolled" parameterType="int" resultMap="memberResultMap">
 		SELECT 
 			ROW_NUMBER() OVER(ORDER BY M.MB_NO) AS RNUM,
-			E.EN_NO, 
+			E.EN_NO,
 			M.MB_NO, 
 			M.MB_NICKNAME, 
 			M.MB_EMAIL 
@@ -97,5 +97,6 @@
 		SELECT
 		MB_NO, MB_ID, MB_PASSWORD, MB_NAME, MB_NICKNAME, MB_EMAIL, MB_PHONE
 	 	FROM MEMBER
+		WHERE MB_STATUS != 0 
 	</select>
 </mapper>

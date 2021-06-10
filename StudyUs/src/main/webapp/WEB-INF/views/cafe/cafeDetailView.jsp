@@ -118,16 +118,7 @@
 			<!-- cafeReview.js 파일과 연동하기 위해서 -->
 			<input type="hidden"  id="cafeNumber" value="${ cafe.caNo }"/>
 			<input type="hidden"  id="memberNo" value="${ loginUser.mbNo }"/>
-					<%-- <td class="pl-3" colspan="3" align="left">${review.rvContents }</td>
-						<td><c:url var="rvModify" value="rvModifyView">
-								<c:param name="rvNo" value="${review.rvNo }"></c:param>
-							</c:url> <c:url var="rvDelete" value="rvDelete">
-								<c:param name="rvNo" value="${review.rvNo }"></c:param>
-							</c:url> <c:if test="${loginUser.mbNo != 1}">
-								<a href="${rvModify }" type="button" class="reviewbtn">수정</a>
-							</c:if> <a href="${rvDelete }" type="button" class="reviewbtn">삭제</a>
-						</td>
-					</tr> --%>
+			
 			<!-- 리뷰 등록 -->
 			<div class="row block-9">
 				<div class="col-md-10 pr-md-2">
@@ -168,7 +159,7 @@
 			<div id="rList"></div>
 				<div id="float-btn">
 		            <!-- top으로 가는 버튼 -->
-		             <button id="top-btn" onclick="location.href='#'"><b>^</b></button>
+		             <button id="top-btn-pu" onclick="location.href='#'"><b>⇪</b></button>
              	</div>
 			</div>
 			</section>

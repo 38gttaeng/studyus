@@ -138,6 +138,10 @@
 	
 	<select id="selectAllList" resultMap="studyResultMap">
 		SELECT * FROM STUDY
+		WHERE ST_STATUS = 1
 	</select>
 	
+	<update id="deleteStudy" parameterType="_int">
+		UPDATE STUDY SET ST_STATUS = 0 WHERE ST_NO = #{caNo}
+	</update>
 </mapper>

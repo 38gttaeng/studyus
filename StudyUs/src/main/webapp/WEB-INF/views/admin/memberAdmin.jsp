@@ -27,10 +27,6 @@
         <!-- menubar -->
 	    <jsp:include page="../common/adminMenubar.jsp"/>
 	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->
-	    <script>
-	    	$("#sidebarnav>li:first-child").addClass("selected");
-	    	$("#sidebarnav>li:first-child a").addClass("active");
-	    </script>
         
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
@@ -79,7 +75,7 @@
                                         style="width:100%">
                                         <thead>
                                             <tr>
-                                            	<th><input type="checkbox" id="board-select-all"></th>
+                                            	<th><input type="checkbox" id="member-select-all"></th>
                                                 <th>회원번호</th>
                                                 <th>아이디</th>
                                                 <th>비밀번호</th>

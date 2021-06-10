@@ -27,11 +27,6 @@
         <!-- menubar -->
 	    <jsp:include page="../common/adminMenubar.jsp"/>
 	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->
-	    <script>
-	    	$("#sidebarnav>li:first-child").addClass("selected");
-	    	$("#sidebarnav>li:first-child a").addClass("active");
-	    </script>
-        
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->

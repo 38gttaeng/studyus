@@ -17,7 +17,8 @@
 
 	<select id="selectAllList" resultMap="cafeResultMap">
 		SELECT * FROM CAFE
-		ORDER BY CA_NO
+		WHERE CA_STATUS = 1
+		ORDER BY CA_NO 
 	</select>
 
 	<select id="selectOne" resultMap="cafeResultMap">

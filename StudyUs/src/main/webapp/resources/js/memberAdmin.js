@@ -143,7 +143,7 @@ $("#delete-btn").on("click", function() {
 				}
 			},
 			error : function() {
-				console.log("전송 실패..");
+				console.log("전송 실패");
 			}
 		});
 	}

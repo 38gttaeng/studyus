@@ -52,8 +52,6 @@
 		          	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">스터디</a>
 	              	<div class="dropdown-menu">
 	                  <a class="dropdown-item" href="/study/search">스터디 검색</a>
-	                  <a class="dropdown-item" href="#">Another action</a>
-	                  <a class="dropdown-item" href="#">Something else here</a>
 	                  <div class="dropdown-divider"></div>
 	                  <a class="dropdown-item" href="/study/register">스터디 등록</a>
 	                </div>
@@ -79,7 +77,6 @@
 	                    </span>
 	                </a>
 	              	<div class="dropdown-menu">
-	                  <a class="dropdown-item" href="/study/search">
 	                  	<c:if test="${ !empty enrolledStudyList }">
 	                		<c:forEach var="study" items="${ enrolledStudyList }" varStatus="i">
 	                        	<a class="dropdown-item" href="/study/${study.url }">
@@ -87,8 +84,6 @@
 				                </a>
 		                    </c:forEach>
 	                	</c:if>
-	                  </a>
-	                  <div class="dropdown-divider"></div>
 	                  <a class="dropdown-item" href="/member/myPage">마이페이지</a>
 		              <div class="dropdown-divider"></div>
 		              <a class="dropdown-item" href="/member/logout">로그아웃 </a>
