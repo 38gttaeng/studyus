@@ -119,11 +119,6 @@ public class AssignmentServiceImpl implements AssignmentService {
 		return asStore.deleteAssignment(asNo);
 	}
 
-	@Override
-	public ArrayList<Assignment> printAllByMbNo(int mbNo) {
-		return asStore.selectAllByMbNo(mbNo);
-	}
-	
 	public ArrayList<AssignmentGroup> printGroupChart(int stNo) {
 		
 		// 스터디에 해당하는 그룹별 과제 개수 가져오기
@@ -150,6 +145,15 @@ public class AssignmentServiceImpl implements AssignmentService {
 		}
 		
 		return grList;
+	}
+	
+	@Override
+	public ArrayList<Assignment> printAllByMbNo(int mbNo) {
+		return asStore.selectAllByMbNo(mbNo);
+	}
+	
+	public int printRemainByMbNo(int stNo, int mbNo) {
+		return asStore.selectRemainByMbNo(stNo, mbNo);
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////

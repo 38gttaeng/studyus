@@ -132,6 +132,14 @@ public class AssignmentStoreLogic implements AssignmentStore {
 	}
 	
 	@Override
+	public int selectRemainByMbNo(int stNo, int mbNo) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("stNo", stNo);
+		map.put("mbNo", mbNo);
+		return sqlSession.selectOne("assignmentMapper.selectRemainByMbNo", map);
+	}
+	
+	@Override
 	public ArrayList<AssignmentGroup> selectGroupChart(int stNo) {
 		return (ArrayList)sqlSession.selectList("assignmentMapper.selectGroupChart", stNo);
 	}

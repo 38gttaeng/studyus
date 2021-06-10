@@ -29,12 +29,6 @@ public class SAssignmentServiceImpl implements SAssignmentService {
 	}
 
 	@Override
-	public int submittedCheck(SubmittedAssignment sAssignment) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public ArrayList<SubmittedAssignment> printAllSubmittedAssignment(int asNo) {
 		
 		// 1. 모든 suList 가져오기
@@ -96,9 +90,8 @@ public class SAssignmentServiceImpl implements SAssignmentService {
 	}
 
 	@Override
-	public int mySubmittedAssignment(SubmittedAssignment sAssignment) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int printRemainByMbNo(int stNo, int mbNo) {
+		return suStore.selectRemainByMbNo(stNo, mbNo);
 	}
 
 	@Override

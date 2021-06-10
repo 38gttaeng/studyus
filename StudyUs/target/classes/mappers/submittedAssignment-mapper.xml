@@ -120,6 +120,17 @@
 		WHERE SU_NO = #{suNo}
 	</update>
 	
+	<!-- 마이페이지 남은 과제수 계산(내가 총 한거) -->
+	<select id="selectRemainByMbNo" parameterType="Map" resultType="_int">
+		SELECT COUNT(*)
+        FROM SUBMITTED_ASSIGNMENT S
+        JOIN ASSIGNMENT A USING(AS_NO)
+        JOIN ASSIGNMENT_GROUP G ON A.GR_NO = G.GR_NO
+        WHERE S.MB_NO = #{mbNo}
+        AND G.ST_NO = #{stNo}
+        AND S.SU_STATUS = 1
+	</select>
+	
 	<!-- 과제율 계산 : 총 과제 제출 개수 / 스터디 내부 과제 제출 개수 -->
 	<select id="selectCountByMbNo" parameterType="_int" resultType="_int">
 	<![CDATA[
@@ -131,7 +142,7 @@
 	]]>
 	</select>
 	
-	<select id="selectCountByStNo" parameterType="Map" resultType="_int"> 
+	<select id="selectCountByStNo" parameterType="Map" resultType="_int">
 	<![CDATA[
 		SELECT
 		   COUNT(*)

@@ -41,8 +41,6 @@ public interface MemberStore {
 	
 	public Member findMemPw(Member member);
 	
-	public ArrayList<Enrollment> selectAllStudyByMbNo(PageInfo pi, int mbNo);
-	
 	public int selectStudyListCount(int mbNo);
 	
 	/**

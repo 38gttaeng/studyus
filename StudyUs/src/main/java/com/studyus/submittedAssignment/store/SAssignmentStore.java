@@ -19,14 +19,6 @@ public interface SAssignmentStore {
 	public int submittedCheckCount(int asNo);
 	
 	/**
-	 * 한개 제출여부
-	 * (0이면 미제출 1이면 제출)
-	 * @param sAssignment(asNo, mbNo)
-	 * @return
-	 */
-	public int submittedCheck(SubmittedAssignment sAssignment);
-	
-	/**
 	 * 전체보기
 	 * @param asNo
 	 * @return
@@ -68,6 +60,14 @@ public interface SAssignmentStore {
 	public int insertSubmittedAssignment(SubmittedAssignment sAssignment);
 	public int updateSubmittedAssignment(SubmittedAssignment sAssignment);
 	public int deleteSubmittedAssignment(int suNo);
+	
+	/**
+	 * 남은 과제 수(제출한 과제수)
+	 * @param stNo
+	 * @param mbNo
+	 * @return
+	 */
+	public int selectRemainByMbNo(int stNo, int mbNo);
 	
 	/**
 	 * 파일함 (게시물 + 댓글 전부 가져오기)

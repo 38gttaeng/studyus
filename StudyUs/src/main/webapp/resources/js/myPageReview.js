@@ -1,4 +1,4 @@
-$(document).ready(function getReviewList(){
+$(document).ready(function(){
 	var mbNo = $("#mbNo").val();
 	$.ajax({
 		url : "/member/myReview",
@@ -63,8 +63,3 @@ $(document).ready(function getReviewList(){
 	});
 });
 
-$(".review-box").scroll(function () {
-	if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
-		getReviewList();
-	}
-});

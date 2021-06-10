@@ -43,23 +43,44 @@
 				<div class="study-zone">
 					<c:if test="${!empty myStudyList}">
 						<c:forEach var="study" items="${myStudyList}" varStatus="i">
-							<div class="study-box" onclick="location.href='/study/${study.url}'">
-								<div class="txt-box">
-									<div class="study-name"><a>${study.studyName}</a></div>
-									<div class="study-info">
-										<span class="label">출석률</span><span class="value">${study.attRate}%</span>
-										<span class="label">과제완료율</span><span class="value ">${study.taskRate}%</span>
-										<span class="label">남은 과제</span><span class="value">${study.remTask}개</span>
+								<div class="study-box" onclick="location.href='/study/${study.url}'">
+									<div class='txt-box'>
+										<div class='study-name'><a>${study.studyName}</a></div>
+										<div class='study-info'>
+											<c:if test="${study.attRate >= 0 && study.attRate <= 29}">
+												<span class='label'>출석률</span>
+												<a class="value" style="color: red;">${study.attRate}%</a>
+											</c:if>
+											<c:if test="${study.attRate >= 30 && study.attRate <= 59}">
+												<span class='label'>출석률</span>
+												<a class="value" style="color: yellow;">${study.attRate}%</a>
+											</c:if>
+											<c:if test="${study.attRate >= 60}">
+												<span class='label'>출석률</span>
+												<a class="value" style="color: green;">${study.attRate}%</a>
+											</c:if>
+											<c:if test="${study.taskRate >= 0 && study.taskRate <= 29}">
+												<span class='label'>과제완료율</span>
+												<a class="value" style="color: red;">${study.taskRate}%</a>
+											</c:if>
+											<c:if test="${study.taskRate >= 30 && study.taskRate <= 59}">
+												<span class='label'>과제완료율</span>
+												<a class="value" style="color: yellow;">${study.taskRate}%</a>
+											</c:if>
+											<c:if test="${study.taskRate >= 60}">
+												<span class='label'>과제완료율</span>
+												<a class="value" style="color: green;">${study.taskRate}%</a>
+											</c:if>
+											<span class='label'>남은 과제</span><a class='value'>${study.remTask}개</a>
+										</div>
 									</div>
 								</div>
-							</div>
 						</c:forEach>
 					</c:if>
-					
 					<c:if test="${empty myStudyList}">
-						<div class="study-box">
-							<div class="txt-box">
-								<a class="study-name">가입한 스터디가 없습니다.</a>
+						<div class='study-box'>
+							<div class="txt-box" style="text-align: center;">
+								<a style="font-weight: bold; font-size: 15px;">가입한 스터디가 없습니다.</a>
 							</div>
 						</div>
 					</c:if>
@@ -73,87 +94,57 @@
 				<!-- ============================================================== -->
 				<!-- Container fluid  -->
 				<!-- ============================================================== -->
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="card">
-								<div class="row">
-									<div class="col-lg-3 border-right pr-0">
-										<div class="card-body border-bottom" style="text-align: center;">
-											<h4 class="card-title mt-2">스터디 일정</h4>
-										</div>
-										<div class="card-body">
-											<div class="row">
-												<div class="col-md-12">
-													<table id="calendar-events">
-														<tr class="calendar-events cEvents0">
-															<td>전체보기</td>
-														</tr>
-														<tr class="calendar-events cEvents1">
-															<td>과제 기한</td>
-														</tr>
-														<tr class="calendar-events cEvents2">
-															<td>모임 일정</td>
-														</tr>
-														<tr>
-															<td>
-																<div id="checkHide"
-																	class="custom-control custom-checkbox">
-																	<input type="checkbox" class="custom-control-input"	id="drop-remove">
-																	<label class="custom-control-label" for="drop-remove">취소된 예약 숨기기</label>
-																</div>
-															</td>
-														</tr>
-													</table>
-												</div>
+				<div class="scroll-zone">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="row">
+										<div class="col-lg-12">
+												<div id="calendar"></div>
 											</div>
-										</div>
-									</div>
-									<div class="col-lg-9">
-										<div class="card-body b-l calender-sidebar">
-											<div id="calendar"></div>
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="modal fade" id="info" tabindex="-1"
-								aria-labelledby="infoLabel" aria-hidden="true"
-								data-backdrop="static">
-								<div
-									class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-									<div class="modal-content">
-										<div id="modal-header" class="modal-header">
-											<h5 class="modal-title text-white" id="infoLabel">일정</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true" class="text-white">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<div class="form-group">
-												<label for="name">일정명</label> <input id="name"
-													class="form-control" type="text" readonly>
+	
+								<div class="modal fade" id="info" tabindex="-1"
+									aria-labelledby="infoLabel" aria-hidden="true"
+									data-backdrop="static">
+									<div
+										class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+										<div class="modal-content">
+											<div id="modal-header" class="modal-header">
+												<h5 class="modal-title text-white" id="infoLabel">일정</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true" class="text-white">&times;</span>
+												</button>
 											</div>
-											<div class="form-group">
-												<label for="inDate">시작일시</label>
-												<div class="clearfix">
-													<input id="inDate" class="form-control float-left"
-														type="date" readonly> <input id="inTime"
-														class="form-control float-right" type="time" readonly>
+											<div class="modal-body">
+												<div class="form-group">
+													<label for="name">일정명</label> <input id="name"
+														class="form-control" type="text" readonly>
+												</div>
+												<div class="form-group">
+													<label for="inDate">시작일시</label>
+													<div class="clearfix">
+														<input id="inDate" class="form-control float-left"
+															type="date" readonly> <input id="inTime"
+															class="form-control float-right" type="time" readonly>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="deDate">종료일시</label>
+													<div class="clearfix">
+														<input id="deDate" class="form-control float-left"
+															type="date" readonly> <input id="deTime"
+															class="form-control float-right" type="time" readonly>
+													</div>
 												</div>
 											</div>
-											<div class="form-group">
-												<label for="deDate">종료일시</label>
-												<div class="clearfix">
-													<input id="deDate" class="form-control float-left"
-														type="date" readonly> <input id="deTime"
-														class="form-control float-right" type="time" readonly>
-												</div>
+											<div class="modal-footer">
+												<button id="info-btn" type="button" class="btn btn-primary">더보기</button>
 											</div>
-										</div>
-										<div class="modal-footer">
-											<button id="info-btn" type="button" class="btn btn-primary">더보기</button>
 										</div>
 									</div>
 								</div>
@@ -161,6 +152,7 @@
 						</div>
 					</div>
 				</div>
+			
 
 				<div class="my-review">
 					<div class="menu-mark">
@@ -175,7 +167,7 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-
+	
 	<!--This page JavaScript -->
 	<script src="/resources/css/study/assets/libs/jquery/dist/jquery.min.js"></script>
 	<script src="/resources/css/study/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
@@ -186,7 +178,7 @@
 	<script src="/resources/css/study/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
 	<script	src="/resources/css/study/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
 	<script	src="/resources/css/study/assets/libs/fullcalendar/fullcalendar.js"></script>
-	<script type="text/javascript" src="/resources/js/myPage.js"></script>
-
+	<script type="text/javascript" src="/resources/js/myPageCalendar.js"></script>
+	<script type="text/javascript" src="/resources/js/myPageReview.js"></script>
 </body>
 </html>

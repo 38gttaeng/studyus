@@ -47,4 +47,9 @@ public class PurchaseServiceImpl implements PurchaseService{
 	public ArrayList<Purchase> printAll() {
 		return pStore.selectAll();
 	}
+
+	@Override
+	public ArrayList<Purchase> printOnePuByMbNo(int mbNo) {
+		return pStore.selectOnePuByMbNo(mbNo);
+	}
 }

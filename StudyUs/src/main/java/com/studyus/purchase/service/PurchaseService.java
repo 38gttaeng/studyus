@@ -22,6 +22,8 @@ public interface PurchaseService {
 	// 관리자용 @@@@
 	public int getListCount(Purchase purchase);
 	//  결제 리스트 출력 
-	public ArrayList<Purchase> printAll(); 
+	public ArrayList<Purchase> printAll();
+
+	public ArrayList<Purchase> printOnePuByMbNo(int mbNo);
 
 }

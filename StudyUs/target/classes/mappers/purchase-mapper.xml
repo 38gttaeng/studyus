@@ -10,7 +10,7 @@
 		<result property="stName" column="ST_NAME"></result>
 		<result property="puInsertDate" column="PU_INSERTDATE"></result>
 		<result property="maxPersonnel" column="ST_MAX_PERSONNEL"></result>
-		<result property="noStatus" column="PU_STATUS"></result>
+		<result property="puStatus" column="PU_STATUS"></result>
 	</resultMap>
 	
 <!-- 	<select id="studyList" resultMap="purchaseResultMap">
@@ -25,7 +25,7 @@
 	
 	<select id="selectPurchaseList" resultMap="purchaseResultMap">
 		SELECT ROW_NUMBER() OVER(ORDER BY PU_INSERTDATE) AS RNUM, 
-		P.PU_NO, P.MB_NO, ST_NO, S.ST_NAME, M.MB_EMAIL, P.PU_INSERTDATE 
+		P.PU_NO, P.MB_NO, ST_NO, S.ST_NAME, M.MB_EMAIL, P.PU_INSERTDATE
 		FROM PURCHASE P
 		LEFT OUTER JOIN STUDY S USING(ST_NO) 
 		LEFT OUTER JOIN MEMBER M ON P.MB_NO = M.MB_NO
@@ -40,5 +40,13 @@
 		INSERT INTO PURCHASE VALUES(
     	SEQ_PURCHASE.NEXTVAL, #{stNo}, #{mbNo}, DEFAULT, DEFAULT)
 	</insert>
+	
+	<select id="selectOnePuByMbNo" resultMap="purchaseResultMap">
+		SELECT ROW_NUMBER() OVER(ORDER BY PU_INSERTDATE) AS RNUM, P.PU_NO, P.MB_NO, ST_NO, S.ST_NAME, P.PU_INSERTDATE, P.PU_STATUS
+		FROM PURCHASE P
+		LEFT OUTER JOIN STUDY S USING(ST_NO)
+		WHERE P.MB_NO = #{mbNo} AND P.PU_STATUS = 1
+		ORDER BY RNUM ASC
+	</select>
 	
 </mapper>

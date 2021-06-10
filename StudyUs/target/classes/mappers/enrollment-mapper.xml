@@ -56,7 +56,7 @@
 										#{studyNo},
 										SYSDATE,
 										#{message},
-										DEFAULT)
+										DEFAULT) 
 	</insert>
 	
 	<select id="selectAllByStudyNo" parameterType="int" resultMap="enrollmentWithMemberResultMap">

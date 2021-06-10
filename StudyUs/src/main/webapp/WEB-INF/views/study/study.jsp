@@ -84,7 +84,7 @@
                         <div class="card">
                             <div class="card-body" style="padding:0;">
                             	<div class="text-center" style="margin-top:15%; margin-bottom:10%; color:#683FF7;">
-                            		<h2>${meeting.requiredAttendance} / ${  }</h2>
+                            		<h2>${meeting.requiredAttendance}</h2>
                                 </div>
                                 <div class="text-center">
                                 		<!-- 월  -->

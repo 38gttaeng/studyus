@@ -23,6 +23,8 @@ public interface PurchaseStore {
 	// 관리자용 @@@@
 	public int selectListCount(Purchase purchase);
 	//  결제 리스트 출력 
-	public ArrayList<Purchase> selectAll(); 
+	public ArrayList<Purchase> selectAll();
+
+	public ArrayList<Purchase> selectOnePuByMbNo(int mbNo); 
 	
 }

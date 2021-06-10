@@ -3,8 +3,6 @@ package com.studyus.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,26 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
-import com.studyus.assignment.service.AssignmentService;
-import com.studyus.common.PageInfo;
-import com.studyus.common.Pagination5;
-import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.member.domain.Member;
 import com.studyus.member.domain.MyStudyInfo;
 import com.studyus.member.service.MemberService;
-import com.studyus.review.domain.Review;
+import com.studyus.purchase.domain.Purchase;
+import com.studyus.purchase.service.PurchaseService;
 import com.studyus.study.domain.Study;
 import com.studyus.study.service.StudyService;
 
@@ -53,7 +43,7 @@ public class MemberController {
 	private EnrollmentService eService;
 	
 	@Autowired
-	private AssignmentService asService;
+	private PurchaseService pService;
 	
 	// NaverLoginBO
 	private NaverLoginBO naverLoginBO;
@@ -89,7 +79,6 @@ public class MemberController {
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			
 			// 가입한 스터디 리스트를 세션에 저장
 			ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
 			session.setAttribute("enrolledStudyList", enrolledStudyList);
@@ -167,15 +156,6 @@ public class MemberController {
 		}
 	}
 	
-	// 구글 Callback호출 메소드
-	@RequestMapping(value = "/member/redirection", method = { RequestMethod.GET, RequestMethod.POST })
-	public String googleCallback(Model model, @RequestParam String code) throws IOException {
-		System.out.println("Google login success");
-		
-		
-		
-		return "member/loginSuccess";
-	}
 	// 로그아웃
 	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public String memberLogout(HttpServletRequest request) {
@@ -197,7 +177,11 @@ public class MemberController {
 		int result = service.registerMember(member);
 		
 		if(result > 0) {
-			return "member/joinSuccess";
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('회원가입 인증 이메일이 발송되었습니다.'); location.href='/'</script>");
+			out.flush();
+			out.close();
+			return null;
 		}else {
 			response.setContentType("text/html; charset=UTF-8");
 			out.println("<script>alert('회원가입에 실패하였습니다.'); location.href='/member/enrollView'</script>");
@@ -297,6 +281,7 @@ public class MemberController {
 		Member mOne = new Member(member.getMbId(), member.getMbName(), member.getMbEmail());
 		Member findPwd = service.findMemPw(mOne);
 		if(findPwd != null) {
+			System.out.println(findPwd);
 			HttpSession session = request.getSession();
 			session.setAttribute("findPwd", findPwd);
 		}else {
@@ -315,6 +300,7 @@ public class MemberController {
 								HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		Member findId = (Member)session.getAttribute("findId");
+		System.out.println("findId : " + findId);
 		Member checkKey = service.checkKeyByEmail(findId.getMbEmail());
 		
 		System.out.println(authKey);
@@ -341,6 +327,7 @@ public class MemberController {
 								HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		Member findPwd = (Member)session.getAttribute("findPwd");
+		System.out.println("findPwd : " + findPwd);
 		Member checkKey = service.checkAuthKey(findPwd.getMbId());
 	   
 		System.out.println(checkKey.getAuthKey());
@@ -404,30 +391,27 @@ public class MemberController {
 	public String myPageView(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		ArrayList<Study> enrolledStudyList = (ArrayList<Study>)session.getAttribute("enrolledStudyList");
-		ArrayList<MyStudyInfo> myStudyList = new ArrayList<MyStudyInfo>();
-		for(int i = 0; i < enrolledStudyList.size(); i++) {
-			MyStudyInfo myStudy = new MyStudyInfo();
-			String studyName = enrolledStudyList.get(i).getStudyName();
-			String url = enrolledStudyList.get(i).getUrl();
-			myStudy.setStudyName(studyName);
-//			int taskRate = asService.printAssignmentRate(loginMember.getMbNo());
-			myStudy.setTaskRate(0);
-			myStudy.setAttRate(0);
-			myStudy.setRemTask(0);
-			myStudy.setUrl(url);
-			myStudyList.add(myStudy);
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int mbNo = loginUser.getMbNo();
+		if(loginUser == null) {
+    		return "redirect:/doLogin";
+		} else {
+			ArrayList<MyStudyInfo> myStudyList = service.printMyStudy(mbNo, enrolledStudyList);
+			session.setAttribute("myStudyList", myStudyList);
+			return "member/myPage";
 		}
-		session.setAttribute("myStudyList", myStudyList);
-		return "member/myPage";
 	}
 	
 	// 회원정보 뷰
 	@RequestMapping(value = "/member/myInfo", method = RequestMethod.GET)
 	public String myInfoView(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		Member member = (Member)session.getAttribute("loginUser");
-		System.out.println(member);
-		return "member/myInfo";
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		if(loginUser == null) {
+    		return "redirect:/doLogin";
+		} else {
+			return "member/myInfo";
+		}
 	}
 	
 	// 정보수정
@@ -484,9 +468,18 @@ public class MemberController {
 	
 	// 결제관리 뷰
 	@RequestMapping(value = "/member/purchaseView", method = RequestMethod.GET)
-	public String memPurchaseView() {
-		return "member/memberPurchase";
+	public String memPurchaseView(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		if(loginUser == null) {
+    		return "redirect:/doLogin";
+		} else {
+			ArrayList<Purchase> pList = pService.printOnePuByMbNo(loginUser.getMbNo());
+			session.setAttribute("pList", pList);
+			return "member/memberPurchase";
+		}
 	}
+	
 	
 //	@RequestMapping(value="/study/38gttaeng/member")
 //	public String memberView() {

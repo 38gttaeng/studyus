@@ -6,7 +6,9 @@ import java.util.Map;
 import com.studyus.common.PageInfo;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.Member;
+import com.studyus.member.domain.MyStudyInfo;
 import com.studyus.review.domain.Review;
+import com.studyus.study.domain.Study;
 
 public interface MemberService { 
 	
@@ -32,6 +34,8 @@ public interface MemberService {
 	
 	public int removeMember(Member mOne);
 	
+	public ArrayList<MyStudyInfo> printMyStudy(int mbNo, ArrayList<Study> enrolledStudyList);
+	
 	public int checkIdDup(String mbId); 
 	
 	public int checkNickDup(String mbNickname);
@@ -44,8 +48,6 @@ public interface MemberService {
 	
 	public int getStudyListCount(int mbNo);
 	
-	public ArrayList<Enrollment> printAllStudyByMbNo(PageInfo pi, int mbNo);
-	
 	/**
 	 * 해당 번호의 스터디에 가입한 모든 회원을 출력합니다.
 	 * @param studyNo
@@ -55,6 +57,6 @@ public interface MemberService {
 
 	public ArrayList<Member> printAllAssign(int grNo);
 	
-	public ArrayList<Member> printAll(); 
+	public ArrayList<Member> printAll();
 
 }

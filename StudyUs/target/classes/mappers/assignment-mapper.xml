@@ -177,6 +177,21 @@
 		WHERE A.MB_NO = #{mbNo}
 	</select>
 	
+	<!-- 마이페이지 남은 과제 보기 : 전체 과제  -->
+	<select id="selectRemainByMbNo" parameterType="Map" resultType="_int">
+	 	SELECT
+		    COUNT(*)
+		FROM ASSIGNMENT AI
+		JOIN ASSIGN A
+		ON AI.GR_NO = A.GR_NO
+		JOIN ASSIGNMENT_GROUP G
+		ON AI.GR_NO = G.GR_NO
+		WHERE A.MB_NO = #{mbNo}
+        AND AI.AS_STATUS = 1
+        AND G.ST_NO = #{stNo}
+    </select>
+	
+	
 	<!-- 과제율 계산 : 전체 과제 개수 / 스터디 내부 과제 개수 -->
 	<select id="selectCountByMbNo" parameterType="_int" resultType="_int">
 	<![CDATA[

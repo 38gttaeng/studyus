@@ -29,15 +29,19 @@
 		</div>
 		<hr class="line">
 		<div class="purchase-list">
-			<c:if test="">
-				
-			</c:if>
 			<div class="purchase">
-				
+				<div class="txt-zone">
+					<span class="txt">결제 내역이 없습니다.</span>
+				</div>
+			</div>
+			<div class="purchase">
+				<div class="txt-zone">
+					<span class="txt">결제 내역이 없습니다.</span>
+				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

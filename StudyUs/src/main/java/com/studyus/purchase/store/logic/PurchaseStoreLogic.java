@@ -49,4 +49,9 @@ public class PurchaseStoreLogic implements PurchaseStore{
 	public ArrayList<Purchase> selectAll() { 
 		return (ArrayList)sqlSession.selectList("purchaseMapper.selectPurchaseList");
 	}
+
+	@Override
+	public ArrayList<Purchase> selectOnePuByMbNo(int mbNo) {
+		return (ArrayList)sqlSession.selectList("purchaseMapper.selectOnePuByMbNo", mbNo);
+	}
 }
