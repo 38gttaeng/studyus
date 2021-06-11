@@ -30,7 +30,7 @@
 	</insert>
 	
 	<select id="checkTodayAttendedAlready" parameterType="Attendance" resultType="int">
-		SELECT COUNT(*) FROM ATTENDANCE WHERE ME_NO = #{meetingNo} AND MB_NO = #{memberNo} AND TRUNC(SYSDATE) &gt;= AT_INSERTDATE
+		SELECT COUNT(*) FROM ATTENDANCE WHERE ME_NO = #{meetingNo} AND MB_NO = #{memberNo} AND TRUNC(SYSDATE) &lt;= AT_INSERTDATE
 	</select>
 	
 </mapper>

@@ -127,7 +127,11 @@ $(function() {
 		caferoom.append('crInfo', crInfo);
 		caferoom.append('crMax', crMax);
 		caferoom.append('crPrice', crPrice);
-		caferoom.append('uploadFile', $("#re-crFilename")[0].files[0]);
+		if(crFilename != "") {
+			caferoom.append('uploadFile', $("#re-crFilename")[0].files[0]);
+		} else {
+			caferoom.append('crFilename', $("#origin-file").val());
+		}
 		
 		if(crName != "" && crPrice != "" && crPrice*1 >= 0) {
 			$.ajax({
@@ -275,11 +279,13 @@ function getOneRoom(crNo) {
 			
 			// 수정 modal창에 정보 넘기기
 			$("#re-crName").val(caferoom.crName);
-			$("#origin-filename").html("기존 파일명 : " + originFilename);
+			if(originFilename != null) {
+				$("#origin-filename").html("기존 파일명 : " + originFilename);
+				$("#origin-file").val(caferoom.crFilename);
+			}
 			$("#re-crInfo").val(caferoom.crInfo);
 			$("#re-crMax").val(caferoom.crMax).prop("selected", true);
 			$("#re-crPrice").val(caferoom.crPrice);
-			
 			$("input[name=crNo]").val(caferoom.crNo);
 			
 			// 정보 보여주기

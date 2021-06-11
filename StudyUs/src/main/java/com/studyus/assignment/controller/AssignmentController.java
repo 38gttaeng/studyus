@@ -32,6 +32,7 @@ import com.studyus.common.PageInfo;
 import com.studyus.common.Pagination5;
 import com.studyus.common.RedirectWithMsg;
 import com.studyus.file.controller.FileController;
+import com.studyus.file.domain.FileList;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.service.FileService;
 import com.studyus.member.domain.Member;
@@ -102,9 +103,9 @@ public class AssignmentController {
 		
 		// 선택된 그룹에 해당하는 과제 리스트 가져오기
 		int currentPage = (page != null) ? page : 1;
-		int listCount = asService.getListCount(stNo, grNo);
+		int listCount = asService.getListCount(grNo, stNo);
 		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
-		ArrayList<Assignment> asList = asService.printAll(pi, stNo, grNo);
+		ArrayList<Assignment> asList = asService.printAll(pi, grNo, stNo);
 		
 		// 선택된 그룹에 해당하는 스터디원 정보 가져오기
 		ArrayList<Member> mbList = mbService.printAllAssign(grNo);
@@ -423,7 +424,7 @@ public class AssignmentController {
 	
 	// 파일함으로 이동
 	@RequestMapping(value="/study/assignment/image", method=RequestMethod.GET)
-	public ModelAndView assignmentFileList(HttpServletRequest request, ModelAndView mv) {
+	public ModelAndView assignmentImageList(HttpServletRequest request, ModelAndView mv) {
 		HttpSession session = request.getSession();
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		
@@ -486,17 +487,48 @@ public class AssignmentController {
 			}
 		}
 		
-		// 파일명을 기준으로 정렬(오름차순)
+		// 파일명을 기준으로 정렬(내림차순)
 		Collections.sort(picList, new Comparator<HashMap<String, Object>>() {
 	        @Override
 	        public int compare(HashMap<String, Object> first,
 	                HashMap<String, Object> second) {
 
-	            return ((String)first.get("pic").toString().substring(25,40)).compareTo((String)second.get("pic").toString().substring(25,40));
+	            return ((String)second.get("pic").toString().substring(25,40)).compareTo((String)first.get("pic").toString().substring(25,40));
 	        }
 	    });
 		
 		mv.addObject("picList", picList).setViewName("study/assignmentImage");
+		return mv;
+	}
+	
+	// 기타 파일함으로 이동
+	@RequestMapping(value="/study/assignment/file", method=RequestMethod.GET)
+	public ModelAndView assignmentFileList(HttpServletRequest request, ModelAndView mv) {
+		HttpSession session = request.getSession();
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		
+		// 파일 DB에서 과제(2), 과제제출(3)에 해당하는 리스트 가져오기
+		ArrayList<FileList> fiList = fiService.printAllAssign(stNo);
+		System.out.println(fiList); /////////////////////////////////////////////////
+		
+		// 파일 이름으로 최신순 정렬
+//		fiList.sort(new Comparator<FileList>() {
+//            @Override
+//            public double compare(FileList arg0, FileList arg1) {
+//               double age0 = Double.parseDouble(arg0.getFiStoredName().substring(0, 15));
+//               double age1 = Double.parseDouble(arg1.getFiStoredName().substring(0, 15));
+//               if (age0 == age1)
+//                     return 0;
+//               else if (age1 > age0)
+//                     return 1;
+//               else
+//                     return -1;
+//            }
+//		});
+		System.out.println(fiList); /////////////////////////////////////////////////
+
+		mv.addObject("fiList", fiList);
+		mv.setViewName("study/assignmentFile");
 		return mv;
 	}
 	

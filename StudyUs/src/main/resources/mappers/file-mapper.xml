@@ -12,6 +12,20 @@
 		<result property="fiBoardType" column="FI_BOARD_TYPE"></result>
 		<result property="fiMotherNo" column="FI_MOTHER_NO"></result>
 	</resultMap> 
+	
+	<resultMap type="FileList" id="fileListResultMap">
+		<id property="fiNo" column="FI_NO"></id>
+		<result property="mbNo" column="MB_NO"></result>
+		<result property="fiInsertDate" column="FI_INSERTDATE"></result>
+		<result property="fiRealName" column="FI_REALNAME"></result>
+		<result property="fiStoredName" column="FI_STOREDNAME"></result>
+		<result property="fiDirectory" column="FI_DIRECTORY"></result>
+		<result property="fiStatus" column="FI_STATUS"></result>
+		<result property="fiBoardType" column="FI_BOARD_TYPE"></result>
+		<result property="fiMotherNo" column="FI_MOTHER_NO"></result>
+		<result property="grName" column="GR_NAME"></result>
+		<result property="grColor" column="GR_COLOR"></result>
+	</resultMap> 
 
 	<insert id="insertFile" parameterType="FileVO">
 		INSERT INTO FILE_TABLE VALUES (
@@ -46,5 +60,28 @@
 	<select id="selectOriginName" parameterType="String" resultType="String">
 		SELECT FI_REALNAME FROM FILE_TABLE
 		WHERE FI_STOREDNAME = #{fiStoredName}
+	</select>
+	
+	<!-- 파일함 : 과제 / 과제제출 -->
+	<select id="selectAllAssignment" parameterType="_int" resultMap="fileListResultMap">
+		SELECT F.*, G.GR_NAME, G.GR_COLOR
+		FROM FILE_TABLE F
+		JOIN ASSIGNMENT A ON F.FI_MOTHER_NO = A.AS_NO
+		JOIN ASSIGNMENT_GROUP G ON A.GR_NO = G.GR_NO
+		WHERE FI_STATUS = 1
+		AND FI_BOARD_TYPE = 2
+	    AND G.ST_NO = #{stNo}
+		ORDER BY FI_NO DESC
+	</select>
+	
+	<select id="selectAllSAssignment" parameterType="_int" resultMap="fileListResultMap">
+		SELECT F.*, G.GR_NAME, G.GR_COLOR
+		FROM FILE_TABLE F
+		JOIN ASSIGNMENT A ON F.FI_MOTHER_NO = A.AS_NO
+		JOIN ASSIGNMENT_GROUP G ON A.GR_NO = G.GR_NO
+		WHERE FI_STATUS = 1
+		AND FI_BOARD_TYPE = 2
+	    AND G.ST_NO = #{stNo}
+		ORDER BY FI_NO DESC
 	</select>
 </mapper>

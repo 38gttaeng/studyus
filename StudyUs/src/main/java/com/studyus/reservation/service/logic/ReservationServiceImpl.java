@@ -25,6 +25,16 @@ public class ReservationServiceImpl implements ReservationService {
 	public ArrayList<Reservation> printAll(int caNo) {
 		return rsStore.selectAll(caNo);
 	}
+	
+	@Override
+	public ArrayList<Integer> printChartByWeek(int caNo) {
+		return rsStore.selectChartByWeek(caNo);
+	}
+
+	@Override
+	public int printChartByMonth(int caNo) {
+		return rsStore.selectChartByMonth(caNo);
+	}
 
 	@Override
 	public ArrayList<Reservation> printReservationByStNo(int stNo) {

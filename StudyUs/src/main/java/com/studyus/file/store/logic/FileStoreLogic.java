@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.studyus.file.domain.FileList;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.store.FileStore;
 
@@ -43,6 +44,16 @@ public class FileStoreLogic implements FileStore {
 	@Override
 	public String selectOriginName(String fiStoredName) {
 		return sqlSession.selectOne("fileMapper.selectOriginName", fiStoredName);
+	}
+	
+	@Override
+	public ArrayList<FileList> selectAllAssignment(int stNo) {
+		return (ArrayList)sqlSession.selectList("fileMapper.selectAllAssignment", stNo);
+	}
+
+	@Override
+	public ArrayList<FileList> selectAllSAssignment(int stNo) {
+		return (ArrayList)sqlSession.selectList("fileMapper.selectAllSAssignment", stNo);
 	}
 
 }

@@ -57,8 +57,8 @@
                             </div>
                     		<div class="card-body">
 								<div class="row">
-									<canvas id="week-chart" class="col-6" height="300px"></canvas>
-									<canvas id="day-chart" class="col-6" height="300px"></canvas>
+									<canvas id="week-chart" class="col-6" height="200px"></canvas>
+									<canvas id="month-chart" class="col-6" height="200px"></canvas>
 								</div>
                             </div>
                     	</div>
@@ -76,8 +76,8 @@
                                              	<input type="hidden" name="cafe" value="${ caList }">
                                              	<c:forEach items="${ caList }" var="cafe" varStatus="i">
 	                                   				<div class="custom-control custom-checkbox">
-	                                    				<input type="checkbox" class="custom-control-input cafe-name" id="${ cafe.caNo }" value="${ i.index }">
-	                                    				<label class="custom-control-label" for="${ cafe.caNo }">${ cafe.caName }</label>
+	                                    				<input type="checkbox" class="custom-control-input cafe-name" id="${ i.index }" value="${ cafe.caName }" checked>
+	                                    				<label class="custom-control-label" for="${ i.index }">${ cafe.caName }</label>
 	                                   				</div>
                                              	</c:forEach>
                                              </div>
@@ -97,15 +97,15 @@
 	                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 						    	<div class="modal-content">
 						    		<div id="modal-header" class="modal-header">
-						        		<h5 class="modal-title text-white" id="infoLabel">일정</h5>
+						        		<h5 class="modal-title text-white" id="infoLabel"></h5>
 						        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						          			<span aria-hidden="true" class="text-white">&times;</span>
 						 				</button>
 						 			</div>
 							      	<div class="modal-body">
 							        	<div class="form-group">
-							        		<label for="room">예약룸</label>
-							        		<input id="room" class="form-control" type="text" readonly>
+							        		<label for="no">예약번호</label>
+							        		<input id="no" class="form-control" type="text" readonly>
 							        	</div>
 							        	<div class="form-group">
 							        		<label for="member">예약자</label>

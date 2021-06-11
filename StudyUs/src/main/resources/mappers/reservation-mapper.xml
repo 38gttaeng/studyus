@@ -13,13 +13,19 @@
 		<result property="rsAlert" column="RS_ALERT"></result>
 		<result property="caName" column="CA_NAME"></result>
 		<result property="crName" column="CR_NAME"></result>
-		<result property="mbNickname" column="MB_NICKNAME"></result>
+		<result property="crPrice" column="CR_PRICE"></result>
+		<result property="mbName" column="MB_NAME"></result>
 	</resultMap>
 	
 	<resultMap type="ReservationMember" id="reservMemberResultMap">
 		<id property="rsNo" column="RS_NO"></id>
 		<result property="mbNo" column="MB_NO"></result>
 		<result property="mbNickname" column="MB_NICKNAME"></result>
+	</resultMap>
+	
+	<resultMap type="ReservationCount" id="reservCountResultMap">
+		<id property="dayName" column="DAY_NAME"></id>
+		<result property="count" column="DAY_COUNT"></result>
 	</resultMap>
 	
 	<!-- 예약정보 확인용 -->
@@ -33,12 +39,49 @@
 	
 	<!-- 관리자 리스트 -->
 	<select id="selectAll" parameterType="_int" resultMap="reservationResultMap">
-		SELECT R.*, C.CA_NAME, CR.CR_NAME, C.CA_NO, M.MB_NICKNAME
+		SELECT R.*, C.CA_NAME, CR.CR_NAME, C.CA_NO, M.MB_NAME, CR.CR_PRICE
 		FROM RESERVATION R
 		JOIN CAFEROOM CR ON R.CR_NO = CR.CR_NO
 		JOIN CAFE C ON CR.CA_NO = C.CA_NO
         JOIN MEMBER M ON R.MB_NO = M.MB_NO
 		WHERE CR.CA_NO = #{caNo}
+	</select>
+	
+	<!-- 관리자 차트 : 카페별 일주일 예약수 가져오기 -->
+	<select id="selectChartByWeek" parameterType="_int" resultMap="reservCountResultMap">
+		<![CDATA[
+			SELECT DAY_NAME, NVL(STAT_COUNT, 0) "DAY_COUNT"
+			FROM DAY_LEVEL
+			LEFT JOIN (SELECT DAY, COUNT(*) "STAT_COUNT" FROM(
+			SELECT TO_CHAR(TO_DATE(RS_DATE, 'YYYY-MM-DD'), 'D') "DAY_ORDER", CASE
+			WHEN TO_CHAR(TO_DATE(RS_DATE, 'YYYY-MM-DD'), 'D') = '1' THEN '일'
+			WHEN TO_CHAR(TO_DATE(RS_DATE, 'YYYY-MM-DD'), 'D') = '2' THEN '월'
+			WHEN TO_CHAR(TO_DATE(RS_DATE, 'YYYY-MM-DD'), 'D') = '3' THEN '화'
+			WHEN TO_CHAR(TO_DATE(RS_DATE, 'YYYY-MM-DD'), 'D') = '4' THEN '수'
+			WHEN TO_CHAR(TO_DATE(RS_DATE, 'YYYY-MM-DD'), 'D') = '5' THEN '목'
+			WHEN TO_CHAR(TO_DATE(RS_DATE, 'YYYY-MM-DD'), 'D') = '6' THEN '금'
+			WHEN TO_CHAR(TO_DATE(RS_DATE, 'YYYY-MM-DD'), 'D') = '7' THEN '토'
+			END "DAY" FROM RESERVATION R
+			JOIN CAFEROOM CR USING(CR_NO)
+			WHERE CR.CA_NO = #{caNo}
+			AND RS_DATE >= TO_CHAR(SYSDATE-7,'YYYY-MM-DD')
+			ORDER BY 1)
+			GROUP BY DAY, DAY_ORDER ORDER BY DAY_ORDER ASC)
+			ON DAY = DAY_NAME ORDER BY DAY_LEVEL
+		]]>
+	</select>
+	
+	<!-- 관리자 차트 : 카페별로 한달 예약수 가져오기 -->
+	<select id="selectChartByMonth" parameterType="_int" resultType="_int">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM RESERVATION R
+		JOIN CAFEROOM CR ON R.CR_NO = CR.CR_NO
+		JOIN CAFE C ON C.CA_NO = CR.CA_NO
+		WHERE CR.CA_NO = #{caNo}
+		AND SUBSTR(R.RS_DATE, 1, 10) <= TO_CHAR(LAST_DAY(SYSDATE), 'YYYY-MM-DD')
+		AND SUBSTR(R.RS_DATE, 1, 10) >= TO_CHAR(SYSDATE, 'YYYY-MM-') || '01'
+		]]>
 	</select>
 	
 	<!-- 캘린더 -->

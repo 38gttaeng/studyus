@@ -2,6 +2,7 @@ package com.studyus.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +21,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.studyus.cafe.domain.Cafe;
 import com.studyus.cafe.service.CafeService;
-import com.studyus.common.PageInfo;
-import com.studyus.common.Pagination10;
+import com.studyus.calendar.controller.CalendarController;
+import com.studyus.calendar.domain.ReservCalendar;
 import com.studyus.member.domain.Member;
 import com.studyus.member.service.MemberService;
 import com.studyus.purchase.domain.Purchase;
@@ -51,6 +52,10 @@ public class AdminController {
 	// 예약 리스트
 	@Autowired
 	private ReservationService rService;
+	
+	// 캘린더 변환
+	@Autowired
+	private CalendarController calController;
 	
 	// 결제 리스트 
 	@Autowired
@@ -102,7 +107,7 @@ public class AdminController {
 		// 스터디 목록
 		@RequestMapping(value="/admin/study/list", method=RequestMethod.GET)
 		public void studyList(HttpSession session, HttpServletResponse response, @RequestParam("sc") StudySearchCriteria sc) throws JsonIOException, IOException {
-			ArrayList<Study> data = sService.printAll(sc);
+			ArrayList<Study> data = sService.printAll();
 			
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson(data, response.getWriter());
@@ -182,7 +187,7 @@ public class AdminController {
 		
 		// 카페전체 예약 리스트를 담는 메소드
 			// 카페별로 나누어 담기 위해서 
-		ArrayList<ArrayList<Reservation>> cafeList = new ArrayList<ArrayList<Reservation>>();
+		ArrayList<ArrayList<ReservCalendar>> cafeList = new ArrayList<ArrayList<ReservCalendar>>();
 		
 		// 카페 리스트 출력
 		ArrayList<Cafe> caList = cService.printAll();
@@ -190,10 +195,60 @@ public class AdminController {
 		// 카페전체 리스트에 카페에 해당하는 예약리스트 넣기
 		for(Cafe cafe : caList) {
 			ArrayList<Reservation> rList = rService.printAll(cafe.getCaNo());
-			cafeList.add(rList);
+			ArrayList<ReservCalendar> cList = new ArrayList<ReservCalendar>();
+			for(Reservation rOne : rList) {
+				ReservCalendar cal = new ReservCalendar();
+				cal = calController.reservationManage(rOne);
+				cList.add(cal);
+			}
+			cafeList.add(cList);
 		}
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(cafeList, response.getWriter());
+	}
+	
+	// 카페별 한달 예약수 가져오기
+	@RequestMapping(value="/admin/reservation/month-chart", method=RequestMethod.GET)
+	public void getReservationChartByMonth(HttpServletResponse response) throws Exception {
+		
+		// 각각에 해당하는 어레이 만들어서 넣어주기
+		ArrayList<String> labelList = new ArrayList<String>();
+		ArrayList<Integer> countList = new ArrayList<Integer>();
+		
+		// 카페 리스트로 for문 돌려서 넣어주기
+		ArrayList<Cafe> caList = cService.printAll();
+		for(Cafe cafe : caList) {
+			labelList.add(cafe.getCaName());
+			int count = rService.printChartByMonth(cafe.getCaNo());
+			countList.add(count);
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("labelList", labelList);
+		map.put("countList", countList);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(map, response.getWriter());
+	}
+	
+	// 카페별 일주일 예약수 가져오기
+	@RequestMapping(value="/admin/reservation/week-chart", method=RequestMethod.GET)
+	public void getReservationChartByWeek(HttpServletResponse response) throws Exception {
+		
+		// 각각에 해당하는 어레이 만들어서 넣어주기
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		
+		// 카페 리스트로 for문 돌려서 넣어주기
+		ArrayList<Cafe> caList = cService.printAll();
+		for(Cafe cafe : caList) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("label", cafe.getCaName());
+			map.put("data", rService.printChartByWeek(cafe.getCaNo()));
+			list.add(map);
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(list, response.getWriter());
 	}
 }

@@ -16,6 +16,7 @@ import com.google.gson.GsonBuilder;
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.service.AssignmentService;
 import com.studyus.calendar.domain.Calendar;
+import com.studyus.calendar.domain.ReservCalendar;
 import com.studyus.member.domain.Member;
 import com.studyus.reservation.domain.Reservation;
 import com.studyus.reservation.service.ReservationService;
@@ -92,6 +93,17 @@ public class CalendarController {
 		} else {
 			System.out.println("스터디에 해당하는 예약 전부 가져오기 실패~~~");
 		}
+	}
+	
+	// 어드민 예약 페이지 캘린더 데이터로 바꿔주는 메소드
+	public ReservCalendar reservationManage(Reservation rsOne) {
+		String start = rsOne.getRsDate() + " " + rsOne.getRsStart() + ":00";
+		String end = rsOne.getRsDate() + " " + rsOne.getRsEnd() + ":00";
+		int price = rsOne.getCrPrice() * (rsOne.getRsEnd() - rsOne.getRsStart());
+		
+		ReservCalendar calendar = new ReservCalendar(rsOne.getRsNo(), rsOne.getCrName(), rsOne.getMbName(), start, end, price, "status" + rsOne.getRsStatus());
+		
+		return calendar;
 	}
 	
 	// 마이페이지에서 띄우기

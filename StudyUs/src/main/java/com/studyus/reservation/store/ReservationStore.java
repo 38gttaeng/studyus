@@ -18,10 +18,25 @@ public interface ReservationStore {
 	public ArrayList<Reservation> getReservationCheck(Reservation reservation);
 	
 	/**
-	 * 관리자 전체 예약정보 확인
+	 * 관리자 전체 예약정보 확인(카페별로 출력)
+	 * @param caNo
 	 * @return
 	 */
 	public ArrayList<Reservation> selectAll(int caNo);
+	
+	/**
+	 * 일주일 카페별 예약수 (차트용)
+	 * @param caNo
+	 * @return
+	 */
+	public ArrayList<Integer> selectChartByWeek(int caNo);
+	
+	/**
+	 * 한달 카페별 예약수 (차트용)
+	 * @param caNo
+	 * @return
+	 */
+	public int selectChartByMonth(int caNo);
 	
 	/**
 	 * 스터디 예약 정보 확인 (일정)
