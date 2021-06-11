@@ -22,19 +22,19 @@
 	</resultMap>
 	
 	<!-- 과제 리스트 -->
-	<select id="selectListCount" parameterType="Map" resultType="_int">
+	<select id="selectListCount" parameterType="hashMap" resultType="_int">
 		SELECT COUNT(*) FROM ASSIGNMENT A
 		JOIN ASSIGNMENT_GROUP G USING(GR_NO)
 		
 		WHERE AS_STATUS = 1
 		AND ST_NO = #{stNo}
-		<if test="value > 0">
+		<if test="grNo > 0"> 
 		AND GR_NO = #{grNo}
 		</if>
 		ORDER BY AS_NO DESC
 	</select>
 	
-	<select id="selectAllList" parameterType="Map" resultMap="assignmentResultMap">
+	<select id="selectAllList" parameterType="hashMap" resultMap="assignmentResultMap">
 		SELECT
 		    AS_NO, GR_NO, AS_NAME, AS_CONTENTS, AS_INSERTDATE, AS_DEADLINE, AS_STATUS
 		FROM ASSIGNMENT A
@@ -42,7 +42,7 @@
 		
 		WHERE AS_STATUS = 1
 		AND ST_NO = #{stNo}
-		<if test="value > 0">
+		<if test="grNo > 0">
 		AND GR_NO = #{grNo}
 		</if>
 		ORDER BY AS_NO DESC

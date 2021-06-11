@@ -27,7 +27,7 @@
 	<select id="printAttMember" resultMap="meetingResultMap">
 		SELECT ROWNUM,ME_NO, ST_NO, ME_REQUIRED_ATTENDANCE, ME_INSERTDATE
 		FROM MEETING WHERE ST_NO = #{studyNo} AND ROWNUM = 1 
-		ORDER BY ME_NO DESC 
+		ORDER BY ME_NO DESC
 	</select>
 	
 </mapper>

@@ -2,6 +2,7 @@ package com.studyus.file.service;
 
 import java.util.ArrayList;
 
+import com.studyus.file.domain.FileList;
 import com.studyus.file.domain.FileVO;
  
 public interface FileService {
@@ -17,4 +18,12 @@ public interface FileService {
 	public int removeFileByFiNo(int fiNo);
 
 	public String selectOriginName(String fiStoredName);
+	
+	/**
+	 * 과제 / 과제제출 파일함 
+	 * @param stNo 
+	 * @return
+	 */
+	public ArrayList<FileList> printAllAssign(int stNo);
+	
 }

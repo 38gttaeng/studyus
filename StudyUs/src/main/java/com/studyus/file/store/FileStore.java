@@ -2,6 +2,7 @@ package com.studyus.file.store;
 
 import java.util.ArrayList;
 
+import com.studyus.file.domain.FileList;
 import com.studyus.file.domain.FileVO;
 
 public interface FileStore {
@@ -17,4 +18,18 @@ public interface FileStore {
 	public int deleteFileByFiNo(int fiNo);
 
 	public String selectOriginName(String fiStoredName);
+	
+	/** 
+	 * 과제 파일함
+	 * @param stNo 
+	 * @return
+	 */
+	public ArrayList<FileList> selectAllAssignment(int stNo);
+	
+	/**
+	 * 과제제출 파일함
+	 * @param stNo
+	 * @return
+	 */
+	public ArrayList<FileList> selectAllSAssignment(int stNo);
 }

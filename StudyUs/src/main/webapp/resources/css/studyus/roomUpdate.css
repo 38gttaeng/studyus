@@ -65,6 +65,15 @@
 	position : relative;
 }
 
+#img-box {
+	overflow:hidden; 
+	height: 250px;
+}
+
+#img-box img {
+	object-fit:cover;
+}
+
 /* #no-data {
 	position : absolute;
 	top : 0;

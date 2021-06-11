@@ -2,12 +2,9 @@
 
 /* modal */
 
-input {
-	text-align : center;
-}
-
 input[type=time] {
 	width : 48%;
+	text-align : center; 
 }
 
 #calendar-events {
@@ -18,6 +15,10 @@ input[type=time] {
 
 .custom-checkbox {
 	margin : 20px;
+}
+
+#modal-header {
+	background-color : #6927ff;
 }
 
 /* 공휴일 클릭 이벤트 막기 */

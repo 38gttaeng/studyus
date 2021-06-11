@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.studyus.file.domain.FileList;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.service.FileService;
 import com.studyus.file.store.FileStore;
@@ -44,4 +45,22 @@ public class FileServiceImpl implements FileService {
 	public String selectOriginName(String fiStoredName) {
 		return fiStore.selectOriginName(fiStoredName);
 	}
+
+	@Override
+	public ArrayList<FileList> printAllAssign(int stNo) { 
+		ArrayList<FileList> list = new ArrayList<FileList>();
+		
+		ArrayList<FileList> asList = fiStore.selectAllAssignment(stNo);
+		for(FileList asOne : asList) {
+			list.add(asOne);
+		}
+		
+		ArrayList<FileList> suList = fiStore.selectAllSAssignment(stNo);
+		for(FileList suOne : suList) {
+			list.add(suOne);
+		}
+		
+		return list;
+	}
+
 }

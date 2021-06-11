@@ -127,7 +127,7 @@ public class SAssignmentController {
 		// 실제 파일 저장
 		ArrayList<FileVO> suFiles = null;
 		if(fList != null && !fList.isEmpty()) {
-        	suFiles = new FileController().saveFile(fList, 2, request);
+        	suFiles = new FileController().saveFile(fList, 3, request);
         }
 		
 		// SubmittedAssignment DB 저장
@@ -197,7 +197,7 @@ public class SAssignmentController {
 		if(delFiles != null && !delFiles.isEmpty()) {
 			for(int i=0; i<delFiles.size(); i++) {
 				FileVO file = fiService.selectOne(Integer.parseInt(delFiles.get(i)));
-				new FileController().deleteFile("\\auploadFiles", file.getFiStoredName(), request);
+				new FileController().deleteFile("\\suploadFiles", file.getFiStoredName(), request);
 				fiService.removeFileByFiNo(file.getFiNo());
 			}
 		}
@@ -205,7 +205,7 @@ public class SAssignmentController {
 		// 새파일 업로드
 		ArrayList<FileVO> suFiles = null;
 		if(fList != null && !fList.isEmpty()) {
-			suFiles = new FileController().saveFile(fList, 2, request);
+			suFiles = new FileController().saveFile(fList, 3, request); 
 		}
 		 
 		// SubmittedAssignment DB 수정
@@ -247,7 +247,7 @@ public class SAssignmentController {
 		FileVO fileVO = new FileVO(2, sAssignment.getSuNo());
 		ArrayList<FileVO> suFiles = fiService.selectList(fileVO); 
 		if(!suFiles.isEmpty()) {
-			String folder = "\\auploadFiles";
+			String folder = "\\suploadFiles";
 			for(FileVO file : suFiles) {
 				new FileController().deleteFile(folder, file.getFiStoredName(), request);
 			}

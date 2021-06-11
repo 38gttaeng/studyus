@@ -19,7 +19,8 @@ public class Reservation {
 	private String rsAlert;
 	private String caName;
 	private String crName;
-	private String mbNickname;
+	private int crPrice;
+	private String mbName; 
 	
 	public Reservation() {}
 }

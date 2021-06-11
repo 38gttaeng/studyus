@@ -20,12 +20,14 @@
 		<typeAlias type="com.studyus.assignment.domain.Assign" alias="Assign"/>
 		<typeAlias type="com.studyus.submittedAssignment.domain.SubmittedAssignment" alias="SubmittedAssignment"/>
 		<typeAlias type="com.studyus.file.domain.FileVO" alias="FileVO"/>
+		<typeAlias type="com.studyus.file.domain.FileList" alias="FileList"/> 
 		<typeAlias type="com.studyus.enrollment.domain.Enrollment" alias="Enrollment" />
 		<typeAlias type="com.studyus.cafe.domain.Cafe" alias="Cafe" />
 		<typeAlias type="com.studyus.review.domain.Review" alias="Review" />
 		<typeAlias type="com.studyus.caferoom.domain.Caferoom" alias="Caferoom" />
 		<typeAlias type="com.studyus.reservation.domain.Reservation" alias="Reservation" />
 		<typeAlias type="com.studyus.reservation.domain.ReservationMember" alias="ReservationMember" />
+		<typeAlias type="com.studyus.reservation.domain.ReservationCount" alias="ReservationCount" />
 	</typeAliases>
 	
 	<mappers> 

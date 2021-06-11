@@ -1,6 +1,5 @@
 package com.studyus.reservation.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 import com.studyus.cafe.domain.Cafe;
 import com.studyus.cafe.service.CafeService;
 import com.studyus.caferoom.domain.Caferoom;
@@ -160,7 +158,7 @@ public class ReservationController {
 	
 	// 예약하기
 	@RequestMapping(value="/cafe/reservation-register", method=RequestMethod.POST)
-	public ModelAndView reservationRegister(ModelAndView mv, @ModelAttribute Reservation reservation
+	public String reservationRegister(HttpServletRequest request, @ModelAttribute Reservation reservation
 			, @RequestParam("startStr") String start, @RequestParam("endStr") String end) {
 		
 		// 숫자가 안보내지는 거 같아서 이렇게 보낸다...
@@ -170,16 +168,10 @@ public class ReservationController {
 		reservation.setRsEnd(rsEnd);
 		int rsNo = rsService.registerReservation(reservation);
 		
-		System.out.println(rsNo);/****************************************************************/
-		
-		if(rsNo > 0) {
-			mv.addObject("reservation", reservation);
-			mv.setViewName("/study/reservation/detail?rsNo=" + rsNo);
-		} else {
-			System.out.println("예약 등록 실패!");
+		if(rsNo == 0) { 
+			System.out.println("등록 실패애ㅑ애애애애애ㅐ : " + rsNo);
 		}
-		
-		return mv;
+		return new RedirectWithMsg().redirect(request, "예약이 완료되었습니다.", "/study/reservation/detail?rsNo=" + rsNo);
 	}
 	
 	// 예약취소

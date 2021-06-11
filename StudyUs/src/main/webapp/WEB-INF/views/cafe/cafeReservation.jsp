@@ -59,7 +59,7 @@
 							<h5 id="roomName" class="ml-3"><strong>룸 이름</strong></h5>
 						</div>
 						<br>
-						<div class="col-md-5 ml-3">
+						<div class="col-md-5 ml-3" id="img-box">
 							<img id="roomFile" width="100%" alt="cafe_img" />
 						</div>
 						<div class="col-md-6 pr-md-5 ml-3 mb-2">

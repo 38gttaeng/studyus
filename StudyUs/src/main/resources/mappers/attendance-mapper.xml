@@ -19,7 +19,7 @@
 		FROM ATTENDANCE A
 		JOIN MEMBER M ON A.MB_NO = M.MB_NO
 		WHERE ST_NO = #{studyNo}
-	</select> 
+	</select>
 	
 	<insert id="insertAttendance" parameterType="Attendance">
 		INSERT INTO ATTENDANCE VALUES (SEQ_ATTENDANCE.NEXTVAL,

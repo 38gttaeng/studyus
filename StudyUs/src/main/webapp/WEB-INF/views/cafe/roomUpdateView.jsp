@@ -77,7 +77,7 @@
 							</div>
 						</div>
 						<br>
-						<div class="col-md-5 ml-3">
+						<div class="col-md-5 ml-3" id="img-box"> 
 							<img id="roomFile" width="100%" alt="cafe_img"/>
 						</div>
 						<div class="col-md-6 pr-md-5 ml-3 mb-2">
@@ -188,6 +188,7 @@
 		        	<div class="form-group">
 		        		<label for="re-crFilename">룸 이미지</label>
 		        		<input class="form-control crFile" type="file" name="crFilename" id="re-crFilename">
+		        		<input type="hidden" id="origin-file">
 		        		<span id="origin-filename"></span>
 		        	</div>
 		        	<div class="form-group">
