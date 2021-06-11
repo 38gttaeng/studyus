@@ -229,9 +229,9 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		<!-- footer -->
 		<jsp:include page="../common/studyFooter.jsp" />
+		</div> 
 	</div>
 	<script>
 		$("#sidebarnav>li:nth-child(5)").addClass("selected");

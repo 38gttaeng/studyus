@@ -7,7 +7,7 @@ import com.studyus.attendance.domain.Attendance;
 import com.studyus.member.domain.Member; 
 
 public interface AttendanceStore {
-	public ArrayList<HashMap<String, Object>> printAll(int studyNo); 
+	public ArrayList<Attendance> printAll(int studyNo);
 	public int insertAttendance(Attendance attendance);
 	public int addPoint(Attendance attendance);
 	public int attRate(Attendance attendance);

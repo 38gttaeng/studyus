@@ -21,7 +21,7 @@ public class AttendanceStoreLogic implements AttendanceStore{
 	public SqlSession sqlSession;
 
 	@Override
-	public ArrayList<HashMap<String, Object>> printAll(int studyNo) { 
+	public ArrayList<Attendance> printAll(int studyNo) {  
 		return (ArrayList)sqlSession.selectList("attendanceMapper.printAllAtt", studyNo);
 	}
 

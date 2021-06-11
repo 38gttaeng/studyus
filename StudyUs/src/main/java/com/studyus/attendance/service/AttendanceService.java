@@ -9,7 +9,7 @@ import com.studyus.member.domain.Member;
 import com.studyus.study.domain.Study;
 
 public interface AttendanceService { 
-	public ArrayList<HashMap<String, Object>> printAll(int studyNo); 
+	public ArrayList<Attendance> printAll(int studyNo);  
 	public int checkAttendance(Attendance attendance) throws Exception;
 	public boolean checkAttendedAlready(Attendance attendance);
 	

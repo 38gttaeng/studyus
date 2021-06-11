@@ -1,6 +1,7 @@
 package com.studyus.meeting.store.logic;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -41,6 +42,11 @@ public class MeetingStoreLogic implements MeetingStore{
 		
 		// 현재 시간과 스터디 번호 입력
 		return session.selectOne("meetingMapper.selectCurrentOneByStudyNo", hm);
+	}
+
+	@Override
+	public ArrayList<Meeting> printAttMember(Meeting meeting) { 
+		return (ArrayList)session.selectList("meetingMapper.printAttMember", meeting);
 	}
 
 }

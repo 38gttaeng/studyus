@@ -1,5 +1,7 @@
 package com.studyus.meeting.store;
 
+import java.util.ArrayList;
+
 import com.studyus.meeting.domain.Meeting;
 
 public interface MeetingStore {
@@ -12,4 +14,5 @@ public interface MeetingStore {
 	 */
 	public int insertOne(Meeting meeting) throws Exception;
 	public Meeting selectCurrentOneByStudyNo(int studyNo) throws Exception;
+	public ArrayList<Meeting> printAttMember(Meeting meeting); 
 }

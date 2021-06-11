@@ -172,8 +172,8 @@
 	 <!-- 댓글 수 업데이트 -->
 	<update id="updateReplyCount" parameterType="_int">
 		UPDATE NOTICE SET NO_REPLY_COUNT = (SELECT COUNT(NO_NO) FROM NOTICE 
-        WHERE NO_MOTHER_NO = #{noMotherNo} ) WHERE NO_NO = #{noMotherNo} 
-	</update>
+        WHERE NO_MOTHER_NO = #{noMotherNo} AND NO_STATUS = 1 ) WHERE NO_NO = #{noMotherNo} 
+	</update> 
 	
 	<update id="updateReply" parameterType="Notice">
 		UPDATE NOTICE SET NO_CONTENTS = #{noContents} WHERE NO_NO = #{noNo}

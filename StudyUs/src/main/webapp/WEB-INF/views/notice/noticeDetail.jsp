@@ -11,6 +11,23 @@
 <!-- 추가 css -->
 <link href="/resources/css/studyus/reply.css" rel="stylesheet">
 <title>StudyUs : 스터디룸</title>
+<style>
+#top-btn {
+	background-color: rgba(105, 39, 255, 0.5);
+	color: #fff;
+	border: none;
+	border-radius: 100%;
+	width: 42px;
+	height: 42px; 
+	display: block;
+	margin: 10px auto;
+	outline : 0;
+}
+
+#top-btn:hover {
+	background-color : rgba(105, 39, 255, 1);
+}
+</style>
 </head>
 <body>
 	<!-- ============================================================== -->
@@ -95,8 +112,7 @@
 										${notice.noCount} &nbsp;&nbsp;${ notice.noInsertDate }</h6>
 								</div>
 							</div>
-							<div class="card-body file-box">${ notice.noFileName }
-							</div>
+							<div class="card-body file-box">${ notice.noFileName }</div>
 							<div class="card-body">
 								<c:if test="${ !empty notice.noContents }">
 									<p>${ notice.noContents }</p>
@@ -106,22 +122,29 @@
 
 							<div class="card-body">
 								<!-- js 파일과 연동하기 위해서 -->
-								<input id="rMotherNo" type="hidden" value="${ notice.noNo }"> 
+								<input id="rMotherNo" type="hidden" value="${ notice.noNo }">
 								<input id="rMbNo" type="hidden" value="${ notice.mbNo }">
 								<input id="loginMbNo" type="hidden" value="${ loginUser.mbNo }">
+
 								<h6 class="card-subtitle" style="float: right;">
 									댓글 <span id="rCount"></span>
 								</h6>
 								<hr>
+								<div class="reply-enter">
+									<div id="editor"></div>
+									<button id="rSubmit" class="reply-enter-btn">등록</button>
+								</div>
+								<!-- 댓글 리스트 -->
+								<div id="rList"></div>
+								<div id="float-btn">
+									<!-- top으로 가는 버튼 -->
+									<button id="top-btn" onclick="location.href='#'">
+										<b>️⇪</b>
+									</button>
+								</div>
+								<!-- 페이징 -->
+								<!-- <nav id='rPage'></nav> -->
 							</div>
-							<div class="reply-enter">
-								<div id="editor"></div>
-								<button id="rSubmit" class="reply-enter-btn">등록</button>
-							</div>
-						<!-- 댓글 리스트 -->
-						<div id="rList"></div>
-						<!-- 페이징 -->
-						<nav id='rPage'></nav>
 						</div>
 					</div>
 				</div>

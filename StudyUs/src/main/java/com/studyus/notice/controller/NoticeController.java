@@ -324,6 +324,7 @@ public class NoticeController {
 	// 댓글 목록 
 	@RequestMapping(value="/notice/ReplyList")
 	public void getReplyList(HttpServletResponse response, HttpSession session, @RequestParam("noMotherNo") int noMotherNo, @RequestParam(value="page", required=false) Integer page) throws Exception {
+		System.out.println("ddd");
 		Notice notice = new Notice();
 		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
@@ -391,8 +392,11 @@ public class NoticeController {
 	@ResponseBody
 	@RequestMapping(value="/notice/deleteReply", method=RequestMethod.GET)
 	public String removeReply(@ModelAttribute Notice notice) {
+		
 		int result = nService.removeReply(notice);
-		if(result > 0) {
+		nService.updateReplyCount(notice.getNoMotherNo()); // 댓글 수 업데이트 
+		System.out.println("ddd" + notice.toString());
+		if(result > 0 ) {
 			return "success";
 		}else {
 			return "fail";

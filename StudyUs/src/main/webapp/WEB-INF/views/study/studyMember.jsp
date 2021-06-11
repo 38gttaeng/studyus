@@ -105,9 +105,9 @@
 						<tr></tr>
 					</table>
 			</div>
-		</div> 
 		<!-- footer -->
 		<jsp:include page="../common/studyFooter.jsp" />
+		</div>   
 	</div>
 	<script>
 		$("#sidebarnav>li:nth-child(12)").addClass("selected");
