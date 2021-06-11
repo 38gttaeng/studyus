@@ -54,7 +54,7 @@
 		<form class="py-5 pt-5 mx-auto" id="registerForm" style="max-width: 600px;" action="/study/registerPost" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="inputEmail4">스터디명 <span style="color: red;">*</span></label> 
-				<input type="text" class="form-control" id="inputName" name="studyName" required>
+				<input type="text" class="form-control" id="inputName" name="studyName" onkeyup="nameCheck(this);" required>
 				<small id="nameHelp" class="form-text">4 ~ 32 자리의 한글, 영문 및 숫자만 가능합니다.</small>
 			</div>
 			<div class="form-group">

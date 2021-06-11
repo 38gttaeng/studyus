@@ -6,10 +6,35 @@ var hashtags = [];
 var hashtagView = document.getElementById("hashtagView");
 // 해시태그를 입력하는 input태그
 var hashtagInput = document.getElementById("inputHashtag");
+// 스터디명 유효성 검사결과를 사용자에게 안내하는 태그
+var nameHelp = document.getElementById("nameHelp");
+// 스터디명 유효성 규칙
+var nameRule = /^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+$/;
+// 스터디명 유효성 여부를 저장하는 변수, form submit시 확인
+var nameAvailable = false;
 // url 중복 여부를 사용자에게 안내하는 태그
 var urlHelp = document.getElementById("urlHelp");
+// url 유효성 규칙
+var urlRule = /^[0-9|a-z|A-Z]+$/;
 // url 중복 여부를 저장하는 변수, form submit시 확인
 var urlAvailable = false;
+
+// 스터디명 유효성 확인
+function nameCheck (e) {
+    if (e.value.length < 4 || 16 < e.value.length) {
+        nameHelp.innerHTML = '4 ~ 16 자리만 가능합니다.';
+        nameHelp.style.color = 'crimson';
+        nameAvailable = false;
+    } else if (nameRule.test(e.value) == false) {
+        nameHelp.innerHTML = '한글, 영문 및 숫자만 가능합니다.';
+        nameHelp.style.color = 'crimson';
+        nameAvailable = false;
+    } else {
+        nameHelp.innerHTML = '사용가능한 스터디명입니다.';
+        nameHelp.style.color = 'limegreen';
+        nameAvailable = true;
+    }
+}
 
 // url 중복확인
 function urlCheck (e) {
@@ -23,8 +48,12 @@ function urlCheck (e) {
 
     // 길이제한 위반
     if (inputUrl.length < 4 || 32 < inputUrl.length) {
-        urlHelp.innerHTML = '4 ~ 32 자리의 영문 및 숫자만 가능합니다.';
-        urlHelp.style.color = 'gray';
+        urlHelp.innerHTML = '4 ~ 32 자리만 가능합니다.';
+        urlHelp.style.color = 'crimson';
+        urlAvailable = false;
+    } else if (urlRule.test(inputUrl) == false) {
+        urlHelp.innerHTML = '영문 및 숫자만 가능합니다.';
+        urlHelp.style.color = 'crimson';
         urlAvailable = false;
     } else {
         $.ajax({
@@ -116,8 +145,13 @@ $('#meetingDayModal').on('hidden.bs.modal', function () {
 
 // 스터디 등록 실행
 $('#registerForm').submit(function () {
+    if (nameAvailable == false) {
+        alert("사용 불가능한 스터디명입니다.");
+        return false;
+    }
+
     if (urlAvailable == false) {
-        alert("중복된 URL입니다.");
+        alert("사용 불가능한 URL입니다.");
         return false;
     }
 
