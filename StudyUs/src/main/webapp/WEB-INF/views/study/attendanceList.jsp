@@ -11,15 +11,19 @@
 <title>StudyUs : 공지사항</title>
 <!-- 타이틀을 개별 스터디룸 이름으로 해줘도 좋을듯 ! 'StudyUs : 삼팔광땡' 이러케 -->
 <style>
-	.noTitle {
-		color: #7C8798;
-	}
-	
-	.noTitle :hover {
-		color: #6928FF;
+.paginate_button {
+	padding: 0 !important;
+	border: 0 !important;
+	outline: 0 !important;
 }
-</style> 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"/>
+</style>
+<!-- 추가 css -->
+<link
+	href="/resources/css/study/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
+	rel="stylesheet">
+<link href="/resources/css/studyus/manage.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
 </head>
 <body>
 	<!-- ============================================================== -->
@@ -43,19 +47,23 @@
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-lg-4 align-self-center">
-						<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">출석확인</h4>
+						<h4
+							class="page-title text-truncate text-dark font-weight-medium mb-1">출석확인</h4>
 						<div class="d-flex align-items-center">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb m-0 p-0">
-									<li class="breadcrumb-item text-muted" aria-current="page"> <a href="/study">Study</a></li>
-									<li class="breadcrumb-item text-muted active" aria-current="page">Attendance</li>
-									<li class="breadcrumb-item text-primary font-weight-bold" aria-current="page">All</li>
+									<li class="breadcrumb-item text-muted" aria-current="page">
+										<a href="/study">Study</a>
+									</li>
+									<li class="breadcrumb-item text-muted active"
+										aria-current="page">Attendance</li>
+									<li class="breadcrumb-item text-primary font-weight-bold"
+										aria-current="page">All</li>
 								</ol>
 							</nav>
 						</div>
 					</div>
-					<div class="col-lg-8 align-self-center">
-					</div>
+					<div class="col-lg-8 align-self-center"></div>
 				</div>
 			</div>
 
@@ -71,21 +79,24 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<div class="row"  style="margin-top:1%;">
-	                                <div class="col-md-1">
-	                                    <h5 class="card-title">출석률</h5>
-	                                </div>
-	                                <div class="col-md-10">
-	                                	<div class="progress mb-2">
-	                                    	<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-	                                    </div>
-	                                </div>
-	                                	<span id="attendance-help" class="pr-4" style="margin-left:2%;">50%</span>
-                                </div>
+								<div class="row" style="margin-top: 1%;">
+									<div class="col-md-1">
+										<h5 class="card-title">출석률</h5>
+									</div>
+									<div class="col-md-10">
+										<div class="progress mb-2">
+											<div class="progress-bar bg-info" role="progressbar"
+												style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+												aria-valuemax="100"></div>
+										</div>
+									</div>
+									<span id="attendance-help" class="pr-4"
+										style="margin-left: 2%;">50%</span>
+								</div>
 							</div>
 						</div>
 					</div>
-					
+
 					<br> <br>
 					<!-- <div>
 						<select  id="YEAR" class="custom-select custom-select-lg mb-3" name="year">
@@ -95,103 +106,169 @@
 						<select  id=MONTH class="custom-select custom-select-lg mb-3" name="month">
 						</select>
 					</div> -->
-					<div class="col-md-1">
-						<input type="hidden" name="studyNo" value="${attendance.stNo }">
-					</div>
-					<div class="col-md-10">
-						<table id="userList"  class="table table-hover">
-						  <thead>
-						    <tr class="text-center">
-						    	  <th>#</th>
-						      <th>닉네임</th>
-						      <th>날짜</th>
-						      <th>출석여부</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-							  <c:forEach items="${ aList }" var="Attendance">
-							  		<td>${attendance.rNum }</td>
-							  		<td>${member.mbNickname }</td>
-							  		<td>${attendance.atInsertDate }</td>
-							  		<td></td>
-							  </c:forEach>
-						  </tbody>
+					<div class="col-md-1"></div>
+					<div class="col-md-10 table-responsive">
+						<table id="userList" class="table table-bordered table-hover"
+							style="width: 100%">
+							<thead>
+								<tr>
+									<th class="text-center"><input type="checkbox"
+										id="user-select-all"></th>
+									<th>날짜</th>
+									<th>닉네임</th>
+								</tr>
+							</thead>
 						</table>
 					</div>
-					<!-- <table class="table col-lg-12" id="nTable">
-						<thead class="thead-light">
-							<tr>
-								<th scope="col" style="width: 7%"></th>
-								<th scope="col" style="width: 10%">날짜</th>
-								<th scope="col" style="width: 10%">닉네임</th>
-								<th scope="col" style="width: 10%">출석여부</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td></td>
-								<td>2021-06-07</td>
-								<td>동현쿤</td>
-								<td>O</td>
-							</tr>
-						</tbody>
-						<tr></tr>
-					</table> -->
 				</div>
 			</div>
+			<!-- footer -->
+			<jsp:include page="../common/studyFooter.jsp" />
 		</div>
-		<!-- footer -->
-		<jsp:include page="../common/studyFooter.jsp" />
 	</div>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script
+		src="/resources/css/study/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script>
-		$('#userList').DataTable();
-		
-		/* var table = $("#userList").DataTable();
-		table.destroy();
+		// $('#userList').DataTable();
 
-		$.ajax({
-		  url:"/attendance/attList",
-		  type:"get",
-		  success:function(data){
-		 	 $("#userList").dataTable({
-		 	 data: data,
-		 	 columns: [
-		  		{ data: 'user_nm_ko' },
-		  		{ data: 'user_id' },
-		       	{ data: 'email' },
-		        	{ data: 'enable' },
-		        	{ data: 'pos_nm' }
-		  	]
-		  });
+		var table = $("#userList")
+				.DataTable(
+						{
+							destroy : true,
+							bPaginate : true,
+							bLengthChange : true,
+							// 각 상황별 멘트
+							language : {
+								emptyTable : '게시물이 없습니다.',
+								infoEmpty : '게시물이 없습니다.',
+								info : ' _TOTAL_ 개의 게시물이 있습니다.',
+								infoFiltered : "( _MAX_건의 데이터에서 필터링됨 )",
+								zeroRecords : "일치하는 게시물이 없습니다.",
+								search : "&nbsp;에서 검색: ",
+								searchPlaceholder : '검색어 입력',
+								lengthMenu : '보기 _MENU_',
+								processing : "처리중...",
+								paginate : {
+									first : 'First',
+									last : 'Last',
+									next : $('html').attr('dir') == 'rtl' ? '&raquo;'
+											: '&raquo;',
+									previous : $('html').attr('dir') == 'rtl' ? '&laquo;'
+											: '&laquo;',
+								}
+							},
 
-		    },error:function(request, status, error){
-		    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		    }
-		}); */
+							// 검색기능 활성화
+							searching : true,
+
+							// 최초 정렬 기준 : no
+							order : [ [ 1, 'desc' ] ],
+
+							// 여러개 보기 옵션
+							lengthMenu : [ 5, 10, 25, 50 ],
+
+							// 보기 옵션 선택정보 저장여부
+							// stateSave: true,
+
+							// 컬럼에 값이 null인 경우 처리
+							columnDefs : [
+									{
+										'targets' : 0,
+										'searchable' : false,
+										'orderable' : false,
+										'className' : 'dt-body-center',
+										'render' : function(data, type, full,
+												meta) {
+											return '<input type="checkbox" name="board" value="'
+													+ $('<div/>').text(data)
+															.html() + '">';
+										}
+									}, {
+										'targets' : 1,
+										'className' : 'dt-date',
+									}, {
+										'targets' : 2,
+										'className' : 'dt-date',
+									}, {
+										defaultContent : "-",
+										targets : "_all"
+									} ],
+
+							// 선택여부 : 다중선택 가능
+							select : {
+								style : 'os',
+								selector : 'td:first-child'
+							},
+
+							// 서버에서 데이터 가져오기
+							// bServerSide를  true로 할 경우 pagination 등을 서버단에서 처리해야 함
+							processing : true,
+							bServerSide : false,
+							// 받은 json 값이 data가 아닐 경우엔는 dataSrc로 이름 변경
+							ajax : {
+								'url' : '/attendance/attList',
+								'type' : 'GET',
+								'data' : '',
+								'dataSrc' : ''
+							},
+							// 컬럼별로 들어갈 데이터 정보를 저장
+							columns : [ {
+								"data" : "mbNo"
+							}, {
+								"data" : "atInsertDate"
+							}, {
+								"data" : "member.mbNickname"
+							} ]
+						});
+
+		// 컬럼별 검색기능 추가
+		$("#userList_filter").prepend(
+				'<select id="userList-select" class="select"></select>');
+		$('#userList > thead > tr').children().each(
+				function(indexInArray, valueOfElement) {
+					$('#userList-select').append(
+							'<option value="' + indexInArray + '">'
+									+ valueOfElement.innerHTML + '</option>');
+				});
+		$('#userList .dataTables_filter input').unbind().bind('keyup',
+				function() {
+					var colIndex = $('#userList-select').val();
+					table.column(colIndex).search(this.value).draw();
+				});
+
+		$("#user-select-all").on("change", function() {
+			var delcheck = $("input[name=board]");
+			if ($(this).is(":checked")) {
+				delcheck.prop("checked", true);
+			} else {
+				delcheck.prop("checked", false);
+			}
+		});
+
+		/*	 $(document).ready(function(){
+		 setDateBox();
+		 });    
 		
-/*	 $(document).ready(function(){
-	         setDateBox();
-	    });    
-	 
- 	    // select box 연도 , 월 표시
-	    function setDateBox(){
-	        var dt = new Date();
-	        var year = "";
-	        var com_year = dt.getFullYear();
-	        // 발행 뿌려주기
-	        $("#YEAR").append("<option value=''>년도</option>");
-	        // -1년~현재
-	        for(var y = (com_year-1); y <= (com_year); y++){
-	            $("#YEAR").append("<option value='"+ y +"'>"+ y + " 년" +"</option>");
-	        }
-	        // 월 뿌려주기(1월부터 12월)
-	        var month;
-	        $("#MONTH").append("<option value=''>월</option>");
-	        for(var i = 1; i <= 12; i++){
-	            $("#MONTH").append("<option value='"+ i +"'>"+ i + " 월" +"</option>");
-	        }
-	    } */
+		 // select box 연도 , 월 표시
+		 function setDateBox(){
+		 var dt = new Date();
+		 var year = "";
+		 var com_year = dt.getFullYear();
+		 // 발행 뿌려주기
+		 $("#YEAR").append("<option value=''>년도</option>");
+		 // -1년~현재
+		 for(var y = (com_year-1); y <= (com_year); y++){
+		 $("#YEAR").append("<option value='"+ y +"'>"+ y + " 년" +"</option>");
+		 }
+		 // 월 뿌려주기(1월부터 12월)
+		 var month;
+		 $("#MONTH").append("<option value=''>월</option>");
+		 for(var i = 1; i <= 12; i++){
+		 $("#MONTH").append("<option value='"+ i +"'>"+ i + " 월" +"</option>");
+		 }
+		 } */
 	</script>
 </body>
 </html>

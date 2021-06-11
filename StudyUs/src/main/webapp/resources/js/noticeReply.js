@@ -48,8 +48,8 @@ $(function() {
 	});
 	
 	// 등록하기
-	$("#rSubmit").on("click", function() {
 		var rMotherNo = $("#rMotherNo").val();
+	$("#rSubmit").on("click", function() {
 		var rMbNo = $("#loginMbNo").val();
 		var rContent = quill.root.innerHTML;
 		console.log(quill.getLength());
@@ -97,6 +97,7 @@ function getReplyList(page) {
 			page = pi.maxPage;
 			replyList(data, pi.listCount, loginMbNo);
 			replyPage(pi);
+			console.log('pi: ' + pi);
 		},
 		error : function() {
 			// 댓글 없을 경우 여기로 이동
@@ -150,7 +151,7 @@ function replyList(data, listCount, loginMbNo) {
 				$btnTool = $("<div class='btn-group'>");
 				$btnTool
 				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='modifyReply(this," + data[i].noNo + ");'>수정</button>")
-				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].noNo + ");'>삭제</button>");
+				.append("<button class='btn btn-sm btn-outline-light btn-rounded' onclick='removeReply(" + data[i].noNo + "," + data[i].noMotherNo + ");'>삭제</button>");
 				$btnArea.append($btnTool); 
 			}
 			console.log(loginMbNo);
@@ -280,14 +281,14 @@ function modifyReply(obj, noNo) {
 }
 
 // 삭제하기
-function removeReply(noNo) {
+function removeReply(noNo, rMotherNo) {
 	var result = confirm("댓글을 삭제하시겠습니까?");
 	
 	if(result) {
 		$.ajax({
 			url : "/notice/deleteReply",
 			type : "get",
-			data : { "noNo" : noNo },
+			data : { "noNo" : noNo , "noMotherNo" : rMotherNo },
 			success : function(data) { 
 				if(data == "success") {
 					getReplyList();

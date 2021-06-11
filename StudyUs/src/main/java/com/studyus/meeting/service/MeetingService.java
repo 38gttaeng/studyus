@@ -1,5 +1,7 @@
 package com.studyus.meeting.service;
 
+import java.util.ArrayList;
+
 import com.studyus.meeting.domain.Meeting;
 
 public interface MeetingService {
@@ -13,4 +15,6 @@ public interface MeetingService {
 	 * @throws Exception
 	 */
 	public Meeting printCurrentOneByStudyNo(int studyNo) throws Exception;
+
+	public ArrayList<Meeting> printAttMember(Meeting meeting);
 }

@@ -27,7 +27,7 @@
     </div>
 	<div class="text-center" style="margin-top:70px">
 		<h5><b>프리미엄 이용권</b></h5>
-		<p>프리미엄 이용권으로 최대 10인까지 함께 공부하세요.</p>
+		<p>프리미엄 이용권으로 최대 20인까지 함께 공부하세요.</p>
 	</div>
 	    <!-- Button trigger modal -->
 
@@ -78,18 +78,18 @@
 	          <div class="block-7">
 	            <div class="text-center">
 		            <h2 class="heading">Premium</h2>
-		            <span class="price"><sup>₩</sup> <span class="number">3,100,000<small class="per"></small></span></span>
+		            <span class="price"><span class="number">5,900<small class="per">원</small></span></span>
 		            <span class="excerpt d-block">프리미엄 서비스를 무제한으로 이용하실 수 있습니다.</span>
 		            <h3 class="heading-2 mb-3">Enjoy All The Features</h3>
 		            
 		            <ul class="pricing-text mb-4">
-		              <li>최대인원 <strong>10명</strong></li>
+		              <li>최대인원 <strong>20명</strong></li>
 		              <li>메인 페이지에 스터디 광고 가능</li>
-		              <li>&nbsp;</li>
+		              <li>실시간 채팅</li>
 		              <li>&nbsp;</li>
 		            </ul>
 		            <c:if test="${empty sList }"> <!-- 스터디장만 결제 가능하게 -->
-		            		<button id="empty-login" type="button" class="btn btn-primary d-block px-3 py-3 mb-4"  style="width: 70%; margin-left:15%;">구매하기</button>
+		            		<button id="not-leader" type="button" class="btn btn-primary d-block px-3 py-3 mb-4"  style="width: 70%; margin-left:15%;">구매하기</button>
 		            </c:if>
 		            <c:if test="${!empty sList }">
 		            		<!-- <button id="check_module" type="button" class="btn btn-primary d-block px-3 py-3 mb-4"  style="width: 70%; margin-left:15%;">구매하기</button>  -->
@@ -288,9 +288,8 @@
 	});
 
 	// 로그인 안했을 때 로그인 페이지로 이동
-	$("#empty-login").click(function(){
-		alert("로그인 후 이용해주세요.");
-		document.location.href="/member/loginView";
+	$("#not-leader").click(function(){
+		alert("스터디장 전용 구매 상품입니다.");
 	});
 	</script>
   </body>

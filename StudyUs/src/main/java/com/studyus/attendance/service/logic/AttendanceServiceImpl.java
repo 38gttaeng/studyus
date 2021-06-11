@@ -32,7 +32,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public StudyService studyService;
 
 	@Override
-	public ArrayList<HashMap<String, Object>> printAll(int studyNo) {
+	public ArrayList<Attendance> printAll(int studyNo) {
 		return attStore.printAll(studyNo); 
 	}
 

@@ -26,17 +26,21 @@ public class AttendanceController {
 	@Autowired
 	private AttendanceService aService;
 	
-//	// 출석 리스트 보여주기 
-//	@RequestMapping(value="/attendance/attList", method=RequestMethod.GET)
-//	public void attList(HttpSession session, HttpServletResponse response) throws Exception {
-//		Study study = (Study)session.getAttribute("study");
-//		ArrayList<HashMap<String, Object>> data = null;
-//		
-//		data = aService.printAll(study.getStudyNo());
-//		
-//		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-//		gson.toJson(data, response.getWriter());
-//	} 
+	// 출석 리스트
+	@RequestMapping(value="/attendance/list")
+	public String printAtt() {
+		return "study/attendanceList";
+	}
+	
+	// 출석 리스트 보여주기 
+	@RequestMapping(value="/attendance/attList", method=RequestMethod.GET)
+	public void attList(HttpSession session, HttpServletResponse response) throws Exception {
+		Study study = (Study)session.getAttribute("study");
+		ArrayList<Attendance> data = aService.printAll(study.getStudyNo());
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(data, response.getWriter());
+	} 
 	
 	// 출석하기 
 	@ResponseBody 
@@ -46,11 +50,6 @@ public class AttendanceController {
 		return String.valueOf(aService.checkAttendance(attendance));
 	}
 	
-	// 출석 리스트
-	@RequestMapping(value="/attendance/list")
-	public String printAtt() {
-		return "study/attendanceList";
-	}
 	
 	// 평점 추가 
 	@RequestMapping(value="addPoint", method=RequestMethod.POST)

@@ -193,7 +193,7 @@ public class StudyController {
 		// 최신 공지사항 출력 
 		ArrayList<Notice> recentNotice = nService.printRecentNotice(notice);
 		// 스터디 인원  수 출력 
-		// int requiredAttendance = mService.
+		ArrayList<Meeting> attMember = mService.printAttMember(meeting);
 		// 날짜 출력 
 		ArrayList<Study> studyWeek = sService.printStudyWeek(study);
 		/*
@@ -228,10 +228,12 @@ public class StudyController {
 		}
 
 		System.out.println(attendanceStatus);
+		System.out.println(attMember);
 		request.getSession().setAttribute("study", study);
 		request.setAttribute("attendanceStatus", attendanceStatus);
 		request.setAttribute("recentNotice", recentNotice);
 		request.setAttribute("studyWeek", studyWeek);
+		request.setAttribute("attMember", attMember);
 		
 		return "study/study";
 	}

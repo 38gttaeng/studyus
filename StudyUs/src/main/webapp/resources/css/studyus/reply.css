@@ -162,11 +162,29 @@
 	height: 42px;
 	display : block;
 	margin : 10px auto;
+	outline : 0;
+}
+
+#top-btn-pu {
+	background-color : rgba(105, 39, 255, 0.5);
+	color : #fff;
+	border : none;
+	border-radius: 100%;
+	width: 42px;
+	height: 42px;
+	display : block;
+	margin : 10px auto;
+	outline : 0;
 }
 
 #top-btn:hover {
 	background-color : rgba(232, 234, 236, 1);
 }
+
+#top-btn-pu:hover {
+	background-color : rgba(105, 39, 255, 1);
+}
+
 
 /* 글쓰기 버튼 */
 #write-btn {

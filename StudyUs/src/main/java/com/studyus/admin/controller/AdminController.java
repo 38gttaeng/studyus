@@ -101,8 +101,8 @@ public class AdminController {
 		
 		// 스터디 목록
 		@RequestMapping(value="/admin/study/list", method=RequestMethod.GET)
-		public void studyList(HttpSession session, HttpServletResponse response, @RequestParam("sc") StudySearchCriteria sc) throws JsonIOException, IOException {
-			ArrayList<Study> data = sService.printAll(sc);
+		public void studyList(HttpSession session, HttpServletResponse response)  throws JsonIOException, IOException {
+			ArrayList<Study> data = sService.printAll();
 			
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson(data, response.getWriter());

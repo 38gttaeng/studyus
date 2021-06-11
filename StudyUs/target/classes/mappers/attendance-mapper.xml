@@ -9,17 +9,17 @@
 		<result property="studyNo" column="ST_NO"></result>
 		<result property="meetingNo" column="ME_NO"></result>
 		<result property="atInsertDate" column="AT_INSERTDATE"></result> 
+		<collection property="member" resultMap="memberMapper.memberResultMap"></collection>
 	</resultMap>
 	
-<!-- 	<select id="printAllAtt" parameterType="_int" resultType="attendanceResultMap">
+	<select id="printAllAtt" resultMap="attendanceResultMap">
 		SELECT ROW_NUMBER() OVER(ORDER BY A.AT_INSERTDATE DESC) AS RNUM,
-		A.AT_NO, A.MB_NO, ST_NO, M.MB_NICKNAME, 
-		A.AT_INSERTDATE, A.ME_NO, T.ME_REQUIRED_ATTENDANCE 
+		A.AT_NO, A.MB_NO, A.ST_NO, M.MB_NICKNAME, 
+		A.AT_INSERTDATE, A.ME_NO  
 		FROM ATTENDANCE A
-		JOIN MEETING T USING (ST_NO)
 		JOIN MEMBER M ON A.MB_NO = M.MB_NO
 		WHERE ST_NO = #{studyNo}
-	</select> -->
+	</select>
 	
 	<insert id="insertAttendance" parameterType="Attendance">
 		INSERT INTO ATTENDANCE VALUES (SEQ_ATTENDANCE.NEXTVAL,
@@ -30,7 +30,7 @@
 	</insert>
 	
 	<select id="checkTodayAttendedAlready" parameterType="Attendance" resultType="int">
-		SELECT COUNT(*) FROM ATTENDANCE WHERE ME_NO = #{meetingNo} AND MB_NO = #{memberNo} AND TRUNC(SYSDATE) &gt;= AT_INSERTDATE
+		SELECT COUNT(*) FROM ATTENDANCE WHERE ME_NO = #{meetingNo} AND MB_NO = #{memberNo} AND TRUNC(SYSDATE) &lt;= AT_INSERTDATE
 	</select>
 	
 </mapper>
