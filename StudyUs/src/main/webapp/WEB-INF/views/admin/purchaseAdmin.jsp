@@ -26,11 +26,7 @@
         
         <!-- menubar -->
 	    <jsp:include page="../common/adminMenubar.jsp"/>
-	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->
-	    <script>
-	    	$("#sidebarnav>li:first-child").addClass("selected");
-	    	$("#sidebarnav>li:first-child a").addClass("active");
-	    </script>
+	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->	
         
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
@@ -90,8 +86,6 @@
                                         </thead>
                                     </table>
                                 </div>
-		                    <input id="delete-btn" type="button" class="btn btn-primary float-right delete-btn" value="삭제">
-<!-- 		                    <input id="modify-btn" type="button" class="btn btn-primary float-right modify-btn" value="수정"> -->
                             </div>
                         </div>
                     </div>

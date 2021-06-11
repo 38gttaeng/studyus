@@ -27,12 +27,8 @@
         <!-- menubar -->
 	    <jsp:include page="../common/adminMenubar.jsp"/>
 	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->
-	    <script>
-	    	$("#sidebarnav>li:first-child").addClass("selected");
-	    	$("#sidebarnav>li:first-child a").addClass("active");
-	    </script>
         
-        <!-- ============================================================== -->
+        <!-- ============================================================== --> 
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
@@ -80,19 +76,18 @@
                                         <thead>
                                             <tr>
                                             	<th><input type="checkbox" id="cafe-select-all"></th>
-                                                <th>카페번호</th>
                                                 <th>카페명</th>
                                                 <th>주소</th>
                                                 <th>전화번호</th>
                                                 <th>영업시간</th>
                                                 <th>소개</th>
+                                                <th>오시는 길</th>
                                                 <th>매장이미지</th>
                                             </tr>
                                         </thead>
                                     </table>
                                 </div>
 		                    <input id="delete-btn" type="button" class="btn btn-primary float-right delete-btn" value="삭제">
-		                    <input id="modify-btn" type="button" class="btn btn-primary float-right modify-btn" value="수정" onclick="location.href='/cafe/detail?caNo='+cafe.caNo+'">
 		                    <input id="register-btn" type="button" class="btn btn-primary float-right register-btn" value="등록" onclick="location.href='/cafe/registerForm'">
                             </div>
                         </div>

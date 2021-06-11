@@ -136,11 +136,7 @@
             	<!-- Sidebar navigation-->
 	            <nav class="sidebar-nav">
 	                <ul id="sidebarnav">
-	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study"
-	                            aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
-	                                class="hide-menu">HOME</span></a></li>
-	                    <li class="list-divider"></li>
-	                    
+	                     
 						<!-- MANAGEMENT -->
 	                    <li class="nav-small-cap"><span class="hide-menu">management</span></li>
 	                    

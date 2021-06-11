@@ -11,25 +11,24 @@
       	<div class="row mb-5 pb-5 align-items-center d-flex">
       		<div class="col-md-6">
       			<div class="heading-section heading-section-white ftco-animate">
-      				<span class="subheading">Get an easy quote</span>
-	            <h2 style="font-size: 30px;">Sign Up For Web Hosting Today!</h2>
+      				<span class="subheading">더 많은 사람과 함께</span> 
+	            <h2 style="font-size: 30px;">지금 스터디샵에서<br> 프리미엄 구매시 5,900원!</h2>
 	          </div>
       		</div>
       		<div class="col-md-3 ftco-animate">
       			<div class="price">
-      				<span class="subheading">Starting at Only</span>
-      				<h3>$4.50<span>/mo</span></h3>
+      				<h3>&nbsp;</h3>
       			</div>
       		</div>
       		<div class="col-md-3 ftco-animate">
-      			<p class="mb-0"><a href="#" class="btn btn-primary py-3 px-4">Get started now</a></p>
+      			<p class="mb-0"><a href="/shop/premiumShopView" class="btn btn-primary py-3 px-4">지금 구매하기</a></p>
       		</div>
       	</div>
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4 bg-primary p-4">
-              <h2 class="ftco-heading-2">CoHost</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <h2 class="ftco-heading-2">StudyUs</h2>
+              <p>스터디어스는 <br>온라인 스터디 플랫폼의 선두주자로서 500여개의 스터디플래닛과 함께하고 있습니다.</p>
               <ul class="ftco-footer-social list-unstyled mb-0">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -38,39 +37,37 @@
             </div>
           </div>
           <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-5">
-              <h2 class="ftco-heading-2">Unseful Links</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Servers</a></li>
-                <li><a href="#" class="py-2 d-block">Windos Hosting</a></li>
-                <li><a href="#" class="py-2 d-block">Cloud Hosting</a></li>
-                <li><a href="#" class="py-2 d-block">OS Servers</a></li>
-                <li><a href="#" class="py-2 d-block">Linux Servers</a></li>
-                <li><a href="#" class="py-2 d-block">Policy</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Navigational</h2>
+            <div class="ftco-footer-widget mb-5 ml-md-5">
+<!--               <h2 class="ftco-heading-2">Unseful Links</h2> -->
+<!--               <ul class="list-unstyled"> -->
+<!--                 <li><a href="#" class="py-2 d-block">Servers</a></li> -->
+<!--                 <li><a href="#" class="py-2 d-block">Windos Hosting</a></li> -->
+<!--                 <li><a href="#" class="py-2 d-block">Cloud Hosting</a></li> -->
+<!--                 <li><a href="#" class="py-2 d-block">OS Servers</a></li> -->
+<!--                 <li><a href="#" class="py-2 d-block">Linux Servers</a></li> -->
+<!--                 <li><a href="#" class="py-2 d-block">Policy</a></li> -->
+<!--               </ul> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--           <div class="col-md"> -->
+<!--              <div class="ftco-footer-widget mb-4"> -->
+              <h2 class="ftco-heading-2">Site Map</h2>
               <ul class="list-unstyled">
                 <li><a href="#" class="py-2 d-block">Home</a></li>
-                <li><a href="#" class="py-2 d-block">Domain</a></li>
-                <li><a href="#" class="py-2 d-block">Hosting</a></li>
-                <li><a href="#" class="py-2 d-block">About</a></li>
-                <li><a href="#" class="py-2 d-block">Blog</a></li>
-                <li><a href="#" class="py-2 d-block">Contact</a></li>
+                <li><a href="/study/search" class="py-2 d-block">Study</a></li>
+                <li><a href="/shop/premiumShopView" class="py-2 d-block">Study Shop</a></li>
+                <li><a href="/cafe/list" class="py-2 d-block">Study Cafe</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
+            <div class="ftco-footer-widget mb-5">
             	<h2 class="ftco-heading-2">Office</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">2F, 3F, 120, Namdaemun-ro, Jung-gu, Seoul, Republic of Korea</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">1544-9970</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">38gttaeng@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>

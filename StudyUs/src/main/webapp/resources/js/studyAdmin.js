@@ -124,10 +124,10 @@ $("#delete-btn").on("click", function() {
 			traditional : true,
 			success : function(data) {
 				if(data == "success") {
-					console.log("회원 삭제 성공");
+					console.log("스터디 삭제 성공");
 					table.ajax.reload();
 				} else {
-					console.log("회원 삭제 실패");
+					console.log("스터디 삭제 실패"); 
 				}
 			},
 			error : function() {

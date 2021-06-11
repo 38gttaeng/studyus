@@ -26,12 +26,7 @@
         
         <!-- menubar -->
 	    <jsp:include page="../common/adminMenubar.jsp"/>
-	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->
-	    <script>
-	    	$("#sidebarnav>li:first-child").addClass("selected");
-	    	$("#sidebarnav>li:first-child a").addClass("active");
-	    </script>
-        
+	    <!-- 선택된 메뉴에 selected / active 추가해주기 -->	
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
@@ -84,7 +79,6 @@
                                                 <th>스터디명</th>
                                                 <th>인원</th>
                                                 <th>개설일</th>
-<!--                                                 <th>해시태그</th> -->
                                             </tr>
                                         </thead>
                                     </table>

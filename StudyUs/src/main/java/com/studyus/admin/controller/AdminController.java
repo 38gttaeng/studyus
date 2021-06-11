@@ -36,15 +36,15 @@ import com.studyus.study.service.StudyService;
 //@RequestMapping(value="/admin/*")
 public class AdminController {
 	
-	// 멤버 리스트가 필요하면 - memberService
+	// 멤버 리스트
 	@Autowired
 	private MemberService service;
 	
-	// 스터디 리스트 필요하면 - studyService
+	// 스터디 리스트
 	@Autowired
 	private StudyService sService;
 	
-	// 스터디카페 리스트가 필요하면 - cafeService
+	// 스터디카페 리스트
 	@Autowired
 	private CafeService cService;
 	
@@ -74,21 +74,25 @@ public class AdminController {
 		}
 		
 		// 회원 선택 삭제
-//		@ResponseBody
-//		@RequestMapping(value="/admin/member/delete", method=RequestMethod.GET)
-//		public String memberListDelete(@RequestParam("deList") List<String> deList) {
-//			
-//			int result = 0;
-//			for(String delNo : deList) {
-//				result += service.removeMember(delNo);
-//			}
-//			
-//			if(result == deList.size()) {
-//				return "success";
-//			} else {
-//				return "error";
-//			}
-//		}
+		@ResponseBody
+		@RequestMapping(value="/admin/member/delete", method=RequestMethod.GET)
+		public String memberListDelete(@RequestParam("deList") List<String> deList) {
+			System.out.println("deList란" + deList);
+			int result = 0;
+			for(String delId : deList) {
+				Member mOne = new Member();
+				mOne.setMbStatus(0);
+				mOne.setMbId(delId);
+				result += service.removeMember(mOne);				
+				System.out.println("delNo란"+mOne);
+			}
+			
+			if(result == deList.size()) {
+				return "success";
+			} else {
+				return "error";
+			}
+		}
 	
 		
 	/*********** 스터디 관리 ************/
@@ -106,6 +110,24 @@ public class AdminController {
 			
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson(data, response.getWriter());
+		}
+		
+		// 스터디 선택 삭제
+		@ResponseBody
+		@RequestMapping(value="/admin/study/delete", method=RequestMethod.GET)
+		public String studyListDelete(@RequestParam("deList") List<Integer> deList) {
+//			System.out.println("deList란" + deList);
+			int result = 0;
+			for(int delNo : deList) {
+				result += sService.deleteStudy(delNo);
+//				System.out.println("delNo란"+delNo);
+			}
+			
+			if(result == deList.size()) {
+				return "success";
+			} else {
+				return "error";
+			}
 		}
 		
 	/*********** 스터디카페 관리 ************/
@@ -129,11 +151,9 @@ public class AdminController {
 		@ResponseBody
 		@RequestMapping(value="/admin/cafe/delete", method=RequestMethod.GET)
 		public String cafeListDelete(@RequestParam("deList") List<Integer> deList) {
-			System.out.println("deList란" + deList);
 			int result = 0;
 			for(int delNo : deList) {
 				result += cService.removeCafe(delNo);
-				System.out.println("delNo란"+delNo);
 			}
 			
 			if(result == deList.size()) {

@@ -82,8 +82,7 @@ public class StudyStoreLogic implements StudyStore {
 
 	@Override
 	public int deleteStudy(int studyNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("studyMapper.deleteStudy", studyNo); 
 	}
 
 	@Override

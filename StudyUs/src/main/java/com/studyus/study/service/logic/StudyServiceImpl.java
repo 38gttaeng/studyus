@@ -99,8 +99,7 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public int deleteStudy(int studyNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sStore.deleteStudy(studyNo); 
 	}
 
 	@Override

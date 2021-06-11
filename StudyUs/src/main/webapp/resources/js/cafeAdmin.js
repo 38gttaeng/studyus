@@ -91,7 +91,15 @@ var table = $('#caList').DataTable({
 		// 컬럼별로 들어갈 데이터 정보를 저장
     columns: [
 		{ data : "caNo"},
-        { data : "caName"},
+        { data : "caName",
+	         "render": function(data, type, row, meta){
+	            if(type === 'display'){
+	                data = '<a href="/cafe/detail?caNo=' + row["caNo"] + '">' + data + '</a>';
+	            }
+	            
+	            return data; 
+			}
+        },
         { data : "caAddr"},
         { data : "caTel"},
         { data : "caTime"},
@@ -119,50 +127,6 @@ $("#cafe-select-all").on("change", function(){
         delcheck.prop("checked", false);
     }
 });
-
- 
-////////////////////////////////
-/* fnDataTableUpdate = function ( _rowno , _colno , _value ) 
-
-{
-
-if ( data_table == null ) { return; } 
-
-// 수정
-
-fnDataTablesUpdateCell( data_table, _rowno , _colno , _value);
-
-// 테이블에 들어가 있는 값을 다시 한번 찍어본다.
-
-fnDataTablesLogAllData( data_table );
-}
-// 클릭한 행의 셀 변경
-
-$('#data_table tbody').on( 'click', 'td', function () {
-
-var cell = data_table.cell( this );
-
-cell.data( '12' ).draw();
-
-data_table.draw(false);
-
- // note - call draw() to update the table's draw state with the new data
-
-} );
-
-SearchData(); // 자료 추가
-
-// 테이블에 들어가 있는 값을 다시 한번 찍어본다.
-
-fnLogDataTablesRows();
-});
-
-fnDataTablesUpdateCell = function ( _datatables , _rowno , _colno , _value ) 
-
-{
-
-if ( _datatables == null ) { return; } */
-////////////////////////////////
 
 
 $("#delete-btn").on("click", function() {

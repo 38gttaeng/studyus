@@ -55,7 +55,7 @@
 										#{memberNo},
 										#{studyNo},
 										SYSDATE,
-										#{message}, 
+										#{message},
 										#{status}) 
 	</insert>
 	
