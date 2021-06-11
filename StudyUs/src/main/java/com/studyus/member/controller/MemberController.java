@@ -391,8 +391,9 @@ public class MemberController {
 	@RequestMapping(value = "/member/myPage", method = RequestMethod.GET)
 	public String myPageView(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		ArrayList<Study> enrolledStudyList = (ArrayList<Study>)session.getAttribute("enrolledStudyList");
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
+		session.setAttribute("enrolledStudyList", enrolledStudyList);
 		int mbNo = loginUser.getMbNo();
 		if(loginUser == null) {
     		return "redirect:/doLogin";
