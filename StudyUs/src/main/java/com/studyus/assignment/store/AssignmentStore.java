@@ -101,6 +101,14 @@ public interface AssignmentStore {
 	public ArrayList<Assignment> selectAllByMbNo(int mbNo);
 	
 	/**
+	 * 마이페이지 남은 과제 - 전체 과제 수 
+	 * @param stNo
+	 * @param mbNo
+	 * @return
+	 */
+	public int selectRemainByMbNo(int stNo, int mbNo);
+	
+	/**
 	 * 스터디룸 메인페이지 과제 차트
 	 * @param stNo
 	 * @return
@@ -132,5 +140,5 @@ public interface AssignmentStore {
 	 * @param sAssignment(stNo, mbNo)
 	 */
 	public int mySubmittedAssignmentByStNo(HashMap<String, Integer> map);
-	
+
 }

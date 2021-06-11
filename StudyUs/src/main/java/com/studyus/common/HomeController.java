@@ -1,6 +1,7 @@
 package com.studyus.common;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -51,4 +52,14 @@ public class HomeController {
 		}
 	}
 	
+	// 세션 끊겼을 때 오류창 대신 로그인 창으로 가는 메소드
+	@RequestMapping(value="/doLogin", method = RequestMethod.GET) 
+	public String doLogin(HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html; charset=UTF-8");
+		out.println("<script>alert('로그인 해주세요.'); location.href='/member/loginView'</script>");
+		out.flush();
+		out.close();
+		return null;
+	}
 }

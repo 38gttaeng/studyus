@@ -15,7 +15,7 @@
 	<select id="printAllAtt" resultMap="attendanceResultMap">
 		SELECT ROW_NUMBER() OVER(ORDER BY A.AT_INSERTDATE DESC) AS RNUM,
 		A.AT_NO, A.MB_NO, A.ST_NO, M.MB_NICKNAME, 
-		A.AT_INSERTDATE, A.ME_NO  
+		A.AT_INSERTDATE, A.ME_NO   
 		FROM ATTENDANCE A
 		JOIN MEMBER M ON A.MB_NO = M.MB_NO
 		WHERE ST_NO = #{studyNo}

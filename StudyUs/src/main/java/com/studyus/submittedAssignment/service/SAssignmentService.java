@@ -20,14 +20,6 @@ public interface SAssignmentService {
 	public int submittedCheckCount(int asNo);
 	
 	/**
-	 * 한개 제출여부 확인
-	 * (0이면 미제출 1이면 제출)
-	 * @param sAssignment(asNo, mbNo)
-	 * @return
-	 */
-	public int submittedCheck(SubmittedAssignment sAssignment);
-	
-	/**
 	 * 전체보기
 	 * @param asNo
 	 * @return
@@ -67,10 +59,12 @@ public interface SAssignmentService {
 	// 현재날짜 기준으로 그 날이 속한 달!
 	
 	/**
-	 * 한달 총 과제 제출 개수
-	 * @param sAssignment(stNo, mbNo)
+	 * 남은 과제 수(제출한 과제수)
+	 * @param stNo
+	 * @param mbNo
+	 * @return
 	 */
-	public int mySubmittedAssignment(SubmittedAssignment sAssignment);
+	public int printRemainByMbNo(int stNo, int mbNo); 
 	
 	////////////////////////////////////////////////////////////
 	

@@ -63,7 +63,7 @@ a:hover, a:focus {
 
 .box-zone {
 	width: 900px;
-	height: 1430px;
+	height: 1500px; 
 	background-color: #ffffff;
 	margin-left: auto;
 	margin-right: auto;
@@ -98,7 +98,7 @@ a:hover, a:focus {
 
 .study-zone {
 	width: 800px;
-	height: 200px;
+	height: 220px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 10px;
@@ -131,7 +131,7 @@ a:hover, a:focus {
 }
 
 .txt-box {
-	width: 650px;
+	width: 600px;
 	height: 30px;
 	margin-left: auto;
 	margin-right: auto;
@@ -139,11 +139,15 @@ a:hover, a:focus {
 }
 
 .study-name {
-	width: 100px;
-	height: 20px;
-	margin-right: 120px;
+	display: inline-block;
+	float: left;
 	font-weight: bold;
 	font-size: 15px;
+}
+
+.study-info {
+	display: inline-block;
+	float: right;
 }
 
 .label {
@@ -159,19 +163,29 @@ a:hover, a:focus {
 
 .my-calender {
 	width: 800px;
-	height: 630px;
+	height: 750px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
+	
 }
 
 .container-fluid {
-	overflow: scroll;
+    padding: 0 !important;
+    
+}
+
+.scroll-zone {
+	width: 800px;
+	height: 700px;
+	border: 1px solid #dddddd;
+	border-radius: 3px;
+	overflow: scroll !important;
 	-ms-overflow-style: none;
     scrollbar-width: none;
-    padding: 0 !important;
 }
-.container-fluid::-webkit-scrollbar {
+
+.scroll-zone::-webkit-scrollbar {
     display: none;
 }
 

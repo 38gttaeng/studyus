@@ -11,13 +11,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.studyus.assignment.service.AssignmentService;
 import com.studyus.common.PageInfo;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.MailUtils;
 import com.studyus.member.domain.Member;
+import com.studyus.member.domain.MyStudyInfo;
 import com.studyus.member.domain.TempKey;
 import com.studyus.member.store.MemberStore;
 import com.studyus.review.domain.Review;
+import com.studyus.study.domain.Study;
+import com.studyus.submittedAssignment.service.SAssignmentService;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -27,6 +31,12 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	private AssignmentService asService;
+	
+	@Autowired
+	private SAssignmentService saService;
 
 	@Override
 	public Member loginMember(Member member) {
@@ -62,7 +72,7 @@ public class MemberServiceImpl implements MemberService {
 						.append(member.getMbEmail())
 						.append("&authKey=")
 						.append(member.getAuthKey())
-						.append("' target='_blenk'>이메일 인증 확인</a>").toString());
+						.append("' target='_blank'>이메일 인증 확인</a>").toString());
 				sendMail.setFrom("38gttaeng@gmail.com", "StudyUs");
 				sendMail.setTo(member.getMbEmail());
 				sendMail.send();
@@ -121,6 +131,27 @@ public class MemberServiceImpl implements MemberService {
 	public int removeMember(Member mOne) {
 		int result = store.deleteMember(mOne);
 		return result;
+	}
+	
+	@Override
+	public ArrayList<MyStudyInfo> printMyStudy(int mbNo, ArrayList<Study> enrolledStudyList) {
+		ArrayList<MyStudyInfo> myStudyList = new ArrayList<MyStudyInfo>();
+		for(int i = 0; i < enrolledStudyList.size(); i++) {
+			MyStudyInfo myStudy = new MyStudyInfo();
+			String studyName = enrolledStudyList.get(i).getStudyName();
+			String url = enrolledStudyList.get(i).getUrl();
+			int stNo = enrolledStudyList.get(i).getStudyNo();
+			int taskRate = asService.printAssignmentRate(mbNo);
+			int allTask = asService.printRemainByMbNo(stNo, mbNo);
+			int submitTask = saService.printRemainByMbNo(stNo, mbNo);
+			myStudy.setStudyName(studyName);
+			myStudy.setTaskRate(taskRate);
+			myStudy.setAttRate(0);
+			myStudy.setRemTask(allTask - submitTask); 
+			myStudy.setUrl(url);
+			myStudyList.add(myStudy);
+		}
+		return myStudyList;
 	}
 
 	@Override
@@ -205,11 +236,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int getStudyListCount(int mbNo) {
 		return store.selectStudyListCount(mbNo);
-	}
-
-	@Override
-	public ArrayList<Enrollment> printAllStudyByMbNo(PageInfo pi, int mbNo) {
-		return store.selectAllStudyByMbNo(pi, mbNo); 
 	}
 
 	@Override

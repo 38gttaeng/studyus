@@ -25,12 +25,6 @@ public class SAssignmentStoreLogic implements SAssignmentStore {
 	}
 
 	@Override
-	public int submittedCheck(SubmittedAssignment sAssignment) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public ArrayList<SubmittedAssignment> selectAllSubmittedAssignment(int asNo) {
 		return (ArrayList)sqlSession.selectList("sAssignmentMapper.selectAllList", asNo);
 	}
@@ -73,6 +67,13 @@ public class SAssignmentStoreLogic implements SAssignmentStore {
 		int reResult = sqlSession.update("sAssignmentMapper.deleteReply", suNo);
 		int suResult = sqlSession.update("sAssignmentMapper.deleteSAssignment", suNo);
 		return reResult + suResult;
+	}
+	
+	public int selectRemainByMbNo(int stNo, int mbNo) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("stNo", stNo);
+		map.put("mbNo", mbNo);
+		return sqlSession.selectOne("sAssignmentMapper.selectRemainByMbNo", map); 
 	}
 
 	@Override

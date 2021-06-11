@@ -6,6 +6,7 @@ public class MyStudyInfo {
 	private int attRate;
 	private int taskRate;
 	private int remTask;
+	private String url;
 	
 	public MyStudyInfo() {}
 
@@ -40,11 +41,20 @@ public class MyStudyInfo {
 	public void setRemTask(int remTask) {
 		this.remTask = remTask;
 	}
+	
+	public String getUrl() { 
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	@Override
 	public String toString() {
 		return "MyStudyInfo [studyName=" + studyName + ", attRate=" + attRate + ", taskRate=" + taskRate + ", remTask="
-				+ remTask + "]";
+				+ remTask + ", url=" + url + "]";
 	}
+
 	
 }

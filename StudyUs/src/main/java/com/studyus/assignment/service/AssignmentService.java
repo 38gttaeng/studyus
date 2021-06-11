@@ -106,6 +106,14 @@ public interface AssignmentService {
 	public ArrayList<Assignment> printAllByMbNo(int mbNo);
 	
 	/**
+	 * 마이페이지 남은 과제
+	 * @param stNo
+	 * @param mbNo
+	 * @return
+	 */
+	public int printRemainByMbNo(int stNo, int mbNo); 
+	
+	/**
 	 * 과제율(전체 - 스터디 가입 신청 / 마이페이지)
 	 * @param mbNo
 	 * @return

@@ -47,7 +47,8 @@ public class ReviewStoreLogic implements ReviewStore{
 		// ex) currentPage가 1일 때 offset은 0, limit는 10이 되어 10개값을 보여줌
 		//     currentPage가 2일 때 offset은 10이 되어서 10개를 건너뛰고 11개부터 20까지의 10개의 값을 보여줌
 		RowBounds rowBounds = new RowBounds(0, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("reviewMapper.selectAllByMbNo", mbNo, rowBounds);
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectAllByMbNo", mbNo);
+//		return (ArrayList)sqlSession.selectList("reviewMapper.selectAllByMbNo", mbNo, rowBounds);
 	}
 
 	@Override

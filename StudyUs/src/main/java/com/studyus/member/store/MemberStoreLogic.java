@@ -110,12 +110,7 @@ public class MemberStoreLogic implements MemberStore {
 	}
 
 	@Override
-	public ArrayList<Enrollment> selectAllStudyByMbNo(PageInfo pi, int mbNo) {
-		return null;
-	}
-
-	@Override
-	public int selectStudyListCount(int mbNo) {
+	public int selectStudyListCount(int mbNo) { 
 		return sqlSession.selectOne("memberMapper.selectStudyListCount", mbNo);
 	}
 	
