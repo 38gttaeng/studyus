@@ -101,13 +101,17 @@ public class ReviewController {
 	@RequestMapping(value = "/member/myReview", method = RequestMethod.GET)
 	public void myReviewList(@RequestParam("mbNo") int mbNo,
 							@RequestParam(value="page", required=false) Integer page,
-							HttpServletResponse response) throws JsonIOException, IOException {
+							HttpServletResponse response,
+							HttpServletRequest request) throws JsonIOException, IOException {
+		HttpSession session = request.getSession();
 		int listCount = rService.getMemListCount(mbNo);
 		int currentPage = (page != null) ? page : 1;
 		PageInfo pi = Pagination5.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Review> rList = rService.printAllByMemberNo(pi, mbNo);
 		System.out.println(rList);
+		session.setAttribute("rList", rList);
+		
 		if(!rList.isEmpty()) {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create(); // 날짜 포맷 변경!
 			gson.toJson(rList, response.getWriter());

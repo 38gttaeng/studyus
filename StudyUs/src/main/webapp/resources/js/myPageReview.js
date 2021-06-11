@@ -14,9 +14,8 @@ $(document).ready(function(){
 			var $rvRating;
 			var $rvDate;
 			var $btnArea;
-			var $btn;
 			var $showStar;
-			var $btnTool = "";
+			var $paging;
 
 			if (data.length > 0) {
 				for (var i in data) {
@@ -27,9 +26,9 @@ $(document).ready(function(){
 					$writer.append("<span class='insertDate'>" + data[i].rvDate + "</span>");
 					$rvContents = $("<div class='contents-box'>").append(data[i].rvContents);
  					console.log("rvRating: " + data[i].rvRating)
-					$btnArea = $("<div>").append("&nbsp;");;
+					$btnArea = $("<div style='text-align: right;'>");
 					
-					$btnTool = "";
+					$btnArea.append("<a href='/cafe/detail?caNo=" + data[i].caNo + "' style='font-size: 14px; width: '>바로가기</a>");
 	 				
 					// 별점 보기
 					$btn = $("<div class='star-rating'>");
@@ -53,6 +52,7 @@ $(document).ready(function(){
 
 					$rList.append($div); 
 				}
+				$paging = $();
 			} else {
 				console.log("리뷰 없음!");
 			}

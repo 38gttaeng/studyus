@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.studyus.assignment.service.AssignmentService;
+import com.studyus.attendance.service.AttendanceService;
 import com.studyus.common.PageInfo;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.member.domain.MailUtils;
@@ -37,6 +38,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private SAssignmentService saService;
+	
+	@Autowired
+	private AttendanceService atService;
 
 	@Override
 	public Member loginMember(Member member) {
@@ -141,13 +145,15 @@ public class MemberServiceImpl implements MemberService {
 			String studyName = enrolledStudyList.get(i).getStudyName();
 			String url = enrolledStudyList.get(i).getUrl();
 			int stNo = enrolledStudyList.get(i).getStudyNo();
+			int recentDays = 30;
+			int attRate = ((int)atService.printPersonalAttendanceRate(mbNo, stNo, recentDays))*100;
 			int taskRate = asService.printAssignmentRate(mbNo);
 			int allTask = asService.printRemainByMbNo(stNo, mbNo);
 			int submitTask = saService.printRemainByMbNo(stNo, mbNo);
 			myStudy.setStudyName(studyName);
 			myStudy.setTaskRate(taskRate);
-			myStudy.setAttRate(0);
-			myStudy.setRemTask(allTask - submitTask); 
+			myStudy.setAttRate(attRate);
+			myStudy.setRemTask(allTask - submitTask);
 			myStudy.setUrl(url);
 			myStudyList.add(myStudy);
 		}
@@ -232,7 +238,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return mOne;
 	}
-	
+
 	@Override
 	public int getStudyListCount(int mbNo) {
 		return store.selectStudyListCount(mbNo);
@@ -247,7 +253,7 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Member> printAllAssign(int grNo) {
 		return store.selectAllAssign(grNo);
 	}
-	
+
 	@Override
 	public ArrayList<Member> printAll() {
 		return store.selectList();

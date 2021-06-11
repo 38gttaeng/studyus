@@ -76,7 +76,7 @@ body {
 
 .purchase {
 	width: 800px;
-	height: 165px;
+	height: 170px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px; 
@@ -93,7 +93,7 @@ body {
 	width: 600px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 55px;
+	margin-top: 60px;
 	text-align: center;
 }
 
@@ -101,3 +101,46 @@ body {
 	font-size: 17px;
 	color: #cccccc;
 }
+
+.txt-box {
+	width: 700px;
+	height: 130px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+.p-info {
+	width: 700px;
+	height: 50px;
+	display: inline-block;
+}
+
+.p-name {
+	float: left;
+	width: 160px;
+	font-weight: bold;
+}
+
+.p-date {
+	float: right;
+	width: 100px;
+	text-align: right;
+}
+
+.st-info {
+	width: 120px;
+	height: 30px;
+	display:inline-block;
+	margin-top: 20px;
+	float: right;
+}
+
+.st-txt {
+	font-weight: bold;
+}
+
+.st-name {
+	font-style: italic;
+}
+
