@@ -88,7 +88,6 @@
                                     </table>
                                 </div>
 		                    <input id="delete-btn" type="button" class="btn btn-primary float-right delete-btn" value="삭제">
-<!-- 		                    <input id="modify-btn" type="button" class="btn btn-primary float-right modify-btn" value="수정"> -->
                             </div>
                         </div>
                     </div>

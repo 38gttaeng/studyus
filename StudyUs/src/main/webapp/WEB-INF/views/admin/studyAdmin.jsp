@@ -79,7 +79,6 @@
                                                 <th>스터디명</th>
                                                 <th>인원</th>
                                                 <th>개설일</th>
-<!--                                                 <th>해시태그</th> -->
                                             </tr>
                                         </thead>
                                     </table>
