@@ -35,6 +35,7 @@ import com.studyus.meeting.service.MeetingService;
 import com.studyus.meeting.service.logic.MeetingServiceImpl;
 import com.studyus.meeting.utils.MeetingUtils;
 import com.studyus.member.domain.Member;
+import com.studyus.member.service.MemberService;
 import com.studyus.notice.domain.Notice;
 import com.studyus.notice.service.NoticeService;
 import com.studyus.study.domain.Study;
@@ -59,6 +60,9 @@ public class StudyController {
 	
 	@Autowired
 	MeetingService mService;
+	
+	@Autowired
+	MemberService mbService;
 	
 	@Autowired
 	private NoticeService nService;
@@ -187,7 +191,10 @@ public class StudyController {
 		// 최신 공지사항 출력 
 		ArrayList<Notice> recentNotice = nService.printRecentNotice(notice);
 		// 스터디 인원  수 출력 
-		ArrayList<Meeting> attMember = mService.printAttMember(meeting);
+		// ArrayList<Meeting> attMember = mService.printAttMember(meeting);
+		int printAttMember = aService.countAttMember(study.getStudyNo());
+		int printAllMember = mbService.countAllEnrolled(study.getStudyNo());
+		System.out.println(printAllMember);
 		// 날짜 출력 
 		ArrayList<Study> studyWeek = sService.printStudyWeek(study);
 		/*
@@ -203,7 +210,8 @@ public class StudyController {
 		request.setAttribute("recentNotice", recentNotice);
 		request.setAttribute("studyAttendanceRate", (int)(studyAttendanceRate * 100));
 		request.setAttribute("studyWeek", studyWeek);
-		request.setAttribute("attMember", attMember);
+		request.setAttribute("printAttMember", printAttMember);
+		request.setAttribute("printAllMember", printAllMember);
 		
 		return "study/study";
 	}

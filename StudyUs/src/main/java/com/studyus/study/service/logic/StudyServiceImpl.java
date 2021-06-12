@@ -111,4 +111,9 @@ public class StudyServiceImpl implements StudyService {
 	public ArrayList<Study> printStudyWeek(Study study) {
 		return sStore.selectStudyWeek(study);
 	}
+
+	@Override
+	public int updateStudyMP(Study study) {
+		return sStore.updateStudyMP(study);
+	}
 }

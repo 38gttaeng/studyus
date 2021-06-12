@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.studyus.assignment.domain.Assignment;
 import com.studyus.assignment.service.AssignmentService;
+import com.studyus.attendance.service.AttendanceService;
 import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.member.domain.Member;
@@ -32,13 +33,16 @@ public class EnrollmentController {
 	private MemberService mService;
 	
 	@Autowired
-	EnrollmentService eService;
+	private EnrollmentService eService;
 	
 	@Autowired
 	private StudyService sService;
 	
 	@Autowired
 	private AssignmentService aService;
+	
+	@Autowired
+	private AttendanceService attService;
 	
 	// 가입신청 보내기
 	@ResponseBody
@@ -76,16 +80,17 @@ public class EnrollmentController {
 	public ModelAndView printStudyMember(ModelAndView mv, HttpSession session) {
 		Study study = (Study)session.getAttribute("study");
 		ArrayList<Member> mList = mService.printAllByStudyNo(study.getStudyNo());
+		float personalAttendanceRate = 0;
 		for(Member m : mList) {
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
 			map.put("stNo", study.getStudyNo());
 			map.put("mbNo", m.getMbNo());
 			int rate = aService.printAssignmentRate(map);
 			m.setMbReputation(rate);
-		}
-		
-		for(Member m : mList) {
-		System.out.println(m.toString());
+			System.out.println("ㅁㅂㄴㅂ " + m.getMbNo());
+			personalAttendanceRate = attService.printPersonalAttendanceRate(m.getMbNo(), study.getStudyNo(), 30);
+			System.out.println(personalAttendanceRate);
+			m.setAttPer((int)personalAttendanceRate * 100);
 		}
 		mv.addObject("mList", mList);
 		mv.setViewName("study/studyMember");

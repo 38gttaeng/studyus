@@ -19,12 +19,16 @@ import com.studyus.member.domain.Member;
 import com.studyus.purchase.domain.Purchase;
 import com.studyus.purchase.service.PurchaseService;
 import com.studyus.study.domain.Study;
+import com.studyus.study.service.StudyService;
 
 @Controller
 public class PurchaseController {
 	
 	@Autowired
 	private PurchaseService pService;
+	
+	@Autowired
+	private StudyService sService;
 	
 	// 프리미엄샵 뷰
 	@RequestMapping(value="/shop/premiumShopView")
@@ -50,12 +54,15 @@ public class PurchaseController {
 	@ResponseBody
 	@RequestMapping(value="/shop/premiumShop", method=RequestMethod.GET)
 	public String premiumShop(HttpSession session) {
-		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
+		Member member = ((Member)session.getAttribute("loginUser"));
+		Study study = (Study)session.getAttribute("study");
 		Purchase purchase = new Purchase();
-		purchase.setMbNo(mbNo);
+		purchase.setMbNo(member.getMbNo());
+		purchase.setStNo(study.getStudyNo());
 		int result = pService.insertPremium(purchase);
+		int updateStudy = sService.updateStudyMP(study);
 		System.out.println(purchase.toString());
-		if(result > 0) {
+		if(result > 0 & updateStudy > 0) {
 			return "success";
 		}else {
 			return "fail";

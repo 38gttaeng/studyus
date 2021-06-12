@@ -147,7 +147,7 @@
 						        </div>
 						        <div id="menu3" class="collapse">
 						          <div class="card-body">
-												<p>지레짐작으로 사용하고있구나 알고계시면 됩니다...</p>
+												<p>프리미엄 이용중일 경우 스터디 내부의 대시보드에서 확인 가능합니다.</p>
 						          </div>
 						        </div>
 						      </div>
@@ -156,22 +156,22 @@
     						<div class="col-md-6">
     							<div class="card">
 						        <div class="card-header">
-										  <a class="card-link" data-toggle="collapse"  href="#menu4" aria-expanded="false" aria-controls="menu4">Can I cancel a domain? <span class="collapsed"><i class="ion-ios-arrow-up"></i></span><span class="expanded"><i class="ion-ios-arrow-down"></i></span></a>
+										  <a class="card-link" data-toggle="collapse"  href="#menu4" aria-expanded="false" aria-controls="menu4">모두가 구매할 수 있나요? <span class="collapsed"><i class="ion-ios-arrow-up"></i></span><span class="expanded"><i class="ion-ios-arrow-down"></i></span></a>
 						        </div>
 						        <div id="menu4" class="collapse">
 						          <div class="card-body">
-												<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+												<p>스터디장이 아닌 일반 회원일 경우에는 구매하실 수 없습니다.</p>
 						          </div>
 						        </div>
 						      </div>
 
 						      <div class="card">
 						        <div class="card-header">
-										  <a class="card-link" data-toggle="collapse"  href="#menu5" aria-expanded="false" aria-controls="menu5">How do I transfer a domain name? <span class="collapsed"><i class="ion-ios-arrow-up"></i></span><span class="expanded"><i class="ion-ios-arrow-down"></i></span></a>
+										  <a class="card-link" data-toggle="collapse"  href="#menu5" aria-expanded="false" aria-controls="menu5"> 구매를 했는데 적용이 안됐어요! <span class="collapsed"><i class="ion-ios-arrow-up"></i></span><span class="expanded"><i class="ion-ios-arrow-down"></i></span></a>
 						        </div>
 						        <div id="menu5" class="collapse">
 						          <div class="card-body">
-												<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+												<p>구매 후 적용이 안되었다면 스터디어스 고객센터 (📞 1544-9970)로 문의 바랍니다.</p>
 						          </div>
 						        </div>
 						      </div>
@@ -242,6 +242,7 @@
 		var userName = '${loginUser.mbName}';
 		var userPhone = '${loginUser.mbPhone}';
 		var mbNo = '${loginUser.mbNo}';
+		var stNo = '${study.studyNo }';
 		IMP.request_pay({
 		    pg : 'inicis',
 		    pay_method : 'card',
@@ -289,7 +290,7 @@
 
 	// 로그인 안했을 때 로그인 페이지로 이동
 	$("#not-leader").click(function(){
-		alert("스터디장 전용 구매 상품입니다.");
+		alert("적용할 스터디가 없습니다.\n먼저 스터디를 생성해주세요!");
 	});
 	</script>
   </body>

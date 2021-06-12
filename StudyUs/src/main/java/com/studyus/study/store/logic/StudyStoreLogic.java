@@ -100,5 +100,10 @@ public class StudyStoreLogic implements StudyStore {
 		return (ArrayList)sqlSession.selectList("studyMapper.printStudyWeek", study);
 	}
 
+	@Override
+	public int updateStudyMP(Study study) {
+		return sqlSession.update("studyMapper.updateStudyMaxPersonnel", study);
+	}
+
 
 }

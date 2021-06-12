@@ -77,7 +77,7 @@
 	<!-- 결제페이지에서 가입한 스터디 출력 -->
 	<select id="printStudyList" resultMap="studyResultMap">
 		SELECT MB_NO, ST_NO, ST_NAME FROM STUDY 
-		WHERE MB_NO = #{leaderNo}  AND ST_MAX_PERSONNEL = 5
+		WHERE MB_NO = #{leaderNo} AND ST_MAX_PERSONNEL = 5
 	</select>
 	
 	<!-- 대시보드 스터디 날짜 출력  -->
@@ -131,7 +131,7 @@
 		WHERE RNUM BETWEEN ((#{page} - 1) * #{countPerPage} + 1) AND (#{page} * #{countPerPage})
 	</select>
 	
-	<update id="updatePreStudy" parameterType="Study">
+	<update id="updateStudyMaxPersonnel" parameterType="Study">
 		UPDATE STUDY SET ST_MAX_PERSONNEL = 20 
 		WHERE ST_NO =  #{studyNo}
 	</update> 

@@ -32,20 +32,26 @@
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
-            	<div class="row">
-                    <div class="col-9 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">${ study.studyName }</h4>
-                        <div class="d-flex align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb m-0 p-0">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a>
-                                    </li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-            	</div>
-            </div>
+				<div class="row">
+					<div class="col-9 align-self-center">
+						<h4 style="display: inline;"
+							class="page-title text-truncate text-dark font-weight-medium mb-1">${ study.studyName }</h4>
+						&nbsp;&nbsp;
+						<!-- 프리미엄 결제한 경우 프리미엄 표시 -->
+						<c:if test="${study.maxPersonnel eq 20 }">
+							<span class="btn btn-danger btn-sm btn-rounded">프리미엄</span>
+						</c:if>
+						<div class="d-flex align-items-center">
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb m-0 p-0">
+									<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+					<div class="float-right"></div>
+				</div>
+			</div>
 
             <!-- ============================================================== -->
             <!-- Container fluid  -->
@@ -61,7 +67,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-start">
-                                    <h5 class="card-title">최신 공지사항</h5>
+                                    <h4 class="card-title">최신 공지사항</h4>
                                 </div>
                                 <hr>
                                 <div class="">
@@ -70,7 +76,7 @@
 											<div class="card-body">
 													${notice.noContents }
 											</div>
-										</c:if>
+											</c:if>
 										<c:if test="${notice.noContents eq null }">
 											&nbsp;
 										</c:if>
@@ -83,9 +89,14 @@
                     <div class="col-md-5 col-lg-4">
                         <div class="card">
                             <div class="card-body" style="padding:0;">
-                            	<div class="text-center" style="margin-top:15%; margin-bottom:10%; color:#683FF7;">
-                            		<h2>${meeting.requiredAttendance} /</h2>
-                                </div>
+                            	<div class="text-center"
+									style="margin-top: 10%; margin-bottom: 5%;">
+									<small>출석 인원 / 스터디원 수</small>
+									<h1 style=" color: #683FF7;">
+										${printAttMember }
+										/ ${printAllMember }
+									</h1>
+								</div>
                                 <div class="text-center">
                                 		<!-- 월  -->
                                 		<c:if test="${ study.monday eq 0 }">
@@ -136,7 +147,6 @@
 	                              	 <c:if test="${ study.sunday eq 1 }">
 	                              	  <span class="btn btn-primary btn-sm mr-1" style="border-radius: 50%;">일</span>
 	                              	 </c:if>
-	                              	 
                                 </div>
                                 <div class="text-center" style="margin-top:5%;">
                                 		<p>${study.start } ~ ${study.end } </p>
@@ -155,7 +165,7 @@
                             <div class="card-body">
                             	<div class="row">
 	                                <div class="col-md-2">
-	                                    <h5 class="card-title">최근 30일 출석율</h5>
+	                                    <h4 class="card-title">최근 30일 출석율</h4>
 	                                </div>
 	                                <div class="col-md-6"> 
 	                                	<div class="progress mb-2">
@@ -163,7 +173,7 @@
 	                                    </div>
 	                                </div>
 	                                <div class="col-md-1">
-	                                    <h5>${studyAttendanceRate }%</h5>
+	                                    <h4>${studyAttendanceRate }%</h4>
 	                                </div>
 	                                <div class="col-md-3 d-flex flex-row-reverse">
 	                                <c:if test="${attendanceStatus eq 0  }">
@@ -202,7 +212,7 @@
                     <div class="col-md-4 col-lg-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">프로젝트 현황</h5>
+                                <h4 class="card-title">프로젝트 현황</h4>
                                 <p>프로젝트별 과제 개수</p>
 								<div>
 									<canvas id="group-chart"></canvas> 

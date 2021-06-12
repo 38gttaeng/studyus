@@ -22,8 +22,6 @@
 	href="/resources/css/study/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css"
 	rel="stylesheet">
 <link href="/resources/css/studyus/manage.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
 </head>
 <body>
 	<!-- ============================================================== -->
@@ -85,13 +83,11 @@
 									</div>
 									<div class="col-md-10">
 										<div class="progress mb-2">
-											<div class="progress-bar bg-info" role="progressbar"
-												style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-												aria-valuemax="100"></div>
+											<div class="progress-bar bg-info" role="progressbar" style="width: ${studyAttendanceRate}%" aria-valuenow="${studyAttendanceRate}" aria-valuemin="0" aria-valuemax="100"></div>
 										</div>
 									</div>
 									<span id="attendance-help" class="pr-4"
-										style="margin-left: 2%;">50%</span>
+										style="margin-left: 2%;">${studyAttendanceRate }%</span>
 								</div>
 							</div>
 						</div>
@@ -106,9 +102,10 @@
 						<select  id=MONTH class="custom-select custom-select-lg mb-3" name="month">
 						</select>
 					</div> -->
-					<div class="col-md-1"></div>
-					<div class="col-md-10 table-responsive">
-						<table id="userList" class="table table-bordered table-hover"
+					<div class="card col-md-12">
+						<div class="card-body">
+					<div class="table-responsive">
+						<table id="userList" class="table table-striped table-bordered no-wrap dataTable"
 							style="width: 100%">
 							<thead>
 								<tr>
@@ -119,6 +116,8 @@
 								</tr>
 							</thead>
 						</table>
+					</div>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -167,7 +166,7 @@
 							order : [ [ 1, 'desc' ] ],
 
 							// 여러개 보기 옵션
-							lengthMenu : [ 5, 10, 25, 50 ],
+							lengthMenu : [ 10, 25, 50 ],
 
 							// 보기 옵션 선택정보 저장여부
 							// stateSave: true,
@@ -247,28 +246,6 @@
 			}
 		});
 
-		/*	 $(document).ready(function(){
-		 setDateBox();
-		 });    
-		
-		 // select box 연도 , 월 표시
-		 function setDateBox(){
-		 var dt = new Date();
-		 var year = "";
-		 var com_year = dt.getFullYear();
-		 // 발행 뿌려주기
-		 $("#YEAR").append("<option value=''>년도</option>");
-		 // -1년~현재
-		 for(var y = (com_year-1); y <= (com_year); y++){
-		 $("#YEAR").append("<option value='"+ y +"'>"+ y + " 년" +"</option>");
-		 }
-		 // 월 뿌려주기(1월부터 12월)
-		 var month;
-		 $("#MONTH").append("<option value=''>월</option>");
-		 for(var i = 1; i <= 12; i++){
-		 $("#MONTH").append("<option value='"+ i +"'>"+ i + " 월" +"</option>");
-		 }
-		 } */
 	</script>
 </body>
 </html>

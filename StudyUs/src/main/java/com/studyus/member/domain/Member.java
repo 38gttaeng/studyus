@@ -11,6 +11,7 @@ public class Member {
 	private String mbNickname;
 	private String mbPhone;
 	private int mbReputation;
+	private int attPer;
 	private int mbPhoto;
 	private int mbStatus;
 	private String authKey;
@@ -140,12 +141,21 @@ public class Member {
 		this.authKey = authKey;
 	}
 
+	public int getAttPer() {
+		return attPer;
+	}
+
+	public void setAttPer(int attPer) {
+		this.attPer = attPer;
+	}
+
 	@Override
 	public String toString() {
-		return "Member [mbNo=" + mbNo + ", mbId=" + mbId + ", mbPassword=" + mbPassword + ", mbName=" + mbName
-				+ ", mbEmail=" + mbEmail + ", mbNickname=" + mbNickname + ", mbPhone=" + mbPhone + ", mbReputation="
-				+ mbReputation + ", mbPhoto=" + mbPhoto + ", mbStatus=" + mbStatus + ", authKey=" + authKey + "]";
+		return "Member [mbNo=" + mbNo + ", rnum=" + rnum + ", mbId=" + mbId + ", mbPassword=" + mbPassword + ", mbName="
+				+ mbName + ", mbEmail=" + mbEmail + ", mbNickname=" + mbNickname + ", mbPhone=" + mbPhone
+				+ ", mbReputation=" + mbReputation + ", attPer=" + attPer + ", mbPhoto=" + mbPhoto + ", mbStatus="
+				+ mbStatus + ", authKey=" + authKey + "]";
 	}
-	
+
 	
 }

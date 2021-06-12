@@ -33,4 +33,6 @@ public interface StudyStore {
 	public ArrayList<Study> getStudyListByMbNo(int leaderNo);
 	// 대시보드에 스터디 날짜 출력
 	public ArrayList<Study> selectStudyWeek(Study study);
+	// 결제시 스터디 최대 인원 업데이트
+	public int updateStudyMP(Study study);
 }

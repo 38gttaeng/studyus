@@ -112,7 +112,7 @@
 										${notice.noCount} &nbsp;&nbsp;${ notice.noInsertDate }</h6>
 								</div>
 							</div>
-							<div class="card-body file-box">${ notice.noFileName }</div>
+							<div class="card-body file-box"><a href="/resources/nuploadFiles/${notice.noReFileName }" download>${ notice.noFileName }</a></div>
 							<div class="card-body">
 								<c:if test="${ !empty notice.noContents }">
 									<p>${ notice.noContents }</p>

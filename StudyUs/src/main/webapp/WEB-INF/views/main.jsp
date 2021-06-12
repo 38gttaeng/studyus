@@ -262,9 +262,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">모자 새로 삼</p>
+                    <p class="mb-4"></p>
                     <p class="name">최인철</p>
-                    <span class="position">System Analyst</span>
+                    <span class="position">모자 새로 삼</span>
                   </div>
                 </div>
               </div>

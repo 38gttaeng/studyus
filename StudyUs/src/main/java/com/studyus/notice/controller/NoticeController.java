@@ -197,29 +197,32 @@ public class NoticeController {
 		
 		// 등록 
 		@RequestMapping(value="/notice/noticeWrite", method=RequestMethod.POST)
-		public String registerNotice(@ModelAttribute Notice notice, HttpSession session,
+		public ModelAndView registerNotice(@ModelAttribute Notice notice, HttpSession session,
 													@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile,
-													HttpServletRequest request, Model model) {
+													HttpServletRequest request, ModelAndView mv) {
 			
 			Study study = (Study)session.getAttribute("study");
 			notice.setStNo(study.getStudyNo());
 			
 			if(!uploadFile.getOriginalFilename().equals("")) {
-				String filePath = saveFile(uploadFile, request);
-				if(filePath != null) {
+				String renameFileName = saveFile(uploadFile, request);
+				if(renameFileName != null) {
 					notice.setNoFileName(uploadFile.getOriginalFilename());
-					notice.setNoReFileName(filePath);
+					notice.setNoReFileName(renameFileName);
 				}
 			}
 			int result = 0;
+			String path = "";
 			result = nService.registerNotice(notice);
 			System.out.println(notice.toString());
 			if(result > 0) {
-				return "redirect:noticeList";
+				path = "redirect:noticeList";
 			}else {
-				model.addAttribute("msg", "등록 실패");
-				return "common/errorPage";
+				mv.addObject("msg", "등록 실패");
+				path = "common/errorPage";
 			}
+			mv.setViewName(path);
+			return mv;
 		}
 		
 		// 파일 저장 
@@ -236,7 +239,9 @@ public class NoticeController {
 			// 파일명 변경하기 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 			String originalFileName = file.getOriginalFilename();
-			String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+			String renameFileName = originalFileName.substring(0, originalFileName.lastIndexOf("."))
+									+ sdf.format(new Date(System.currentTimeMillis())) + "." 
+									+ originalFileName.substring(originalFileName.lastIndexOf(".")+1);
 			String filePath = folder + "/" + renameFileName;
 			
 			// 파일 저장 
@@ -249,7 +254,7 @@ public class NoticeController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return filePath;
+			return renameFileName;
 		}
 	
 	// 수정 뷰 

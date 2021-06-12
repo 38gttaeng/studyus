@@ -120,6 +120,11 @@ public class MemberStoreLogic implements MemberStore {
 	}
 
 	@Override
+	public int selectEnrolledCount(int studyNo) {
+		return sqlSession.selectOne("memberMapper.countAllEnrolled", studyNo);
+	}
+	
+	@Override
 	public ArrayList<Member> selectAllAssign(int grNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectAllAssign", grNo);
 	}
@@ -128,5 +133,6 @@ public class MemberStoreLogic implements MemberStore {
 	public ArrayList<Member> selectList() {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllList");
 	}
+
  
 }

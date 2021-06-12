@@ -295,10 +295,10 @@
 	                    <li class="list-divider"></li>
 	                    <li class="nav-small-cap"><span class="hide-menu">management</span></li>
 	                    
-	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/attendance/list"
 	                            aria-expanded="false"><i data-feather="bar-chart" class="feather-icon"></i><span
 	                                class="hide-menu">출석 확인 </span></a>
-	                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
+	                        <!-- <ul aria-expanded="false" class="collapse  first-level base-level-line">
 	                            <li class="sidebar-item"><a href="#" class="sidebar-link"><span
 	                                        class="hide-menu"> 개인 출석
 	                                    </span></a>
@@ -307,7 +307,7 @@
 	                                        class="hide-menu"> 전체 출석
 	                                    </span></a>
 	                            </li>
-	                        </ul>
+	                        </ul> -->
 	                    </li>
 	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/member" 
 	                            aria-expanded="false"><i data-feather="box" class="feather-icon"></i><span
@@ -325,7 +325,7 @@
 	                            </li>
 	                        </ul>
 	                    </li>
-	                    <c:if test="${ loginUser.mbNo == study.leaderNo }">
+	                    <c:if test="${ loginUser.mbNo eq study.leaderNo }">
 	                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/study/${study.url }/enrollment/list"
 	                            aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
 	                                class="hide-menu">가입신청</span></a>

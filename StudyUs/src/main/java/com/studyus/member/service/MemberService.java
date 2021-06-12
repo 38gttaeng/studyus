@@ -54,6 +54,8 @@ public interface MemberService {
 	 * @return ArrayList<Member>
 	 */
 	public ArrayList<Member> printAllByStudyNo(int studyNo);
+	
+	public int countAllEnrolled(int studyNo);
 
 	public ArrayList<Member> printAllAssign(int grNo);
 	
