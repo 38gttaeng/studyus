@@ -174,7 +174,8 @@ function loadAdditionally() {
 
                 var studyText = '<div class="study-container col-lg-4 mb-4">' +
                                     '<div class="card h-100" data-toggle="modal" data-target="#exampleModal" onclick="onStudyContainerClicked(' + (i + studyList.length) + ');">' +
-                                        '<img src=' + location.protocol + "//" + location.hostname + (location.port ? ':' + location.port: '') + '/resources/studyUploadFiles/' + filename + ' class="card-img-top" alt="...">' +
+                                        '<img src=' + location.protocol + "//" + location.hostname + (location.port ? ':' + location.port: '') + '/resources/studyUploadFiles/' + filename + ' class="card-img-top"' +
+                                                'alt="이미지를 찾을 수 없습니다." onerror=this.src="http://studyus.co.kr/resources/studyUploadFiles/sample1.jpg">' +
                                         '<div class="card-body">' +
                                             '<h5 class="card-title study-name">' + sStudyName + '</h5>' +
                                             '<p class="card-text study-introduce">' + sIntroduce + '</p>' +
