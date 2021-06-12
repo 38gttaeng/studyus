@@ -89,5 +89,8 @@ public interface AttendanceService {
 	 * 최근 redentDays일 studyNo에서의 memberNo회원 출석률
 	 */
 	public float printAllPersonalAttendanceRate(ArrayList<Integer> memberNoList, int studyNo, int recentDays);
+	
+	// 출석한 인원 수 출력 
+	public int countAttMember(int studyNo); 
 
 }

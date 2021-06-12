@@ -73,11 +73,17 @@
 								<th scope="col" style="width: 23%">이메일</th>
 								<th scope="col" style="width: 10%">과제율</th>
 								<th scope="col" style="width: 10%">출석률</th>
-								<th scope="col" style="width: 10%">관리</th>
+								<th scope="col" style="width: 10%">
+								<c:if test="${loginUser.mbNo eq study.leaderNo }">
+									관리
+								</c:if>
+								<c:if test="${loginUser.mbNo eq study.leaderNo }">
+								 
+								</c:if> 
+								</th>
 							</tr>
 						</thead>
 						<tbody>
-							@@@@@@@@과제율, 출석률, 추방버튼 활성 필요
 							<c:forEach items="${mList }" var="member">
 								<tr>
 									<th>
@@ -87,17 +93,22 @@
 									<td class="">${ member.mbNickname }</td>
 									<td>${ member.mbEmail }</td>
 									<td>${ member.mbReputation }%</td> 
-									<td>99%</td>
+									<td>${ member.attPer }%</td>
 									<td> 
-										<c:if test="${member.mbNo eq study.leaderNo }">
-											
+										<c:if test="${loginUser.mbNo eq study.leaderNo }">
+											<c:if test="${member.mbNo eq study.leaderNo }">
+												
+											</c:if>
+											<c:if test="${ member.mbNo ne study.leaderNo }">
+												<form action="/study/banish" method="get">
+													<input type="submit" class="btn waves-effect waves-light btn-danger btn-sm" value="추방">
+													<input type="hidden" name="memberNo" value="${ member.mbNo }">
+												</form> 
+											</c:if>
 										</c:if>
-										<c:if test="${ member.mbNo ne study.leaderNo }">
-											<form action="/study/banish" method="get">
-												<input type="submit" class="btn waves-effect waves-light btn-danger btn-sm" value="추방">
-												<input type="hidden" name="memberNo" value="${ member.mbNo }">
-											</form> 
-										</c:if>
+										<c:if test="${loginUser.mbNo eq study.leaderNo }">
+								 
+										</c:if>	
 									</td>
 								</tr>
 							</c:forEach>

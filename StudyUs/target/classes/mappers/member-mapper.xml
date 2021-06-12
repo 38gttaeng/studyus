@@ -86,6 +86,16 @@
 		WHERE EN_STATUS = 1 AND S.ST_NO = #{studyNo}
 	</select>
 	
+	<select id="countAllEnrolled" resultType="_int"> 
+		SELECT count(*) 
+		FROM STUDY S
+			LEFT OUTER JOIN ENROLLMENT E 
+				ON E.ST_NO = S.ST_NO
+			LEFT OUTER JOIN MEMBER M 
+				ON E.MB_NO = M.MB_NO
+		WHERE EN_STATUS = 1 AND S.ST_NO = #{studyNo}
+	</select>
+	
 	<select id="selectAllAssign" parameterType="int" resultMap="memberResultMap">
 		SELECT M.*
 		FROM ASSIGN A

@@ -27,6 +27,11 @@
 		WHERE ST_NO = #{studyNo}
 	</select>
 	
+	<select id="countAttMember" resultType="_int">
+		SELECT COUNT(*) FROM ATTENDANCE WHERE ST_NO = #{studyNo} 
+		AND TO_CHAR(AT_INSERTDATE, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
+	</select> 
+	
 	<insert id="insertAttendance" parameterType="Attendance">
 		INSERT INTO ATTENDANCE VALUES (SEQ_ATTENDANCE.NEXTVAL,
 										#{memberNo},

@@ -103,4 +103,9 @@ public class AttendanceStoreLogic implements AttendanceStore{
 		
 		return 0 != (Integer)sqlSession.selectOne("attendanceMapper.checkAttendanceTime", map);
 	}
+
+	@Override
+	public int countAttMember(int studyNo) { 
+		return sqlSession.selectOne("attendanceMapper.countAttMember", studyNo);
+	}
 }

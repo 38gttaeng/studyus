@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -36,7 +37,15 @@ public class AttendanceController {
 
 	// 출석 리스트
 	@RequestMapping(value="/attendance/list")
-	public String printAtt() {
+	public String printAtt(HttpServletRequest request, HttpSession session) {
+		Study study = (Study)session.getAttribute("study");
+		Member member = (Member) request.getSession().getAttribute("loginUser");
+		
+		int attendanceStatus = aService.getAttendanceStatus(study, member.getMbNo());
+		float studyAttendanceRate = aService.printStudyAttendanceRate(study.getStudyNo(), 30);
+		request.getSession().setAttribute("study", study);
+		request.setAttribute("attendanceStatus", attendanceStatus);
+		request.setAttribute("studyAttendanceRate", (int)(studyAttendanceRate * 100));
 		return "study/attendanceList";
 	}
 	

@@ -53,4 +53,7 @@ public interface StudyService {
 
 	public ArrayList<Study> printStudyWeek(Study study);
 	
+	// 결제시 스터디 최대 인원 변경 
+	public int updateStudyMP(Study study); 
+	
 }

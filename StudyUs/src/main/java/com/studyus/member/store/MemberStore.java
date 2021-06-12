@@ -58,6 +58,9 @@ public interface MemberStore {
 	 */
 	public ArrayList<Member> selectAllAssign(int grNo);
 	
+	public int selectEnrolledCount(int studyNo); 
+	
 	public ArrayList<Member> selectList();
+
  
 }

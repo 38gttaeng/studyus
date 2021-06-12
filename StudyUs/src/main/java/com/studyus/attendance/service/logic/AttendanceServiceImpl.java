@@ -133,4 +133,9 @@ public class AttendanceServiceImpl implements AttendanceService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public int countAttMember(int studyNo) {
+		return attStore.countAttMember(studyNo); 
+	}
 }

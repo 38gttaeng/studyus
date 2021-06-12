@@ -250,6 +250,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int countAllEnrolled(int studyNo) {
+		return store.selectEnrolledCount(studyNo); 
+	}
+
+	@Override
 	public ArrayList<Member> printAllAssign(int grNo) {
 		return store.selectAllAssign(grNo);
 	}

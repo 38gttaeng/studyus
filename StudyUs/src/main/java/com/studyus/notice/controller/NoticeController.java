@@ -47,18 +47,12 @@ public class NoticeController {
 		Notice notice = new Notice();
 		notice.setStNo(study.getStudyNo());
 		int listCount = nService.getListCount(notice);
-		System.out.println(notice);
 		int currentPage = (page != null) ? page : 1;
 		PageInfo pi = Pagination10.getPageInfo(currentPage, listCount);
 		ArrayList<Notice> nList = nService.printAll(pi, notice);
 		
-		for(Notice notice1 : nList) {
-			System.out.println(notice1.toString());
-		}
-		System.out.println(pi.toString());
 		// 메인 공지글 출력 
 		ArrayList<Notice> mainNotice = nService.printMainNotice(notice);
-		System.out.println(mainNotice.toString());
 		//@@@@@@@@게시글 뒤에 N 표시하기 @@@@@@
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
@@ -119,7 +113,6 @@ public class NoticeController {
 		ArrayList<Notice> searchList = nService.printSearchAll(pi, search);
 		ArrayList<Notice> mainNotice = nService.printMainNotice(notice);
 		
-		System.out.println(search.toString());
 		//@@@@@@@@게시글 뒤에 N 표시하기 @@@@@@
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
@@ -197,29 +190,31 @@ public class NoticeController {
 		
 		// 등록 
 		@RequestMapping(value="/notice/noticeWrite", method=RequestMethod.POST)
-		public String registerNotice(@ModelAttribute Notice notice, HttpSession session,
+		public ModelAndView registerNotice(@ModelAttribute Notice notice, HttpSession session,
 													@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile,
-													HttpServletRequest request, Model model) {
+													HttpServletRequest request, ModelAndView mv) {
 			
 			Study study = (Study)session.getAttribute("study");
 			notice.setStNo(study.getStudyNo());
 			
 			if(!uploadFile.getOriginalFilename().equals("")) {
-				String filePath = saveFile(uploadFile, request);
-				if(filePath != null) {
+				String renameFileName = saveFile(uploadFile, request);
+				if(renameFileName != null) {
 					notice.setNoFileName(uploadFile.getOriginalFilename());
-					notice.setNoReFileName(filePath);
+					notice.setNoReFileName(renameFileName);
 				}
 			}
 			int result = 0;
+			String path = "";
 			result = nService.registerNotice(notice);
-			System.out.println(notice.toString());
 			if(result > 0) {
-				return "redirect:noticeList";
+				path = "redirect:noticeList";
 			}else {
-				model.addAttribute("msg", "등록 실패");
-				return "common/errorPage";
+				mv.addObject("msg", "등록 실패");
+				path = "common/errorPage";
 			}
+			mv.setViewName(path);
+			return mv;
 		}
 		
 		// 파일 저장 
@@ -236,7 +231,9 @@ public class NoticeController {
 			// 파일명 변경하기 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 			String originalFileName = file.getOriginalFilename();
-			String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+			String renameFileName = originalFileName.substring(0, originalFileName.lastIndexOf("."))
+									+ sdf.format(new Date(System.currentTimeMillis())) + "." 
+									+ originalFileName.substring(originalFileName.lastIndexOf(".")+1);
 			String filePath = folder + "/" + renameFileName;
 			
 			// 파일 저장 
@@ -249,7 +246,7 @@ public class NoticeController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return filePath;
+			return renameFileName;
 		}
 	
 	// 수정 뷰 
@@ -282,7 +279,6 @@ public class NoticeController {
 		}
 		// DB 수정 
 		int result = nService.modifyNotice(notice);
-		System.out.println(notice.toString());
 		if(result > 0) {
 			mv.setViewName("redirect:/notice/noticeList");
 		}else {
@@ -324,7 +320,6 @@ public class NoticeController {
 	// 댓글 목록 
 	@RequestMapping(value="/notice/ReplyList")
 	public void getReplyList(HttpServletResponse response, HttpSession session, @RequestParam("noMotherNo") int noMotherNo, @RequestParam(value="page", required=false) Integer page) throws Exception {
-		System.out.println("ddd");
 		Notice notice = new Notice();
 		int mbNo = ((Member)session.getAttribute("loginUser")).getMbNo();
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
@@ -395,7 +390,6 @@ public class NoticeController {
 		
 		int result = nService.removeReply(notice);
 		nService.updateReplyCount(notice.getNoMotherNo()); // 댓글 수 업데이트 
-		System.out.println("ddd" + notice.toString());
 		if(result > 0 ) {
 			return "success";
 		}else {

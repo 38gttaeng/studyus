@@ -75,6 +75,8 @@ public interface AttendanceStore {
 	 * 출석체크 시간이 맞으면 true, 아니면 false.
 	 */
 	boolean checkAttendanceTime(int studyNo);
+	// 스터디에서 출석한 인원 수 출력
+	public int countAttMember(int studyNo); 
 	
 	
 }
