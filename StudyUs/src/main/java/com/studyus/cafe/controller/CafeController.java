@@ -25,7 +25,6 @@ import com.studyus.common.RedirectWithMsg;
 import com.studyus.file.domain.FileVO;
 import com.studyus.file.service.FileService;
 import com.studyus.member.domain.Member;
-import com.studyus.purchase.service.PurchaseService;
 import com.studyus.study.domain.Study;
 import com.studyus.study.service.StudyService;
 
@@ -93,7 +92,7 @@ public class CafeController {
 
    // 스터디카페 등록
    @RequestMapping(value = "/cafe/register", method = RequestMethod.POST)
-   public ModelAndView cafeRegister(ModelAndView mv, @ModelAttribute Cafe cafe,
+   public ModelAndView cafeRegister(ModelAndView mv, HttpSession session, @ModelAttribute Cafe cafe, 
                            @RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile,
                            HttpServletRequest request, HttpServletResponse response) throws Exception {
 

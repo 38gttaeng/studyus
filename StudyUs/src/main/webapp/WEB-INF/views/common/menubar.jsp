@@ -84,7 +84,14 @@
 				                </a>
 		                    </c:forEach>
 	                	</c:if>
-	                  <a class="dropdown-item" href="/member/myPage">마이페이지</a>
+	                	<!-- 관리자는 관리자 페이지 -->
+						<c:if test="${loginUser.mbNo == 1}">
+								<a class="dropdown-item" href="/admin/member">관리자페이지</a>
+						</c:if>
+						<!-- 회원은 마이페이지 -->
+						<c:if test="${loginUser.mbNo != 1 }">
+							<a class="dropdown-item" href="/member/myPage">마이페이지</a>
+						</c:if>
 		              <div class="dropdown-divider"></div>
 		              <a class="dropdown-item" href="/member/logout">로그아웃 </a>
 	                </div>

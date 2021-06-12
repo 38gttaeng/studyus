@@ -70,18 +70,9 @@
                <!-- Left toggle and nav items -->
                <!-- ============================================================== -->
                <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
-                   <!-- 스터디 신청 알림 / 일반인은 과제알람? -->
-                   <li class="nav-item dropdown">
-                       <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
-                           id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">
-                           <span><i data-feather="bell" class="svg-icon"></i></span>
-                           <span class="badge badge-primary notify-no rounded-circle">5</span>
-                       </a>
-                   </li>
                    <!-- 스터디 정보 페이지로 이동 -->
                    <li class="nav-item">
-                       <a class="nav-link" href="#" id="navbarDropdown" role="button">
+                       <a class="nav-link" href="/admin/member" id="navbarDropdown" role="button">
                            <i data-feather="settings" class="svg-icon"></i>
                        </a>
                    </li>
@@ -93,7 +84,7 @@
                    <!-- ============================================================== -->
                    <!-- navi -->
                    <!-- ============================================================== -->
-   	 <div class="collapse navbar-collapse" id="ftco-nav">
+   	<div class="collapse navbar-collapse" id="ftco-nav"> 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a href="/" class="nav-link study">홈</a></li>
           <li class="nav-item"><a href="#" class="nav-link study">스터디</a></li>

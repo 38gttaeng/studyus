@@ -58,7 +58,9 @@
 								</div>
 								<div class="col-md-6 ">
 								 <div class="form-group">
-									<input type="file" size="50" name="uploadFile">
+									<input type="file" size="50" id="image" name="uploadFile" accept="image/*"
+											onchange="setThumbnail(event);" />
+									<div id="image_container"></div> 
 									</div>
 								</div>
 								<div class="col-md-6 pr-md-5">
@@ -85,7 +87,7 @@
 											<li><strong>영업시간</strong>
 												<h3 class="heading-2 mb-3">
 													<input class="form-control" type="text" size="50" name="caTime"
-														placeholder="ex) 10:00 ~ 20:30">
+														placeholder="ex) 10:00 ~ 20:00">
 <!-- 														<input class="form-control" style="width:175px; float:left" type="time" size="50" name="caTime"> -->
 <!-- 													<input class="form-control" style="width:175px" type="time" size="50" name="caTime"> -->
 												</h3></li>
@@ -127,6 +129,17 @@
 			addressEl.value = roadFullAddr;
 			document.getElementById("caLat").value = entX;
 			document.getElementById("caLong").value = entY;
+		}
+		
+		function setThumbnail(event) {
+			var reader = new FileReader();
+			reader.onload = function(event) {
+				var img = document.createElement("img");
+				img.setAttribute("src", event.target.result);
+				img.setAttribute('width',400);
+				document.querySelector("div#image_container").appendChild(img);
+			};
+			reader.readAsDataURL(event.target.files[0]);
 		}
 		</script>
 </body>

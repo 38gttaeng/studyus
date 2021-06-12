@@ -28,7 +28,7 @@
           <div class="col-md">
             <div class="ftco-footer-widget mb-4 bg-primary p-4">
               <h2 class="ftco-heading-2">StudyUs</h2>
-              <p>스터디어스는 <br>온라인 스터디 플랫폼의 선두주자로서 500여개의 스터디플래닛과 함께하고 있습니다.</p>
+              <p>스터디어스는 <br>온라인 스터디 플랫폼의 선두주자로서 2000여명의 스터디플래닛과 함께하고 있습니다.</p> 
               <ul class="ftco-footer-social list-unstyled mb-0">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>

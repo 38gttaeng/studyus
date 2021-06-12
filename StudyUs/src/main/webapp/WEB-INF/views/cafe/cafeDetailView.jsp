@@ -81,7 +81,6 @@
 								src="/resources/cuploadFiles/${cafe.caFiName}" />
 						</div>
 						<div class="col-md-6 pr-md-5">
-							<form action="#">
 								<div class="form-group">
 									<ul class="pricing-text mb-4">
 										<li><strong>소개</strong>
@@ -106,13 +105,17 @@
 											<h3 class="heading-2 mb-3">${cafe.caRoute }</h3></li>
 									</ul>
 								</div>
-							</form>
 						</div>
 
 		<!-- 댓글 목록 -->
 		<section class="ftco-section" id="rtb">
-			<div class="col-md-12 mb-4">
-				<h2 class="h4 ml-3 mt-5">리뷰</h2>
+		<div class="row block-9">
+			<div class="col-md-2 ml-3 mb-4">
+					<h2 class="h4 ml-3 mt-5">리뷰
+					<span style="color:orange">★</span> 
+					<span class="h5" id="avg"></span>
+					</h2>
+			</div>
 			</div>
 			<div class="card-body">
 			<!-- cafeReview.js 파일과 연동하기 위해서 -->
@@ -122,7 +125,6 @@
 			<!-- 리뷰 등록 -->
 			<div class="row block-9">
 				<div class="col-md-10 pr-md-2">
-					<form action="#">
 						<div class="form-group">
 						<c:if test="${loginUser.mbNo ne null }">
 							<textarea name="" id="rvContents" cols="25" rows="7"
@@ -140,12 +142,11 @@
 						  <span class="star" id="rating4" title="4점">★</span>
 						  <span class="star" id="rating5" title="5점">★</span>
 						</div>
-					</form>
 				</div>
 				<div class="col-md-2 pr-2 pt-5">
 					<div class="form-group">
 						<c:if test="${loginUser.mbNo ne null }">
-							<input type="submit" id="rvSubmit" value="등록"
+							<input type="button" id="rvSubmit" value="등록"
 							class="btn btn-primary py-3 px-5">
 						</c:if>
 						<c:if test="${loginUser.mbNo eq null }">
@@ -159,7 +160,7 @@
 			<div id="rList"></div>
 				<div id="float-btn">
 		            <!-- top으로 가는 버튼 -->
-		             <button id="top-btn-pu" onclick="location.href='#'"><b>⇪</b></button>
+		             <button id="top-btn-pu" onclick="location.href='#'"><b>▲</b></button>
              	</div>
 			</div>
 			</section>
