@@ -125,13 +125,13 @@
 								<div class="collapse show row" id="collapseDiv">
 									<div id="chart-box" class="col-4">
 										<c:if test="${ (fn:length(suList)) != 0 }">
-										<c:set var="pages" value="${ ((fn:length(suList)) / (fn:length(mbList))) * 100 }" />
-										<div class='chart' data-percent="${ ((fn:length(suList)) / (fn:length(mbList))) * 100 }"></div>
-										<p class='chart-p'>${pages+((pages%1>0.5)?(1-(pages%1))%1:-(pages%1))} %</p>
+											<c:set var="pages" value="${ ((fn:length(suList)) / (fn:length(mbList))) * 100 }" />
+											<div class='chart' data-percent="${ ((fn:length(suList)) / (fn:length(mbList))) * 100 }"></div>
+											<p class='chart-p'>${pages+((pages%1>0.5)?(1-(pages%1))%1:-(pages%1))} %</p>
 										</c:if>
 										<c:if test="${ (fn:length(suList)) == 0 }">
-										<div class='chart' data-percent="0"></div>
-										<p class='chart-p'>0.0 %</p>
+											<div class='chart' data-percent="0"></div>
+											<p class='chart-p'>0.0 %</p>
 										</c:if>
 									</div>
 									<div class="col-8">
@@ -147,20 +147,23 @@
 												<c:forEach var="mOne" items="${ mbList }">
 													<tr>
 														<td>${ mOne.mbNickname }</td>
-														<c:forEach var="sAssignment" items="${ suList }">
-															<c:if test="${ sAssignment.mbNo == mOne.mbNo && sAssignment.suStatus == 1 }">
-																<td><div class='btn btn-sm btn-outline-primary btn-rounded'>&nbsp;제출&nbsp;</div></td>
-																<td>${ sAssignment.suInsertDate }</td>
+														<!-- 제출여부 버튼 --> 
+														<td><c:forEach var="sAssignment" items="${ suList }">
+															<c:choose>
+																<c:when test="${ sAssignment.mbNo == mOne.mbNo && sAssignment.suStatus == 1 }">
+																	<div class='btn btn-sm btn-outline-primary btn-rounded'>&nbsp;제출&nbsp;</div>
+																</c:when>
+																<c:when test="${ sAssignment.mbNo == mOne.mbNo && sAssignment.suStatus == 2 }">
+																	<div class='btn btn-sm btn-outline-secondary btn-rounded'>&nbsp;지각&nbsp;</div>
+																</c:when>
+															</c:choose>
+														</c:forEach></td>
+														<!-- 제출일 -->
+														<td><c:forEach var="sAssignment" items="${ suList }">
+															<c:if test="${ sAssignment.mbNo == mOne.mbNo && (sAssignment.suStatus == 1 || sAssignment.suStatus == 2) }">
+																${ sAssignment.suInsertDate }
 															</c:if>
-															<c:if test="${ sAssignment.mbNo == mOne.mbNo && sAssignment.suStatus == 2 }">
-																<td><div class='btn btn-sm btn-outline-secondary btn-rounded'>미제출</div></td>
-																<td>${ sAssignment.suInsertDate }</td>
-															</c:if>
-															<c:if test="${ sAssignment.mbNo != mOne.mbNo }">
-																<td><div class='btn btn-sm btn-outline-secondary btn-rounded'>미제출</div></td>
-																<td></td>
-															</c:if>
-														</c:forEach>
+														</c:forEach></td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -183,7 +186,7 @@
                             			<span class="tags btn-primary">제출</span>
                             		</c:if>
                             		<c:if test="${ sAssignment.suStatus == 2 }">
-                            			<span class="tags tag-free">미제출</span>
+                            			<span class="tags tag-free">지각</span>
                             		</c:if>
                             	</h4>
                             	<div class="row">
@@ -233,9 +236,15 @@
                         </c:forEach>
                         
                     </div>
-                    <!-- 글쓰기 버튼 --> 
 	                <div id="float-btn">
-						<button id="write-btn" onclick="location.href='/study/sAssignment/registerView?asNo=${ assignment.asNo }'"><i class="fas fa-edit"></i><span>과제 제출</span></button>          
+	                	<!-- Top 버튼 -->
+	                	<button id="top-btn" onclick="location.href='#'"><i class="fas fa-angle-up"></i></button>
+	                    <!-- 글쓰기 버튼 : 과제제출 대상자에게만 보임 -->
+	                    <c:forEach var="mOne" items="${ mbList }"> 
+		                    <c:if test="${ mOne.mbNo == loginUser.mbNo }">
+								<button id="write-btn" onclick="location.href='/study/sAssignment/registerView?asNo=${ assignment.asNo }'"><i class="fas fa-edit"></i><span>과제 제출</span></button>
+							</c:if>
+						</c:forEach> 
 	            	</div>
                 </div>
 		        <!-- footer -->

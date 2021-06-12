@@ -53,6 +53,11 @@ $.ajax({
 		var myChart = new Chart(ctx, {
 			type: 'doughnut',
 			data: pieChartData,
+			options: {
+				layout: {
+					padding: 30 
+				}
+			}
 		});
     },
     error: function(result) {
@@ -107,26 +112,3 @@ $.ajax({
         });
     }
 });
-
-// new Chart(document.getElementById("bar-chart-horizontal"), {
-//     type: 'bar',
-//     data: {
-//       labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-//       datasets: [
-//         {
-//           label: "출석률 (최근 30일)",
-//           backgroundColor: ["#6927ff", "#7538ff", "#8047ff", "#8d59ff", "#9869ff"],
-//           data: [8478,6267,5534,4784,3433]
-//         }
-//       ]
-//     }
-//     ,
-//     options: {
-//         indexAxis: 'y',
-//       legend: { display: false },
-//       title: {
-//         display: true,
-//         text: 'Predicted world population (millions) in 2050'
-//       }
-//     }
-// });

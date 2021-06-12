@@ -57,14 +57,7 @@ public interface AssignmentService {
 	 */
 	public ArrayList<Assignment> printAllByStudyNo(int stNo);
 	
-	/**
-	 * 그룹에 해당하는 과제 할당정보 모두 가져오기
-	 * @param grNo
-	 * @return
-	 */
-	public ArrayList<Integer> printAllAssign(int grNo);
-	
-	///////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////// 
 	
 	/**
 	 * 한개 보기 (WHERE AS_NO)

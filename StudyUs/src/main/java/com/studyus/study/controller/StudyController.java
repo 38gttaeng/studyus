@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -217,6 +218,15 @@ public class StudyController {
 		request.setAttribute("printAllMember", printAllMember);
 		
 		return "study/study";
+	}
+	
+	// 스터디 메뉴바 새로운 공지사항 개수 비동기 처리 
+	@ResponseBody
+	@RequestMapping(value="/study/notice-count")
+	public String newNoticeCount(HttpSession session) {
+		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
+		int count = nService.printRecentCount(stNo);
+		return count + "";
 	}
 	
 	// 스터디 가입신청리스트 url오류

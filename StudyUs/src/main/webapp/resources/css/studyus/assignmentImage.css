@@ -34,3 +34,8 @@
 	margin-top : 10px;
 	position : relative;
 }
+
+.files { 
+	float: left;
+	margin : 15px;
+}

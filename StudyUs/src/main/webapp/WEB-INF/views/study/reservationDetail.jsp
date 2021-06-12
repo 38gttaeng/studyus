@@ -105,13 +105,16 @@
 								<div id="map" class="col-md-7"></div>
 								
 								<!-- 룸 정보 : 룸 사진, 룸 정보 -->
+								<input type="hidden" name="maxCount" value="${ caferoom.crMax }"> 
 								<div class="col-md-5">
-									<c:if test="${ !empty caferoom.crFilename }">
-									<img id="roomFile" src="/resources/cuploadImages/${ caferoom.crFilename }" width="100%" alt="cafe_img" />
-									</c:if>
-									<c:if test="${ empty caferoom.crFilename }">
-									<img id="roomFile" src="/resources/images/no-image.png" width="100%" alt="cafe_img" />
-									</c:if>
+									<div id="img-box">
+										<c:if test="${ !empty caferoom.crFilename }">
+										<img id="roomFile" src="/resources/cuploadImages/${ caferoom.crFilename }" width="100%" alt="cafe_img" />
+										</c:if>
+										<c:if test="${ empty caferoom.crFilename }">
+										<img id="roomFile" src="/resources/images/no-image.png" width="100%" alt="cafe_img" />
+										</c:if>
+									</div>
 									
 									<p class="ml-2 text-center"><strong>${ caferoom.crName }</strong></p>
 									<p class="ml-2">${ caferoom.crInfo }</p>
@@ -129,7 +132,7 @@
 
 <script src="/resources/js/reservationDetail.js"></script>
 <!-- 지도 js -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=063f4122c75f35436f584eefe1993776"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff0766a6b2841e30dbf20c45c7c7f27b"></script>
 <script src="/resources/js/proj4.js"></script>
 <script>
 // 좌표 -> 경위도 변환
@@ -233,7 +236,7 @@ $(function() {
 			alert("예약 하루 전에는 예약을 취소할 수 없습니다!");
 		} else {
 			// 예약일정보다 하루 전보다 더 전이면
-			result = confirm("정말 삭제하시겠습니까?");
+			result = confirm("예약 취소하시겠습니까?");
 			if(result) {
 				message = prompt("취소 사유를 입력해주세요.", "");
 				location.href="/study/reservation/delete?rsNo=${ reservation.rsNo }&rsAlert=" + message;

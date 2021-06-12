@@ -21,15 +21,15 @@ public interface FileStore {
 	
 	/** 
 	 * 과제 파일함
-	 * @param stNo 
+	 * @param grNo  
 	 * @return
 	 */
-	public ArrayList<FileList> selectAllAssignment(int stNo);
+	public ArrayList<FileList> selectAllAssignment(int grNo);
 	
 	/**
 	 * 과제제출 파일함
-	 * @param stNo
+	 * @param grNo
 	 * @return
 	 */
-	public ArrayList<FileList> selectAllSAssignment(int stNo);
+	public ArrayList<FileList> selectAllSAssignment(int grNo);
 }

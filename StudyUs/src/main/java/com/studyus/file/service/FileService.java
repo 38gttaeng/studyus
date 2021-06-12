@@ -21,9 +21,9 @@ public interface FileService {
 	
 	/**
 	 * 과제 / 과제제출 파일함 
-	 * @param stNo 
+	 * @param grNo
 	 * @return
 	 */
-	public ArrayList<FileList> printAllAssign(int stNo);
+	public ArrayList<FileList> printAllAssign(int grNo); 
 	
 }

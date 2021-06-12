@@ -47,15 +47,15 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public ArrayList<FileList> printAllAssign(int stNo) { 
+	public ArrayList<FileList> printAllAssign(int grNo) { 
 		ArrayList<FileList> list = new ArrayList<FileList>();
 		
-		ArrayList<FileList> asList = fiStore.selectAllAssignment(stNo);
+		ArrayList<FileList> asList = fiStore.selectAllAssignment(grNo); 
 		for(FileList asOne : asList) {
 			list.add(asOne);
 		}
 		
-		ArrayList<FileList> suList = fiStore.selectAllSAssignment(stNo);
+		ArrayList<FileList> suList = fiStore.selectAllSAssignment(grNo);
 		for(FileList suOne : suList) {
 			list.add(suOne);
 		}

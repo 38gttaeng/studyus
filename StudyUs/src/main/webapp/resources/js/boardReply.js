@@ -142,8 +142,7 @@ function replyList(data, listCount, loginMbNo) {
 			
 			$rContent = $("<div class='contents-box'>").append(data[i].boContents);
 			
-			$btnArea = $("<div>")
-			.append("<button class='btn btn-sm btn-light'>답글</button>");
+			$btnArea = $("<div>").append("<span>&nbsp</span>"); 
 			
 			// 수정+삭제 버튼
 			if(loginMbNo == data[i].mbNo) {

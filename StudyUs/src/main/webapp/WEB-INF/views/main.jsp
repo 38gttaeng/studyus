@@ -38,11 +38,18 @@
 					<p>내게 맞는 직무를 함께 공부해보세요!</p>
 				</div>
 				<div class="col-lg-7 p-5 ftco-wrap ftco-animate">
-					<div class="domain-form d-flex mb-3" style="height:60px;">
-						<div class="form-group domain-select d-flex" style="width: 100%;">
-							<input type="submit" id="searchButton" class="search-domain btn btn-primary text-center" value="검색">
+					<a href="/study/search">
+						<div class="domain-form d-flex mb-3">
+							<div class="form-group domain-name">
+								<input type="text" class="form-control name px-4"
+									placeholder="스터디를 검색해보세요">
+							</div>
+							<div class="form-group domain-select d-flex">
+								<input type="submit"
+									class="search-domain btn btn-primary text-center" value="검색">
+							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			</div>
 		</div>

@@ -93,7 +93,12 @@
                         <div class="card">
                             <div class="card-body ">
                             	<h4 class="card-title">
-                            		<!-- 제출여부 -->
+                            		<c:if test="${ sAssignment.suStatus == 1 }"> 
+                            			<span class="tags btn-primary">제출</span>
+                            		</c:if>
+                            		<c:if test="${ sAssignment.suStatus == 2 }">
+                            			<span class="tags tag-free">지각</span>
+                            		</c:if>
                             	</h4>
                             	<div class="row">
 	                            	<h6 class="card-subtitle col-6"><img src="/resources/images/${ sAssignment.member.mbPhoto }.png" class="rounded-circle">&nbsp;&nbsp;${ sAssignment.member.mbNickname }</h6>
@@ -112,7 +117,7 @@
 		                            			<a class="text-muted" href="${ fileDownload }" onclick="return confirm('파일을 다운로드하시겠습니까?');">${ file.fiRealName }</a>
 		                            		</c:if>
 		                            		<c:if test="${ file.fiRealName.substring(file.fiRealName.lastIndexOf('.') + 1) == 'pdf'}">
-		                            			<a class="text-muted" href="/resources/js/pdf/web/viewer.html?file=/resources/auploadFiles/${ file.fiStoredName }" target="_blank">${ file.fiRealName }</a>
+		                            			<a class="text-muted" href="/resources/js/pdf/web/viewer.html?file=/resources/suploadFiles/${ file.fiStoredName }" target="_blank">${ file.fiRealName }</a>
 		                            		</c:if>
 		                            	</div>
 	                            	</c:forEach>

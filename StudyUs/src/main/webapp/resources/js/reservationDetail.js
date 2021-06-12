@@ -1,23 +1,29 @@
 var memList = new Array();
 var rsNo = $("input[name=rsNo]").val();	
-var loginMbNo = $("input[name=loginMbNo]").val();	
+var loginMbNo = $("input[name=loginMbNo]").val();
 
 $(function() {
 	
 	getMbList(rsNo);
 	
+	
 	// 멤버 등록버튼 클릭시
 	$("#plus-btn").on("click", function() {
+		console.log("밖에서 : " + memList);
+		var maxMem = $("input[name=maxCount]").val();
+		
 		if(memList.length > 0) {
+			if(memList.length == maxMem) {
+				return alert("최대 인원을 초과해서 등록할 수 없습니다."); 
+			}
+			
 			for(var i in memList) {
-				if(memList[i] != loginMbNo) {
-					insertMem();
-					break;
-				} else {
-					alert("이미 등록된 스터디원입니다.");
-					break;
+				if(memList[i] == loginMbNo) {
+					return alert("이미 등록된 스터디원입니다.");
 				}
 			}
+			
+			insertMem();
 		} else {
 			insertMem();
 		}
@@ -29,7 +35,9 @@ $(function() {
 function getMbList(rsNo) {
 	$td = $("#member-box");
 	$td.html("");
-
+	
+	memList = [];
+	
 	$.ajax({
 	    method: 'get',
 	    url: '/study/reservation/member',
@@ -38,9 +46,9 @@ function getMbList(rsNo) {
 	    success: function (mbList) {
 			if(mbList.length > 0) {
 				for(var i in mbList) {
-					console.log(mbList[i]);
 					$td.append("<div class='del-btn btn btn-sm btn-light btn-rounded' onclick='deleteMem(this," + mbList[i].mbNo + ")'>" + mbList[i].mbNickname + "&nbsp<i class='fas fa-times'></i></div>");
 					memList.push(mbList[i].mbNo);
+					console.log("안에서 : " + memList);
 				}
 			}
 		},

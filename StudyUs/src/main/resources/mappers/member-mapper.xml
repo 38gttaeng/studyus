@@ -101,6 +101,7 @@
 		FROM ASSIGN A
 		JOIN MEMBER M ON A.MB_NO = M.MB_NO
 		WHERE GR_NO = #{grNo}
+		ORDER BY M.MB_NICKNAME 
 	</select>
 	
 	<select id="selectAllList" resultMap="memberResultMap">

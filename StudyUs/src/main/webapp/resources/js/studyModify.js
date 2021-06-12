@@ -84,9 +84,6 @@ function urlCheck (e) {
 function onAddHashtagClicked() {
     // 입력된 해시태그에서 공백제거
     var currentHashtag = document.getElementById("inputHashtag").value.replace(/\s/g,'');
-
-    // 샵(#) 제거
-    var currentHashtag = currentHashtag.substring(1); 
     
     // 해시태그 미입력시 return
     if (currentHashtag == '') {

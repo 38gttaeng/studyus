@@ -122,5 +122,9 @@ public class NoticeServiceImpl implements NoticeService{
 		return nStore.printRecentNotice(notice);
 	}
 
+	@Override
+	public int printRecentCount(int stNo) { 
+		return nStore.printRecentCount(stNo);
+	}
 
 }

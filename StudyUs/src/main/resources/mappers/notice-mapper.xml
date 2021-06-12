@@ -78,6 +78,15 @@
 		ORDER BY MAIN_SET_DATE DESC
 	</select>
 	
+	<!-- 대시보드 공지 알림 (오늘 올라온 새로운 공지 개수) --> 
+	<select id="printRecentCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM NOTICE
+		WHERE ST_NO = #{stNo}
+		AND NO_STATUS = 1
+		AND NO_MOTHER_NO IS NULL
+        AND TO_CHAR(NO_INSERTDATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+	</select>
+	
 	<!-- 대시보드 최신 공지글  -->
 	<select id="printRecentNotice" resultMap="noticeResultMap">
 		SELECT * FROM(

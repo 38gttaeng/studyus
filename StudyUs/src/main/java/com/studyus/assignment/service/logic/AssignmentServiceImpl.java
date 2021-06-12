@@ -53,12 +53,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 		return asStore.selectAllByStudyNo(stNo);
 	}
 	
-	@Override
-	public ArrayList<Integer> printAllAssign(int grNo) {
-		return asStore.selectAllAssign(grNo);
-	}
-	
-	/////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////// 
 	
 	@Override
 	public Assignment printOne(int asNo) {
@@ -161,16 +156,17 @@ public class AssignmentServiceImpl implements AssignmentService {
 	@Override
 	public int printAssignmentRate(int mbNo) {
 		// 할당된 전체 과제 개수 가져오기
-		int allCount = asStore.selectAssignmentByMbNo(mbNo);
+		double allCount = asStore.selectAssignmentByMbNo(mbNo);
 		
 		// 실제로 한 개수 가져오기
-		int memCount = asStore.mySubmittedAssignment(mbNo);
+		double memCount = asStore.mySubmittedAssignment(mbNo);
 		
 		// 계산
-		int rate = 0;
+		double rateDouble = 0;
 		if( allCount != 0 ) {
-			rate = (memCount / allCount) * 100;
+			rateDouble = (memCount / allCount) * 100;
 		}
+		int rate = (int)rateDouble;
 		
 		// 넘겨주기
 		return rate; 
@@ -179,16 +175,17 @@ public class AssignmentServiceImpl implements AssignmentService {
 	@Override
 	public int printAssignmentRate(HashMap<String, Integer> map) {
 		// 할당된 전체 과제 개수 가져오기
-		int allCount = asStore.selectAssignmentStNo(map);
+		double allCount = asStore.selectAssignmentStNo(map);
 		
 		// 실제로 한 개수 가져오기
-		int memCount = asStore.mySubmittedAssignmentByStNo(map);
+		double memCount = asStore.mySubmittedAssignmentByStNo(map);
 		
 		// 계산
-		int rate = 0;
+		double rateDouble = 0;
 		if( allCount != 0 ) {
-			rate = (memCount / allCount) * 100;
+			rateDouble = (memCount / allCount) * 100;
 		}
+		int rate = (int)rateDouble;
 		
 		// 넘겨주기
 		return rate;
