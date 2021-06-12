@@ -32,4 +32,9 @@ public class MeetingServiceImpl implements MeetingService {
 		return store.printAttMember(meeting);
 	}
 
+	@Override
+	public int printMeetingAmountByStudyNo(int studyNo, int recentDays) {
+		return store.selectMeetingAmountByStudyNo(studyNo, recentDays);
+	}
+
 }

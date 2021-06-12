@@ -93,8 +93,11 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public int modifyStudy(Study study) {
-		// TODO Auto-generated method stub
-		return 0;
+		Study oldStudy = sStore.selectOneByNo(study.getStudyNo());
+		
+		study.setFilename(oldStudy.getFilename());
+		
+		return sStore.updateStudy(study);
 	}
 
 	@Override

@@ -165,9 +165,17 @@ var chatBox = document.getElementById("chat-box");
 // 참여중인 사용자를 출력하는 영역
 var userList = document.getElementById("user-list");
 
+// 엔터키로 채팅 전송
+chatInput.addEventListener("keyup", function (event) {
+	if (event.keyCode === 13) {
+		event.preventDefault();
+		send();
+	}
+});
+
 // 웹소켓 연결
 // var webSocket = new WebSocket("ws://" + location.hostname + (location.port ? ':' + location.port: '') + "/chat/message");
-var webSocket = new SockJS("http://localhost:9999/chat/message");
+var webSocket = new SockJS("http://studyus.co.kr/chat/message");
 webSocket.onopen = onOpen;
 webSocket.onclose = onClose;
 webSocket.onmessage = onMessage;
@@ -179,10 +187,11 @@ function onClose () {
 	webSocket.close();
 }
 function send () {
-	// 입력 내용이 없으면 보내지 않음
+	// 입력 내용이 없으면 return
 	if (chatInput.value == "") {
 		return false;
 	}
+	
 	webSocket.send(JSON.stringify({"studyUrl" : studyUrl, "nickname" : localNickname, "type" : "SEND", "message" : chatInput.value}));
 	chatInput.value = "";
 }

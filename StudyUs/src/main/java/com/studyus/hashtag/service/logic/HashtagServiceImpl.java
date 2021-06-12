@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.studyus.hashtag.domain.Hashtag;
 import com.studyus.hashtag.service.HashtagService;
 import com.studyus.hashtag.store.HashtagStore;
 
@@ -28,8 +29,7 @@ public class HashtagServiceImpl implements HashtagService {
 
 	@Override
 	public ArrayList<String> printAllByStudyNo(int studyNo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return hStore.selectAllByStudyNo(studyNo);
 	}
 
 }

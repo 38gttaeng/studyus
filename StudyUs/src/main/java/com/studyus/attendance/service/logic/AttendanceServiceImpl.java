@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional; 
 
 import com.studyus.attendance.domain.Attendance;
+import com.studyus.attendance.domain.AttendanceAmountWithMemberVO;
 import com.studyus.attendance.service.AttendanceService;
 import com.studyus.attendance.store.AttendanceStore;
 import com.studyus.meeting.domain.Meeting;
@@ -111,10 +112,9 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 	
 	@Override
-	public ArrayList<Member> printStudyTopAttendanceMember(int studyNo, int memberAmount) {
-		return attStore.selectStudyTopAttendanceMember(studyNo, memberAmount);
+	public ArrayList<AttendanceAmountWithMemberVO> printStudyTopAttendanceMember(int studyNo, int memberAmount, int recentDays) {
+		return attStore.selectStudyTopAttendanceMember(studyNo, memberAmount, recentDays);
 	}
-
 	
 	@Override
 	public float printAllPersonalAttendanceRate(ArrayList<Integer> memberNoList, int studyNo, int recentDays) {

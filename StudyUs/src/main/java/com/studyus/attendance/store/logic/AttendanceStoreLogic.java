@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studyus.attendance.domain.Attendance;
+import com.studyus.attendance.domain.AttendanceAmountWithMemberVO;
 import com.studyus.attendance.store.AttendanceStore;
 import com.studyus.member.domain.Member;
 
@@ -52,13 +53,14 @@ public class AttendanceStoreLogic implements AttendanceStore{
 	}
 	
 	@Override
-	public ArrayList<Member> selectStudyTopAttendanceMember(int studyNo, int memberAmount) {
+	public ArrayList<AttendanceAmountWithMemberVO> selectStudyTopAttendanceMember(int studyNo, int memberAmount, int recentDays) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		
 		map.put("studyNo", studyNo);
 		map.put("memberAmount", memberAmount);
+		map.put("recentDays", recentDays);
 		
-		return (ArrayList)sqlSession.selectList("attendanceMapper.selectStudyTopAttendanceMember", map);
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectStudyTopAttendanceMemberList", map);
 	}
 
 	@Override

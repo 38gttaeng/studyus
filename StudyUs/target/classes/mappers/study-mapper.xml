@@ -141,6 +141,22 @@
 		WHERE ST_STATUS = 1 
 	</select>
 	
+	<update id="updateStudy" parameterType="Study">
+		UPDATE STUDY
+			SET
+				ST_NAME = #{studyName},
+				ST_INTRODUCE = #{introduce},
+				ST_URL = #{url},
+				ST_MON = #{monday},
+				ST_TUE = #{tuesday},
+				ST_WED = #{wednesday},
+				ST_THU = #{thursday},
+				ST_FRI = #{friday},
+				ST_SAT = #{saturday},
+				ST_SUN = #{sunday}
+		WHERE ST_NO = #{studyNo}
+	</update>
+	
 	<update id="deleteStudy" parameterType="_int">
 		UPDATE STUDY SET ST_STATUS = 0 WHERE ST_NO = #{caNo}
 	</update>

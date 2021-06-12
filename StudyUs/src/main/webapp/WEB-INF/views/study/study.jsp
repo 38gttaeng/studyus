@@ -171,7 +171,7 @@
 	                                	<span id="attendance-help" class="pr-4">출석시간이 아닙니다.</span>
                                 	</c:if>
 	                                <c:if test="${attendanceStatus eq 1 }">
-	                                	<button id="attendance-check-button" class="btn btn-primary btn-rounded btn-sm" onclick="insertAttendance(${loginUser.mbNo}, ${sessionScope.study.studyNo });">출석확인</button>
+	                                	<button id="attendance-check-button" class="btn btn-primary btn-rounded btn-sm" onclick="insertAttendance(${loginUser.mbNo}, ${sessionScope.study.studyNo })">출석확인</button>
                                 	</c:if>
 	                                <c:if test="${attendanceStatus eq 2  }">
 	                                	<button id="attendance-check-button" class="btn btn-primary btn-rounded btn-sm" disabled>출석확인</button>
@@ -192,7 +192,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">출석률 차트</h4>
+                                <h4 class="card-title">출석률 Top 5</h4>
                                 <div>
                                     <canvas id="bar-chart-horizontal" height="120"> </canvas>
                                 </div>
@@ -218,7 +218,12 @@
 			<jsp:include page="../common/studyFooter.jsp"/>
         </div>
     </div>
-   
+    
+   <!-- 비동기 통신용 변수. Javascript 보다 위에 있어야함 -->
+    <input type="hidden" id="studyUrl" value="${sessionScope.study.url }">
+    <input type="hidden" id="studyNo" value="${sessionScope.study.studyNo }">
+    <input type="hidden" id="memberNo" value="${sessionScope.loginUser.mbNo }">
+    
    <!--This page JavaScript -->
    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
    <script src="/resources/css/study/dist/js/pages/dashboards/dashboard1.min.js"></script>

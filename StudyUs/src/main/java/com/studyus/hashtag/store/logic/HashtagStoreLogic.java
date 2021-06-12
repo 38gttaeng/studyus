@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.studyus.hashtag.domain.Hashtag;
 import com.studyus.hashtag.store.HashtagStore;
 
 @Repository
@@ -57,8 +58,7 @@ public class HashtagStoreLogic implements HashtagStore {
 
 	@Override
 	public ArrayList<String> selectAllByStudyNo(int studyNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList) session.selectList("hashtagMapper.selectAllByStudyNo", studyNo);
 	}
 
 }

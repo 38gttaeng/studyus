@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -47,6 +48,16 @@ public class MeetingStoreLogic implements MeetingStore{
 	@Override
 	public ArrayList<Meeting> printAttMember(Meeting meeting) { 
 		return (ArrayList)session.selectList("meetingMapper.printAttMember", meeting);
+	}
+
+	@Override
+	public int selectMeetingAmountByStudyNo(int studyNo, int recentDays) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("studyNo", studyNo);
+		map.put("recentDays", recentDays);
+		
+		return session.selectOne("meetingMapper.selectRecentMeetingAmount", map);
 	}
 
 }

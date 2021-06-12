@@ -2,6 +2,7 @@ package com.studyus.attendance.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.studyus.attendance.domain.Attendance;
+import com.studyus.attendance.domain.AttendanceAmountWithMemberVO;
 import com.studyus.attendance.service.AttendanceService;
+import com.studyus.meeting.service.MeetingService;
+import com.studyus.member.domain.Member;
 import com.studyus.study.domain.Study;
 
 @Controller
@@ -26,6 +30,9 @@ public class AttendanceController {
 	
 	@Autowired
 	private AttendanceService aService;
+	
+	@Autowired
+	private MeetingService mService;
 
 	// 출석 리스트
 	@RequestMapping(value="/attendance/list")
@@ -63,6 +70,23 @@ public class AttendanceController {
 		// 최근 30일간의 출석률
 		float attendanceRate = aService.printStudyAttendanceRate(studyNo, 30);
 		return attendanceRate;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/attendance/study/top", method=RequestMethod.GET, produces="application/text; charset=UTF-8")
+	public String studyTopAttendance(int studyNo) throws Exception {
+		
+		// 최근 몇 일의 출석률을 확인할 것인지 설정
+		int period = 30;
+		
+		ArrayList<AttendanceAmountWithMemberVO> memberList = aService.printStudyTopAttendanceMember(studyNo, 5, period);
+		int requiredAttendance = mService.printMeetingAmountByStudyNo(studyNo, period);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberList", memberList);
+		map.put("requiredAttendance", requiredAttendance);
+		
+		return new Gson().toJson(map);
 	}
 	
 	// 평점 추가 

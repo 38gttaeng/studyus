@@ -76,8 +76,7 @@ public class StudyStoreLogic implements StudyStore {
 
 	@Override
 	public int updateStudy(Study study) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("studyMapper.updateStudy", study);
 	}
 
 	@Override

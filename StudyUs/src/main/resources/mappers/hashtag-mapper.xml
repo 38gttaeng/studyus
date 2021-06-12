@@ -18,4 +18,12 @@
 		SELECT COUNT(*) FROM HASHTAG_RELATION WHERE ST_NO = #{studyNo} AND HA_NAME = #{hashtag}
 	</select>
 	
+	<select id="selectAllByStudyNo" parameterType="int" resultType="String">
+		SELECT HA_NAME
+		    FROM STUDY 
+		        LEFT OUTER JOIN HASHTAG_RELATION R
+		            USING (ST_NO)
+		WHERE ST_NO = #{studyNo}
+	</select>
+	
 </mapper>

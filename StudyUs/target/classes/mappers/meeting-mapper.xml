@@ -30,4 +30,13 @@
 		ORDER BY ME_NO DESC 
 	</select>
 	
+	<select id="selectRecentMeetingAmount" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		    FROM STUDY 
+		        LEFT OUTER JOIN MEETING
+		            USING (ST_NO)
+		WHERE ST_NO = #{studyNo}
+		    AND TRUNC(ME_INSERTDATE) >= SYSDATE - #{recentDays}
+	</select>
+	
 </mapper>

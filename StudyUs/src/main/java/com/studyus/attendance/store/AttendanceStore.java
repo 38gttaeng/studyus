@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.studyus.attendance.domain.Attendance;
+import com.studyus.attendance.domain.AttendanceAmountWithMemberVO;
 import com.studyus.member.domain.Member; 
 
 public interface AttendanceStore {
@@ -47,11 +48,12 @@ public interface AttendanceStore {
 	 * @author 김동현
 	 * @param studyNo 출석을 확인할 스터디<br>
 	 * @param memberAmount 출력할 상위멤버 수<br>
+	 * @param recentDays 최근 몇일까지<br>
 	 * @return
 	 * ArrayList
-	 * 멤버 번호 리스트
+	 * 멤버 리스트
 	 */
-	public ArrayList<Member> selectStudyTopAttendanceMember(int studyNo, int memberAmount);
+	public ArrayList<AttendanceAmountWithMemberVO> selectStudyTopAttendanceMember(int studyNo, int memberAmount, int recentDays);
 
 	/**
 	 * studyNo에 대해 memberNo가 오늘 출석체크한 기록을 확인합니다.<br>

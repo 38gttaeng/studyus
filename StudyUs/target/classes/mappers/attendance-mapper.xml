@@ -12,6 +12,12 @@
 		<collection property="member" resultMap="memberMapper.memberResultMap"></collection>
 	</resultMap>
 	
+	<resultMap type="com.studyus.attendance.domain.AttendanceAmountWithMemberVO" id="attendanceAmountWithMemberResultMap">
+		<id property="memberNo" column="MB_NO"></id>
+		<result property="attendanceAmount" column="ATTENDANCE_AMOUNT"></result>
+		<collection property="member" resultMap="memberMapper.memberResultMap"></collection>
+	</resultMap>
+	
 	<select id="printAllAtt" resultMap="attendanceResultMap">
 		SELECT ROW_NUMBER() OVER(ORDER BY A.AT_INSERTDATE DESC) AS RNUM,
 		A.AT_NO, A.MB_NO, A.ST_NO, M.MB_NICKNAME, 
@@ -56,7 +62,7 @@
 		    FROM DUAL)
 	</select>
 	
-	<!-- 특정 스터디 내 종합 출석률을 출력합니다. -->
+	<!-- 특정 스터디에 가입한 전체 인원의 출석률을 출력합니다. -->
 	<select id="selectStudyTotalAttendanceRate" parameterType="Map" resultType="float">
 		SELECT 
 		    CASE 
@@ -81,8 +87,26 @@
 		    FROM DUAL)
 	</select>
 	
-	<select id="selectStudyTopAttendanceMember" parameterType="Map" resultType="Member">
-		
+	<!-- 최근 -->
+	<select id="selectStudyTopAttendanceMemberList" parameterType="Map" resultType="com.studyus.attendance.domain.AttendanceAmountWithMemberVO" resultMap="attendanceAmountWithMemberResultMap">
+		SELECT * FROM (
+		    SELECT COUNT(*) AS ATTENDANCE_AMOUNT, M.MB_NO
+		        FROM STUDY S 
+		            JOIN ENROLLMENT E 
+		                ON S.ST_NO = E.ST_NO 
+		            JOIN MEMBER M 
+		                ON (M.MB_NO = E.MB_NO)
+		            JOIN ATTENDANCE A 
+		                ON (M.MB_NO = A.MB_NO)
+		        WHERE EN_STATUS = 1
+		        	AND MB_STATUS = 1
+		            AND S.ST_NO = #{studyNo}
+		            AND TRUNC(A.AT_INSERTDATE) >= SYSDATE - #{recentDays}
+		    GROUP BY M.MB_NO) TOP_ATT
+		JOIN MEMBER M 
+			USING (MB_NO)
+		WHERE ROWNUM &lt;= #{memberAmount}
+		ORDER BY ATTENDANCE_AMOUNT DESC
 	</select>
 	
 	<!-- 해당 스터디가 현재 출석체크 시간인지 확인합니다. -->

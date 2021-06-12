@@ -28,29 +28,38 @@
 	    	</div>
       </div>
     </div>
-    
-    <section class="ftco-domain">
-    	<div class="container">
-    		<div class="row d-flex align-items-center">
-    			<div class="col-lg-5 heading-white mb-4 mb-sm-4 mb-lg-0 ftco-animate">
-    				<h2>스터디 검색</h2>
-    				<p>내게 맞는 직무를 함께 공부해보세요!</p>
-    			</div>
-    			<div class="col-lg-7 p-5 ftco-wrap ftco-animate">
-    				<form action="#" class="domain-form d-flex mb-3">
-              <div class="form-group domain-name">
-                <input type="text" class="form-control name px-4" placeholder="스터디를 검색해보세요">
-              </div>
-              <div class="form-group domain-select d-flex">
-                <input type="submit" class="search-domain btn btn-primary text-center" value="검색">
-	            </div>
-            </form>
-    			</div>
-    		</div>
-    	</div>
-    </section>
-  
-    <section class="ftco-section services-section bg-light">
+
+	<section class="ftco-domain">
+		<div class="container">
+			<div class="row d-flex align-items-center">
+				<div
+					class="col-lg-5 heading-white mb-4 mb-sm-4 mb-lg-0 ftco-animate">
+					<h2>스터디 검색</h2>
+					<p>내게 맞는 직무를 함께 공부해보세요!</p>
+				</div>
+				<div class="col-lg-7 p-5 ftco-wrap ftco-animate">
+					<div class="domain-form d-flex mb-3" style="height:60px;">
+<!-- 						<div class="form-group domain-name"> -->
+<!-- 							<input type="text" id="searchText" class="form-control name px-4" placeholder="스터디를 검색해보세요"> -->
+<!-- 						</div> -->
+						<div class="form-group domain-select d-flex" style="width: 100%;">
+							<input type="submit" id="searchButton" class="search-domain btn btn-primary text-center" value="검색">
+						</div>
+					</div>
+<!-- 					<div class="domain-form d-flex mb-3"> -->
+<!-- 						<div class="form-group domain-name"> -->
+<!-- 							<input type="text" id="searchText" class="form-control name px-4" placeholder="스터디를 검색해보세요"> -->
+<!-- 						</div> -->
+<!-- 						<div class="form-group domain-select d-flex"> -->
+<!-- 							<input type="submit" id="searchButton" class="search-domain btn btn-primary text-center" value="검색"> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section services-section bg-light">
       <div class="container">
       	<div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 text-center heading-section ftco-animate">
@@ -220,7 +229,7 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">훌륭했다 좋았다.훌륭했다 좋았다.훌륭했다 좋았다.훌륭했다 좋았다.훌륭했다 좋았다.훌륭했다 좋았다.훌륭했다 좋았다.</p>
+                    <p class="mb-4">멀리서 가깝게, 스터디어스!</p>
                     <p class="name">김동현</p>
                     <span class="position">Interface Designer</span>
                   </div>
@@ -276,6 +285,8 @@
 
 	<!-- footer -->
 	<jsp:include page="./common/footer.jsp"/>
+	
+	<script src="/resources/js/main.js"></script>
 
   </body>
 </html>

@@ -30,6 +30,8 @@ import com.studyus.enrollment.domain.Enrollment;
 import com.studyus.enrollment.domain.EnrollmentWithMember;
 import com.studyus.enrollment.service.EnrollmentService;
 import com.studyus.file.controller.FileController;
+import com.studyus.hashtag.domain.Hashtag;
+import com.studyus.hashtag.service.HashtagService;
 import com.studyus.meeting.domain.Meeting;
 import com.studyus.meeting.service.MeetingService;
 import com.studyus.meeting.service.logic.MeetingServiceImpl;
@@ -59,6 +61,9 @@ public class StudyController {
 	
 	@Autowired
 	MeetingService mService;
+	
+	@Autowired
+	HashtagService hService;
 	
 	@Autowired
 	private NoticeService nService;
@@ -242,15 +247,52 @@ public class StudyController {
 	}
 	
 	// 스터디 수정 페이지 get
-	@RequestMapping(value="/study/modify", method=RequestMethod.GET)
-	public String modifyView() {
-		return "";
+	@RequestMapping(value="/study/modify/{url}", method=RequestMethod.GET)
+	public String modifyView(HttpServletRequest request, @PathVariable String url) throws Exception {
+		Member loginMember = (Member)request.getSession().getAttribute("loginUser");
+		if (loginMember == null) {
+			return new RedirectWithMsg().redirect(request, "로그인이 필요합니다.", "/member/loginView");
+		}
+		Study study = sService.printOneByUrl(url);
+		if (study == null) {
+			return new RedirectWithMsg().redirect(request, "잘못된 주소입니다.", "/");
+		}
+		if (study.getLeaderNo() != loginMember.getMbNo()) {
+			return new RedirectWithMsg().redirect(request, "권한이 없습니다.", "/study/" + url);
+		}
+		
+		ArrayList<String> hashtagList = hService.printAllByStudyNo(study.getStudyNo());
+		
+		request.setAttribute("study", study);
+		request.setAttribute("hashtagList", hashtagList);
+		
+		return "/study/modify";
 	}
 	
 	// 스터디 수정 post
-	@RequestMapping(value="/study/modify", method=RequestMethod.POST)
-	public String modifyStudy() {
-		return "";
+	@RequestMapping(value="/study/modify/post", method=RequestMethod.POST)
+	public String modifyStudy(HttpServletRequest request,
+							@ModelAttribute Study study,
+							@RequestParam(value="hashtag", required=false) String[] hashtagList,
+							@RequestParam(value="start-h") String startHour,
+							@RequestParam(value="start-m") String startMinute,
+							@RequestParam(value="end-h") String endHour,
+							@RequestParam(value="end-m") String endMinute,
+							@RequestParam(value="file") MultipartFile file) {
+		
+		study.setStart(startHour + ":" + startMinute);
+		study.setEnd(endHour + ":" + endMinute);
+		
+		System.out.println(study.toString());
+		System.out.println(file.getOriginalFilename());
+		
+		int result = sService.modifyStudy(study);
+		
+		if (0 < result) {
+			return new RedirectWithMsg().redirect(request, "스터디 정보가 수정되었습니다.", "/study/" + study.getUrl());
+		} else {
+			return new RedirectWithMsg().redirect(request, "스터디 정보 수정에 실패했습니다.", "/study/" + study.getUrl());
+		}
 	}
 	
 	// 스터디 삭제 post
