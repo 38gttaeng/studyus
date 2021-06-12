@@ -46,12 +46,8 @@ public class ReviewController {
 		map.put("page", pi);
 		map.put("rList", rList);
 		
-//		if (!rList.isEmpty()) {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson(rList, response.getWriter());
-//		} else {
-//			System.out.println("데이터가 없습니다."); 
-//		}
 	}
 
 	// 리뷰 등록

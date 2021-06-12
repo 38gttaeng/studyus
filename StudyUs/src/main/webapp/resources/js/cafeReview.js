@@ -36,7 +36,7 @@
 	 	// 리뷰 내용 등록
 		getReviewList(); 
 		$("#rvSubmit").on("click", function() {
-			var caNo = '${cafe.caNo}';
+			var caNo = $("#cafeNumber").val();
 			var rvContents = $("#rvContents").val();
 			if(rvContents == ""){
 				alert("리뷰를 입력해주세요!");
@@ -67,7 +67,7 @@
 				},
 				error : function() {
 						alert("로그인을 해주세요!");
-						window.location.href = "/member/loginView";
+						//window.location.href = "/member/loginView";
 				}
 			});
 			
@@ -79,6 +79,7 @@
 	function getReviewList(page, loginMbNo) {
 		var caNo = $("#cafeNumber").val();
 		var memberNo = $("#memberNo").val();
+		var count = 0;
 		$.ajax({
 			url : "/cafe/review/list",
 			type : "get",
@@ -126,6 +127,8 @@
 	 				$div.attr("id", "review" + data[i].rvNo); // 리뷰 수정 버튼 기존 내용 로드
 	 				
 	 				// 별점 보기
+	 				count += (data[i].rvRating * 1);
+	 				
 					$btn = $("<div class='star-rating'>");
 					$showStar = $("<div class='star-container' id='rvRating'>")
 								.append("<span class='rvRating'></span>");
@@ -150,6 +153,11 @@
 
 					$rList.append($div); 
 				}
+			var avg = count / (data.length); 
+			console.log(avg);
+			$('#avg').text(Math.round(avg*100)/100.0);
+			const number1 = avg;
+			
 			} else {
 				console.log("리뷰 없음!");
 			}
@@ -160,7 +168,6 @@
 		
 		});
 	}
-	
 		// 리뷰 수정
  		function modifyReview(obj, rvNo, caNo) {
 			$review = $("#review" + rvNo).children(".contents-box");
