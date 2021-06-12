@@ -89,7 +89,7 @@ public class CaferoomController {
 		String savePath = "";
 		String fiStoredName = "";
 		if (uploadFile != null) {
-			savePath = request.getSession().getServletContext().getRealPath("resources") + "\\cuploadImages";
+			savePath = request.getSession().getServletContext().getRealPath("resources") + "/cuploadImages";
 			fiStoredName = fiController.saveImageFile(uploadFile, savePath);
 			caferoom.setCrFilename(fiStoredName);
 		}
@@ -99,7 +99,7 @@ public class CaferoomController {
 		if(crNo > 0) {
 			if(fiStoredName != "") {
 				FileVO file = new FileVO(1, uploadFile.getOriginalFilename(), fiStoredName,
-						savePath + "\\" + fiStoredName, 5, crNo);
+						savePath + "/" + fiStoredName, 5, crNo);
 				fiService.uploadFile(file);
 			}
 			
@@ -121,15 +121,15 @@ public class CaferoomController {
 		if (uploadFile != null) {
 			// 기존 파일 삭제
 			Caferoom origin = crService.printOne(caferoom.getCrNo());
-			fiController.deleteFile("\\cuploadImages", origin.getCrFilename(), request);
+			fiController.deleteFile("/cuploadImages", origin.getCrFilename(), request);
 			FileVO fileVO = new FileVO(5, caferoom.getCrNo());
 			fiService.removeFile(fileVO);
 			
 			// 새파일 업로드
-			savePath = request.getSession().getServletContext().getRealPath("resources") + "\\cuploadImages";
+			savePath = request.getSession().getServletContext().getRealPath("resources") + "/cuploadImages";
 			fiStoredName = fiController.saveImageFile(uploadFile, savePath);
 			FileVO file = new FileVO(1, uploadFile.getOriginalFilename(), fiStoredName,
-					savePath + "\\" + fiStoredName, 5, caferoom.getCrNo());
+					savePath + "/" + fiStoredName, 5, caferoom.getCrNo());
 			fiService.uploadFile(file);
 			
 			caferoom.setCrFilename(fiStoredName);

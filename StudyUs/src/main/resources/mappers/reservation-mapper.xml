@@ -45,6 +45,7 @@
 		JOIN CAFE C ON CR.CA_NO = C.CA_NO
         JOIN MEMBER M ON R.MB_NO = M.MB_NO
 		WHERE CR.CA_NO = #{caNo}
+		AND R.RS_STATUS = 1
 	</select>
 	
 	<!-- 관리자 차트 : 카페별 일주일 예약수 가져오기 -->
@@ -91,6 +92,7 @@
 		JOIN CAFEROOM CR ON R.CR_NO = CR.CR_NO
 		JOIN CAFE C ON CR.CA_NO = C.CA_NO
 		WHERE ST_NO = #{stNo}
+		AND RS_STATUS = 1
 	</select>
 
 	<!-- 디테일 -->
