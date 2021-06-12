@@ -198,71 +198,71 @@
             <div class="carousel-testimony owl-carousel ftco-owl">
               <div class="item">
                 <div class="testimony-wrap p-4 text-center">
-                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/person_1.jpg)">
+                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/dv.png)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">훌륭했다 좋았다.</p>
+                    <p class="mb-4">프로젝트를 준비하면서 팀원들이 다 할 수 없을 거라고 생각했던 기능들까지 으쌰으쌰해서 해내서 좋았습니다. 앞으로 어떤 프로젝트든 해낼 수 있을 것만 같습니다.(ﾉ>ω<)ﾉ :｡･:*:･ﾟ’★,｡･:*:･ﾟ’☆  </p>
                     <p class="name">김다빈</p>
-                    <span class="position">Marketing Manager</span>
+                    <span class="position">우리는 티목이 좋다</span>
                   </div>
                 </div>
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 text-center">
-                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/person_2.jpg)">
+                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/dh.png)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">멀리서 가깝게, 스터디어스!</p>
+                    <p class="mb-4">팀 프로젝트 결과물이 만족스러워서 도메인도 연결했어요. 열심히 해준 팀원들에게 감사합니다. 내일부터 백수 생활이 시작되네요. 벌써부터 설레고 기대됩니다. ₍ᐢ･⚇･ᐢ₎</p>
                     <p class="name">김동현</p>
-                    <span class="position">Interface Designer</span>
+                    <span class="position">내일부터 백수</span>
                   </div>
                 </div>
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 text-center">
-                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/person_3.jpg)">
+                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/ey.png)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p class="mb-4">좋은 팀원들과 함께 프로젝트를 할 수 있어서 즐거운 마음으로 임했습니다. 기획단계부터 웹 구현까지의 모든 과정을 경험하면서 부족한 부분을 보완할 수 있는 좋은 기회였습니다. (ღˇᴗˇ)</p>
                     <p class="name">박은영</p>
-                    <span class="position">UI Designer</span>
+                    <span class="position">지도 전문가</span>
                   </div>
                 </div>
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 text-center">
-                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/person_1.jpg)">
+                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/hm.png)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p class="mb-4">팀원들과 함께 수업 외 시간에도 함께 이야기를 나누며 서로를 도우면서 프로젝트를 완성해나가는 과정이 정말 좋았습니다. 계획했던 기능을 거의 구현한 것 같아 만족스럽기도 합니다. (✿◡‿◡)</p>
                     <p class="name">이혜민</p>
-                    <span class="position">Web Developer</span>
+                    <span class="position">웹 개발자</span>
                   </div>
                 </div>
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 text-center">
-                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/IC.jpg)">
+                  <div class="user-img mb-4" style="background-image: url(resources/css/main/images/IC.png)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4"></p>
+                    <p class="mb-4">스프링 개발의 흐름이 보이고 실력이 향상된 것을 느꼈습니다. 쉽다고 생각하니 어렵고 어렵다고 생각하니 쉬웠습니다. 벌써 교육과정이 끝나서 헤어져야한다니 아쉽군요...=≡Σ((( つ•̀ω•́)つ</p>
                     <p class="name">최인철</p>
-                    <span class="position">모자 새로 삼</span> 
+                    <span class="position">얘들아 3년 동안 수고했고 나중에 웃으면서 보자</span>
                   </div>
                 </div>
               </div>

@@ -79,7 +79,6 @@ public class MemberController {
 			// 가입한 스터디 리스트를 세션에 저장
 			ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
 			session.setAttribute("enrolledStudyList", enrolledStudyList);
-			System.out.println(enrolledStudyList);
 			
 			return "redirect:/";
 		}else {
@@ -148,7 +147,6 @@ public class MemberController {
 			// 4-2. 파싱 정보 세션으로 저장
 			Member loginUser = service.selectOneById(id);
 			session.setAttribute("loginUser", loginUser); // 세션 생성
-			System.out.println("loginUser : " + loginUser);
 			
 			// 가입한 스터디 리스트를 세션에 저장
 			ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
@@ -199,10 +197,6 @@ public class MemberController {
     public String emailConfirm(@ModelAttribute Member member, HttpServletResponse response) throws Exception {
     	PrintWriter out = response.getWriter();
     	Member checkKey = service.checkAuthKey(member.getMbId());
-    	
-    	System.out.println(member);
-    	System.out.println(checkKey.getAuthKey());
-    	System.out.println(member.getAuthKey());
     	
     	if(member.getAuthKey().equals(checkKey.getAuthKey())) {
     		member.setMbStatus(1);
@@ -303,9 +297,6 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		Member findId = (Member)session.getAttribute("findId");
 		Member checkKey = service.checkKeyByEmail(findId.getMbEmail());
-		
-		System.out.println(authKey);
-		System.out.println(checkKey.getAuthKey());
 	    
 	    if(authKey.equals(checkKey.getAuthKey())) {
 	    	findId.setAuthKey("authKeyisnull");
@@ -328,11 +319,7 @@ public class MemberController {
 								HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		Member findPwd = (Member)session.getAttribute("findPwd");
-		System.out.println("findPwd : " + findPwd);
 		Member checkKey = service.checkAuthKey(findPwd.getMbId());
-	   
-		System.out.println(checkKey.getAuthKey());
-	    System.out.println(findPwd.getAuthKey());
 	    
 	    if(findPwd.getAuthKey().equals(checkKey.getAuthKey())) {
 	    	findPwd.setAuthKey("authKeyisnull");
@@ -477,7 +464,6 @@ public class MemberController {
     		return "redirect:/doLogin";
 		} else {
 			ArrayList<Purchase> pList = pService.printOnePuByMbNo(loginUser.getMbNo());
-			System.out.println(pList);
 			session.setAttribute("pList", pList);
 			return "member/memberPurchase";
 		}
