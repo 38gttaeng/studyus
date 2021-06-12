@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
 				sendMail.setSubject("[StudyUs] 회원가입 이메일 인증");
 				sendMail.setText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
 						.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
-						.append("<a href='http://localhost:9999/member/joinConfirm?mbId=")
+						.append("<a href='http://studyus.co.kr/member/joinConfirm?mbId=")
 						.append(member.getMbId())
 						.append("&mbEmail=")
 						.append(member.getMbEmail())
