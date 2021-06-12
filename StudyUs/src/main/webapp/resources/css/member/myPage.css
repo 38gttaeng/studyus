@@ -178,8 +178,6 @@ a:hover, a:focus {
 .scroll-zone {
 	width: 800px;
 	height: 700px;
-	border: 1px solid #dddddd;
-	border-radius: 3px;
 	overflow: scroll !important;
 	-ms-overflow-style: none;
     scrollbar-width: none;

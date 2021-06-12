@@ -60,12 +60,9 @@ public class MemberController {
 		// 네이버 로그인 url 생성
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		System.out.println("네이버: " + naverAuthUrl);
-		
-		
 
 		// 네이버
 		model.addAttribute("naver_url", naverAuthUrl);
-		
 		
 		return "member/login";
 	}
@@ -82,6 +79,7 @@ public class MemberController {
 			// 가입한 스터디 리스트를 세션에 저장
 			ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
 			session.setAttribute("enrolledStudyList", enrolledStudyList);
+			System.out.println(enrolledStudyList);
 			
 			return "redirect:/";
 		}else {
@@ -122,7 +120,7 @@ public class MemberController {
 		String nickname = (String) response_obj.get("nickname");
 		
 		Member naverUser = new Member(id, name, email, nickname);
-		System.out.println(naverUser);
+		System.out.println("naverUser : " + naverUser);
 		
 		// 4-1. 회원등록
 		int result = service.checkIdDup(id);
@@ -131,6 +129,11 @@ public class MemberController {
 			if(insertResult > 0) {
 				Member loginUser = service.selectOneById(id);
 				session.setAttribute("loginUser", loginUser); // 세션 생성
+				
+				// 가입한 스터디 리스트를 세션에 저장
+				ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
+				session.setAttribute("enrolledStudyList", enrolledStudyList);
+
 				model.addAttribute("result", apiResult);
 				return "member/loginSuccess";
 			}else {
@@ -144,8 +147,8 @@ public class MemberController {
 		}else {
 			// 4-2. 파싱 정보 세션으로 저장
 			Member loginUser = service.selectOneById(id);
-			System.out.println(loginUser);
 			session.setAttribute("loginUser", loginUser); // 세션 생성
+			System.out.println("loginUser : " + loginUser);
 			
 			// 가입한 스터디 리스트를 세션에 저장
 			ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
@@ -388,8 +391,9 @@ public class MemberController {
 	@RequestMapping(value = "/member/myPage", method = RequestMethod.GET)
 	public String myPageView(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		ArrayList<Study> enrolledStudyList = (ArrayList<Study>)session.getAttribute("enrolledStudyList");
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		ArrayList<Study> enrolledStudyList = sService.printAllEnrolledByMemberNo(loginUser.getMbNo());
+		session.setAttribute("enrolledStudyList", enrolledStudyList);
 		int mbNo = loginUser.getMbNo();
 		if(loginUser == null) {
     		return "redirect:/doLogin";
@@ -473,6 +477,7 @@ public class MemberController {
     		return "redirect:/doLogin";
 		} else {
 			ArrayList<Purchase> pList = pService.printOnePuByMbNo(loginUser.getMbNo());
+			System.out.println(pList);
 			session.setAttribute("pList", pList);
 			return "member/memberPurchase";
 		}

@@ -29,16 +29,29 @@
 		</div>
 		<hr class="line">
 		<div class="purchase-list">
-			<div class="purchase">
-				<div class="txt-zone">
-					<span class="txt">결제 내역이 없습니다.</span>
-				</div>
-			</div>
-			<div class="purchase">
-				<div class="txt-zone"> 
-					<span class="txt">결제 내역이 없습니다.</span>
-				</div>
-			</div>
+			<c:if test="${!empty pList}">
+				<c:forEach var="purchase" items="${pList}" varStatus="i">
+					<div class="purchase">
+						<div class="txt-box">
+							<div class="p-info">
+								<div class="p-name">프리미엄 이용권 결제</div>
+								<div class="p-date">${purchase.puInsertDate}</div>
+							</div>
+							<div class="st-info">
+								<span class="st-txt">Study. </span><span class="st-name">${purchase.stName}</span>
+							</div>
+						</div>
+					</div>	
+				</c:forEach>
+				
+			</c:if>
+			<c:if test="${empty pList}">
+				<div class="purchase">
+					<div class="txt-zone">
+						<span class="txt">결제 내역이 없습니다.</span>
+					</div>
+				</div>	
+			</c:if>
 		</div>
 	</div>
 

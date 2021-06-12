@@ -71,7 +71,7 @@ $(document).ready(function() {
 			pwdCheckPlag = false;
 		} else {
 			$(".pwd.no").hide();
-			mbPwdCheck.on("blur", function () {
+			mbPwdCheck.on("keyup", function () {
 				var pwd1 = mbPassword.val();
 				var pwd2 = mbPwdCheck.val();
 				if ( pwd1 != '' && pwd2 != '' ) {
@@ -95,7 +95,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	mbName.on("blur", function() {
+	mbName.on("keyup", function() {
 		var name = mbName.val();
 		if(name == '' || name == null) {
 			nameCheckPlag = false;
@@ -104,7 +104,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	mbNickname.on("blur", function() {
+	mbNickname.on("keyup", function() {
 		var nickname = mbNickname.val();
 		$.ajax({
 			url : "/member/dupNick",
@@ -131,7 +131,7 @@ $(document).ready(function() {
 		});
 	});
 	
-	mbEmail.on("blur", function() {
+	mbEmail.on("keyup", function() {
 		if(!emailPattern.test(mbEmail.val())) {
 			$(".email.no").show();
 			$(".email-msg").hide();
@@ -160,21 +160,27 @@ $(document).ready(function() {
 function goEnroll() {
 	var form = document.enrollForm;
 	if(idCheckPlag == false) {
+		alert('아이디를 올바르게 입력해주세요.');
 		return false;
 	}
 	if(pwdCheckPlag == false) {
+		alert('비밀번호를 올바르게 입력해주세요.');
 		return false;
 	}
 	if(nameCheckPlag == false) {
+		alert('이름을 올바르게 입력해주세요.');
 		return false;
 	}
 	if(nickCheckPlag == false) {
+		alert('닉네임을 올바르게 입력해주세요.');
 		return false;
 	}
 	if(emailCheckPlag == false) {
+		alert('이메일을 올바르게 입력해주세요.');
 		return false;
 	}
 	if(phoneCheckPlag == false) {
+		alert('전화번호를 올바르게 입력해주세요.');
 		return false;
 	}
 	else {

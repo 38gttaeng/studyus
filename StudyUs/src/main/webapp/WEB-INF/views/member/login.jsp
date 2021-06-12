@@ -44,17 +44,12 @@
 					<div class="form-group">
 						<a href="/member/findView">아이디/비밀번호 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/member/enrollView">회원가입</a>
+						<div class="naver_id_login"><a href="${naver_url}">
+							<img width="223" src="/resources/images/btnG_완성형.png"/></a>
+						</div>
 					</div>
 				</form>
 			</div>
-		</div>
-		<div class="social-login">
-			<div class="text-zone">
-				<span class="main-text">소셜 로그인</span><br>
-				<span class="sub-text">번거로운 회원가입 없이 간편하게</span>
-			</div>
-			<div class="naver_id_login"><a href="${naver_url}">
-			<img width="223" src="/resources/images/btnG_완성형.png"/></a></div>
 		</div>
 	</div>
 </body>

@@ -48,7 +48,7 @@
 	</update>
 	
 	<insert id="insertNaverMem" parameterType="Member">
-		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{mbId}, #{mbPassword}, #{mbName}, #{mbEmail}, #{mbNickname}, #{mbPhone}, 0, DEFAULT, 2)
+		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{mbId}, #{mbPassword}, #{mbName}, #{mbEmail}, #{mbNickname}, #{mbPhone}, 0, DEFAULT, 2, null)
 	</insert>
 	
 	<update id="updateMember" parameterType="Member">

@@ -9,15 +9,6 @@
 <link rel="stylesheet" href="/resources/css/member/myInfo.css">
 <title>내 정보 수정</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
-	$("#img-select").on("change", function() {
-		var img_value = $("select option:selected").val();
-		console.log(img_value);
-		var img_src = "/resources/images/" + img_value + ".png";
-		console.log(img_src);
-		$("#profile-img").prop("src", img_src);
-	});
-</script>
 </head>
 <body>
 	<!-- menubar -->
@@ -98,9 +89,11 @@
 					<div class="btn-box">
 						<input type="button" value="이전" onclick="location.href='/member/myPage'" class="myInfo-btn1">
 						<input type="submit" value="수정" class="myInfo-btn2">
-						<div class="delete-zone">
-							<a href="/member/deleteView">회원탈퇴</a>
-						</div>
+						<c:if test="${loginUser.mbStatus != 2}">
+							<div class="delete-zone">
+								<a href="/member/deleteView">회원탈퇴</a>
+							</div>
+						</c:if>
 					</div>
 				</form>
 			</div>
