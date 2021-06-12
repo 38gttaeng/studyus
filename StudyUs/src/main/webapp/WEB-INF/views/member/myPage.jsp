@@ -167,18 +167,9 @@
 				<div class="menu-mark">
 					<span>나의 후기</span>
 				</div>
-				<c:if test="${!empty rList}">
-					<div class="review-box">
-						<div id="rList"></div>
-					</div>
-				</c:if>
-				<c:if test="${empty rList}">
-					<div class="study-box" style="margin-top: 30px !important; margin-left: -1px;">
-						<div class="txt-box" style="text-align: center;">
-							<a style="font-weight: bold; font-size: 15px;">작성한 후기가 없습니다.</a>
-						</div>
-					</div>
-				</c:if>
+				<div class="review-box">
+					<div id="rList"></div>
+				</div>
 			</div>
 		</div>
 	</div>
