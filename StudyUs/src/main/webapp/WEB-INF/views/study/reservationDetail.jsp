@@ -132,7 +132,7 @@
 
 <script src="/resources/js/reservationDetail.js"></script>
 <!-- 지도 js -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff0766a6b2841e30dbf20c45c7c7f27b"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=063f4122c75f35436f584eefe1993776"></script>
 <script src="/resources/js/proj4.js"></script>
 <script>
 // 좌표 -> 경위도 변환
