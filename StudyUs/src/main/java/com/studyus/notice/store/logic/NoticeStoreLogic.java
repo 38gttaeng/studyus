@@ -138,4 +138,9 @@ public class NoticeStoreLogic implements NoticeStore{
 		return (ArrayList)sqlSession.selectList("noticeMapper.printRecentNotice", notice);
 	}
 
+	@Override
+	public int printRecentCount(int stNo) {
+		return sqlSession.selectOne("noticeMapper.printRecentCount", stNo);
+	}
+
 }

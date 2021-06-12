@@ -50,9 +50,7 @@
 	
 	<!-- 디테일 -->
 	<select id="selectOne" parameterType="_int" resultMap="sAssignmentResultMap">
-		SELECT
-			S.SU_NO, S.MB_NO, S.AS_NO, S.SU_MOTHER_NO, S.SU_INSERTDATE, S.SU_CONTENTS,
-			M.MB_NICKNAME, M.MB_PHOTO
+		SELECT S.*, M.MB_NICKNAME, M.MB_PHOTO
 		FROM SUBMITTED_ASSIGNMENT S
 		
 		JOIN MEMBER M
@@ -91,7 +89,7 @@
 		
 		INSERT INTO SUBMITTED_ASSIGNMENT VALUES (
 			<if test="suMotherNo == 0">
-			#{suNo}, #{mbNo}, #{asNo}, DEFAULT, TO_CHAR(SYSDATE, 'YYYY/MM/DD HH:ss'), #{suContents}, #{suStatus}
+			#{suNo}, #{mbNo}, #{asNo}, DEFAULT, TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:SS'), #{suContents}, #{suStatus}
 			</if>
 			
 			<if test="suMotherNo != 0">
@@ -128,6 +126,7 @@
         JOIN ASSIGNMENT_GROUP G ON A.GR_NO = G.GR_NO
         WHERE S.MB_NO = #{mbNo}
         AND G.ST_NO = #{stNo}
+        AND S.SU_MOTHER_NO IS NULL
         AND S.SU_STATUS = 1
 	</select>
 	
@@ -153,6 +152,7 @@
 		JOIN ASSIGNMENT_GROUP G
 		ON AI.GR_NO = G.GR_NO
 		WHERE A.MB_NO = #{mbNo}
+		AND S.MB_NO = #{mbNo}
 		AND S.SU_STATUS = 1
 		AND G.ST_NO = #{stNo}
         AND SUBSTR(S.SU_INSERTDATE, 1, 10) <= TO_CHAR(LAST_DAY(ADD_MONTHS(SYSDATE, -1)), 'YYYY/MM/DD')

@@ -167,7 +167,7 @@ var userList = document.getElementById("user-list");
 
 // 웹소켓 연결
 // var webSocket = new WebSocket("ws://" + location.hostname + (location.port ? ':' + location.port: '') + "/chat/message");
-var webSocket = new SockJS("http://localhost:9999/chat/message");
+var webSocket = new SockJS("http://studyus.co.kr/chat/message");
 webSocket.onopen = onOpen;
 webSocket.onclose = onClose;
 webSocket.onmessage = onMessage;

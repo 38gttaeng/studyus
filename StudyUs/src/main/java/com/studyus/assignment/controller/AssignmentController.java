@@ -70,9 +70,17 @@ public class AssignmentController {
 	public void groupListView(HttpSession session, HttpServletResponse response) throws IOException {
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		ArrayList<AssignmentGroup> grList = asService.printAllGroup(stNo);
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		for(AssignmentGroup gOne : grList) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			ArrayList<Member> asList = mbService.printAllAssign(gOne.getGrNo());
+			map.put("gOne", gOne);
+			map.put("count", asList.size());
+			list.add(map);
+		}
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(grList, response.getWriter());
+		gson.toJson(list, response.getWriter());
 	}
 	
 	// 스터디에 해당하는 스터디원 정보 모두 가져오기
@@ -507,26 +515,33 @@ public class AssignmentController {
 		HttpSession session = request.getSession();
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
 		
+		// 스터디에 해당하는 그룹리스트 가져오기
+		ArrayList<AssignmentGroup> grList = asService.printAllGroup(stNo);
+
+		mv.addObject("grList", grList);
+		mv.setViewName("study/assignmentGroup");
+		return mv;
+	}
+	
+	@RequestMapping(value="/study/assignment/file-group", method=RequestMethod.GET)
+	public ModelAndView assignmentGroupFile(@RequestParam("grNo") int grNo, ModelAndView mv) {
+		// grNo에 해당하는 그룹정보 가져오기
+		AssignmentGroup group = asService.printOneGroup(grNo);
+		
 		// 파일 DB에서 과제(2), 과제제출(3)에 해당하는 리스트 가져오기
-		ArrayList<FileList> fiList = fiService.printAllAssign(stNo);
+		ArrayList<FileList> fiList = fiService.printAllAssign(grNo);
+		
+		System.out.println(fiList); /////////////////////////////////////////////////
+		// 파일 이름으로 최신순 정렬
+		Collections.sort(fiList, new Comparator<FileList>() {
+	        @Override
+	        public int compare(FileList first, FileList second) {
+	            return (second.getFiStoredName().substring(0, 15)).compareTo(second.getFiStoredName().substring(0, 15));
+	        }
+	    });
 		System.out.println(fiList); /////////////////////////////////////////////////
 		
-		// 파일 이름으로 최신순 정렬
-//		fiList.sort(new Comparator<FileList>() {
-//            @Override
-//            public double compare(FileList arg0, FileList arg1) {
-//               double age0 = Double.parseDouble(arg0.getFiStoredName().substring(0, 15));
-//               double age1 = Double.parseDouble(arg1.getFiStoredName().substring(0, 15));
-//               if (age0 == age1)
-//                     return 0;
-//               else if (age1 > age0)
-//                     return 1;
-//               else
-//                     return -1;
-//            }
-//		});
-		System.out.println(fiList); /////////////////////////////////////////////////
-
+		mv.addObject("group", group);
 		mv.addObject("fiList", fiList);
 		mv.setViewName("study/assignmentFile");
 		return mv;

@@ -42,7 +42,8 @@ public interface NoticeService {
 	public int removeReply(Notice notice);
 	
 	// 스터디 대시보드 출력용
+		// 최신 공지사항
 	public ArrayList<Notice> printRecentNotice(Notice notice);
-	
-	
+		// 오늘 올라온 공지사항 개수
+	public int printRecentCount(int stNo);
 }

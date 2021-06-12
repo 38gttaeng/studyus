@@ -152,10 +152,11 @@ function getAllGroup() {
 
 	$.ajax ({
 		url : "/study/assignment/group-list",
-		data : { "grStatus" : grStatus },
+		//data : { "grStatus" : grStatus },
 		type : "get",
 		dataType : "json",
-		success : function(grList) {
+		success : function(list) {
+		
 			var $div;
 			var $dropdown;
 			var $dropBtn;
@@ -163,20 +164,20 @@ function getAllGroup() {
 			var $groupName;
 			var $groupMem;
 			
-			for(var i in grList) {
+			for(var i in list) {
 				
-				$div = $("<div class='item backHover" + grList[i].grColor + "'>");
+				$div = $("<div class='item backHover" + list[i].gOne.grColor + "'>");
 				
 				$dropdown = $("<div class='dropdown'>");
-					$dropBtn = $("<a id='group-delete' class='btn dropdown-toggle' href='javascript:void(0)' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>")
-					.append("<i class='fas fa-times'></i>");
-					$dropMenu = $("<div class='dropdown-menu text-center' aria-labelledby='dropdownMenuLink'>");
 					if(memberNo == leaderNo) {
-						$dropMenu.append("<a class='dropdown-item' onclick='confirm(\"정말 삭제하시겠습니까?\")' href='/study/assignment/deleteGroup?grNo=" + grList[i].grNo + "'>삭제</a>");
+						$dropBtn = $("<a id='group-delete' class='btn dropdown-toggle' href='javascript:void(0)' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>")
+						.append("<i class='fas fa-times'></i>");
+						$dropMenu = $("<div class='dropdown-menu text-center' aria-labelledby='dropdownMenuLink'>");
+						$dropMenu.append("<a class='dropdown-item' onclick='confirm(\"정말 삭제하시겠습니까?\")' href='/study/assignment/deleteGroup?grNo=" + list[i].gOne.grNo + "'>삭제</a>");
+						$dropdown.append($dropBtn).append($dropMenu);
 					}
-					$dropdown.append($dropBtn).append($dropMenu);
-				$groupName = $("<div class='item-name' onclick='location.href=\"/study/assignment?grNo=" + grList[i].grNo + "\"'>").append(grList[i].grName);
-				$groupMem = $("<div class='item-mem'>").append("3/5");
+				$groupName = $("<div class='item-name' onclick='location.href=\"/study/assignment?grNo=" + list[i].gOne.grNo + "\"'>").append(list[i].gOne.grName);
+				$groupMem = $("<div class='item-mem'>").append(list[i].count + " 명");
 				
 				$div.append($dropdown);
 				$div.append($groupName);

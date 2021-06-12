@@ -50,6 +50,11 @@ $.ajax({
 		var myChart = new Chart(ctx, {
 			type: 'doughnut',
 			data: pieChartData,
+			options: {
+				layout: {
+					padding: 30
+				}
+			}
 		});
     },
     error: function(result) {

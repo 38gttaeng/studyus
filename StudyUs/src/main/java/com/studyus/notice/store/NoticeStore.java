@@ -33,6 +33,6 @@ public interface NoticeStore {
 	public int deleteReply(Notice notice);
 	
 	public ArrayList<Notice> printRecentNotice(Notice notice);
-
+	public int printRecentCount(int stNo);
 	
 }

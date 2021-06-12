@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link href="/resources/css/studyus/assignmentImage.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.9.0/viewer.css" rel="stylesheet">
+    <link href="/resources/css/studyus/assignmentColor.css" rel="stylesheet">
 	<title>StudyUs : 스터디룸</title>
 </head>
 <body>
@@ -65,28 +65,41 @@
                     
                     	<!-- 프로젝트 리스트 ----------------------------------->
                     	<div class="card">
-                    		<div class="card-body">
+                    		<c:url var="asList" value="/study/assignment">
+								<c:param name="grNo" value="${ group.grNo }"></c:param>
+							</c:url>
+                    		<div onclick="location.href='${ asList }'" class="card-body backHover${ group.grColor } text-white">
+                    			${ group.grName }
+                    		</div>
+                    		<div class="card-body grid">
+                    			<div class="grid-sizer"></div>
                     			<c:forEach items="${ fiList }" var="file">
-                    				<div>${file.fiRealName }</div>
+                   					<div class="files grid-item">
+                    				<c:if test="${ file.fiBoardType == 2 }">
+                   						<%-- ${ file.fiRealName } --%>
+                   						<c:if test="${ file.fiRealName.substring(file.fiRealName.lastIndexOf('.') + 1) == 'pdf'}">
+                   							<img data-pdf-thumbnail-file="/resources/auploadFiles/${ file.fiStoredName }">
+                   						</c:if>
+                   						<c:if test="${ file.fiRealName.substring(file.fiRealName.lastIndexOf('.') + 1) != 'pdf'}">
+                   							<img src="#">
+                   						</c:if>
+                   						<button class="btn btn-primary btn-sm btn-rounded detail-btn" onclick="location.href='/study/assignment/detail?asNo=${ file.fiMotherNo }'">원글 보기</button>
+                    				</c:if>
+                    				<c:if test="${ file.fiBoardType == 3 }">
+                   						<%-- ${ file.fiRealName } --%>
+                   						<c:if test="${ file.fiRealName.substring(file.fiRealName.lastIndexOf('.') + 1) == 'pdf'}">
+                   							<a href="/resources/js/pdf/web/viewer.html?file=/resources/suploadFiles/${ file.fiStoredName }" target="_blank">
+                   								<img data-pdf-thumbnail-file="/resources/suploadFiles/${ file.fiStoredName }">
+                   							</a>
+                   						</c:if>
+                   						<c:if test="${ file.fiRealName.substring(file.fiRealName.lastIndexOf('.') + 1) != 'pdf'}">
+                   							<img src="#">
+                   						</c:if>
+                   						<button class="btn btn-primary btn-sm btn-rounded detail-btn" onclick="location.href='/study/sAssignment/detail?suNo=${ file.fiMotherNo }'">원글 보기</button>
+                    				</c:if>
+                   					</div>
                     			</c:forEach>
                     		</div>
-                    		<%-- <div class="card-body grid">
-                    			<div class="grid-sizer"></div>
-                    			<c:forEach items="${ picList }" var="pics">
-                    				<c:if test="${ pics.url.substring(7,8) == 's' }">
-                    					<div class="grid-item">
-                    						<img src="${ pics.pic }">
-                    						<button class="btn btn-primary btn-sm btn-rounded detail-btn" onclick="location.href='${ pics.url }'">원글 보기</button>
-                    					</div>
-                    				</c:if>
-                    				<c:if test="${ pics.url.substring(7,8) == 'a' }">
-                    					<div class="grid-item grid-item-a">
-                    						<img src="${ pics.pic }">
-                    						<button class="btn btn-primary btn-sm btn-rounded detail-btn" onclick="location.href='${ pics.url }'">원글 보기</button>
-                    					</div>
-                    				</c:if>
-                    			</c:forEach>
-                    		</div> --%>
                     	</div>
                     	
                 	</div>
@@ -99,9 +112,10 @@
     
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.9.0/viewer.min.js"></script>
     
-    <script src="/path/to/pdfThumbnails.js" data-pdfjs-src="/path/to/pdf.js/build/pdf.js"></script>
-    <script src="/resources/js/assignmentImage.js"></script>
+    <script src="/resources/js/pdf/build/pdf.js"></script>
+   <!--  <script src="/resources/js/pdf/pdfThumbnails.js"></script> -->
+    <script src="/resources/js/pdf/pdfThumbnails.js" data-pdfjs-src="/resources/js/pdf/build/pdf.js"></script>
+    <!-- <script src="/resources/js/assignmentImage.js"></script> -->
 </body>
 </html>

@@ -50,13 +50,6 @@ public interface AssignmentStore {
 	 */
 	public AssignmentGroup selectOneGroup(int grNo);
 	
-	/**
-	 * 그룹에 해당하는 과제 할당정보 모두 가져오기
-	 * @param grNo
-	 * @return
-	 */
-	public ArrayList<Integer> selectAllAssign(int grNo);
-	
 	///////////////////////////////////////////////////////////
 	
 	/**

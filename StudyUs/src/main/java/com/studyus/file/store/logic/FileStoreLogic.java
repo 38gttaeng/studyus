@@ -47,13 +47,13 @@ public class FileStoreLogic implements FileStore {
 	}
 	
 	@Override 
-	public ArrayList<FileList> selectAllAssignment(int stNo) {
-		return (ArrayList)sqlSession.selectList("fileMapper.selectAllAssignment", stNo);
+	public ArrayList<FileList> selectAllAssignment(int grNo) {
+		return (ArrayList)sqlSession.selectList("fileMapper.selectAllAssignment", grNo);
 	}
 
 	@Override
-	public ArrayList<FileList> selectAllSAssignment(int stNo) {
-		return (ArrayList)sqlSession.selectList("fileMapper.selectAllSAssignment", stNo);
+	public ArrayList<FileList> selectAllSAssignment(int grNo) {
+		return (ArrayList)sqlSession.selectList("fileMapper.selectAllSAssignment", grNo);
 	}
 
 }

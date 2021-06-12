@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -92,6 +90,68 @@ public class FileController {
 			output.close();
 		}
     }
+	
+	// zip 파일 다운로드
+//	public void CompressZIP(HttpServletRequest request, HttpServletResponse response, Object handler, String[] files) {
+//		
+//		ZipOutputStream zout = null;
+//		String zipName = "StudyUs.zip";		//ZIP 압축 파일명
+//		String tempPath = "";
+//
+//		if (files.length > 0) {
+//	          try{
+//	             tempPath = "/temp/";		//ZIP 압축 파일 저장경로
+//	             
+//	             //ZIP파일 압축 START
+//	             zout = new ZipOutputStream(new FileOutputStream(tempPath + zipName));
+//	             byte[] buffer = new byte[1024];
+//	             FileInputStream in = null;
+//	             
+//	             for ( int k=0; k<files.length; k++){
+//	                in = new FileInputStream("/temp/" + files[k]);		//압축 대상 파일
+//	                zout.putNextEntry(new ZipEntry(files[k]));	//압축파일에 저장될 파일명
+//	                
+//	                int len;
+//	                while((len = in.read(buffer)) > 0){
+//	                   zout.write(buffer, 0, len);			//읽은 파일을 ZipOutputStream에 Write
+//	                }
+//	                
+//	                zout.closeEntry();
+//	                in.close();
+//	             }
+//	             
+//	             zout.close();
+//	             //ZIP파일 압축 END
+//	             
+//	             //파일다운로드 START
+//	             response.setContentType("application/zip");
+//	             response.addHeader("Content-Disposition", "attachment;filename=" + zipName);
+//	             
+//	             FileInputStream fis = new FileInputStream(tempPath + zipName);
+//	             BufferedInputStream bis = new BufferedInputStream(fis);
+//	             ServletOutputStream so = response.getOutputStream();
+//	             BufferedOutputStream bos = new BufferedOutputStream(so);
+//	             
+//	             int n = 0;
+//	             while((n = bis.read(buffer)) > 0){
+//	                bos.write(buffer, 0, n);
+//	                bos.flush();
+//	             }
+//	             
+//	             if(bos != null) bos.close();
+//	             if(bis != null) bis.close();
+//	             if(so != null) so.close();
+//	             if(fis != null) fis.close();
+//	             //파일다운로드 END
+//	          }catch(IOException e){
+//	             //Exception
+//	          }finally{
+//	             if (zout != null){
+//	                zout = null;
+//	             }
+//	          }
+//		}
+//	}
 	
 	// 다중파일 저장
 	public ArrayList<FileVO> saveFile(List<MultipartFile> fList, int fiBoardType, HttpServletRequest request) {

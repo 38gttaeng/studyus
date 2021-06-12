@@ -107,17 +107,30 @@
 /* 제출 정보 */
 
 #chart-box {
+	padding-top : 20px;
 	text-align : center;
-	position : relative;
 }
 
-.chart-p {
+/* .chart-p {
 	position : absolute;
 	top : 85px;
 	left : 170px;
-}
+} */
 
 table {
 	text-align : center;
 }
 
+/* 그룹폴더 */
+.groups {
+	padding : 20px 30px !important;
+}
+
+.groups div{
+	line-height: 60px;
+	height : 100px;
+	padding : 15px 30px !important;
+	color : #fff;
+	cursor : pointer;
+	border-radius : 20px;
+}

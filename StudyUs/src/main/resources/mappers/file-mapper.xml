@@ -64,24 +64,21 @@
 	
 	<!-- 파일함 : 과제 / 과제제출 -->
 	<select id="selectAllAssignment" parameterType="_int" resultMap="fileListResultMap">
-		SELECT F.*, G.GR_NAME, G.GR_COLOR
+		SELECT F.*
 		FROM FILE_TABLE F
-		JOIN ASSIGNMENT A ON F.FI_MOTHER_NO = A.AS_NO
-		JOIN ASSIGNMENT_GROUP G ON A.GR_NO = G.GR_NO
+		JOIN SUBMITTED_ASSIGNMENT S ON F.FI_MOTHER_NO = S.SU_NO
+		JOIN ASSIGNMENT A ON S.AS_NO = A.AS_NO
 		WHERE FI_STATUS = 1
-		AND FI_BOARD_TYPE = 2
-	    AND G.ST_NO = #{stNo}
-		ORDER BY FI_NO DESC
+		AND FI_BOARD_TYPE = 3
+		AND A.GR_NO = #{grNo}
 	</select>
 	
 	<select id="selectAllSAssignment" parameterType="_int" resultMap="fileListResultMap">
-		SELECT F.*, G.GR_NAME, G.GR_COLOR
+		SELECT F.*
 		FROM FILE_TABLE F
 		JOIN ASSIGNMENT A ON F.FI_MOTHER_NO = A.AS_NO
-		JOIN ASSIGNMENT_GROUP G ON A.GR_NO = G.GR_NO
 		WHERE FI_STATUS = 1
 		AND FI_BOARD_TYPE = 2
-	    AND G.ST_NO = #{stNo}
-		ORDER BY FI_NO DESC
+		AND A.GR_NO = #{grNo}
 	</select>
 </mapper>
