@@ -106,11 +106,11 @@ public class ReviewController {
 		
 		ArrayList<Review> rList = rService.printAllByMemberNo(pi, mbNo);
 		System.out.println(rList);
-		session.setAttribute("rList", rList);
 		
 		if(!rList.isEmpty()) {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create(); // 날짜 포맷 변경!
 			gson.toJson(rList, response.getWriter());
+			session.setAttribute("rList", rList);
 		}else {
 			System.out.println("데이터가 없습니다.");
 		}

@@ -34,6 +34,11 @@
 							</div>
 						</c:forEach>
 					</c:if>
+					<c:if test="${empty enrolledStudyList}">
+							<div class="study-box">
+								<span class="study-name">가입한 스터디가 없습니다.</span>
+							</div>
+					</c:if>
 				</div>
 				</div>
 			</div>
@@ -97,6 +102,7 @@
 		function goDelete() {
 			var form = document.deleteForm;
 			if(agreeCheckflag == false) {
+				alert('내용 확인을 체크해주세요.');
 				return false;
 			}
 			else {
