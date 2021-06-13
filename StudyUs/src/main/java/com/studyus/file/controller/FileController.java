@@ -42,15 +42,15 @@ public class FileController {
 		
 		String folderName = null;
 		switch(fileVO.getFiBoardType()) {
-		case 1: folderName = "\\nuploadFiles\\";
+		case 1: folderName = "/nuploadFiles/";
 			break;
-		case 2: folderName = "\\auploadFiles\\";
+		case 2: folderName = "/auploadFiles/";
 			break;
-		case 3: folderName = "\\suploadFiles\\";
+		case 3: folderName = "/suploadFiles/";
 			break;
-		case 4: folderName = "\\cuploadFiles\\";
+		case 4: folderName = "/cuploadFiles/";
 			break;
-		case 5: folderName = "\\buploadFiles\\";
+		case 5: folderName = "/buploadFiles/";
 			break;
 		}
 		String filePath = request.getSession().getServletContext().getRealPath("resources") + folderName + fileVO.getFiStoredName();
@@ -63,7 +63,7 @@ public class FileController {
 			String fileNameOrg = null;
 			boolean ie = userAgent.indexOf("MSIE") > -1;
 			if (ie) {
-				fileNameOrg = URLEncoder.encode(fileVO.getFiRealName(),"UTF-8").replaceAll("\\+", "%20");
+				fileNameOrg = URLEncoder.encode(fileVO.getFiRealName(),"UTF-8").replaceAll("/+", "%20");
 				response.setHeader("Content-Disposition", "attachment; filename=" + fileNameOrg + ";");
 			} else {
 				fileNameOrg = new String(fileVO.getFiRealName().getBytes("UTF-8"), "ISO-8859-1");
@@ -97,15 +97,15 @@ public class FileController {
 		// 저장폴더 선택
 		String folderName = null;
 		switch(fiBoardType) {
-		case 1: folderName = "\\nuploadFiles";
+		case 1: folderName = "/nuploadFiles";
 			break;
-		case 2: folderName = "\\auploadFiles";
+		case 2: folderName = "/auploadFiles";
 			break;
-		case 3: folderName = "\\suploadFiles";
+		case 3: folderName = "/suploadFiles";
 			break;
-		case 4: folderName = "\\cuploadFiles";
+		case 4: folderName = "/cuploadFiles";
 			break;
-		case 5: folderName = "\\buploadFiles";
+		case 5: folderName = "/buploadFiles";
 			break;
 		}
 		String savePath = request.getSession().getServletContext().getRealPath("resources") + folderName;
@@ -127,7 +127,7 @@ public class FileController {
 			String fiStoredName =  sdf.format(new Date(System.currentTimeMillis())) + "." + fiRealName.substring(fiRealName.lastIndexOf(".") + 1);
 			
 			// 파일 저장
-			String filePath = folder + "\\" + fiStoredName;
+			String filePath = folder + "/" + fiStoredName;
 			try {
 				mf.transferTo(new File(filePath));
 			} catch (IllegalStateException e) {
@@ -150,7 +150,7 @@ public class FileController {
 		// 실제 파일 경로를 만들어서 실제 파일 삭제
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + folder;
-		File file = new File(savePath + "\\" + fileName);
+		File file = new File(savePath + "/" + fileName);
 		if(file.exists()) {
 			file.delete();
 		}
@@ -163,7 +163,7 @@ public class FileController {
 	public void saveBoardImage(HttpServletRequest request, HttpServletResponse response, 
 			@RequestParam("uploadImage") MultipartFile uploadImage) throws Exception {
 		
-		String savePath = request.getSession().getServletContext().getRealPath("resources") + "\\buploadImages";
+		String savePath = request.getSession().getServletContext().getRealPath("resources") + "/buploadImages";
 		String fiStoredName = saveImageFile(uploadImage, savePath);
 		
 		// 텍스트 에디터에 저장정보 보내주기
@@ -177,7 +177,7 @@ public class FileController {
 	public void saveAssignmentImage(HttpServletRequest request, HttpServletResponse response, 
 			@RequestParam("uploadImage") MultipartFile uploadImage) throws Exception {
 		
-		String savePath = request.getSession().getServletContext().getRealPath("resources") + "\\auploadImages";
+		String savePath = request.getSession().getServletContext().getRealPath("resources") + "/auploadImages";
 		String fiStoredName = saveImageFile(uploadImage, savePath);
 		
 		// 텍스트 에디터에 저장정보 보내주기
@@ -202,7 +202,7 @@ public class FileController {
 		String originalFilename = file.getOriginalFilename();
 		String renameFilename = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
 		
-		String filePath = folder + "\\" + renameFilename;
+		String filePath = folder + "/" + renameFilename;
 		
 		// 파일 저장
 		try {
@@ -225,7 +225,7 @@ public class FileController {
 		String savePath = request.getSession().getServletContext().getRealPath("resources") + folder;
 		
 		for(String fileName : picList) {
-			File file = new File(savePath + "\\" + fileName);
+			File file = new File(savePath + "/" + fileName);
 			if(file.exists()) {
 				file.delete();
 			}

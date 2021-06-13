@@ -27,6 +27,18 @@
 	<script src="/resources/css/study/assets/libs/jquery/dist/jquery.min.js"></script>
 	<link href="/resources/css/study/adminmart.css" rel="stylesheet">
 	
+	<script>
+	$.ajax ({
+		url : "/study/notice-count",
+		type : "get",
+		success : function(count) {
+			if(count != "0") {
+				$("#bell-count").html(count);
+			}
+		}
+	});
+	</script>
+	
 	<title>study menubar</title>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FH1NEFM35X"></script>
@@ -93,9 +105,16 @@
                     <!-- Left toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pl-md-3 position-relative" href="/notice/noticeList"
+                                id="bell">
+                                <span><i data-feather="bell" class="svg-icon"></i></span>
+                                <span id="bell-count" class="badge badge-primary notify-no rounded-circle"></span>
+                            </a>
+                        </li>
                         <!-- 스터디 정보 페이지로 이동 -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/study/modify/${study.url }" id="navbarDropdown" role="button">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button">
                                 <i data-feather="settings" class="svg-icon"></i>
                             </a>
                         </li>

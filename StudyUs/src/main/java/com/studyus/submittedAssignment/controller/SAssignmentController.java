@@ -121,7 +121,7 @@ public class SAssignmentController {
 		
 		// 텍스트 에디터 사진 처리
 		if(!picList.isEmpty()) {
-			fiController.addImages("\\auploadImages", sAssignment.getSuContents(), picList, request);
+			fiController.addImages("/auploadImages", sAssignment.getSuContents(), picList, request);
 		}
 		
 		// 실제 파일 저장
@@ -188,16 +188,16 @@ public class SAssignmentController {
 		
 		// 텍스트 에디터 사진 처리
 		if(!picList.isEmpty()) {
-			fiController.addImages("\\auploadImages", sAssignment.getSuContents(), picList, request);
+			fiController.addImages("/auploadImages", sAssignment.getSuContents(), picList, request);
 		}
 		SubmittedAssignment oldSAssignment = suService.printOneSubmittedAssignment(sAssignment.getSuNo());
-		fiController.editImages("\\auploadImages", sAssignment.getSuContents(), oldSAssignment.getSuContents(), request);
+		fiController.editImages("/auploadImages", sAssignment.getSuContents(), oldSAssignment.getSuContents(), request);
 		
 		// 기존 파일 삭제
 		if(delFiles != null && !delFiles.isEmpty()) {
 			for(int i=0; i<delFiles.size(); i++) {
 				FileVO file = fiService.selectOne(Integer.parseInt(delFiles.get(i)));
-				new FileController().deleteFile("\\suploadFiles", file.getFiStoredName(), request);
+				new FileController().deleteFile("/suploadFiles", file.getFiStoredName(), request);
 				fiService.removeFileByFiNo(file.getFiNo());
 			}
 		}
@@ -240,14 +240,14 @@ public class SAssignmentController {
 	public String submittedAssignmentDelete(HttpServletRequest request, @ModelAttribute SubmittedAssignment sAssignment) {
 		
 		// 텍스트 에디터 이미지 삭제
-		fiController.deleteImages("\\auploadImages", suService.printOneSubmittedAssignment(sAssignment.getSuNo()).getSuContents(), request);
+		fiController.deleteImages("/auploadImages", suService.printOneSubmittedAssignment(sAssignment.getSuNo()).getSuContents(), request);
 		
 		// 파일 삭제
 		int fiResult = 0;
 		FileVO fileVO = new FileVO(2, sAssignment.getSuNo());
 		ArrayList<FileVO> suFiles = fiService.selectList(fileVO); 
 		if(!suFiles.isEmpty()) {
-			String folder = "\\suploadFiles";
+			String folder = "/suploadFiles";
 			for(FileVO file : suFiles) {
 				new FileController().deleteFile(folder, file.getFiStoredName(), request);
 			}
@@ -282,7 +282,7 @@ public class SAssignmentController {
 		
 		// 텍스트 에디터 사진 처리
 		if(!picList.isEmpty()) {
-			fiController.addImages("\\auploadImages", sAssignment.getSuContents(), picList, request);
+			fiController.addImages("/auploadImages", sAssignment.getSuContents(), picList, request);
 		}
 		
 		int result = suService.registerSubmittedAssignment(sAssignment);
@@ -300,10 +300,10 @@ public class SAssignmentController {
 		
 		// 텍스트 에디터 사진 처리
 		if(!picList.isEmpty()) {
-			fiController.addImages("\\auploadImages", sAssignment.getSuContents(), picList, request);
+			fiController.addImages("/auploadImages", sAssignment.getSuContents(), picList, request);
 		}
 		SubmittedAssignment oldSAssignment = suService.printOneSubmittedAssignment(sAssignment.getSuNo());
-		fiController.editImages("\\auploadImages", sAssignment.getSuContents(), oldSAssignment.getSuContents(), request);
+		fiController.editImages("/auploadImages", sAssignment.getSuContents(), oldSAssignment.getSuContents(), request);
 		
 		int result = suService.modifySubmittedAssignment(sAssignment);
 		if(result > 0) {
@@ -319,7 +319,7 @@ public class SAssignmentController {
 	public String submittedReplyDelete(HttpServletRequest request, @RequestParam("suNo") int suNo) {
 		
 		// 텍스트 에디터 이미지 삭제
-		fiController.deleteImages("\\auploadImages", suService.printOneSubmittedAssignment(suNo).getSuContents(), request);
+		fiController.deleteImages("/auploadImages", suService.printOneSubmittedAssignment(suNo).getSuContents(), request);
 		
 		int result = suService.removeSubmittedAssignment(suNo);
 		if(result > 0) {

@@ -101,7 +101,7 @@ var table = $('#board-list').DataTable({
 					break;
 				case 2: data = '공유';
 					break;
-				case 2: data = '질문';
+				case 3: data = '질문';
 					break;
 				}
 	            

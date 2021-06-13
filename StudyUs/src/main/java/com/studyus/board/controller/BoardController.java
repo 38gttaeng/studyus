@@ -172,7 +172,7 @@ public class BoardController {
 		
 		// 텍스트 에디터 사진 처리
 		if(!picList.isEmpty()) {
-			fiController.addImages("\\buploadImages", board.getBoContents(), picList, request);
+			fiController.addImages("/buploadImages", board.getBoContents(), picList, request);
 		}
 		
 		// 실제 파일 저장
@@ -234,16 +234,16 @@ public class BoardController {
 		
 		// 텍스트 에디터 사진 처리
 		if(!picList.isEmpty()) {
-			fiController.addImages("\\buploadImages", board.getBoContents(), picList, request);
+			fiController.addImages("/buploadImages", board.getBoContents(), picList, request);
 		}
 		Board oldBoard = boService.printOne(board.getBoNo());
-		fiController.editImages("\\buploadImages", board.getBoContents(), oldBoard.getBoContents(), request);
+		fiController.editImages("/buploadImages", board.getBoContents(), oldBoard.getBoContents(), request);
 
 		// 기존 파일 삭제
 		if(delFiles != null && !delFiles.isEmpty()) {
 			for(int i=0; i<delFiles.size(); i++) {
 				FileVO file = fiService.selectOne(Integer.parseInt(delFiles.get(i)));
-				fiController.deleteFile("\\buploadFiles", file.getFiStoredName(), request);
+				fiController.deleteFile("/buploadFiles", file.getFiStoredName(), request);
 				fiService.removeFileByFiNo(file.getFiNo());
 			}
 		}
@@ -289,14 +289,14 @@ public class BoardController {
 		HttpSession session = request.getSession();
 		
 		// 텍스트 에디터 이미지 삭제
-		fiController.deleteImages("\\buploadImages", boService.printOne(boNo).getBoContents(), request);
+		fiController.deleteImages("/buploadImages", boService.printOne(boNo).getBoContents(), request);
 		
 		// 파일 삭제
 		int fiResult = 0;
 		FileVO fileVO = new FileVO(5, boNo);
 		ArrayList<FileVO> boFiles = fiService.selectList(fileVO); 
 		if(!boFiles.isEmpty()) {
-			String folder = "\\buploadFiles";
+			String folder = "/buploadFiles";
 			for(FileVO file : boFiles) {
 				fiController.deleteFile(folder, file.getFiStoredName(), request);
 			}
@@ -333,7 +333,7 @@ public class BoardController {
 		
 		// 텍스트 에디터 사진 처리
 		if(!picList.isEmpty()) {
-			fiController.addImages("\\buploadImages", board.getBoContents(), picList, request);
+			fiController.addImages("/buploadImages", board.getBoContents(), picList, request);
 		}
 		
 		int stNo = ((Study)session.getAttribute("study")).getStudyNo();
@@ -355,10 +355,10 @@ public class BoardController {
 		
 		// 텍스트 에디터 사진 처리
 		if(!picList.isEmpty()) {
-			fiController.addImages("\\buploadImages", board.getBoContents(), picList, request);
+			fiController.addImages("/buploadImages", board.getBoContents(), picList, request);
 		}
 		Board oldBoard = boService.printOne(board.getBoNo());
-		fiController.editImages("\\buploadImages", board.getBoContents(), oldBoard.getBoContents(), request);
+		fiController.editImages("/buploadImages", board.getBoContents(), oldBoard.getBoContents(), request);
 		
 		int result = boService.modifyBoard(board);
 		if(result > 0) {
@@ -374,7 +374,7 @@ public class BoardController {
 	public String replyDelete(HttpServletRequest request, @RequestParam("boNo") int boNo) {
 		
 		// 텍스트 에디터 이미지 삭제
-		fiController.deleteImages("\\buploadImages", boService.printOne(boNo).getBoContents(), request);
+		fiController.deleteImages("/buploadImages", boService.printOne(boNo).getBoContents(), request);
 		
 		int result = boService.removeBoard(boNo);
 		if(result > 0) {

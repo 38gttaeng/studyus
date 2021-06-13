@@ -272,7 +272,7 @@ public class AssignmentController {
 		
 		// 텍스트 에디터 사진 처리
 		if(!picList.isEmpty()) {
-			fiController.addImages("\\auploadImages", assignment.getAsContents(), picList, request);
+			fiController.addImages("/auploadImages", assignment.getAsContents(), picList, request);
 		}
 		
 		// 실제 파일 저장
@@ -334,16 +334,16 @@ public class AssignmentController {
 		
 		// 텍스트 에디터 사진 처리
 		if(!picList.isEmpty()) {
-			fiController.addImages("\\auploadImages", assignment.getAsContents(), picList, request);
+			fiController.addImages("/auploadImages", assignment.getAsContents(), picList, request);
 		}
 		Assignment oldAssignment = asService.printOne(assignment.getAsNo());
-		fiController.editImages("\\auploadImages", assignment.getAsContents(), oldAssignment.getAsContents(), request);
+		fiController.editImages("/auploadImages", assignment.getAsContents(), oldAssignment.getAsContents(), request);
 		
 		// 기존 파일 삭제
 		if(delFiles != null && !delFiles.isEmpty()) {
 			for(int i=0; i<delFiles.size(); i++) {
 				FileVO file = fiService.selectOne(Integer.parseInt(delFiles.get(i)));
-				new FileController().deleteFile("\\auploadFiles", file.getFiStoredName(), request);
+				new FileController().deleteFile("/auploadFiles", file.getFiStoredName(), request);
 				fiService.removeFileByFiNo(file.getFiNo());
 			}
 		}
@@ -389,14 +389,14 @@ public class AssignmentController {
 		HttpSession session = request.getSession();
 		
 		// 텍스트 에디터 이미지 삭제
-		fiController.deleteImages("\\auploadImages", asService.printOne(asNo).getAsContents(), request);
+		fiController.deleteImages("/auploadImages", asService.printOne(asNo).getAsContents(), request);
 		
 		// 파일 삭제
 		int fiResult = 0;
 		FileVO fileVO = new FileVO(2, asNo);
 		ArrayList<FileVO> asFiles = fiService.selectList(fileVO); 
 		if(!asFiles.isEmpty()) {
-			String folder = "\\auploadFiles";
+			String folder = "/auploadFiles";
 			for(FileVO file : asFiles) {
 				new FileController().deleteFile(folder, file.getFiStoredName(), request);
 			}

@@ -68,7 +68,7 @@ $(function() {
 		// 이벤트 클릭시
 		
 			// modal 창 안에 데이터 넣기
-			$("#infoLabel").text(event.cafeName + " / "  + event.title);
+			$("#infoLabel").text(event.title);
 			
 			$("#no").val(event.rsNo);
 			
