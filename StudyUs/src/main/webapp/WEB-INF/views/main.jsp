@@ -241,7 +241,7 @@
                   <div class="text">
                     <p class="mb-4">좋은 팀원들과 함께 프로젝트를 할 수 있어서 즐거운 마음으로 임했습니다. 기획단계부터 웹 구현까지의 모든 과정을 경험하면서 부족한 부분을 보완할 수 있는 좋은 기회였습니다. (ღˇᴗˇ)</p>
                     <p class="name">박은영</p>
-                    <span class="position">지도 전문가</span>
+                    <span class="position">그것이 팀장이니까 (끄덕)</span>
                   </div>
                 </div>
               </div>
