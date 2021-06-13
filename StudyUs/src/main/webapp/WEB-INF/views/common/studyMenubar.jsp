@@ -28,6 +28,15 @@
 	<link href="/resources/css/study/adminmart.css" rel="stylesheet">
 	
 	<title>study menubar</title>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FH1NEFM35X"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-FH1NEFM35X');
+	</script>
 </head>
 <body>
 

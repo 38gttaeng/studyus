@@ -33,7 +33,16 @@
     <!-- JS -->
     <script src="/resources/css/main/js/jquery.min.js"></script>
 	<script src="/resources/css/main/js/jquery-migrate-3.0.1.min.js"></script>
-<title>menubar</title>
+	<title>menubar</title>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FH1NEFM35X"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-FH1NEFM35X');
+	</script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
