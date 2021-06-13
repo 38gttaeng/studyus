@@ -52,20 +52,20 @@
 
 	<div class="container">
 		<form class="py-5 pt-5 mx-auto" id="registerForm" style="max-width: 600px;" action="/study/registerPost" method="post" enctype="multipart/form-data">
-			<div class="form-group">
+			<div class="form-group mb-2">
 				<label for="inputEmail4">스터디명 <span style="color: red;">*</span></label> 
 				<input type="text" class="form-control" id="inputName" name="studyName" onkeyup="nameCheck(this);" required>
 				<small id="nameHelp" class="form-text">4 ~ 32 자리의 한글, 영문 및 숫자만 가능합니다.</small>
 			</div>
-			<div class="form-group">
+			<div class="form-group mb-2">
 				<label for="inputPassword4">스터디 URL <span style="color: red;">*</span></label> 
 				<input type="text" class="form-control" id="inputUrl" name="url" onkeyup="urlCheck(this);" required>
 				<small id="urlHelp" class="form-text">4 ~ 32 자리의 영문 및 숫자만 가능합니다.</small>
 			</div>
-			<div class="form-group">
+			<div class="form-group mb-2">
 				<label for="inputIntroduce">스터디 소개 <span style="color: red;">*</span></label> <textarea class="form-control" id="inputIntroduce" name="introduce" required></textarea>
 			</div>
-			<div class="form-row">
+			<div class="form-row mb-2">
 				<div class="form-group col-9">
 					<label for="inputHashtag">해시태그</label> 
 					<input type="text" class="form-control" id="inputHashtag">
@@ -77,11 +77,11 @@
 					<input type="hidden" id="hashtagsTemp" name="hashtagsTemp" value="">
 				</div>
 			</div>
-			<div class="form-row" id="hashtagView">
+			<div class="form-row mb-2" id="hashtagView">
 				<span>현재 태그: &nbsp;</span>
 				<!-- <span class="btn btn-primary btn-sm mr-2" style="margin: 4px;" onclick="onRemoveHashtagClicked(this);">수채화&nbsp;<i class="fas fa-times"></i></span> -->
 			</div>
-			<div class="form-group m-3">
+			<div class="form-group m-3 mb-2">
 				<label for="inputAddress">활동 일시</label> 
 				<input type="button" class="btn btn-primary btn-sm" id="modalButton" data-toggle="modal" data-target="#meetingDayModal" value="설정하기">
 				<small id="meetingDayHelp" class="form-text text-muted">주로 활동하는 시간을 설정하세요.</small>
@@ -96,7 +96,7 @@
 				<span class="meetingDayView btn btn-light btn-sm mr-1">일</span>
 				<span id="meetingTimeView" class="btn btn-secondary btn-sm mx-2">-- : --  ~  -- : --</span>
 			</div>
-			<div class="input-group mb-3">
+			<div class="input-group mb-3 mb-2">
 			  <div class="input-group-prepend">
 			    <span class="input-group-text" id="inputGroupFileAddon01">대표사진</span>
 			  </div>
