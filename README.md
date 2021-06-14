@@ -153,27 +153,48 @@ DataBase | AWS RDS, Oracle
 <br>
 ------------
 ## 주요 기능
+- 회원 관리
 1. 회원가입
-![0001](https://user-images.githubusercontent.com/81956425/118357017-d8bcf380-b5b2-11eb-8bc1-57e70f51a482.jpg)
+![git pdf_page_01](https://user-images.githubusercontent.com/74830395/121927827-76eed580-cd7a-11eb-910b-6a1191216ca6.png)
+2. sns 로그인
+![git pdf_page_02](https://user-images.githubusercontent.com/74830395/121927851-7eae7a00-cd7a-11eb-91f6-5cf6c2c0b665.png)
+3. 아이디/비밀번호 찾기
+![git pdf_page_03](https://user-images.githubusercontent.com/74830395/121927859-82420100-cd7a-11eb-950a-9e2222f8321c.png)
+4. 마이페이지
+![git pdf_page_04](https://user-images.githubusercontent.com/74830395/121927864-840bc480-cd7a-11eb-8565-aa65378b9fb6.png)
+![git pdf_page_05](https://user-images.githubusercontent.com/74830395/121927890-8bcb6900-cd7a-11eb-8467-2491b4cd95a7.png)
+<br>
 
-2. 마이페이지
-![0002](https://user-images.githubusercontent.com/81956425/118356858-2553ff00-b5b2-11eb-9a61-109ae974c15f.jpg)
-![0003](https://user-images.githubusercontent.com/81956425/118356816-048ba980-b5b2-11eb-9593-bca20d9adc97.jpg)
-3. 산책기록
-![0004](https://user-images.githubusercontent.com/81956425/118356817-05bcd680-b5b2-11eb-8fa5-c65e5d9044dc.jpg)
-![0005](https://user-images.githubusercontent.com/81956425/118356818-05bcd680-b5b2-11eb-878e-b6403cf4f61c.jpg)
-4. 산책일기
-![0006](https://user-images.githubusercontent.com/81956425/118356819-06556d00-b5b2-11eb-9f19-cbf97207816d.jpg)
-![0007](https://user-images.githubusercontent.com/81956425/118356820-06ee0380-b5b2-11eb-9286-94ffd09fb5e3.jpg)
-5. 산책짝꿍
-![0008](https://user-images.githubusercontent.com/81956425/118356821-06ee0380-b5b2-11eb-85b0-cca9938e157d.jpg)
-6. 멍멍이야기(커뮤니티)
-![0011](https://user-images.githubusercontent.com/81956425/118356935-7a901080-b5b2-11eb-9a33-623e809b9ac5.png)
-![0012](https://user-images.githubusercontent.com/81956425/118356937-7bc13d80-b5b2-11eb-91ad-18db1451fedd.png)
-7. 반려견 계산기
-![0009](https://user-images.githubusercontent.com/81956425/118356822-07869a00-b5b2-11eb-9732-d82b5fdcfd87.jpg)
-8. 관리자
-![0010](https://user-images.githubusercontent.com/81956425/118356824-07869a00-b5b2-11eb-9566-4ab18402ea17.jpg)
+- 스터디 카페
+1. 스터디카페 조회 및 등록
+![git pdf_page_06](https://user-images.githubusercontent.com/74830395/121927959-9ede3900-cd7a-11eb-8b35-94b95a1b99a4.png)
+2. 스터디카페 룸 등록 및 리뷰
+![git pdf_page_07](https://user-images.githubusercontent.com/74830395/121927970-a0a7fc80-cd7a-11eb-8e3d-ad01f845134a.png)
+3. 스터디카페 예약 및 참여 신청
+![git pdf_page_08](https://user-images.githubusercontent.com/74830395/121928083-c0d7bb80-cd7a-11eb-8741-badd192e1579.png)
+<br>
+
+- 스터디샵 결제
+![git pdf_page_09](https://user-images.githubusercontent.com/74830395/121928256-ee246980-cd7a-11eb-86d9-9ef3be20c5fa.png)
+<br>
+
+- 스터디
+1. 스터디 등록
+![git pdf_page_10](https://user-images.githubusercontent.com/74830395/121928413-1613cd00-cd7b-11eb-9587-457a73e0db02.png)
+2. 스터디 등록 및 가입 신청
+![git pdf_page_11](https://user-images.githubusercontent.com/74830395/121928432-1b711780-cd7b-11eb-9e97-71e9a94cf17f.png)
+3. 스터디 메인
+![git pdf_page_12](https://user-images.githubusercontent.com/74830395/121928452-20ce6200-cd7b-11eb-8379-c5d0144440af.png)
+<br>
+
+- 공지사항
+1. 공지사항 목록
+![git pdf_page_13](https://user-images.githubusercontent.com/74830395/121928658-57a47800-cd7b-11eb-99c0-654c1a30f9a7.png)
+2. 공지사항 등록 및 상세
+![git pdf_page_14](https://user-images.githubusercontent.com/74830395/121928714-67bc5780-cd7b-11eb-8eb9-d2b2a0e4089e.png)
+<br>
+
+- 게시판
 
 
 ------------
