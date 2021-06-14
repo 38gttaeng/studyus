@@ -22,6 +22,7 @@
 
 ## 개요
 + 코로나 사태가 계속 이어지면서 함께 만나서 할 수 있는 스터디는 어려운 일이 되었습니다. 하지만 이렇게 사람을 만날 수 없는 시기일수록 함께 공부하거나 자신의 창작에 대한 피드백을 받고 싶어하는 사람들의 욕구도 커져가고 있습니다. 이렇게 함부로 만날 수 없는 사람들의 함께 만나서 공부하고자 하는 스터디 니즈를 충족하고자 ‘스터디어스’를 기획하게 되었습니다.
+<br>
 ------------
 
 ## 설계의 주안점
@@ -38,6 +39,7 @@
 - 게시글 페이지와 과제 페이지에서 Quill을 사용한 글 작성 페이지 구현.
 - 공지사항 페이지에서 SummerNote를 사용한 글 작성 페이지 구현.
 - 도로명주소 API를 사용하여 스터디카페 등록 시 주소 검색 등록 구현.
+<br>
 
 ------------
 ## 사용기술 및 개발환경
@@ -236,8 +238,9 @@ DataBase | AWS RDS, Oracle
 ![git pdf_page_28](https://user-images.githubusercontent.com/74830395/121929951-c209e800-cd7c-11eb-9b5e-e1d085c7fd8d.png)
 4. 결제 관리
 ![git pdf_page_29](https://user-images.githubusercontent.com/74830395/121929981-cc2be680-cd7c-11eb-94a5-82b3c21157de.png)
+<br>
 
 ------------
 ## Document
 ### ERD
-![ERD_통합](https://user-images.githubusercontent.com/81937349/118353105-df8e3b00-b59f-11eb-9a3a-d53fd93c04d7.png)
+![StudyUs erd](https://user-images.githubusercontent.com/74830395/121931190-3f822800-cd7e-11eb-8806-6697759343b7.png)
