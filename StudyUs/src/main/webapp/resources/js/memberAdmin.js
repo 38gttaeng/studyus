@@ -64,9 +64,6 @@ var table = $('#mList').DataTable({
 		'targets': 6,
 		'className': 'dt-category',
 	}, {
-		'targets': 7,
-		'className': 'dt-category',
-	}, {
         defaultContent: "-",
         targets: "_all"
     }],
@@ -93,7 +90,6 @@ var table = $('#mList').DataTable({
 		{ data : "mbId"},
         { data : "mbNo"},
         { data : "mbId"},
-        { data : "mbPassword"},
         { data : "mbName"},
         { data : "mbNickname"},
         { data : "mbEmail"},

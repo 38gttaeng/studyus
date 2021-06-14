@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>StudyUs : 스터디 카페룸</title>
+<title>스터디 카페룸 : StudyUs</title>
     <!-- 추가 css -->
     <link href="/resources/css/studyus/roomUpdate.css" rel="stylesheet">
 </head>

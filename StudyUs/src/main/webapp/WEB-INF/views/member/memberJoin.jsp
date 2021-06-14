@@ -10,7 +10,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="/resources/js/memberJoin.js"></script>
-<title>회원가입</title>
+<title>회원가입 : StudyUs</title>
 <style type="text/css">
 	span.no {
 		display : none;

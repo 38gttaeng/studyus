@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/resources/css/summernote/summernote-lite.css">
 <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
-<title>StudyUs : 공지사항</title>
+<title>공지사항 : StudyUs</title>
 
 </head>
 <body>

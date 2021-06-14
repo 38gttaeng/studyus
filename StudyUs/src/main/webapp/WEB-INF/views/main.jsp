@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>StudyUs</title>
+    <title>멀리서 가깝게, StudyUs!</title>
   </head>
   <body>
     

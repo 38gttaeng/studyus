@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/member/deleteMem.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<title>회원탈퇴</title>
+<title>회원탈퇴 : StudyUs</title>
 </head>
 <body>
 	<div class="main-box">

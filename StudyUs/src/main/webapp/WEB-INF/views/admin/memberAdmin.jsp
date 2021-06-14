@@ -15,7 +15,7 @@
     <link href="/resources/css/study/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 	<link href="/resources/css/studyus/manage.css" rel="stylesheet">
    
-    <title>StudyUs : 회원관리</title>
+    <title>회원관리 : StudyUs</title>
 </head>
 <body>
 	<!-- ============================================================== -->
@@ -78,7 +78,6 @@
                                             	<th><input type="checkbox" id="member-select-all"></th>
                                                 <th>회원번호</th>
                                                 <th>아이디</th>
-                                                <th>비밀번호</th>
                                                 <th>이름</th>
                                                 <th>닉네임</th>
                                                 <th>이메일</th>

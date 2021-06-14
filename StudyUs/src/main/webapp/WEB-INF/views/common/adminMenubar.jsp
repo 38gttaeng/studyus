@@ -27,7 +27,6 @@
 	<script src="/resources/css/study/assets/libs/jquery/dist/jquery.min.js"></script>
 	<link href="/resources/css/study/adminmart.css" rel="stylesheet">
 	
-	<title>Admin menubar</title>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FH1NEFM35X"></script>
 	<script>

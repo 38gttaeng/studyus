@@ -10,7 +10,7 @@
     <link href="/resources/css/study/assets/libs/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
     <link href="/resources/css/studyus/assignmentColor.css" rel="stylesheet">
     <link href="/resources/css/studyus/calendar.css" rel="stylesheet"> 
-	<title>StudyUs : 스터디룸</title>
+	<title>스터디 일정 : StudyUs</title>
 </head>
 <body>
 	<!-- ============================================================== -->

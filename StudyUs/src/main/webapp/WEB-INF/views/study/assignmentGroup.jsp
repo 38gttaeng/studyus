@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link href="/resources/css/studyus/assignmentColor.css" rel="stylesheet">
-	<title>StudyUs : 스터디룸</title>
+	<title>프로젝트 : StudyUs</title>
 </head>
 <body>
 	<!-- ============================================================== -->

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
     <link href="/resources/css/studyus/fullcalendar.min.css" rel="stylesheet" />
     <link href="/resources/css/studyus/cafeReservation.css" rel="stylesheet">
-	<title>StudyUs : 스터디카페 예약</title>
+	<title>스터디카페 예약 : StudyUs</title>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"></jsp:include>

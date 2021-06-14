@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/member/myPage.css">
-<title>마이페이지</title>
+<title>마이페이지 : StudyUs</title>
 <link href="/resources/css/studyus/fullcalendar.min.css"
 	rel="stylesheet" />
 <link href="/resources/css/study/dist/css/style.min.css"

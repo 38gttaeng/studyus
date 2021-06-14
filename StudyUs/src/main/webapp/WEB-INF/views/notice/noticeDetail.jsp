@@ -10,7 +10,7 @@
 
 <!-- 추가 css -->
 <link href="/resources/css/studyus/reply.css" rel="stylesheet">
-<title>StudyUs : 스터디룸</title>
+<title>스터디룸 : StudyUs</title>
 <style>
 #top-btn {
 	background-color: rgba(105, 39, 255, 0.5);

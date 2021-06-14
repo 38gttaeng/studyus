@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/member/findIdPwd.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<title>아이디/비밀번호 찾기</title>
+<title>아이디/비밀번호 찾기 : StudyUs</title>
 </head>
 <body>
 	<div class="find-box">

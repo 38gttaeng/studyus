@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="/resources/css/member/login.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<title>로그인</title>
+<title>로그인 : StudyUs</title>
 </head>
 <body>
 	<div class="user_card">

@@ -9,7 +9,7 @@
     
     <!-- 추가 css -->
     <link href="/resources/css/studyus/register.css" rel="stylesheet">
-	<title>StudyUs : 스터디룸</title>
+	<title>게시글 수정 : StudyUs</title>
 </head>
 <body>
 	<!-- ============================================================== -->

@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>StudyUs</title>
+    <title>프리미엄 이용권 : StudyUs</title>
     <style>
 
     </style>

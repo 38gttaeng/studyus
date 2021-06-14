@@ -10,7 +10,7 @@
     <!-- 추가 css -->
     <link href="/resources/css/studyus/assignment.css" rel="stylesheet">
     <link href="/resources/css/studyus/assignmentColor.css" rel="stylesheet">
-	<title>StudyUs : 스터디룸</title>
+	<title>과제 리스트 : StudyUs</title>
 </head>
 <body>
 	<!-- ============================================================== -->

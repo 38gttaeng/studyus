@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>스터디카페 목록</title>
+<title>스터디카페 목록 : StudyUs</title>
 </head>
 <!-- 추가 css -->
 <link href="/resources/css/studyus/cafe.css" rel="stylesheet"> 

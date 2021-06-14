@@ -39,7 +39,6 @@
 	});
 	</script>
 	
-	<title>study menubar</title>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FH1NEFM35X"></script>
 	<script>
@@ -114,7 +113,7 @@
                         </li>
                         <!-- 스터디 정보 페이지로 이동 -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button">
+                            <a class="nav-link" href="/study/modify/${study.url }" id="navbarDropdown" role="button">
                                 <i data-feather="settings" class="svg-icon"></i>
                             </a>
                         </li>

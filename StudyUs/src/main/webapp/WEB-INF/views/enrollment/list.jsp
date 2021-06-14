@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가입신청 목록</title>
+<title>가입신청 목록 : StudyUs</title>
 
 </head>
 <body>

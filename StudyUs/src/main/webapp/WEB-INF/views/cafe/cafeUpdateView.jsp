@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>스터디카페 수정</title>
+<title>스터디카페 수정 : StudyUs</title>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"></jsp:include>

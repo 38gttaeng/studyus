@@ -15,7 +15,7 @@
     <link href="/resources/css/study/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 	<link href="/resources/css/studyus/manage.css" rel="stylesheet">
    
-    <title>StudyUs : 결제관리</title>
+    <title>결제관리 : StudyUs</title>
 </head>
 <body>
 	<!-- ============================================================== -->

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>StudyUs : 스터디카페 예약</title>
+<title>스터디카페 예약 : StudyUs</title>
     <!-- 추가 css -->
     <link href="/resources/css/studyus/roomUpdate.css" rel="stylesheet">
 </head>

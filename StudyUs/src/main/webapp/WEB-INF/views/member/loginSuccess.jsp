@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv='refresh' content='0;url=/'>
-<title>네이버 로그인 성공</title>
+<title>네이버 로그인 성공 : StudyUs</title>
 </head>
 <body>
 </body>

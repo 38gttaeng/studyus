@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/summernote/summernote-lite.css">
-<title>StudyUs : 공지사항</title>
+<title>공지사항 : StudyUs</title>
 
 </head>
 <body>

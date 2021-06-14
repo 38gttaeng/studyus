@@ -33,7 +33,6 @@
     <!-- JS -->
     <script src="/resources/css/main/js/jquery.min.js"></script>
 	<script src="/resources/css/main/js/jquery-migrate-3.0.1.min.js"></script>
-	<title>menubar</title>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FH1NEFM35X"></script>
 	<script>

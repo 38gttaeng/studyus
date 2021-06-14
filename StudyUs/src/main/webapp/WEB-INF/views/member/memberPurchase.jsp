@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/member/purchase.css">
-<title>결제 관리</title>
+<title>결제 관리 : StudyUs</title>
 </head>
 <body>
 	<!-- menubar -->

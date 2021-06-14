@@ -15,7 +15,7 @@
 			align : center;
 		}
 	</style>
-	<title>StudyUs : 스터디룸</title>
+	<title>게시물 관리 : StudyUs</title>
 </head>
 <body>
 	<!-- ============================================================== -->

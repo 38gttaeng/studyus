@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/resources/css/studyus/reservationDetail.css" rel="stylesheet">
-	<title>StudyUs : 스터디룸</title>
+	<title>스터디룸 예약 : StudyUs</title>
 </head>
 <body>
 	<!-- ============================================================== -->

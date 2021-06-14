@@ -15,7 +15,7 @@
     <link href="/resources/css/study/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 	<link href="/resources/css/studyus/manage.css" rel="stylesheet">
    
-    <title>StudyUs : 스터디카페 관리</title>
+    <title>스터디카페 관리 : StudyUs</title>
 </head>
 <body>
 	<!-- ============================================================== -->

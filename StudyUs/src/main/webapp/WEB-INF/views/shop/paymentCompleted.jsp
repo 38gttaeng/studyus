@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>StudyUs</title>
+    <title>결제완료 : StudyUs</title>
   </head>
   <body>
     <!-- menubar -->

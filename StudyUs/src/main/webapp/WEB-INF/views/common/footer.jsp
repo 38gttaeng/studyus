@@ -3,7 +3,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>footer</title>
 </head>
 <body>
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
