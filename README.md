@@ -155,14 +155,14 @@ DataBase | AWS RDS, Oracle
 ## 주요 기능
 - 회원 관리
 1. 회원가입
-![git pdf_page_01](https://user-images.githubusercontent.com/74830395/121927827-76eed580-cd7a-11eb-910b-6a1191216ca6.png)
+![git pdf_page_01](https://user-images.githubusercontent.com/74830395/121928863-8f132480-cd7b-11eb-82d6-861a74300ec1.png)
 2. sns 로그인
-![git pdf_page_02](https://user-images.githubusercontent.com/74830395/121927851-7eae7a00-cd7a-11eb-91f6-5cf6c2c0b665.png)
+![git pdf_page_02](https://user-images.githubusercontent.com/74830395/121928871-91757e80-cd7b-11eb-8eda-f24e7138d757.png)
 3. 아이디/비밀번호 찾기
-![git pdf_page_03](https://user-images.githubusercontent.com/74830395/121927859-82420100-cd7a-11eb-950a-9e2222f8321c.png)
+![git pdf_page_03](https://user-images.githubusercontent.com/74830395/121928926-9df9d700-cd7b-11eb-9e2b-e0a6b8d82c75.png)
 4. 마이페이지
-![git pdf_page_04](https://user-images.githubusercontent.com/74830395/121927864-840bc480-cd7a-11eb-8565-aa65378b9fb6.png)
-![git pdf_page_05](https://user-images.githubusercontent.com/74830395/121927890-8bcb6900-cd7a-11eb-8467-2491b4cd95a7.png)
+![git pdf_page_04](https://user-images.githubusercontent.com/74830395/121928932-9fc39a80-cd7b-11eb-97ac-98a36cb4c0dc.png)
+![git pdf_page_05](https://user-images.githubusercontent.com/74830395/121928944-a4884e80-cd7b-11eb-8689-b5b8fa901f84.png)
 <br>
 
 - 스터디 카페
@@ -195,12 +195,49 @@ DataBase | AWS RDS, Oracle
 <br>
 
 - 게시판
+![git pdf_page_15](https://user-images.githubusercontent.com/74830395/121929006-b833b500-cd7b-11eb-9c83-f7ed9c381881.png)
+<br>
 
+- 과제
+1. 그룹 조회 및 등록
+![git pdf_page_16](https://user-images.githubusercontent.com/74830395/121929349-12347a80-cd7c-11eb-8aac-f84cc702e569.png)
+2. 과제 조회
+![git pdf_page_17](https://user-images.githubusercontent.com/74830395/121929360-16609800-cd7c-11eb-9617-50e7dec98995.png)
+3. 과제/과제제출 등록
+![git pdf_page_18](https://user-images.githubusercontent.com/74830395/121929363-182a5b80-cd7c-11eb-95cf-9812eb3287aa.png)
+4. 과제 파일함
+![git pdf_page_19](https://user-images.githubusercontent.com/74830395/121929371-1a8cb580-cd7c-11eb-8f30-33167b826a2f.png)
+<br>
+
+- 일정
+![git pdf_page_20](https://user-images.githubusercontent.com/74830395/121929387-1d87a600-cd7c-11eb-89f9-8efa55bca924.png)
+<br>
+
+- 채팅
+![git pdf_page_21](https://user-images.githubusercontent.com/74830395/121929397-1fea0000-cd7c-11eb-817d-d5cbd89b870d.png)
+<br>
+
+- 스터디 관리
+1. 출석 확인
+![git pdf_page_22](https://user-images.githubusercontent.com/74830395/121929664-64759b80-cd7c-11eb-82a3-2940bee31483.png)
+2. 회원 목록
+![git pdf_page_23](https://user-images.githubusercontent.com/74830395/121929675-663f5f00-cd7c-11eb-8bdf-c4cddff68991.png)
+3. 게시물/댓글 관리
+![git pdf_page_24](https://user-images.githubusercontent.com/74830395/121929682-68092280-cd7c-11eb-93d8-e56398960dc1.png)
+<br>
+
+- 관리자
+1. 스터디 관리
+![git pdf_page_25](https://user-images.githubusercontent.com/74830395/121929711-735c4e00-cd7c-11eb-95d7-58460864825b.png)
+2. 스터디 카페 관리
+![git pdf_page_26](https://user-images.githubusercontent.com/74830395/121929932-bd453400-cd7c-11eb-9916-58c89d8bd015.png)
+3. 예약 관리
+![git pdf_page_27](https://user-images.githubusercontent.com/74830395/121929940-bfa78e00-cd7c-11eb-828f-a3e3b2f9ac65.png)
+![git pdf_page_28](https://user-images.githubusercontent.com/74830395/121929951-c209e800-cd7c-11eb-9b5e-e1d085c7fd8d.png)
+4. 결제 관리
+![git pdf_page_29](https://user-images.githubusercontent.com/74830395/121929981-cc2be680-cd7c-11eb-94a5-82b3c21157de.png)
 
 ------------
 ## Document
-### 1. 유스케이스
-![유스케이스](https://user-images.githubusercontent.com/81937349/118353075-c71e2080-b59f-11eb-85b5-9db49f2ff080.png)
-
-### 2. ERD
+### ERD
 ![ERD_통합](https://user-images.githubusercontent.com/81937349/118353105-df8e3b00-b59f-11eb-9a3a-d53fd93c04d7.png)
