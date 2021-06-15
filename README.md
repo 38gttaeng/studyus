@@ -2,7 +2,7 @@
 ### http://studyus.co.kr/
 ------------
 ## 팀원 
-박은영(팀장), 김동현, 최인철, 김다빈, 이혜민
+박은영(조장), 김동현, 최인철, 김다빈, 이혜민
 
 ------------
 ## 수행기간
@@ -48,13 +48,14 @@
 ![개발환경](https://user-images.githubusercontent.com/82440040/121974226-eb953480-cdb9-11eb-822c-b52861c2a2ad.png)
 Category | Detail
 ---- | ----
-Laguage | HTML5, JS, CSS3, JQuery, JSP, Java
-Library & API | Kakaomap, OpenWeather, Easy-pie-chart
-IDE | VisualStudio, Eclpise
-Server | EC2 Ubuntu 20.04, Route53, Tomcat(v8.5)
-Document | Google Drive, Figma, ERDCloud, diagrams.net
+FrontEnd | HTML5, JS, CSS3, JQuery
+BackEnd | Java(JDK 1.8), Servlet, Spring(4.2.4), Mybatis
+OS | Windows OS
+Library & API | MailSender, Apache Commons FileUpload, WebSocket, Lombok, Chart.js, Fullcalendar, Kakaomap, FontAwesome, Gson, Quill, SummerNote
+IDE | Eclipse, VisualStudio
+Server | Amazon EC2 Ubuntu 20.04 LTS, Amazon Route53, Tomcat 8.5
 CI | Github
-DataBase | AWS RDS, Oracle 
+DataBase | Oracle(11g)
 
 ------------
 ## 프로젝트 기능 구현
