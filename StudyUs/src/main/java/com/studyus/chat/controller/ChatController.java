@@ -1,41 +1,32 @@
 package com.studyus.chat.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.studyus.common.RedirectWithMsg;
+
 @Controller
 public class ChatController {
 	
-//	@RequestMapping(value="/chat")
 	@RequestMapping(value="/study/{url}/chat")
-	public String chatView(Model model
-					, @PathVariable String url) {
+	public String chatView(Model model,
+							HttpServletRequest request,
+							HttpSession session,
+							@PathVariable String url) {
+		if (session.getAttribute("loginUser") == null) {
+			return new RedirectWithMsg().redirect(request, "로그인이 필요합니다.", "/");
+		}
+		
+		if (session.getAttribute("study") == null)  {
+			return new RedirectWithMsg().redirect(request, "접속 경로가 올바르지 않습니다.", "/");
+		}
+		
 		return "chat/chat";
 	}
-	
-	// 채팅 페이지
-//	@RequestMapping(value="/study/{url}/chat")
-//	public String Chat(Model model, 
-//						HttpServletRequest request, 
-//						HttpSession session,
-//						@PathVariable String url) throws Exception {
-//		Member member = (Member)session.getAttribute("loginUser");
-//		if (member == null) {
-//			return new RedirectWithMsg().redirect(request, "로그인이 필요합니다.", "/member/loginView");
-//		}
-//		
-//		ChatRoom room = chatRoomStore.findRoomById(url);
-//		
-//		model.addAttribute("room", room);
-//		model.addAttribute("memberName", member.getMbNickname());
-//		return "chat/chat";
-//	}
-	
-//	@RequestMapping(value="/study/{url}/chat/new")
-//	public String makeChatRoom(Model model) {
-//		return "chat/new";
-//	}
 	
 }

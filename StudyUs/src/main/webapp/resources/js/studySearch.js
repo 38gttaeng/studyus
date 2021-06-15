@@ -103,6 +103,11 @@ function removeHashtag(e) {
 
 // 검색 실행
 function onSearch() {
+    if (searchInput.value == '') {
+        alert('검색어를 입력하세요.');
+        return false;
+    }
+
     resultGrid.innerHTML = '';
 
     for (var i = 0; i < hashtags.length; i ++) {

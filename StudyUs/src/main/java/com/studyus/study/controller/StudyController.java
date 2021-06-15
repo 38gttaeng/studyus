@@ -75,7 +75,11 @@ public class StudyController {
 	
 	// 스터디 생성 폼 페이지 get
 	@RequestMapping(value="/study/register", method=RequestMethod.GET)
-	public String registerView() {
+	public String registerView(HttpServletRequest request) {
+		// 로그인여부 확인
+		if (request.getSession().getAttribute("loginUser") == null) {
+			return new RedirectWithMsg().redirect(request, "로그인이 필요합니다.", "/member/loginView");
+		}
 		
 		return "study/register";
 	}
