@@ -49,7 +49,7 @@
 Category | Detail
 ---- | ----
 FrontEnd | HTML5, JS, CSS3, JQuery
-BackEnd | Java(JDK 1.8), Servlet, Spring(4.2.4), Mybatis
+BackEnd | Java(JDK 1.8), Servlet, Spring(5.2.5), Mybatis
 OS | Windows OS
 Library & API | MailSender, Apache Commons FileUpload, WebSocket, Lombok, Chart.js, Fullcalendar, Kakaomap, FontAwesome, Gson, Quill, SummerNote
 IDE | Eclipse, VisualStudio
