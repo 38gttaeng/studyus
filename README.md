@@ -45,7 +45,7 @@
 
 ------------
 ## 사용기술 및 개발환경
-![image](https://user-images.githubusercontent.com/81937349/118357070-29345100-b5b3-11eb-9a8f-e692a8b2ba48.png)
+![개발환경](https://user-images.githubusercontent.com/82440040/121974226-eb953480-cdb9-11eb-822c-b52861c2a2ad.png)
 Category | Detail
 ---- | ----
 Laguage | HTML5, JS, CSS3, JQuery, JSP, Java
