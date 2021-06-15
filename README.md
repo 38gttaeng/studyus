@@ -51,7 +51,7 @@ Category | Detail
 Laguage | HTML5, JS, CSS3, JQuery, JSP, Java
 Library & API | Kakaomap, OpenWeather, Easy-pie-chart
 IDE | VisualStudio, Eclpise
-Server | Tomcat(v8.5)
+Server | EC2 Ubuntu 20.04, Route53, Tomcat(v8.5)
 Document | Google Drive, Figma, ERDCloud, diagrams.net
 CI | Github
 DataBase | AWS RDS, Oracle 
