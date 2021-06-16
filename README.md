@@ -1,5 +1,5 @@
 # StudyUs, 언택트 시대의 비대면 스터디 모임 서비스
-### http://studyus.co.kr/
+### https://studyus.co.kr/
 ------------
 ## 팀원 
 박은영(조장), 김동현, 최인철, 김다빈, 이혜민
@@ -53,7 +53,7 @@ BackEnd | Java(JDK 1.8), Servlet, Spring(5.2.5), Mybatis
 OS | Windows OS
 Library & API | MailSender, Apache Commons FileUpload, WebSocket, Lombok, Chart.js, Fullcalendar, Kakaomap, FontAwesome, Gson, Quill, SummerNote
 IDE | Eclipse, VisualStudio
-Server | Amazon EC2 Ubuntu 20.04 LTS, Amazon Route53, Tomcat 8.5
+Server | Amazon EC2 Ubuntu 20.04 LTS, Amazon Route53, LetsEncrypt Tomcat 8.5
 CI | Github
 DataBase | Oracle(11g)
 
@@ -95,6 +95,7 @@ DataBase | Oracle(11g)
     - 채팅 참여자 확인
   - 프로젝트 배포 : EC2 원격 Ubuntu 서버 프로젝트 배포
   - 도메인 : Route53 도메인 및 네임서버 연결
+  - SSL : LetsEncrypt 인증키 설치
 <br>  
    
 - 최인철
